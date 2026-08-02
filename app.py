@@ -1,0 +1,636 @@
+"""
+Misión Copilot 365 — Backend Flask
+Admin: genera claves, envía correos y ve progreso.
+Estudiantes: entran con clave y sincronizan avance.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import secrets
+import smtplib
+import sqlite3
+import string
+from datetime import datetime, timezone
+from email.message import EmailMessage
+from functools import wraps
+from pathlib import Path
+
+from dotenv import load_dotenv
+from flask import (
+    Flask,
+    g,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    send_from_directory,
+    session,
+    url_for,
+)
+from werkzeug.security import check_password_hash, generate_password_hash
+
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
+
+app = Flask(
+    __name__,
+    template_folder=str(BASE_DIR / "templates"),
+    static_folder=None,
+)
+app.secret_key = os.getenv("FLASK_SECRET_KEY", secrets.token_hex(32))
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+
+DB_PATH = BASE_DIR / "data" / "mision.db"
+DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+
+# ---------------------------------------------------------------------------
+# Base de datos
+# ---------------------------------------------------------------------------
+
+def get_db() -> sqlite3.Connection:
+    if "db" not in g:
+        g.db = sqlite3.connect(DB_PATH)
+        g.db.row_factory = sqlite3.Row
+        g.db.execute("PRAGMA foreign_keys = ON")
+    return g.db
+
+
+@app.teardown_appcontext
+def close_db(_exc=None):
+    db = g.pop("db", None)
+    if db is not None:
+        db.close()
+
+
+def init_db():
+    db = sqlite3.connect(DB_PATH)
+    db.executescript(
+        """
+        CREATE TABLE IF NOT EXISTS students (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL UNIQUE COLLATE NOCASE,
+            access_key TEXT NOT NULL UNIQUE,
+            key_hash TEXT NOT NULL,
+            active INTEGER NOT NULL DEFAULT 1,
+            created_at TEXT NOT NULL,
+            last_login TEXT,
+            email_sent_at TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS progress (
+            student_id INTEGER PRIMARY KEY,
+            payload TEXT NOT NULL DEFAULT '{}',
+            percent INTEGER NOT NULL DEFAULT 0,
+            updated_at TEXT NOT NULL,
+            FOREIGN KEY(student_id) REFERENCES students(id) ON DELETE CASCADE
+        );
+        """
+    )
+    db.commit()
+    db.close()
+
+
+init_db()
+
+
+# ---------------------------------------------------------------------------
+# Utilidades
+# ---------------------------------------------------------------------------
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+
+
+def generate_access_key() -> str:
+    alphabet = string.ascii_uppercase + string.digits
+    part = lambda n: "".join(secrets.choice(alphabet) for _ in range(n))
+    return f"MCP-{part(4)}-{part(4)}"
+
+
+def admin_configured() -> bool:
+    return bool(os.getenv("ADMIN_PASSWORD"))
+
+
+def require_admin(view):
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+        if not session.get("is_admin"):
+            if request.path.startswith("/api/"):
+                return jsonify({"ok": False, "error": "No autorizado"}), 401
+            return redirect(url_for("admin_login"))
+        return view(*args, **kwargs)
+
+    return wrapped
+
+
+def require_student(view):
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+        if not session.get("student_id"):
+            if request.path.startswith("/api/"):
+                return jsonify({"ok": False, "error": "Sesión requerida"}), 401
+            return redirect(url_for("login"))
+        return view(*args, **kwargs)
+
+    return wrapped
+
+
+def calc_percent_from_payload(payload: dict) -> int:
+    """Misma lógica aproximada que el frontend para el panel admin."""
+    progress = payload.get("progress") or {}
+    keys = [
+        "reto-r1", "reto-r2", "reto-r3", "reto-r4", "reto-r5", "reto-r6",
+        "s1-done", "s2-done", "proyecto-final",
+        "fase-1", "fase-2", "fase-3", "fase-4", "fase-5", "fase-6", "fase-7",
+    ]
+    done = sum(1 for k in keys if progress.get(k))
+    quiz_score = min(5, int((payload.get("quiz") or {}).get("score") or 0))
+    favs = min(3, len(payload.get("favorites") or [])) * 0.5
+    path_done = sum(1 for v in (payload.get("path") or {}).values() if v)
+    path_pts = min(4, path_done * 0.5)
+    total_weight = len(keys) + 5 + 1.5 + 4
+    score = done + quiz_score + min(1.5, favs) + path_pts
+    return int(round((score / total_weight) * 100))
+
+
+def send_access_email(to_email: str, name: str, access_key: str) -> tuple[bool, str]:
+    smtp_email = os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com")
+    smtp_password = os.getenv("SMTP_APP_PASSWORD", "").replace(" ", "")
+    smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
+    smtp_port = int(os.getenv("SMTP_PORT", "587"))
+    from_name = os.getenv("MAIL_FROM_NAME", "Misión Copilot 365")
+    base_url = os.getenv("APP_BASE_URL", "http://127.0.0.1:5000").rstrip("/")
+
+    if not smtp_password:
+        return False, "Falta SMTP_APP_PASSWORD en .env (contraseña de aplicación de Gmail)."
+
+    login_url = f"{base_url}/login"
+    body = f"""Hola {name},
+
+Te damos acceso a la experiencia formativa:
+
+Misión Copilot 365
+De la productividad individual a la gestión inteligente de proyectos
+
+Tu clave de acceso (guárdala; la usarás cada vez que entres):
+{access_key}
+
+Enlace de ingreso:
+{login_url}
+
+Indicaciones:
+1. Abre el enlace.
+2. Ingresa tu correo y tu clave de acceso.
+3. Tu progreso quedará guardado en el sistema.
+
+Esta es una capacitación académica. No compartas tu clave con otras personas.
+
+— {from_name}
+"""
+
+    msg = EmailMessage()
+    msg["Subject"] = "Tu clave de acceso · Misión Copilot 365"
+    msg["From"] = f"{from_name} <{smtp_email}>"
+    msg["To"] = to_email
+    msg.set_content(body)
+
+    try:
+        with smtplib.SMTP(smtp_host, smtp_port, timeout=30) as server:
+            server.starttls()
+            server.login(smtp_email, smtp_password)
+            server.send_message(msg)
+        return True, "Correo enviado"
+    except Exception as exc:  # noqa: BLE001 — devolver detalle útil al admin
+        return False, f"Error SMTP: {exc}"
+
+
+def student_summary(row: sqlite3.Row, progress_row: sqlite3.Row | None) -> dict:
+    payload = {}
+    percent = 0
+    updated_at = None
+    if progress_row:
+        try:
+            payload = json.loads(progress_row["payload"] or "{}")
+        except json.JSONDecodeError:
+            payload = {}
+        percent = progress_row["percent"] or 0
+        updated_at = progress_row["updated_at"]
+
+    progress = payload.get("progress") or {}
+    return {
+        "id": row["id"],
+        "name": row["name"],
+        "email": row["email"],
+        "active": bool(row["active"]),
+        "created_at": row["created_at"],
+        "last_login": row["last_login"],
+        "email_sent_at": row["email_sent_at"],
+        "percent": percent,
+        "updated_at": updated_at,
+        "retos": sum(1 for k in ["reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6"] if progress.get(k)),
+        "s1": bool(progress.get("s1-done")),
+        "s2": bool(progress.get("s2-done")),
+        "proyecto": bool(progress.get("proyecto-final")),
+        "quiz": int((payload.get("quiz") or {}).get("score") or 0),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Archivos estáticos del front
+# ---------------------------------------------------------------------------
+
+@app.get("/assets/<path:filename>")
+def assets(filename: str):
+    return send_from_directory(BASE_DIR, filename)
+
+
+@app.get("/logo.png")
+def logo():
+    return send_from_directory(BASE_DIR, "logo.png")
+
+
+@app.get("/fondo-corporativo.png")
+def fondo():
+    return send_from_directory(BASE_DIR, "fondo-corporativo.png")
+
+
+# ---------------------------------------------------------------------------
+# Auth estudiante
+# ---------------------------------------------------------------------------
+
+@app.get("/login")
+def login():
+    if session.get("student_id"):
+        return redirect(url_for("mission"))
+    if session.get("is_admin"):
+        return redirect(url_for("admin_home"))
+    return render_template("login.html")
+
+
+@app.post("/login")
+def login_post():
+    email = (request.form.get("email") or "").strip().lower()
+    access_key = (request.form.get("access_key") or "").strip().upper()
+
+    if not email or not access_key:
+        return render_template("login.html", error="Completa correo y clave de acceso."), 400
+
+    db = get_db()
+    row = db.execute(
+        "SELECT * FROM students WHERE email = ? AND active = 1",
+        (email,),
+    ).fetchone()
+
+    if not row or not check_password_hash(row["key_hash"], access_key):
+        return render_template("login.html", error="Correo o clave incorrectos."), 401
+
+    db.execute("UPDATE students SET last_login = ? WHERE id = ?", (utc_now(), row["id"]))
+    db.commit()
+
+    session.clear()
+    session["student_id"] = row["id"]
+    session["student_name"] = row["name"]
+    session["student_email"] = row["email"]
+    return redirect(url_for("mission"))
+
+
+@app.post("/logout")
+@app.get("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
+
+
+@app.get("/")
+def root():
+    if session.get("is_admin"):
+        return redirect(url_for("admin_home"))
+    if session.get("student_id"):
+        return send_from_directory(BASE_DIR, "index.html")
+    return redirect(url_for("login"))
+
+
+@app.get("/mision")
+@require_student
+def mission():
+    return send_from_directory(BASE_DIR, "index.html")
+
+
+# ---------------------------------------------------------------------------
+# API progreso estudiante
+# ---------------------------------------------------------------------------
+
+@app.get("/api/me")
+@require_student
+def api_me():
+    return jsonify(
+        {
+            "ok": True,
+            "student": {
+                "id": session["student_id"],
+                "name": session.get("student_name"),
+                "email": session.get("student_email"),
+            },
+        }
+    )
+
+
+@app.get("/api/progress")
+@require_student
+def api_get_progress():
+    db = get_db()
+    row = db.execute(
+        "SELECT payload, percent, updated_at FROM progress WHERE student_id = ?",
+        (session["student_id"],),
+    ).fetchone()
+    if not row:
+        return jsonify({"ok": True, "payload": {}, "percent": 0, "updated_at": None})
+    try:
+        payload = json.loads(row["payload"] or "{}")
+    except json.JSONDecodeError:
+        payload = {}
+    return jsonify(
+        {
+            "ok": True,
+            "payload": payload,
+            "percent": row["percent"],
+            "updated_at": row["updated_at"],
+        }
+    )
+
+
+@app.post("/api/progress")
+@require_student
+def api_save_progress():
+    data = request.get_json(silent=True) or {}
+    payload = data.get("payload")
+    if not isinstance(payload, dict):
+        return jsonify({"ok": False, "error": "payload inválido"}), 400
+
+    percent = calc_percent_from_payload(payload)
+    now = utc_now()
+    db = get_db()
+    db.execute(
+        """
+        INSERT INTO progress (student_id, payload, percent, updated_at)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(student_id) DO UPDATE SET
+            payload = excluded.payload,
+            percent = excluded.percent,
+            updated_at = excluded.updated_at
+        """,
+        (session["student_id"], json.dumps(payload, ensure_ascii=False), percent, now),
+    )
+    db.commit()
+    return jsonify({"ok": True, "percent": percent, "updated_at": now})
+
+
+# ---------------------------------------------------------------------------
+# Admin
+# ---------------------------------------------------------------------------
+
+@app.get("/admin/login")
+def admin_login():
+    if session.get("is_admin"):
+        return redirect(url_for("admin_home"))
+    return render_template("admin_login.html")
+
+
+@app.post("/admin/login")
+def admin_login_post():
+    password = request.form.get("password") or ""
+    expected = os.getenv("ADMIN_PASSWORD", "")
+    if not expected:
+        return render_template(
+            "admin_login.html",
+            error="Configura ADMIN_PASSWORD en el archivo .env",
+        ), 500
+    if password != expected:
+        return render_template("admin_login.html", error="Contraseña incorrecta."), 401
+    session.clear()
+    session["is_admin"] = True
+    return redirect(url_for("admin_home"))
+
+
+@app.get("/admin")
+@require_admin
+def admin_home():
+    db = get_db()
+    students = db.execute(
+        """
+        SELECT s.*, p.payload, p.percent, p.updated_at
+        FROM students s
+        LEFT JOIN progress p ON p.student_id = s.id
+        ORDER BY s.created_at DESC
+        """
+    ).fetchall()
+
+    rows = []
+    for s in students:
+        prog = None
+        if s["percent"] is not None or s["payload"]:
+            prog = {
+                "payload": s["payload"],
+                "percent": s["percent"] or 0,
+                "updated_at": s["updated_at"],
+            }
+            # sqlite Row no admite dict literal directo con keys de progress; armamos summary manual
+        summary = {
+            "id": s["id"],
+            "name": s["name"],
+            "email": s["email"],
+            "active": bool(s["active"]),
+            "created_at": s["created_at"],
+            "last_login": s["last_login"],
+            "email_sent_at": s["email_sent_at"],
+            "percent": s["percent"] or 0,
+            "updated_at": s["updated_at"],
+            "retos": 0,
+            "s1": False,
+            "s2": False,
+            "proyecto": False,
+            "quiz": 0,
+        }
+        if s["payload"]:
+            try:
+                payload = json.loads(s["payload"])
+            except json.JSONDecodeError:
+                payload = {}
+            progress = payload.get("progress") or {}
+            summary["retos"] = sum(
+                1
+                for k in ["reto-r1", "reto-r2", "reto-r3", "reto-r4", "reto-r5", "reto-r6"]
+                if progress.get(k)
+            )
+            summary["s1"] = bool(progress.get("s1-done"))
+            summary["s2"] = bool(progress.get("s2-done"))
+            summary["proyecto"] = bool(progress.get("proyecto-final"))
+            summary["quiz"] = int((payload.get("quiz") or {}).get("score") or 0)
+        rows.append(summary)
+
+    stats = {
+        "total": len(rows),
+        "activos": sum(1 for r in rows if r["active"]),
+        "con_avance": sum(1 for r in rows if r["percent"] > 0),
+        "promedio": int(round(sum(r["percent"] for r in rows) / len(rows), 0)) if rows else 0,
+    }
+    flash = session.pop("flash", None)
+    return render_template("admin.html", students=rows, stats=stats, flash=flash)
+
+
+@app.post("/admin/students")
+@require_admin
+def admin_create_student():
+    name = (request.form.get("name") or "").strip()
+    email = (request.form.get("email") or "").strip().lower()
+    send_mail = request.form.get("send_email") == "on"
+
+    if not name or not email or "@" not in email:
+        session["flash"] = {"type": "error", "msg": "Nombre y correo válidos son obligatorios."}
+        return redirect(url_for("admin_home"))
+
+    access_key = generate_access_key()
+    db = get_db()
+    try:
+        cur = db.execute(
+            """
+            INSERT INTO students (name, email, access_key, key_hash, active, created_at)
+            VALUES (?, ?, ?, ?, 1, ?)
+            """,
+            (name, email, access_key, generate_password_hash(access_key), utc_now()),
+        )
+        student_id = cur.lastrowid
+        db.execute(
+            "INSERT INTO progress (student_id, payload, percent, updated_at) VALUES (?, '{}', 0, ?)",
+            (student_id, utc_now()),
+        )
+        db.commit()
+    except sqlite3.IntegrityError:
+        session["flash"] = {"type": "error", "msg": f"Ya existe un estudiante con el correo {email}."}
+        return redirect(url_for("admin_home"))
+
+    mail_note = ""
+    if send_mail:
+        ok, detail = send_access_email(email, name, access_key)
+        if ok:
+            db.execute("UPDATE students SET email_sent_at = ? WHERE id = ?", (utc_now(), student_id))
+            db.commit()
+            mail_note = " Correo enviado."
+        else:
+            mail_note = f" Correo NO enviado: {detail}"
+
+    session["flash"] = {
+        "type": "ok",
+        "msg": f"Estudiante creado. Clave: {access_key}.{mail_note}",
+        "key": access_key,
+    }
+    return redirect(url_for("admin_home"))
+
+
+@app.post("/admin/students/<int:student_id>/resend")
+@require_admin
+def admin_resend(student_id: int):
+    db = get_db()
+    row = db.execute("SELECT * FROM students WHERE id = ?", (student_id,)).fetchone()
+    if not row:
+        session["flash"] = {"type": "error", "msg": "Estudiante no encontrado."}
+        return redirect(url_for("admin_home"))
+
+    # La clave en texto se guarda para reenvío administrativo controlado
+    access_key = row["access_key"]
+    ok, detail = send_access_email(row["email"], row["name"], access_key)
+    if ok:
+        db.execute("UPDATE students SET email_sent_at = ? WHERE id = ?", (utc_now(), student_id))
+        db.commit()
+        session["flash"] = {"type": "ok", "msg": f"Clave reenviada a {row['email']}."}
+    else:
+        session["flash"] = {"type": "error", "msg": detail}
+    return redirect(url_for("admin_home"))
+
+
+@app.post("/admin/students/<int:student_id>/toggle")
+@require_admin
+def admin_toggle(student_id: int):
+    db = get_db()
+    row = db.execute("SELECT active FROM students WHERE id = ?", (student_id,)).fetchone()
+    if not row:
+        session["flash"] = {"type": "error", "msg": "Estudiante no encontrado."}
+        return redirect(url_for("admin_home"))
+    new_val = 0 if row["active"] else 1
+    db.execute("UPDATE students SET active = ? WHERE id = ?", (new_val, student_id))
+    db.commit()
+    session["flash"] = {"type": "ok", "msg": "Estado de acceso actualizado."}
+    return redirect(url_for("admin_home"))
+
+
+@app.post("/admin/students/<int:student_id>/reset-progress")
+@require_admin
+def admin_reset_progress(student_id: int):
+    db = get_db()
+    db.execute(
+        "UPDATE progress SET payload = '{}', percent = 0, updated_at = ? WHERE student_id = ?",
+        (utc_now(), student_id),
+    )
+    db.commit()
+    session["flash"] = {"type": "ok", "msg": "Progreso reiniciado."}
+    return redirect(url_for("admin_home"))
+
+
+@app.get("/api/admin/students")
+@require_admin
+def api_admin_students():
+    """JSON para refrescar el panel sin recargar (opcional)."""
+    db = get_db()
+    students = db.execute(
+        """
+        SELECT s.*, p.payload, p.percent, p.updated_at
+        FROM students s
+        LEFT JOIN progress p ON p.student_id = s.id
+        ORDER BY s.created_at DESC
+        """
+    ).fetchall()
+    out = []
+    for s in students:
+        payload = {}
+        if s["payload"]:
+            try:
+                payload = json.loads(s["payload"])
+            except json.JSONDecodeError:
+                payload = {}
+        progress = payload.get("progress") or {}
+        out.append(
+            {
+                "id": s["id"],
+                "name": s["name"],
+                "email": s["email"],
+                "active": bool(s["active"]),
+                "percent": s["percent"] or 0,
+                "last_login": s["last_login"],
+                "updated_at": s["updated_at"],
+                "retos": sum(1 for k in ["reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6"] if progress.get(k)),
+                "s1": bool(progress.get("s1-done")),
+                "s2": bool(progress.get("s2-done")),
+                "proyecto": bool(progress.get("proyecto-final")),
+                "quiz": int((payload.get("quiz") or {}).get("score") or 0),
+            }
+        )
+    return jsonify({"ok": True, "students": out})
+
+
+# ---------------------------------------------------------------------------
+# Health
+# ---------------------------------------------------------------------------
+
+@app.get("/health")
+def health():
+    return jsonify({"ok": True, "service": "mision-copilot-365"})
+
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", "5000"))
+    app.run(host="0.0.0.0", port=port, debug=True)

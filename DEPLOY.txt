@@ -1,0 +1,90 @@
+DESPLIEGUE — Misión Copilot 365
+Cuenta PythonAnywhere: acatherinem
+URL esperada: https://acatherinem.pythonanywhere.com
+Dashboard: https://www.pythonanywhere.com/user/acatherinem/
+============================================================
+
+1) Gmail (para enviar claves)
+----------------------------
+Cuenta: analizamostunegocio@gmail.com
+
+1. Activa verificación en 2 pasos.
+2. Crea "Contraseña de aplicaciones" en Google.
+3. Guárdala para el archivo .env (SMTP_APP_PASSWORD).
+
+
+2) Subir el proyecto
+--------------------
+Opción A — Git (recomendada):
+  En una Bash console de PythonAnywhere:
+    cd ~
+    git clone https://github.com/TU_USUARIO/TU_REPO.git Clases_Enel
+    cd Clases_Enel
+
+Opción B — Subir ZIP por Files y descomprimir en /home/acatherinem/Clases_Enel
+
+
+3) Entorno virtual e instalación
+--------------------------------
+En Bash console:
+
+  cd /home/acatherinem/Clases_Enel
+  python3.10 -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+
+
+4) Crear archivo .env
+---------------------
+En Bash:
+
+  cd /home/acatherinem/Clases_Enel
+  nano .env
+
+Pega (completa los secretos):
+
+FLASK_SECRET_KEY=pon-aqui-una-cadena-larga-aleatoria
+ADMIN_PASSWORD=tu-clave-de-administrador
+SMTP_EMAIL=analizamostunegocio@gmail.com
+SMTP_APP_PASSWORD=xxxx xxxx xxxx xxxx
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+MAIL_FROM_NAME=Misión Copilot 365 · ECCO
+APP_BASE_URL=https://acatherinem.pythonanywhere.com
+
+Guarda: Ctrl+O, Enter, Ctrl+X
+
+
+5) Crear Web App
+----------------
+1. Entra a https://www.pythonanywhere.com/user/acatherinem/
+2. Web > Add a new web app
+3. Manual configuration > Python 3.10 (o la disponible)
+4. Configura:
+   - Source code:        /home/acatherinem/Clases_Enel
+   - Working directory:  /home/acatherinem/Clases_Enel
+   - Virtualenv:         /home/acatherinem/Clases_Enel/venv
+5. Abre el WSGI configuration file y deja el contenido de wsgi.py
+6. Reload la web app
+
+
+6) Rutas
+--------
+Admin:       https://acatherinem.pythonanywhere.com/admin/login
+Estudiantes: https://acatherinem.pythonanywhere.com/login
+Salud:       https://acatherinem.pythonanywhere.com/health
+
+
+7) Flujo diario
+---------------
+1. Entras a /admin/login
+2. Creas estudiante + envías clave
+3. Ves el progreso en el panel (se actualiza solo)
+
+
+8) Si el correo falla (plan free)
+--------------------------------
+El plan gratuito a veces bloquea SMTP externo.
+La clave igual aparece en el panel al crear el estudiante:
+puedes copiarla y enviarla manualmente, o usar "Reenviar clave"
+cuando SMTP esté habilitado (plan de pago).

@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Misión Copilot 365: capacitación empresarial ficticia sobre productividad y gestión de proyectos con Microsoft Copilot." />
+  <title>Misión Copilot 365 · Capacitación empresarial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@0.469.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    /* ========== IDENTIDAD VISUAL ECCO / USA (extraída de activos corporativos) ========== */
+    :root {
+      /* Colores de marca — muestreo de plantilla y logo */
+      --brand-primary: #4a3da6;
+      --brand-secondary: #36428c;
+      --brand-accent: #ffec00;
+      --brand-accent-alt: #ffea00;
+      --brand-dark: #221e40;
+      --brand-dark-alt: #223342;
+      --brand-crest: #193e74;
+      --brand-blue: #004aac;
+      --brand-light: #ffffff;
+      --brand-background: #f4f3f9;
+      --brand-text: #221e40;
+      --brand-muted: #5a5a72;
+
+      /* Aliases de interfaz (coherencia con marca) */
+      --navy: var(--brand-dark);
+      --navy-mid: #2a2558;
+      --electric: var(--brand-primary);
+      --electric-soft: #6b5fd0;
+      --energy: var(--brand-accent);
+      --energy-bright: var(--brand-accent-alt);
+      --white: var(--brand-light);
+      --bg: var(--brand-background);
+      --bg-elevated: #ffffff;
+      --surface: #ebe9f5;
+      --text: var(--brand-text);
+      --text-muted: var(--brand-muted);
+      --border: #d5d2e6;
+      --shadow: 0 10px 30px rgba(34, 30, 64, 0.10);
+      --shadow-lg: 0 20px 50px rgba(34, 30, 64, 0.16);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --nav-h: 76px;
+      --success: #2f9e6a;
+      --warning: #d4a017;
+      --danger: #c0392b;
+      --info: var(--brand-secondary);
+      --font: "Montserrat", system-ui, sans-serif;
+      --display: "Montserrat", system-ui, sans-serif;
+      --serif: "Source Serif 4", Georgia, serif;
+      --transition: 0.25s ease;
+      --focus: 0 0 0 3px rgba(74, 61, 166, 0.35);
+      --logo-safe: 12px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #16132e;
+      --bg-elevated: #1c1838;
+      --surface: #29245a;
+      --text: #f2f1f8;
+      --text-muted: #b3aec9;
+      --border: #3a3470;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.45);
+      --navy: #160f2e;
+      --navy-mid: #221e40;
+      --brand-background: #16132e;
+      --brand-text: #f2f1f8;
+    }
+
+    /* ========== RESET ========== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    img, svg { max-width: 100%; display: block; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    a { color: var(--brand-primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1, h2, h3, h4 { font-family: var(--display); line-height: 1.25; margin: 0 0 0.6em; letter-spacing: -0.01em; }
+    .brand-serif { font-family: var(--serif); }
+
+    /* ========== NAV ========== */
+    .nav {
+      position: sticky; top: 0; z-index: 1000;
+      height: var(--nav-h);
+      background: color-mix(in srgb, var(--brand-dark) 94%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 3px solid var(--brand-primary);
+    }
+    .nav__inner {
+      height: 100%;
+      display: flex; align-items: center; gap: 1rem;
+      justify-content: space-between;
+    }
+    .nav__brand {
+      display: flex; align-items: center; gap: 0.85rem;
+      color: var(--brand-light);
+      text-decoration: none; white-space: nowrap;
+      padding: var(--logo-safe) 0;
+    }
+    .nav__brand:hover { text-decoration: none; }
+    .nav__logo-img {
+      height: 44px; width: auto; max-width: min(220px, 42vw);
+      object-fit: contain; object-position: left center;
+      display: block;
+      /* Contenedor oscuro: el logo corporativo no se recolorea */
+      background: var(--brand-dark-alt);
+      border-radius: 6px;
+      padding: 4px 8px;
+    }
+    .nav__brand-text {
+      display: flex; flex-direction: column; gap: 0.1rem;
+      border-left: 1px solid rgba(255,255,255,0.35);
+      padding-left: 0.85rem;
+    }
+    .nav__brand-text strong {
+      font-family: var(--display); font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.02em; color: var(--brand-light);
+    }
+    .nav__brand-text span {
+      font-size: 0.68rem; color: rgba(255,255,255,0.7); font-weight: 500;
+    }
+    .nav__links {
+      display: flex; align-items: center; gap: 0.15rem; list-style: none;
+      margin: 0; padding: 0; flex-wrap: wrap;
+    }
+    .nav__links a {
+      color: rgba(255,255,255,0.78); padding: 0.45rem 0.7rem; border-radius: 8px;
+      font-size: 0.86rem; font-weight: 600; text-decoration: none;
+    }
+    .nav__links a:hover, .nav__links a[aria-current="true"] {
+      color: var(--brand-dark); background: var(--brand-accent);
+    }
+    .nav__actions { display: flex; align-items: center; gap: 0.75rem; }
+    .user-chip {
+      display: flex; align-items: center; gap: 0.55rem;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px; padding: 0.35rem 0.75rem; font-size: 0.78rem; font-weight: 600;
+      color: rgba(255,255,255,0.9); max-width: 220px;
+    }
+    .user-chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .user-chip__out { color: var(--brand-accent); text-decoration: none; font-weight: 700; }
+    .user-chip__out:hover { text-decoration: underline; }
+    .progress-chip {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px; padding: 0.35rem 0.75rem 0.35rem 0.45rem;
+      min-width: 130px;
+    }
+    .progress-chip__bar {
+      flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 999px; overflow: hidden;
+    }
+    .progress-chip__fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
+      transition: width var(--transition);
+    }
+    .progress-chip__pct { font-size: 0.8rem; font-weight: 700; color: var(--brand-light); min-width: 2.4em; }
+    .icon-btn {
+      width: 42px; height: 42px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.06); color: var(--brand-light); cursor: pointer;
+      display: grid; place-items: center; transition: var(--transition);
+    }
+    .icon-btn:hover { border-color: var(--brand-accent); color: var(--brand-accent); }
+    .nav__toggle { display: none; }
+
+    p { margin: 0 0 1em; }
+    :focus-visible { outline: none; box-shadow: var(--focus); }
+    .container { width: min(1180px, calc(100% - 2rem)); margin-inline: auto; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.85rem 1.35rem; border-radius: 10px; border: 1px solid transparent;
+      font-weight: 700; cursor: pointer; transition: var(--transition);
+      text-decoration: none; font-size: 0.95rem; line-height: 1.2;
+    }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn--primary {
+      background: var(--brand-primary);
+      color: white; box-shadow: 0 8px 20px rgba(74, 61, 166, 0.32);
+    }
+    .btn--primary:hover { color: white; background: #5a4bb8; }
+    .btn--secondary {
+      background: var(--bg-elevated); color: var(--text); border-color: var(--border);
+    }
+    .btn--ghost { background: transparent; color: var(--text); border-color: transparent; }
+    .btn--energy {
+      background: var(--brand-accent);
+      color: var(--brand-dark);
+      box-shadow: 0 8px 18px rgba(255, 236, 0, 0.28);
+    }
+    .btn--energy:hover { color: var(--brand-dark); filter: brightness(1.05); }
+    .btn--sm { padding: 0.5rem 0.85rem; font-size: 0.85rem; border-radius: 8px; }
+    .btn--block { width: 100%; }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+
+    /* ========== CORPORATE SHAPES ========== */
+    .brand-bars {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
+    }
+    .brand-bars span {
+      position: absolute; height: 10px; border-radius: 0;
+    }
+    .brand-bars .bar-purple-top {
+      left: 0; top: 18%; width: 18%; height: 14px; background: var(--brand-primary);
+    }
+    .brand-bars .bar-blue-top {
+      left: 0; top: 0; width: 8%; height: 10px; background: var(--brand-secondary);
+    }
+    .brand-bars .bar-yellow {
+      right: 0; bottom: 18%; width: 12%; height: 10px; background: var(--brand-accent);
+    }
+    .brand-bars .bar-purple-bottom {
+      left: 0; right: 0; bottom: 0; height: 14px; width: 100%; background: var(--brand-primary);
+    }
+
+    /* ========== SECTIONS ========== */
+    section { padding: 4.5rem 0; }
+    .section-dark {
+      background:
+        linear-gradient(160deg, rgba(34,30,64,0.92) 0%, rgba(42,37,88,0.94) 100%),
+        var(--brand-dark);
+      color: #eaf1fb;
+      position: relative;
+      overflow: hidden;
+    }
+    .section-dark::after {
+      content: "";
+      position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
+      background: var(--brand-primary); z-index: 1;
+    }
+    .section-dark > .container { position: relative; z-index: 2; }
+    .section-dark .text-muted, .section-dark .lead { color: #c5c0dc; }
+    .section-kicker {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--brand-primary); margin-bottom: 0.75rem;
+    }
+    .section-dark .section-kicker { color: var(--brand-accent); }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .lead { font-size: 1.08rem; color: var(--text-muted); max-width: 62ch; }
+    .disclaimer {
+      display: flex; gap: 0.65rem; align-items: flex-start;
+      background: color-mix(in srgb, var(--warning) 12%, var(--bg-elevated));
+      border: 1px solid color-mix(in srgb, var(--warning) 35%, var(--border));
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem; margin: 1rem 0;
+      font-size: 0.92rem;
+    }
+    .disclaimer--info {
+      background: color-mix(in srgb, var(--info) 10%, var(--bg-elevated));
+      border-color: color-mix(in srgb, var(--info) 30%, var(--border));
+    }
+    .disclaimer--danger {
+      background: color-mix(in srgb, var(--danger) 10%, var(--bg-elevated));
+      border-color: color-mix(in srgb, var(--danger) 30%, var(--border));
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 5.5rem 0 4.5rem;
+      color: var(--brand-light);
+      background:
+        linear-gradient(115deg, rgba(34,30,64,0.94) 0%, rgba(34,30,64,0.82) 48%, rgba(74,61,166,0.55) 100%),
+        url("/fondo-corporativo.png") center / cover no-repeat;
+    }
+    .hero > .container { position: relative; z-index: 2; }
+    .hero__grid {
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: center;
+    }
+    .hero__title {
+      font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 0.4rem;
+      color: var(--brand-light); letter-spacing: -0.02em;
+    }
+    [data-theme="dark"] .hero__title { color: var(--brand-light); }
+    .hero__subtitle {
+      font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--brand-accent);
+      font-weight: 600; margin-bottom: 1rem;
+    }
+    .hero .lead { color: rgba(255,255,255,0.85); }
+    .hero .section-kicker { color: var(--brand-accent); }
+    .hero .btn--secondary {
+      background: transparent; color: var(--brand-light); border-color: rgba(255,255,255,0.4);
+    }
+    .hero .btn--secondary:hover { border-color: var(--brand-accent); color: var(--brand-accent); }
+    .hero .disclaimer--info {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.9);
+    }
+    .hero-art {
+      position: relative; aspect-ratio: 1 / 1; max-width: 440px; margin-inline: auto;
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero-orb--1 {
+      inset: 12%; background: linear-gradient(145deg, rgba(74,61,166,0.35), rgba(255,236,0,0.12));
+      filter: blur(2px);
+    }
+    .hero-orb--2 {
+      width: 38%; height: 38%; top: 8%; right: 10%;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      opacity: 0.9; animation-delay: -1.5s;
+      box-shadow: 0 20px 40px rgba(74,61,166,0.4);
+    }
+    .hero-orb--3 {
+      width: 28%; height: 28%; bottom: 14%; left: 8%;
+      background: var(--brand-accent);
+      animation-delay: -3s;
+      box-shadow: 0 16px 32px rgba(255,236,0,0.3);
+    }
+    .hero-card {
+      position: absolute; background: rgba(34,30,64,0.88); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 12px; padding: 0.75rem 0.9rem; box-shadow: var(--shadow);
+      display: flex; align-items: center; gap: 0.55rem; font-size: 0.82rem; font-weight: 600;
+      color: var(--brand-light);
+      animation: rise 0.8s ease both;
+    }
+    .hero-card i, .hero-card svg { color: var(--brand-accent); width: 18px; height: 18px; }
+    .hero-card--a { top: 18%; left: 0; animation-delay: 0.1s; }
+    .hero-card--b { top: 42%; right: 0; animation-delay: 0.25s; }
+    .hero-card--c { bottom: 22%; left: 12%; animation-delay: 0.4s; }
+    .hero-card--d { bottom: 8%; right: 14%; animation-delay: 0.55s; }
+    .hero-core {
+      position: absolute; inset: 30%; border-radius: 20px;
+      background: linear-gradient(145deg, var(--brand-dark), var(--brand-primary));
+      display: grid; place-items: center; color: white;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid rgba(255,236,0,0.35);
+      animation: pulse-soft 3.5s ease-in-out infinite;
+    }
+    .hero-core svg { width: 48px; height: 48px; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse-soft {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    /* ========== CARDS / GRID ========== */
+    .grid { display: grid; gap: 1.25rem; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-6 { grid-template-columns: repeat(6, 1fr); }
+
+    .card {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.35rem; box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .card__icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      display: grid; place-items: center; margin-bottom: 0.85rem;
+      background: color-mix(in srgb, var(--brand-primary) 14%, transparent);
+      color: var(--brand-primary);
+    }
+    .card__icon--energy {
+      background: color-mix(in srgb, var(--brand-accent) 28%, transparent);
+      color: var(--brand-dark);
+    }
+    .card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .card p { color: var(--text-muted); font-size: 0.94rem; margin: 0; }
+
+    .level-card {
+      position: relative; overflow: hidden;
+    }
+    .level-card::before {
+      content: attr(data-level);
+      position: absolute; top: 0.8rem; right: 1rem;
+      font-family: var(--display); font-weight: 700; font-size: 2rem;
+      color: color-mix(in srgb, var(--electric) 15%, transparent);
+    }
+
+    /* ========== RUTA ========== */
+    .path-track {
+      display: grid; gap: 0;
+      position: relative;
+    }
+    .path-item {
+      display: grid; grid-template-columns: 56px 1fr; gap: 1rem;
+      padding: 0.85rem 0; position: relative;
+    }
+    .path-item::before {
+      content: ""; position: absolute; left: 27px; top: 52px; bottom: -4px;
+      width: 2px; background: var(--border);
+    }
+    .path-item:last-child::before { display: none; }
+    .path-item.is-done::before { background: var(--brand-primary); }
+    .path-dot {
+      width: 56px; height: 56px; border-radius: 16px; border: 2px solid var(--border);
+      background: var(--bg-elevated); display: grid; place-items: center;
+      color: var(--text-muted); z-index: 1; transition: var(--transition);
+    }
+    .path-item.is-done .path-dot {
+      border-color: var(--brand-primary); background: color-mix(in srgb, var(--brand-primary) 15%, var(--bg-elevated));
+      color: var(--brand-primary);
+    }
+    .path-item.is-active .path-dot {
+      border-color: var(--brand-accent); background: color-mix(in srgb, var(--brand-accent) 22%, var(--bg-elevated));
+      color: var(--brand-dark); box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand-accent) 28%, transparent);
+    }
+    .path-body {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem 1.15rem;
+    }
+    .path-body h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .path-body p { margin: 0; font-size: 0.9rem; color: var(--text-muted); }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.04em; padding: 0.25rem 0.55rem; border-radius: 999px;
+      margin-bottom: 0.45rem;
+    }
+    .badge--pending { background: var(--surface); color: var(--text-muted); }
+    .badge--active { background: color-mix(in srgb, var(--brand-primary) 15%, transparent); color: var(--brand-primary); }
+    .badge--done { background: color-mix(in srgb, var(--brand-accent) 35%, transparent); color: var(--brand-dark); }
+
+    /* ========== RETOS ========== */
+    .reto {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--bg-elevated); margin-bottom: 1.25rem; overflow: hidden;
+    }
+    .reto__header {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 1.1rem 1.25rem; background: transparent; border: 0;
+      cursor: pointer; text-align: left; color: inherit;
+    }
+    .reto__header:hover { background: color-mix(in srgb, var(--electric) 5%, transparent); }
+    .reto__title-wrap { display: flex; align-items: center; gap: 0.85rem; }
+    .reto__num {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      background: var(--brand-primary);
+      color: white; display: grid; place-items: center; font-weight: 800; font-family: var(--display);
+      box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15);
+    }
+    .reto__body { display: none; padding: 0 1.25rem 1.35rem; border-top: 1px solid var(--border); }
+    .reto.is-open .reto__body { display: block; animation: rise 0.3s ease; }
+    .reto.is-open .reto__chevron { transform: rotate(180deg); }
+    .reto__chevron { transition: transform var(--transition); }
+
+    .email-box, .doc-box, .transcript-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 1rem 1.1rem; margin: 1rem 0;
+      font-size: 0.94rem;
+    }
+    .email-meta { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.75rem; }
+    .email-meta strong { color: var(--text); }
+    .prompt-box {
+      background: var(--brand-dark);
+      color: #eaf1fb; border-radius: var(--radius-sm); padding: 1rem 1.1rem;
+      font-family: ui-monospace, Consolas, monospace; font-size: 0.88rem;
+      line-height: 1.55; margin: 0.85rem 0; position: relative;
+      border-left: 4px solid var(--brand-accent);
+    }
+    .check-list { list-style: none; padding: 0; margin: 1rem 0; }
+    .check-list li {
+      display: flex; align-items: flex-start; gap: 0.65rem;
+      padding: 0.55rem 0; border-bottom: 1px dashed var(--border);
+    }
+    .check-list li:last-child { border-bottom: 0; }
+    .check-list input[type="checkbox"] {
+      width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; accent-color: var(--brand-primary); cursor: pointer;
+    }
+
+    /* ========== TABS ========== */
+    .tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .tab {
+      padding: 0.55rem 0.9rem; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--bg-elevated); color: var(--text-muted); cursor: pointer;
+      font-weight: 600; font-size: 0.85rem; transition: var(--transition);
+    }
+    .tab[aria-selected="true"], .tab:hover {
+      background: color-mix(in srgb, var(--electric) 12%, var(--bg-elevated));
+      color: var(--electric); border-color: color-mix(in srgb, var(--electric) 35%, var(--border));
+    }
+    .tab-panel { display: none; }
+    .tab-panel.is-active { display: block; animation: rise 0.25s ease; }
+
+    /* ========== FORMS ========== */
+    .form-grid { display: grid; gap: 1rem; }
+    .form-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .field label {
+      display: block; font-weight: 600; font-size: 0.88rem; margin-bottom: 0.35rem;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 0.7rem 0.85rem; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg-elevated);
+      transition: var(--transition);
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--electric); box-shadow: var(--focus); outline: none;
+    }
+    .field textarea { min-height: 90px; resize: vertical; }
+
+    /* ========== TABLES ========== */
+    .table-wrap { overflow-x: auto; margin: 1rem 0; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { padding: 0.7rem 0.85rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--surface); font-weight: 700; white-space: nowrap; }
+    tr:last-child td { border-bottom: 0; }
+    td input, td select {
+      width: 100%; min-width: 90px; padding: 0.4rem 0.5rem; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg-elevated);
+    }
+
+    /* ========== KPI / CHART ========== */
+    .kpi {
+      text-align: center; padding: 1.2rem;
+    }
+    .kpi__value {
+      font-family: var(--display); font-size: 2rem; font-weight: 700;
+      color: var(--brand-primary);
+    }
+    .kpi__label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+    .chart-wrap {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem; max-width: 520px; margin: 1rem auto;
+    }
+
+    /* ========== POWER-INTEREST MAP ========== */
+    .stakeholder-map {
+      position: relative; height: 340px; border: 1px solid var(--border);
+      border-radius: var(--radius); background:
+        linear-gradient(to right, transparent 49.5%, var(--border) 49.5%, var(--border) 50.5%, transparent 50.5%),
+        linear-gradient(to top, transparent 49.5%, var(--border) 49.5%, var(--border) 50.5%, transparent 50.5%),
+        var(--surface);
+      margin: 1rem 0;
+    }
+    .stakeholder-map__label {
+      position: absolute; font-size: 0.75rem; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .stakeholder-map__label--top { top: 8px; left: 50%; transform: translateX(-50%); }
+    .stakeholder-map__label--bottom { bottom: 8px; left: 50%; transform: translateX(-50%); }
+    .stakeholder-map__label--left { left: 8px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+    .stakeholder-map__label--right { right: 8px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+    .stakeholder-dot {
+      position: absolute; transform: translate(-50%, 50%);
+      padding: 0.35rem 0.6rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700;
+      background: var(--brand-primary); color: white; white-space: nowrap;
+      box-shadow: var(--shadow); cursor: default;
+    }
+
+    /* ========== PROMPTS ========== */
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 1.25rem; }
+    .filter-chip {
+      padding: 0.4rem 0.8rem; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--bg-elevated); cursor: pointer; font-size: 0.82rem; font-weight: 600;
+      color: var(--text-muted);
+    }
+    .filter-chip.is-active, .filter-chip:hover {
+      background: color-mix(in srgb, var(--electric) 12%, transparent);
+      color: var(--electric); border-color: color-mix(in srgb, var(--electric) 40%, var(--border));
+    }
+    .prompt-card.is-hidden { display: none; }
+    .prompt-card .prompt-actions { display: flex; gap: 0.5rem; margin-top: 0.85rem; flex-wrap: wrap; }
+    .fav-btn.is-fav { color: var(--warning); border-color: color-mix(in srgb, var(--warning) 40%, var(--border)); }
+
+    .formula {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; margin: 1.25rem 0;
+    }
+    .formula__step {
+      text-align: center; padding: 0.85rem 0.5rem; border-radius: 12px;
+      background: var(--surface); border: 1px solid var(--border); font-size: 0.82rem; font-weight: 700;
+    }
+    .formula__step span {
+      display: block; font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
+      margin-top: 0.25rem; text-transform: none;
+    }
+    .formula__plus {
+      display: none;
+    }
+
+    /* ========== SLIDES TEMPLATE ========== */
+    .slides {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem;
+    }
+    .slide {
+      aspect-ratio: 16/10; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(160deg, var(--brand-dark), #2a2558);
+      color: #eaf1fb; padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;
+      font-size: 0.78rem;
+      box-shadow: inset 0 -6px 0 var(--brand-primary);
+    }
+    .slide__num { opacity: 0.55; font-weight: 700; }
+    .slide h4 { font-size: 0.88rem; margin: 0; }
+
+    /* ========== QUIZ ========== */
+    .quiz-q {
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 1.15rem;
+      margin-bottom: 1rem; background: var(--bg-elevated);
+    }
+    .quiz-options { display: grid; gap: 0.5rem; margin-top: 0.75rem; }
+    .quiz-option {
+      display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.7rem 0.85rem;
+      border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+      transition: var(--transition);
+    }
+    .quiz-option:hover { border-color: var(--electric); }
+    .quiz-option.is-correct { border-color: var(--success); background: color-mix(in srgb, var(--success) 12%, transparent); }
+    .quiz-option.is-wrong { border-color: var(--danger); background: color-mix(in srgb, var(--danger) 10%, transparent); }
+    .quiz-feedback {
+      margin-top: 0.65rem; font-size: 0.9rem; font-weight: 600; display: none;
+    }
+    .quiz-feedback.is-visible { display: block; }
+
+    /* ========== RESPONSIBLE / CHECKLIST ========== */
+    .principles { display: grid; gap: 0.65rem; }
+    .principle {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.85rem 1rem; border-radius: 12px; background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    /* ========== PREVIEW ========== */
+    .preview-panel {
+      background: var(--surface); border: 1px dashed var(--border);
+      border-radius: var(--radius); padding: 1.25rem; margin-top: 1.25rem;
+    }
+    .preview-panel h3 { margin-bottom: 0.75rem; }
+    .preview-panel dl { margin: 0; display: grid; gap: 0.5rem; }
+    .preview-panel dt { font-weight: 700; font-size: 0.82rem; color: var(--text-muted); }
+    .preview-panel dd { margin: 0 0 0.5rem; }
+
+    /* ========== CERTIFICATE ========== */
+    .certificate {
+      border: 2px solid var(--brand-primary); border-radius: var(--radius);
+      padding: 2rem; text-align: center;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(74,61,166,0.12), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(255,236,0,0.12), transparent 40%),
+        var(--bg-elevated);
+      box-shadow: inset 0 -10px 0 var(--brand-primary);
+    }
+    .certificate h3 { font-size: 1.6rem; }
+    .certificate .meta { color: var(--text-muted); }
+
+    /* ========== TOAST / MODAL ========== */
+    .toast-stack {
+      position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 2000;
+      display: grid; gap: 0.5rem; width: min(340px, calc(100% - 2rem));
+    }
+    .toast {
+      background: var(--navy); color: white; padding: 0.85rem 1rem;
+      border-radius: 12px; box-shadow: var(--shadow-lg); animation: rise 0.25s ease;
+      display: flex; align-items: center; gap: 0.65rem; font-size: 0.9rem; font-weight: 600;
+    }
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(8, 20, 34, 0.55);
+      z-index: 3000; display: none; align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .modal-backdrop.is-open { display: flex; }
+    .modal {
+      background: var(--bg-elevated); border-radius: var(--radius); width: min(560px, 100%);
+      max-height: 90vh; overflow: auto; padding: 1.5rem; box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+    .modal__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+
+    /* ========== BACK TO TOP ========== */
+    .back-top {
+      position: fixed; bottom: 1.25rem; left: 1.25rem; z-index: 1500;
+      width: 48px; height: 48px; border-radius: 14px; border: 1px solid var(--border);
+      background: var(--bg-elevated); color: var(--text); cursor: pointer;
+      display: none; place-items: center; box-shadow: var(--shadow);
+    }
+    .back-top.is-visible { display: grid; }
+
+    /* ========== FOOTER ========== */
+    footer {
+      padding: 0;
+      background: var(--brand-dark);
+      color: rgba(255,255,255,0.82);
+      font-size: 0.9rem;
+      border-top: 0;
+    }
+    .footer__inner {
+      padding: 2.25rem 0 1.5rem;
+      display: grid; gap: 1.25rem; text-align: center;
+      justify-items: center;
+    }
+    .footer__logo {
+      height: 52px; width: auto; max-width: min(280px, 80vw);
+      object-fit: contain;
+      background: var(--brand-dark-alt);
+      border-radius: 6px;
+      padding: 6px 10px;
+    }
+    .footer__bar {
+      height: 12px; background: var(--brand-primary); width: 100%;
+    }
+    .footer__meta { margin: 0; max-width: 70ch; }
+    .footer__meta strong { color: var(--brand-light); }
+
+    /* ========== MOBILE ========== */
+    @media (max-width: 980px) {
+      .hero__grid, .grid-2, .grid-3, .grid-4, .grid-6, .form-grid.cols-2, .formula, .slides {
+        grid-template-columns: 1fr;
+      }
+      .nav__links {
+        position: fixed; inset: var(--nav-h) 0 auto 0; background: var(--brand-dark);
+        flex-direction: column; align-items: stretch; padding: 1rem;
+        border-bottom: 3px solid var(--brand-primary); display: none; max-height: calc(100vh - var(--nav-h));
+        overflow: auto;
+      }
+      .nav__links.is-open { display: flex; }
+      .nav__toggle { display: grid; }
+      .nav__brand-text { display: none; }
+      .nav__logo-img { height: 38px; max-width: min(180px, 48vw); }
+      .progress-chip { display: none; }
+      .slides { grid-template-columns: repeat(2, 1fr); }
+      .formula { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      section { padding: 3rem 0; }
+      .slides { grid-template-columns: 1fr; }
+    }
+
+    /* ========== TOOLTIP ========== */
+    [data-tooltip] { position: relative; }
+    [data-tooltip]::after {
+      content: attr(data-tooltip); position: absolute; bottom: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%); background: var(--brand-dark); color: white;
+      padding: 0.35rem 0.6rem; border-radius: 8px; font-size: 0.75rem; font-weight: 600;
+      white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    [data-tooltip]:hover::after, [data-tooltip]:focus-visible::after { opacity: 1; }
+
+    /* ========== PRINT ========== */
+    @media print {
+      .nav, .back-top, .toast-stack, .nav__toggle, .icon-btn, .btn, .modal-backdrop { display: none !important; }
+      body { background: white; color: black; font-size: 12pt; }
+      section { padding: 1rem 0; break-inside: avoid; }
+      .card, .reto, .email-box, .prompt-box { box-shadow: none; break-inside: avoid; }
+      .reto__body { display: block !important; }
+      a { color: black; text-decoration: none; }
+      .certificate { border-color: black; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ========== NAV ========== -->
+  <header class="nav" role="banner">
+    <div class="container nav__inner">
+      <a href="#inicio" class="nav__brand" aria-label="ECCO · Universidad Sergio Arboleda — Misión Copilot 365">
+        <img class="nav__logo-img" src="/logo.png" alt="ECCO Educación Continuada y Consultoría · Universidad Sergio Arboleda" width="220" height="67" />
+        <span class="nav__brand-text">
+          <strong>Misión Copilot 365</strong>
+          <span>Capacitación empresarial</span>
+        </span>
+      </a>
+      <button class="icon-btn nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+        <i data-lucide="menu" width="20" height="20"></i>
+      </button>
+      <nav aria-label="Principal">
+        <ul class="nav__links" id="navLinks">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#ruta">Ruta</a></li>
+          <li><a href="#sesion1">Sesión 1</a></li>
+          <li><a href="#desafio">Desafío</a></li>
+          <li><a href="#sesion2">Sesión 2</a></li>
+          <li><a href="#prompts">Prompts</a></li>
+          <li><a href="#proyecto-final">Proyecto final</a></li>
+        </ul>
+      </nav>
+      <div class="nav__actions">
+        <div class="user-chip" id="userChip" hidden>
+          <span id="userChipName">Estudiante</span>
+          <a class="user-chip__out" href="/logout" title="Cerrar sesión">Salir</a>
+        </div>
+        <div class="progress-chip" aria-live="polite" title="Progreso general">
+          <div class="progress-chip__bar" aria-hidden="true"><div class="progress-chip__fill" id="navProgressFill"></div></div>
+          <span class="progress-chip__pct" id="navProgressPct">0%</span>
+        </div>
+        <button class="icon-btn" id="themeToggle" aria-label="Cambiar modo claro u oscuro" data-tooltip="Tema">
+          <i data-lucide="moon" width="18" height="18" id="themeIcon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== 1. PORTADA ========== -->
+    <section class="hero" id="inicio" aria-labelledby="heroTitle">
+      <div class="brand-bars" aria-hidden="true">
+        <span class="bar-blue-top"></span>
+        <span class="bar-purple-top"></span>
+        <span class="bar-yellow"></span>
+        <span class="bar-purple-bottom"></span>
+      </div>
+      <div class="container hero__grid">
+        <div>
+          <p class="section-kicker"><i data-lucide="zap" width="14" height="14"></i> Capacitación empresarial · Caso académico</p>
+          <h1 class="hero__title" id="heroTitle">Misión Copilot 365</h1>
+          <p class="hero__subtitle">De la productividad individual a la gestión inteligente de proyectos</p>
+          <p class="lead">Descubre cómo convertir información dispersa en decisiones, planes de acción y resultados empresariales con Microsoft Copilot.</p>
+          <div class="btn-group" style="margin-top:1.5rem">
+            <a class="btn btn--primary" href="#mision"><i data-lucide="play" width="18" height="18"></i> Iniciar misión</a>
+            <a class="btn btn--secondary" href="#ruta"><i data-lucide="route" width="18" height="18"></i> Ver ruta de aprendizaje</a>
+          </div>
+          <p class="disclaimer disclaimer--info" style="margin-top:1.5rem">
+            <i data-lucide="info" width="18" height="18"></i>
+            <span>Experiencia formativa ficticia para el sector energético. No representa operaciones, datos ni empresas reales.</span>
+          </p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-orb hero-orb--1"></div>
+          <div class="hero-orb hero-orb--2"></div>
+          <div class="hero-orb hero-orb--3"></div>
+          <div class="hero-core"><i data-lucide="bot"></i></div>
+          <div class="hero-card hero-card--a"><i data-lucide="file-text"></i> Documentos</div>
+          <div class="hero-card hero-card--b"><i data-lucide="bar-chart-3"></i> Datos</div>
+          <div class="hero-card hero-card--c"><i data-lucide="users"></i> Colaboración</div>
+          <div class="hero-card hero-card--d"><i data-lucide="lightbulb"></i> Decisiones</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 2. MISIÓN ========== -->
+    <section id="mision" aria-labelledby="misionTitle">
+      <div class="container">
+        <p class="section-kicker">Presentación</p>
+        <h2 class="section-title" id="misionTitle">Tu misión con Microsoft Copilot</h2>
+        <p class="lead">Avanzarás por tres niveles: de asistente personal a copiloto de proyectos. Cada etapa refuerza criterio humano, trazabilidad y uso responsable.</p>
+
+        <div class="grid grid-3" style="margin:2rem 0">
+          <article class="card level-card" data-level="01">
+            <div class="card__icon"><i data-lucide="user" width="22" height="22"></i></div>
+            <h3>Nivel 1 · Asistente personal</h3>
+            <p>Comprender correos, resumir y organizar información sin inventar datos.</p>
+          </article>
+          <article class="card level-card" data-level="02">
+            <div class="card__icon"><i data-lucide="users-round" width="22" height="22"></i></div>
+            <h3>Nivel 2 · Productividad y colaboración</h3>
+            <p>Adaptar comunicaciones, comparar documentos y priorizar el trabajo del equipo.</p>
+          </article>
+          <article class="card level-card" data-level="03">
+            <div class="card__icon card__icon--energy"><i data-lucide="briefcase" width="22" height="22"></i></div>
+            <h3>Nivel 3 · Gestión de proyectos</h3>
+            <p>Integrar fuentes, analizar riesgos y preparar recomendaciones para dirección.</p>
+          </article>
+        </div>
+
+        <h3 style="margin:2rem 0 1rem">Capacidades que practicarás</h3>
+        <div class="grid grid-6">
+          <article class="card"><div class="card__icon"><i data-lucide="book-open" width="20" height="20"></i></div><h3>Comprender</h3><p>Extraer hechos y objetivos.</p></article>
+          <article class="card"><div class="card__icon"><i data-lucide="folder-kanban" width="20" height="20"></i></div><h3>Organizar</h3><p>Ordenar y estructurar insumos.</p></article>
+          <article class="card"><div class="card__icon"><i data-lucide="search" width="20" height="20"></i></div><h3>Analizar</h3><p>Detectar patrones y desviaciones.</p></article>
+          <article class="card"><div class="card__icon"><i data-lucide="message-square" width="20" height="20"></i></div><h3>Comunicar</h3><p>Adaptar el mensaje a la audiencia.</p></article>
+          <article class="card"><div class="card__icon"><i data-lucide="calendar-check" width="20" height="20"></i></div><h3>Planificar</h3><p>Definir actividades e hitos.</p></article>
+          <article class="card"><div class="card__icon card__icon--energy"><i data-lucide="scale" width="20" height="20"></i></div><h3>Decidir</h3><p>Preparar opciones con evidencia.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 3. RUTA ========== -->
+    <section id="ruta" class="section-dark" aria-labelledby="rutaTitle">
+      <div class="container">
+        <p class="section-kicker">Ruta de aprendizaje</p>
+        <h2 class="section-title" id="rutaTitle">Ocho etapas hacia decisiones mejores</h2>
+        <p class="lead">Marca cada etapa al completarla. El estado se guarda en tu navegador.</p>
+        <div class="path-track" id="pathTrack" style="margin-top:2rem"></div>
+      </div>
+    </section>
+
+    <!-- ========== 4. SESIÓN 1 ========== -->
+    <section id="sesion1" aria-labelledby="s1Title">
+      <div class="container">
+        <p class="section-kicker">Sesión 1</p>
+        <h2 class="section-title" id="s1Title">Copilot para la productividad individual</h2>
+        <p class="lead">Utilizar Microsoft Copilot para comprender información, organizar el trabajo, preparar comunicaciones y convertir contenido disperso en productos útiles.</p>
+        <label class="principle" style="margin:1.25rem 0;cursor:pointer">
+          <input type="checkbox" data-progress="s1-done" />
+          <span><strong>Marcar Sesión 1 como finalizada</strong> cuando completes los retos y la autoevaluación.</span>
+        </label>
+
+        <!-- RETO 1 -->
+        <article class="reto is-open" data-reto="r1">
+          <button class="reto__header" aria-expanded="true">
+            <span class="reto__title-wrap">
+              <span class="reto__num">1</span>
+              <span>
+                <strong>Comprender una solicitud</strong>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Correo sobre intervención programada</span>
+              </span>
+            </span>
+            <span style="display:flex;align-items:center;gap:0.75rem">
+              <label onclick="event.stopPropagation()" style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;cursor:pointer">
+                <input type="checkbox" data-progress="reto-r1" /> Hecho
+              </label>
+              <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+            </span>
+          </button>
+          <div class="reto__body">
+            <div class="email-box">
+              <div class="email-meta">
+                <div><strong>De:</strong> Laura Méndez · Coordinación de Campo</div>
+                <div><strong>Para:</strong> Equipo de Operaciones Urbanas</div>
+                <div><strong>Asunto:</strong> Cambio de fecha — intervención programada Zona Norte</div>
+                <div><strong>Fecha:</strong> 14 de marzo de 2026</div>
+              </div>
+              <p>Buenos días,</p>
+              <p>La intervención de mantenimiento preventivo prevista para el <strong>22 de marzo</strong> en la zona norte debe reprogramarse al <strong>29 de marzo</strong> por disponibilidad de personal especializado. Solicito confirmación de recepción antes del <strong>18 de marzo</strong>.</p>
+              <p>El responsable técnico designado es <strong>Andrés Quintero</strong>. La comunidad aledaña ha expresado preocupación por el ruido nocturno; aún no hay decisión sobre si la jornada será diurna o nocturna.</p>
+            </div>
+            <p><strong>Identifica con Copilot:</strong></p>
+            <ul class="check-list">
+              <li><input type="checkbox" data-progress="r1-c1" /> Objetivo del correo</li>
+              <li><input type="checkbox" data-progress="r1-c2" /> Información importante</li>
+              <li><input type="checkbox" data-progress="r1-c3" /> Decisión pendiente</li>
+              <li><input type="checkbox" data-progress="r1-c4" /> Responsable</li>
+              <li><input type="checkbox" data-progress="r1-c5" /> Fechas relevantes</li>
+              <li><input type="checkbox" data-progress="r1-c6" /> Preguntas sin resolver</li>
+            </ul>
+            <p><strong>Prompt sugerido</strong></p>
+            <div class="prompt-box" id="prompt-r1">Analiza el siguiente correo. Identifica el objetivo principal, los hechos relevantes, las fechas, los responsables, los compromisos, las decisiones pendientes y las preguntas que aún deben resolverse. No inventes información. Presenta el resultado en una tabla.</div>
+            <button class="btn btn--sm btn--secondary" data-copy="#prompt-r1"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
+          </div>
+        </article>
+
+        <!-- RETO 2 -->
+        <article class="reto" data-reto="r2">
+          <button class="reto__header" aria-expanded="false">
+            <span class="reto__title-wrap">
+              <span class="reto__num">2</span>
+              <span>
+                <strong>Cadena de correos</strong>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Cronología y respuestas por audiencia</span>
+              </span>
+            </span>
+            <span style="display:flex;align-items:center;gap:0.75rem">
+              <label onclick="event.stopPropagation()" style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;cursor:pointer">
+                <input type="checkbox" data-progress="reto-r2" /> Hecho
+              </label>
+              <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+            </span>
+          </button>
+          <div class="reto__body">
+            <div class="tabs" role="tablist" aria-label="Cadena de correos">
+              <button class="tab" role="tab" aria-selected="true" data-tabs="cadena" data-tab="c1">Correo 1</button>
+              <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c2">Correo 2</button>
+              <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c3">Correo 3</button>
+              <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c4">Correo 4</button>
+            </div>
+            <div class="tab-panel is-active" data-tabs-panel="cadena" id="c1">
+              <div class="email-box"><strong>1 mar · Planeación:</strong> Se programa mantenimiento de transformador auxiliar el 12 mar, 08:00–14:00. Compromiso: notificar a usuarios 72 horas antes.</div>
+            </div>
+            <div class="tab-panel" data-tabs-panel="cadena" id="c2">
+              <div class="email-box"><strong>4 mar · Logística:</strong> El proveedor adelanta la entrega de repuestos. Se propone mover la ventana al 10 mar. Pendiente validar personal de seguridad.</div>
+            </div>
+            <div class="tab-panel" data-tabs-panel="cadena" id="c3">
+              <div class="email-box"><strong>6 mar · Seguridad:</strong> Confirma personal para el 10 mar, pero solicita ampliar el cierre de área hasta las 16:00. Señala riesgo si no hay señalización adicional.</div>
+            </div>
+            <div class="tab-panel" data-tabs-panel="cadena" id="c4">
+              <div class="email-box"><strong>7 mar · Gerencia de zona:</strong> Aprueba el 10 mar con cierre hasta 16:00. Pide mensaje claro a comunidad y reporte ejecutivo al finalizar.</div>
+            </div>
+            <p><strong>Con Copilot elabora:</strong> cronología, cambios, compromisos, respuesta ejecutiva y respuesta técnica.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Tipo</th><th>Enfoque</th><th>Extensión</th><th>Prioridad</th></tr></thead>
+                <tbody>
+                  <tr><td>Respuesta técnica</td><td>Procedimiento, tiempos, controles</td><td>Media-alta</td><td>Precisión operativa</td></tr>
+                  <tr><td>Respuesta ejecutiva</td><td>Decisión, impacto, siguiente paso</td><td>Corta</td><td>Claridad y riesgo</td></tr>
+                  <tr><td>Comunicación a usuarios</td><td>Qué, cuándo, cómo afecta</td><td>Muy corta</td><td>Simplicidad y empatía</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+
+        <!-- RETO 3 -->
+        <article class="reto" data-reto="r3">
+          <button class="reto__header" aria-expanded="false">
+            <span class="reto__title-wrap">
+              <span class="reto__num">3</span>
+              <span>
+                <strong>Reunión a plan de acción</strong>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">De transcripción a matriz de compromisos</span>
+              </span>
+            </span>
+            <span style="display:flex;align-items:center;gap:0.75rem">
+              <label onclick="event.stopPropagation()" style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;cursor:pointer">
+                <input type="checkbox" data-progress="reto-r3" /> Hecho
+              </label>
+              <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+            </span>
+          </button>
+          <div class="reto__body">
+            <div class="transcript-box">
+              <p><strong>Ana (líder):</strong> Propongo iniciar el diagnóstico el 2 de abril.</p>
+              <p><strong>Carlos (técnico):</strong> Podemos, si el acceso al tablero está liberado. Me preocupa que falte el permiso de trabajo en altura.</p>
+              <p><strong>Ana:</strong> Decidido: solicitamos el permiso esta semana. Sofía prepara el listado de materiales para el 28 de marzo.</p>
+              <p><strong>Diego:</strong> Sugiero incluir un ensayo de comunicación a vecinos; aún no está aprobado.</p>
+              <p><strong>Ana:</strong> Sofía también agenda la siguiente reunión para el 4 de abril. Estado de materiales: no especificado aún.</p>
+            </div>
+            <p>Genera: resumen, decisiones confirmadas, propuestas no aprobadas, matriz de compromisos y próxima agenda.</p>
+            <div class="prompt-box" id="prompt-r3">Analiza esta transcripción y diferencia claramente entre decisiones confirmadas, propuestas, opiniones, preguntas y tareas asignadas. Construye una matriz de compromisos con actividad, responsable, fecha y estado. Si un dato no aparece, indica ‘no especificado’.</div>
+            <button class="btn btn--sm btn--secondary" data-copy="#prompt-r3"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
+          </div>
+        </article>
+
+        <!-- RETO 4 -->
+        <article class="reto" data-reto="r4">
+          <button class="reto__header" aria-expanded="false">
+            <span class="reto__title-wrap">
+              <span class="reto__num">4</span>
+              <span>
+                <strong>Informe para tres audiencias</strong>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Adaptar lenguaje y prioridad</span>
+              </span>
+            </span>
+            <span style="display:flex;align-items:center;gap:0.75rem">
+              <label onclick="event.stopPropagation()" style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;cursor:pointer">
+                <input type="checkbox" data-progress="reto-r4" /> Hecho
+              </label>
+              <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+            </span>
+          </button>
+          <div class="reto__body">
+            <div class="doc-box">
+              <p><strong>Informe técnico ficticio — Falla menor en sensor de temperatura (Subestación Urbana 7)</strong></p>
+              <p>Durante inspección rutinaria se detectó lectura intermitente en sensor ST-14. Se activó protocolo de verificación. No hubo interrupción de servicio. Se reemplazará el sensor en ventana de mantenimiento del 5 de abril. Impacto estimado: bajo. Se requiere validación de inventario y notificación preventiva a la comunidad si se extiende el cierre de área.</p>
+            </div>
+            <p>Solicita a Copilot tres versiones: resumen técnico, resumen gerencial y comunicación sencilla para comunidad.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Audiencia</th><th>Nivel de detalle</th><th>Lenguaje</th><th>Extensión</th><th>Información prioritaria</th></tr></thead>
+                <tbody>
+                  <tr><td>Técnica</td><td>Alto</td><td>Especializado</td><td>Media</td><td>Causa, protocolo, acción</td></tr>
+                  <tr><td>Gerencia</td><td>Medio</td><td>Ejecutivo</td><td>Corta</td><td>Impacto, riesgo, decisión</td></tr>
+                  <tr><td>Comunidad</td><td>Bajo</td><td>Simple</td><td>Muy corta</td><td>Qué ocurre y cómo afecta</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+
+        <!-- RETO 5 -->
+        <article class="reto" data-reto="r5">
+          <button class="reto__header" aria-expanded="false">
+            <span class="reto__title-wrap">
+              <span class="reto__num">5</span>
+              <span>
+                <strong>Comparación de documentos</strong>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Cambios de texto y de significado</span>
+              </span>
+            </span>
+            <span style="display:flex;align-items:center;gap:0.75rem">
+              <label onclick="event.stopPropagation()" style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;cursor:pointer">
+                <input type="checkbox" data-progress="reto-r5" /> Hecho
+              </label>
+              <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+            </span>
+          </button>
+          <div class="reto__body">
+            <div class="grid grid-2">
+              <div class="doc-box">
+                <strong>Versión A — Procedimiento anterior</strong>
+                <p>1. Notificar a usuarios con 48 horas de anticipación.<br>2. El supervisor de turno autoriza el inicio.<br>3. Registro de hallazgos en planilla física.<br>4. Cierre operativo antes de las 17:00.</p>
+              </div>
+              <div class="doc-box">
+                <strong>Versión B — Procedimiento actualizado</strong>
+                <p>1. Notificar a usuarios con 72 horas de anticipación.<br>2. El líder de seguridad y el supervisor autorizan el inicio.<br>3. Registro de hallazgos en sistema digital compartido.<br>4. Cierre operativo antes de las 16:00, salvo excepción documentada.</p>
+              </div>
+            </div>
+            <p>Identifica cambios, eliminaciones, nuevas responsabilidades, fechas, contradicciones, impactos y validaciones.</p>
+            <div class="prompt-box" id="prompt-r5">Compara las dos versiones del documento. No te limites a resumir. Identifica cambios textuales y cambios de significado. Presenta una tabla con tema, versión anterior, versión actual, impacto posible y validación requerida.</div>
+            <button class="btn btn--sm btn--secondary" data-copy="#prompt-r5"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
+          </div>
+        </article>
+
+        <!-- RETO 6 -->
+        <article class="reto" data-reto="r6">
+          <button class="reto__header" aria-expanded="false">
+            <span class="reto__title-wrap">
+              <span class="reto__num">6</span>
+              <span>
+                <strong>Priorización del trabajo</strong>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Agenda, delegación y criterio humano</span>
+              </span>
+            </span>
+            <span style="display:flex;align-items:center;gap:0.75rem">
+              <label onclick="event.stopPropagation()" style="display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;cursor:pointer">
+                <input type="checkbox" data-progress="reto-r6" /> Hecho
+              </label>
+              <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+            </span>
+          </button>
+          <div class="reto__body">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>#</th><th>Tarea</th><th>Urgencia</th><th>Impacto</th><th>Dependencia</th><th>Fecha</th><th>Responsable</th><th>Riesgo retraso</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>Responder consulta de seguridad</td><td>Alta</td><td>Alto</td><td>Ninguna</td><td>Hoy 11:00</td><td>Tú</td><td>Alto</td></tr>
+                  <tr><td>2</td><td>Revisar borrador de cronograma</td><td>Media</td><td>Alto</td><td>Datos del contratista</td><td>Hoy 17:00</td><td>Tú</td><td>Medio</td></tr>
+                  <tr><td>3</td><td>Actualizar registro de riesgos</td><td>Media</td><td>Alto</td><td>Informe de campo</td><td>Mañana</td><td>Tú</td><td>Medio</td></tr>
+                  <tr><td>4</td><td>Agendar reunión con comunidad</td><td>Alta</td><td>Medio</td><td>Disponibilidad sala</td><td>Hoy 15:00</td><td>Asistente</td><td>Bajo</td></tr>
+                  <tr><td>5</td><td>Preparar resumen ejecutivo</td><td>Alta</td><td>Alto</td><td>KPI de avance</td><td>Mañana 09:00</td><td>Tú</td><td>Alto</td></tr>
+                  <tr><td>6</td><td>Ordenar carpetas de SharePoint</td><td>Baja</td><td>Bajo</td><td>Ninguna</td><td>Viernes</td><td>Practicante</td><td>Bajo</td></tr>
+                  <tr><td>7</td><td>Validar permiso ambiental</td><td>Alta</td><td>Alto</td><td>Área jurídica</td><td>Hoy</td><td>Especialista</td><td>Alto</td></tr>
+                  <tr><td>8</td><td>Redactar mensaje a proveedor</td><td>Media</td><td>Medio</td><td>Confirmación de fecha</td><td>Hoy 16:00</td><td>Tú</td><td>Medio</td></tr>
+                  <tr><td>9</td><td>Revisar facturas menores</td><td>Baja</td><td>Bajo</td><td>Ninguna</td><td>Viernes</td><td>Finanzas</td><td>Bajo</td></tr>
+                  <tr><td>10</td><td>Decidir escenario de reprogramación</td><td>Alta</td><td>Alto</td><td>Análisis de impacto</td><td>Mañana</td><td>Comité</td><td>Alto</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Pide a Copilot: clasificar, priorizar, proponer agenda, señalar lo delegable y lo que exige criterio humano.</p>
+          </div>
+        </article>
+
+        <!-- AUTOEVALUACIÓN S1 -->
+        <div class="card" style="margin-top:2rem" id="autoeval">
+          <h3>Autoevaluación · Sesión 1</h3>
+          <p class="lead">Cinco preguntas. Retroalimentación inmediata. El puntaje se guarda localmente.</p>
+          <div id="quizContainer"></div>
+          <p><strong>Puntaje:</strong> <span id="quizScore">0</span> / 5</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 5. DESAFÍO ========== -->
+    <section id="desafio" class="section-dark" aria-labelledby="desafioTitle">
+      <div class="container">
+        <p class="section-kicker">Entre sesiones</p>
+        <h2 class="section-title" id="desafioTitle">Mi oportunidad Copilot</h2>
+        <p class="lead">Elige una tarea real de tu rol (sin datos sensibles) y diseña cómo Copilot podría apoyarte.</p>
+        <form class="card" id="oportunidadForm" style="margin-top:1.5rem;color:var(--text)">
+          <div class="form-grid cols-2">
+            <div class="field"><label for="opTarea">Tarea seleccionada</label><input id="opTarea" name="tarea" /></div>
+            <div class="field"><label for="opProceso">Proceso actual</label><input id="opProceso" name="proceso" /></div>
+            <div class="field"><label for="opTiempo">Tiempo aproximado</label><input id="opTiempo" name="tiempo" placeholder="Ej. 2 horas" /></div>
+            <div class="field"><label for="opDificultad">Dificultad</label>
+              <select id="opDificultad" name="dificultad"><option>Baja</option><option>Media</option><option selected>Alta</option></select>
+            </div>
+            <div class="field" style="grid-column:1/-1"><label for="opInfo">Información necesaria</label><textarea id="opInfo" name="info"></textarea></div>
+            <div class="field"><label for="opApoyo">Apoyo esperado de Copilot</label><textarea id="opApoyo" name="apoyo"></textarea></div>
+            <div class="field"><label for="opResultado">Resultado esperado</label><textarea id="opResultado" name="resultado"></textarea></div>
+            <div class="field"><label for="opValidacion">Validación humana requerida</label><textarea id="opValidacion" name="validacion"></textarea></div>
+            <div class="field"><label for="opRiesgo">Riesgo asociado</label><textarea id="opRiesgo" name="riesgo"></textarea></div>
+            <div class="field" style="grid-column:1/-1"><label for="opIndicador">Indicador de éxito</label><input id="opIndicador" name="indicador" /></div>
+          </div>
+          <div class="btn-group" style="margin-top:1.25rem">
+            <button type="button" class="btn btn--primary" id="opSave"><i data-lucide="save" width="16" height="16"></i> Guardar</button>
+            <button type="button" class="btn btn--secondary" id="opClear"><i data-lucide="eraser" width="16" height="16"></i> Limpiar</button>
+            <button type="button" class="btn btn--secondary" id="opPrint"><i data-lucide="printer" width="16" height="16"></i> Imprimir</button>
+            <button type="button" class="btn btn--secondary" id="opDownload"><i data-lucide="download" width="16" height="16"></i> Descargar TXT</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== 6. SESIÓN 2 ========== -->
+    <section id="sesion2" aria-labelledby="s2Title">
+      <div class="container">
+        <p class="section-kicker">Sesión 2</p>
+        <h2 class="section-title" id="s2Title">Copilot para la gestión inteligente de proyectos</h2>
+        <p class="lead">Integrar información de diferentes fuentes para comprender, estructurar, analizar y comunicar un proyecto empresarial.</p>
+        <div class="disclaimer">
+          <i data-lucide="alert-triangle" width="18" height="18"></i>
+          <span><strong>Caso académico ficticio.</strong> No corresponde a una operación ni a una empresa real.</span>
+        </div>
+        <label class="principle" style="margin:1rem 0;cursor:pointer">
+          <input type="checkbox" data-progress="s2-done" />
+          <span><strong>Marcar Sesión 2 como finalizada</strong> al completar las fases del caso.</span>
+        </label>
+
+        <div class="card" style="margin:1.5rem 0">
+          <h3>Proyecto Horizonte</h3>
+          <p>Modernización de infraestructura energética urbana. Una organización ficticia del sector energético planea modernizar una instalación para mejorar la confiabilidad del servicio en una zona urbana en crecimiento.</p>
+          <div class="grid grid-4" style="margin-top:1rem">
+            <div class="principle">Plazo limitado</div>
+            <div class="principle">Presupuesto controlado</div>
+            <div class="principle">Contratistas y seguridad</div>
+            <div class="principle">Comunidad y ambiente</div>
+          </div>
+        </div>
+
+        <h3>Documentos del caso</h3>
+        <div class="tabs" role="tablist" aria-label="Documentos del caso">
+          <button class="tab" role="tab" aria-selected="true" data-tabs="docs" data-tab="d1">1. Correo</button>
+          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d2">2. Acta</button>
+          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d3">3. Ficha</button>
+          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d4">4. Cronograma</button>
+          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d5">5. Presupuesto</button>
+          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d6">6. Riesgos</button>
+          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d7">7. Comunidad</button>
+          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d8">8. Avance</button>
+          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d9">9. Proveedor</button>
+          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d10">10. Comité</button>
+        </div>
+        <div class="tab-panel is-active doc-box" data-tabs-panel="docs" id="d1"><strong>Correo de inicio:</strong> Se autoriza el arranque del Proyecto Horizonte. Objetivo: elevar confiabilidad en zona urbana en crecimiento. Primer hito: diagnóstico en 30 días. Patrocinador: Dirección de Operaciones.</div>
+        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d2"><strong>Acta de reunión:</strong> Se acuerda equipo núcleo, ventana de intervención preferente diurna, y necesidad de plan de comunicación comunitaria antes de obras mayores.</div>
+        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d3"><strong>Ficha del proyecto:</strong> Alcance: modernizar tableros y sistemas de monitoreo. Exclusiones: red de distribución secundaria. Entregable clave: sistema de supervisión actualizado y protocolo de operación.</div>
+        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d4"><strong>Cronograma preliminar:</strong> Diagnóstico (sem 1–4), diseño (5–8), aprovisionamiento (7–12), intervención (13–18), pruebas (19–20). Camino crítico: entrega de equipo principal.</div>
+        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d5"><strong>Presupuesto resumido:</strong> Total estimado 100 u.m. Equipos 48%, obras 22%, ingeniería 15%, contingencia 10%, comunicación 5%.</div>
+        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d6"><strong>Registro inicial de riesgos:</strong> Retraso de proveedor (alto), rechazo comunitario por horarios (medio), hallazgo ambiental no previsto (medio), indisponibilidad de personal crítico (alto).</div>
+        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d7"><strong>Comentarios de la comunidad:</strong> Solicitan evitar trabajos nocturnos, más señalización y un canal de atención durante la intervención.</div>
+        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d8"><strong>Informe de avance:</strong> Avance real 46% vs esperado 58%. Presupuesto ejecutado 52%. Tres actividades críticas retrasadas. Cuatro riesgos altos abiertos.</div>
+        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d9"><strong>Notificación del proveedor:</strong> El equipo principal llegará con tres semanas de retraso respecto a la fecha comprometida.</div>
+        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d10"><strong>Solicitud del comité:</strong> Presentar escenarios, impactos y recomendación argumentada en la próxima sesión directiva.</div>
+
+        <!-- FASES -->
+        <div style="margin-top:2.5rem">
+          <article class="reto is-open">
+            <button class="reto__header" aria-expanded="true">
+              <span class="reto__title-wrap"><span class="reto__num">F1</span><span><strong>Comprender el proyecto</strong></span></span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-1" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <p>Elabora: objetivo, justificación, alcance, exclusiones, entregables, supuestos, restricciones, interesados, información faltante y preguntas de validación.</p>
+              <div class="prompt-box" id="prompt-f1">Rol: actúa como analista de proyectos energéticos. Contexto: caso académico ficticio Proyecto Horizonte. Tarea: construir un brief de comprensión del proyecto a partir solo de los documentos suministrados. Criterios: no inventar; separar hechos de supuestos; listar vacíos. Formato: secciones numeradas. Verificación: marca cada ítem como ‘evidenciado’ o ‘no especificado’.</div>
+              <button class="btn btn--sm btn--secondary" data-copy="#prompt-f1"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt avanzado</button>
+            </div>
+          </article>
+
+          <article class="reto">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap"><span class="reto__num">F2</span><span><strong>Planificar</strong></span></span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-2" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <p>Solicita: EDT, hitos, actividades, dependencias, responsables, criterios de aceptación, matriz RACI y cronograma de alto nivel.</p>
+              <div class="disclaimer disclaimer--danger">
+                <i data-lucide="shield-alert" width="18" height="18"></i>
+                <span>Copilot puede proponer una estructura, pero las fechas, dependencias y responsabilidades deben validarse con el equipo del proyecto.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="reto">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap"><span class="reto__num">F3</span><span><strong>Analizar riesgos</strong></span></span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-3" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="btn-group" style="margin-bottom:0.75rem">
+                <label class="field" style="margin:0">Categoría
+                  <select id="riskFilterCat"><option value="all">Todas</option>
+                    <option>Técnico</option><option>Operativo</option><option>Seguridad</option><option>Ambiental</option><option>Social</option><option>Contractual</option><option>Financiero</option><option>Regulatorio</option><option>Reputacional</option>
+                  </select>
+                </label>
+                <label class="field" style="margin:0">Nivel
+                  <select id="riskFilterNivel"><option value="all">Todos</option><option>Bajo</option><option>Medio</option><option>Alto</option></select>
+                </label>
+                <button type="button" class="btn btn--sm btn--energy" id="addRiskRow"><i data-lucide="plus" width="14" height="14"></i> Agregar riesgo</button>
+              </div>
+              <div class="table-wrap">
+                <table id="riskTable">
+                  <thead>
+                    <tr>
+                      <th>Riesgo</th><th>Categoría</th><th>Causa</th><th>Consecuencia</th><th>Prob.</th><th>Impacto</th><th>Nivel</th><th>Respuesta</th><th>Responsable</th><th>Alerta</th>
+                    </tr>
+                  </thead>
+                  <tbody id="riskBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+
+          <article class="reto">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap"><span class="reto__num">F4</span><span><strong>Gestionar interesados</strong></span></span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-4" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Interesado</th><th>Interés</th><th>Influencia</th><th>Necesidad info</th><th>Mensaje</th><th>Canal</th><th>Frecuencia</th><th>Responsable</th></tr></thead>
+                  <tbody>
+                    <tr><td>Comité directivo</td><td>Alto</td><td>Alta</td><td>Estado y decisiones</td><td>Riesgo y opciones</td><td>Presentación</td><td>Quincenal</td><td>PM</td></tr>
+                    <tr><td>Equipo técnico</td><td>Alto</td><td>Media</td><td>Plan y cambios</td><td>Prioridades</td><td>Reunión</td><td>Semanal</td><td>Líder técnico</td></tr>
+                    <tr><td>Comunidad</td><td>Alto</td><td>Media</td><td>Horarios e impacto</td><td>Qué cambia y cuándo</td><td>Boletín / reunión</td><td>Por hito</td><td>Comunicaciones</td></tr>
+                    <tr><td>Proveedor</td><td>Medio</td><td>Alta</td><td>Fechas y recepción</td><td>Compromisos</td><td>Correo</td><td>Según hito</td><td>Compras</td></tr>
+                    <tr><td>Área ambiental</td><td>Alto</td><td>Media</td><td>Controles</td><td>Cumplimiento plan</td><td>Informe</td><td>Mensual</td><td>HSE</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <h4>Mapa poder / interés</h4>
+              <div class="stakeholder-map" id="stakeMap" aria-label="Mapa de poder e interés">
+                <span class="stakeholder-map__label stakeholder-map__label--top">Alta influencia</span>
+                <span class="stakeholder-map__label stakeholder-map__label--bottom">Baja influencia</span>
+                <span class="stakeholder-map__label stakeholder-map__label--left">Bajo interés</span>
+                <span class="stakeholder-map__label stakeholder-map__label--right">Alto interés</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="reto">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap"><span class="reto__num">F5</span><span><strong>Analizar el avance</strong></span></span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-5" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="grid grid-3">
+                <div class="card kpi"><div class="kpi__value">58%</div><div class="kpi__label">Avance esperado</div></div>
+                <div class="card kpi"><div class="kpi__value">46%</div><div class="kpi__label">Avance real</div></div>
+                <div class="card kpi"><div class="kpi__value">52%</div><div class="kpi__label">Presupuesto ejecutado</div></div>
+                <div class="card kpi"><div class="kpi__value">3</div><div class="kpi__label">Actividades críticas retrasadas</div></div>
+                <div class="card kpi"><div class="kpi__value">4</div><div class="kpi__label">Riesgos altos</div></div>
+                <div class="card kpi"><div class="kpi__value">3</div><div class="kpi__label">Decisiones pendientes</div></div>
+              </div>
+              <div class="chart-wrap"><canvas id="avanceChart" aria-label="Gráfica de avance"></canvas></div>
+              <div class="form-grid">
+                <div class="field"><label for="av1">¿Qué está ocurriendo?</label><textarea id="av1" data-store="avance.q1"></textarea></div>
+                <div class="field"><label for="av2">¿Qué se está desviando?</label><textarea id="av2" data-store="avance.q2"></textarea></div>
+                <div class="field"><label for="av3">¿Cuáles podrían ser las causas?</label><textarea id="av3" data-store="avance.q3"></textarea></div>
+                <div class="field"><label for="av4">¿Qué impacto tendría?</label><textarea id="av4" data-store="avance.q4"></textarea></div>
+                <div class="field"><label for="av5">¿Qué información falta?</label><textarea id="av5" data-store="avance.q5"></textarea></div>
+                <div class="field"><label for="av6">¿Qué decisiones requiere el comité?</label><textarea id="av6" data-store="avance.q6"></textarea></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="reto">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap"><span class="reto__num">F6</span><span><strong>Evento crítico</strong></span></span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-6" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="disclaimer">
+                <i data-lucide="alert-triangle" width="18" height="18"></i>
+                <span>El proveedor informa que el equipo principal llegará con tres semanas de retraso. Al mismo tiempo, representantes de la comunidad solicitan modificar el horario de intervención.</span>
+              </div>
+              <p>Construye con Copilot: análisis de impacto, escenarios, ventajas/desventajas, mitigación, preguntas a especialistas, mensaje a proveedor, comunicación a comunidad y resumen a dirección.</p>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Dimensión</th><th>A. Mantener plan</th><th>B. Reprogramar parcialmente</th><th>C. Solución temporal</th></tr></thead>
+                  <tbody>
+                    <tr><td>Plazo</td><td>Riesgo alto de incumplimiento</td><td>Ajuste controlado</td><td>Cumple parcial, cierra gap</td></tr>
+                    <tr><td>Costo</td><td>Posibles sobrecostos por prisa</td><td>Costo de replanificación</td><td>Costo adicional temporal</td></tr>
+                    <tr><td>Comunidad</td><td>Conflicto de horarios</td><td>Negociación de ventanas</td><td>Menor impacto inmediato</td></tr>
+                    <tr><td>Operación</td><td>Presión sobre camino crítico</td><td>Redistribución de actividades</td><td>Dependencia de solución puente</td></tr>
+                    <tr><td>Decisión clave</td><td>Forzar recuperación</td><td>Rebaseline parcial</td><td>Aprobar bridge + plan B</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+
+          <article class="reto">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap"><span class="reto__num">F7</span><span><strong>Comité directivo</strong></span></span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-7" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <ol>
+                <li>Resumen ejecutivo</li><li>Estado del proyecto</li><li>Desviaciones</li><li>Riesgos prioritarios</li>
+                <li>Escenarios evaluados</li><li>Recomendación argumentada</li><li>Decisiones requeridas</li>
+                <li>Próximos pasos</li><li>Información pendiente de validación</li><li>Registro de supuestos</li>
+              </ol>
+              <h4>Plantilla visual · 8 diapositivas</h4>
+              <div class="slides" aria-label="Plantilla de presentación">
+                <div class="slide"><span class="slide__num">01</span><h4>Portada y propósito</h4><p>Proyecto Horizonte · decisión solicitada</p></div>
+                <div class="slide"><span class="slide__num">02</span><h4>Estado actual</h4><p>Avance, presupuesto, hitos</p></div>
+                <div class="slide"><span class="slide__num">03</span><h4>Desviaciones</h4><p>Qué, cuánto, desde cuándo</p></div>
+                <div class="slide"><span class="slide__num">04</span><h4>Riesgos prioritarios</h4><p>Top 4 con señales de alerta</p></div>
+                <div class="slide"><span class="slide__num">05</span><h4>Escenarios A / B / C</h4><p>Impacto comparado</p></div>
+                <div class="slide"><span class="slide__num">06</span><h4>Recomendación</h4><p>Argumentos y supuestos</p></div>
+                <div class="slide"><span class="slide__num">07</span><h4>Decisiones pedidas</h4><p>Qué debe aprobar el comité</p></div>
+                <div class="slide"><span class="slide__num">08</span><h4>Próximos 14 días</h4><p>Dueños, fechas, validaciones</p></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 7. PROMPTS ========== -->
+    <section id="prompts" class="section-dark" aria-labelledby="promptsTitle">
+      <div class="container">
+        <p class="section-kicker">Biblioteca</p>
+        <h2 class="section-title" id="promptsTitle">Biblioteca de prompts</h2>
+        <p class="lead">Filtra, copia y marca favoritos. Todo se guarda en LocalStorage.</p>
+
+        <h3 style="margin-top:2rem">Fórmula</h3>
+        <div class="formula" aria-label="Estructura de un buen prompt">
+          <div class="formula__step">Rol<span>quién eres</span></div>
+          <div class="formula__step">Contexto<span>situación</span></div>
+          <div class="formula__step">Tarea<span>qué hacer</span></div>
+          <div class="formula__step">Criterios<span>cómo hacerlo</span></div>
+          <div class="formula__step">Formato<span>cómo entregar</span></div>
+          <div class="formula__step">Verificación<span>cómo validar</span></div>
+        </div>
+
+        <div class="card" style="margin:1.5rem 0;color:var(--text)">
+          <h3>Constructor de prompts</h3>
+          <div class="form-grid cols-2">
+            <div class="field"><label for="pcRol">Rol</label><input id="pcRol" value="Analista de proyectos" /></div>
+            <div class="field"><label for="pcContexto">Contexto</label><input id="pcContexto" value="Caso académico Proyecto Horizonte" /></div>
+            <div class="field"><label for="pcTarea">Tarea</label><input id="pcTarea" value="Resumir riesgos prioritarios" /></div>
+            <div class="field"><label for="pcFuente">Fuente de información</label><input id="pcFuente" value="Documentos del caso" /></div>
+            <div class="field"><label for="pcCriterios">Criterios</label><input id="pcCriterios" value="No inventar; separar hechos e inferencias" /></div>
+            <div class="field"><label for="pcFormato">Formato</label><input id="pcFormato" value="Tabla con evidencia" /></div>
+            <div class="field"><label for="pcRestricciones">Restricciones</label><input id="pcRestricciones" value="Sin datos sensibles ni marcas reales" /></div>
+            <div class="field"><label for="pcVerif">Verificación</label><input id="pcVerif" value="Indicar ‘no especificado’ cuando falte dato" /></div>
+          </div>
+          <button class="btn btn--primary" id="buildPrompt" style="margin-top:1rem"><i data-lucide="wand-2" width="16" height="16"></i> Construir prompt</button>
+          <div class="prompt-box" id="builtPrompt" style="margin-top:1rem">Completa los campos y presiona “Construir prompt”.</div>
+          <button class="btn btn--sm btn--secondary" data-copy="#builtPrompt"><i data-lucide="copy" width="14" height="14"></i> Copiar</button>
+        </div>
+
+        <div class="filter-bar" id="promptFilters" role="toolbar" aria-label="Filtros de prompts"></div>
+        <div class="grid grid-2" id="promptLibrary"></div>
+      </div>
+    </section>
+
+    <!-- ========== 8. KIT ========== -->
+    <section id="recursos" aria-labelledby="recursosTitle">
+      <div class="container">
+        <p class="section-kicker">Kit de recursos</p>
+        <h2 class="section-title" id="recursosTitle">Plantillas editables</h2>
+        <p class="lead">Copia la plantilla y úsala en Word, OneNote o el bloc de notas.</p>
+        <div class="grid grid-2" id="templatesGrid" style="margin-top:1.5rem"></div>
+      </div>
+    </section>
+
+    <!-- ========== 9. EVALUACIÓN ========== -->
+    <section id="evaluacion" class="section-dark" aria-labelledby="evalTitle">
+      <div class="container">
+        <p class="section-kicker">Seguimiento</p>
+        <h2 class="section-title" id="evalTitle">Evaluación y seguimiento</h2>
+        <div class="grid grid-3" style="margin:1.5rem 0">
+          <div class="card kpi"><div class="kpi__value" id="statRetos">0</div><div class="kpi__label">Retos completados</div></div>
+          <div class="card kpi"><div class="kpi__value" id="statFavs">0</div><div class="kpi__label">Prompts favoritos</div></div>
+          <div class="card kpi"><div class="kpi__value" id="statSesiones">0</div><div class="kpi__label">Sesiones finalizadas</div></div>
+          <div class="card kpi"><div class="kpi__value" id="statQuiz">0</div><div class="kpi__label">Puntaje autoevaluación</div></div>
+          <div class="card kpi"><div class="kpi__value" id="statFinal">No</div><div class="kpi__label">Proyecto final</div></div>
+          <div class="card kpi"><div class="kpi__value" id="statPct">0%</div><div class="kpi__label">Porcentaje general</div></div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn--secondary" id="resetProgress"><i data-lucide="rotate-ccw" width="16" height="16"></i> Reiniciar progreso</button>
+          <button class="btn btn--primary" id="printCert"><i data-lucide="award" width="16" height="16"></i> Imprimir certificado simbólico</button>
+          <button class="btn btn--secondary" id="downloadProgress"><i data-lucide="download" width="16" height="16"></i> Descargar resumen</button>
+        </div>
+        <div class="certificate" id="certificate" style="margin-top:2rem;color:var(--text)">
+          <img src="/logo.png" alt="ECCO · Universidad Sergio Arboleda" class="footer__logo" style="margin:0 auto 1rem;" width="240" height="73" />
+          <p class="section-kicker" style="justify-content:center">Certificado simbólico</p>
+          <h3>Misión Copilot 365</h3>
+          <p>Se reconoce la participación formativa en la experiencia académica ficticia.</p>
+          <p class="meta">Participante: <span id="certName">Profesional en formación</span></p>
+          <p class="meta">Avance: <span id="certPct">0%</span> · Fecha: <span id="certDate"></span></p>
+          <p class="meta">Este certificado no constituye acreditación oficial ni evidencia de cumplimiento normativo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 10. PROYECTO FINAL ========== -->
+    <section id="proyecto-final" aria-labelledby="pfTitle">
+      <div class="container">
+        <p class="section-kicker">Proyecto final personal</p>
+        <h2 class="section-title" id="pfTitle">Mi caso de uso de Copilot</h2>
+        <form class="card" id="proyectoForm">
+          <div class="form-grid cols-2">
+            <div class="field"><label for="pfProblema">Problema</label><textarea id="pfProblema" name="problema"></textarea></div>
+            <div class="field"><label for="pfArea">Área</label><input id="pfArea" name="area" /></div>
+            <div class="field"><label for="pfUsuarios">Usuarios</label><input id="pfUsuarios" name="usuarios" /></div>
+            <div class="field"><label for="pfEntrada">Información de entrada</label><textarea id="pfEntrada" name="entrada"></textarea></div>
+            <div class="field"><label for="pfTarea">Tarea actual</label><textarea id="pfTarea" name="tarea"></textarea></div>
+            <div class="field"><label for="pfEsperado">Resultado esperado</label><textarea id="pfEsperado" name="esperado"></textarea></div>
+            <div class="field"><label for="pfApps">Aplicaciones Microsoft 365</label><input id="pfApps" name="apps" placeholder="Outlook, Teams, Word, Excel, PowerPoint..." /></div>
+            <div class="field"><label for="pfPrompt">Prompt principal</label><textarea id="pfPrompt" name="prompt"></textarea></div>
+            <div class="field"><label for="pfVal">Validación humana</label><textarea id="pfVal" name="validacion"></textarea></div>
+            <div class="field"><label for="pfRiesgos">Riesgos</label><textarea id="pfRiesgos" name="riesgos"></textarea></div>
+            <div class="field"><label for="pfInd">Indicadores</label><input id="pfInd" name="indicadores" /></div>
+            <div class="field"><label for="pf30">Plan 30 días</label><textarea id="pf30" name="d30"></textarea></div>
+            <div class="field"><label for="pf60">Plan 60 días</label><textarea id="pf60" name="d60"></textarea></div>
+            <div class="field"><label for="pf90">Plan 90 días</label><textarea id="pf90" name="d90"></textarea></div>
+          </div>
+          <label class="principle" style="margin-top:1rem;cursor:pointer">
+            <input type="checkbox" data-progress="proyecto-final" id="pfDone" />
+            <span>Marcar proyecto final como completado</span>
+          </label>
+          <div class="btn-group" style="margin-top:1rem">
+            <button type="button" class="btn btn--primary" id="pfSave"><i data-lucide="save" width="16" height="16"></i> Guardar</button>
+          </div>
+          <div class="preview-panel" id="pfPreview" aria-live="polite">
+            <h3>Vista previa automática</h3>
+            <p class="text-muted">Completa el formulario para ver el resumen.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== 11. USO RESPONSABLE + CIERRE ========== -->
+    <section id="cierre" class="section-dark" aria-labelledby="cierreTitle">
+      <div class="container">
+        <p class="section-kicker">Uso responsable</p>
+        <h2 class="section-title" id="cierreTitle">Principios antes de decidir</h2>
+        <div class="principles" style="margin:1.5rem 0">
+          <div class="principle"><i data-lucide="lock" width="18" height="18"></i><span>Proteger información confidencial.</span></div>
+          <div class="principle"><i data-lucide="key-round" width="18" height="18"></i><span>Respetar permisos de acceso.</span></div>
+          <div class="principle"><i data-lucide="check-circle-2" width="18" height="18"></i><span>Verificar respuestas de Copilot.</span></div>
+          <div class="principle"><i data-lucide="git-compare" width="18" height="18"></i><span>Diferenciar hechos e inferencias.</span></div>
+          <div class="principle"><i data-lucide="hand" width="18" height="18"></i><span>Evitar decisiones automáticas de alto impacto.</span></div>
+          <div class="principle"><i data-lucide="eye" width="18" height="18"></i><span>Mantener supervisión humana.</span></div>
+          <div class="principle"><i data-lucide="file-warning" width="18" height="18"></i><span>Documentar supuestos.</span></div>
+          <div class="principle"><i data-lucide="shield-off" width="18" height="18"></i><span>No cargar datos sensibles sin autorización.</span></div>
+        </div>
+
+        <h3>Lista de verificación antes de usar Copilot</h3>
+        <ul class="check-list card" style="color:var(--text)">
+          <li><input type="checkbox" data-progress="resp-1" /> ¿Tengo autorización para usar esta información?</li>
+          <li><input type="checkbox" data-progress="resp-2" /> ¿Eliminé datos personales o sensibles innecesarios?</li>
+          <li><input type="checkbox" data-progress="resp-3" /> ¿Indiqué audiencia, formato y restricciones?</li>
+          <li><input type="checkbox" data-progress="resp-4" /> ¿Voy a verificar hechos, fechas y responsables?</li>
+          <li><input type="checkbox" data-progress="resp-5" /> ¿La decisión final queda en manos humanas?</li>
+        </ul>
+
+        <div class="card" style="margin-top:2rem;color:var(--text);text-align:center">
+          <h3>Cierre de la experiencia</h3>
+          <p>Has recorrido el camino desde la productividad individual hasta la preparación de decisiones de proyecto con Microsoft Copilot y Microsoft 365.</p>
+          <p><strong>Recuerda:</strong> Copilot acelera el análisis; tú aportas el criterio, el contexto organizacional y la responsabilidad de la decisión.</p>
+          <div class="btn-group" style="justify-content:center;margin-top:1rem">
+            <a class="btn btn--primary" href="#evaluacion">Ver mi progreso</a>
+            <a class="btn btn--secondary" href="#inicio">Volver al inicio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer__inner">
+      <img class="footer__logo" src="/logo.png" alt="ECCO · Universidad Sergio Arboleda" width="280" height="85" />
+      <p class="footer__meta"><strong>Misión Copilot 365</strong> · Capacitación empresarial ficticia · Sector energético (caso académico)</p>
+      <p class="footer__meta">No utiliza marcas de clientes ni datos reales. Microsoft Copilot y Microsoft 365 se mencionan como herramientas de aprendizaje.</p>
+      <p class="footer__meta">Identidad visual de referencia: ECCO · Universidad Sergio Arboleda.</p>
+    </div>
+    <div class="footer__bar" aria-hidden="true"></div>
+  </footer>
+
+  <button class="back-top" id="backTop" aria-label="Volver arriba"><i data-lucide="arrow-up" width="20" height="20"></i></button>
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <div class="modal-backdrop" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 id="modalTitle">Confirmar acción</h3>
+        <button class="icon-btn" id="modalClose" aria-label="Cerrar"><i data-lucide="x" width="18" height="18"></i></button>
+      </div>
+      <p id="modalText">¿Deseas continuar?</p>
+      <div class="btn-group" style="margin-top:1rem">
+        <button class="btn btn--primary" id="modalConfirm">Confirmar</button>
+        <button class="btn btn--secondary" id="modalCancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* ========== ESTADO Y STORAGE ========== */
+  const STORAGE_KEY = "misionCopilot365_v1";
+  const SYNC_DEBOUNCE_MS = 800;
+  let syncTimer = null;
+  let serverMode = false;
+  let currentStudent = null;
+
+  const defaultState = () => ({
+    progress: {},
+    favorites: [],
+    quiz: { answers: {}, score: 0 },
+    path: {},
+    oportunidad: {},
+    proyecto: {},
+    avance: {},
+    risks: null,
+    theme: "light"
+  });
+
+  let state = loadState();
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return defaultState();
+      return { ...defaultState(), ...JSON.parse(raw) };
+    } catch {
+      return defaultState();
+    }
+  }
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateProgressUI();
+    scheduleServerSync();
+  }
+
+  function scheduleServerSync() {
+    if (!serverMode) return;
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(pushProgressToServer, SYNC_DEBOUNCE_MS);
+  }
+
+  async function pushProgressToServer() {
+    if (!serverMode) return;
+    try {
+      const res = await fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify({ payload: state })
+      });
+      if (res.status === 401) {
+        window.location.href = "/login";
+        return;
+      }
+      if (!res.ok) throw new Error("sync failed");
+    } catch (err) {
+      console.warn("No se pudo sincronizar el progreso", err);
+    }
+  }
+
+  async function initServerSession() {
+    try {
+      const me = await fetch("/api/me", { credentials: "same-origin" });
+      if (me.status === 401) {
+        // Modo archivo local: sigue con LocalStorage. En servidor redirige.
+        if (location.protocol.startsWith("http") && !location.pathname.endsWith(".html")) {
+          window.location.href = "/login";
+        }
+        return;
+      }
+      if (!me.ok) return;
+      const meData = await me.json();
+      serverMode = true;
+      currentStudent = meData.student;
+      const chip = document.getElementById("userChip");
+      const nameEl = document.getElementById("userChipName");
+      if (chip && nameEl && currentStudent) {
+        nameEl.textContent = currentStudent.name || currentStudent.email;
+        chip.hidden = false;
+      }
+
+      const prog = await fetch("/api/progress", { credentials: "same-origin" });
+      if (!prog.ok) return;
+      const progData = await prog.json();
+      if (progData.payload && Object.keys(progData.payload).length) {
+        state = { ...defaultState(), ...progData.payload };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } else if (localStorage.getItem(STORAGE_KEY)) {
+        // Primera sync: subir lo local al servidor
+        await pushProgressToServer();
+      }
+    } catch (err) {
+      console.warn("Sesión servidor no disponible", err);
+    }
+  }
+
+  /* ========== TOAST / MODAL ========== */
+  function toast(msg, icon = "check") {
+    const stack = document.getElementById("toastStack");
+    const el = document.createElement("div");
+    el.className = "toast";
+    el.innerHTML = `<i data-lucide="${icon}" width="18" height="18"></i><span>${msg}</span>`;
+    stack.appendChild(el);
+    if (window.lucide) lucide.createIcons({ nodes: [el] });
+    setTimeout(() => el.remove(), 2800);
+  }
+
+  let modalCallback = null;
+  function openModal(text, onConfirm) {
+    document.getElementById("modalText").textContent = text;
+    document.getElementById("confirmModal").classList.add("is-open");
+    modalCallback = onConfirm;
+  }
+  function closeModal() {
+    document.getElementById("confirmModal").classList.remove("is-open");
+    modalCallback = null;
+  }
+
+  /* ========== PROGRESO ========== */
+  const PROGRESS_KEYS = [
+    "reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6",
+    "s1-done","s2-done","proyecto-final",
+    "fase-1","fase-2","fase-3","fase-4","fase-5","fase-6","fase-7"
+  ];
+
+  function calcPercent() {
+    const done = PROGRESS_KEYS.filter(k => state.progress[k]).length;
+    const quizPts = Math.min(5, state.quiz.score || 0);
+    const favBonus = Math.min(3, (state.favorites || []).length) * 0.5;
+    const pathDone = Object.values(state.path || {}).filter(Boolean).length;
+    const pathPts = Math.min(4, pathDone * 0.5);
+    const totalWeight = PROGRESS_KEYS.length + 5 + 1.5 + 4;
+    const score = done + quizPts + Math.min(1.5, favBonus) + pathPts;
+    return Math.round((score / totalWeight) * 100);
+  }
+
+  function updateProgressUI() {
+    const pct = calcPercent();
+    const fill = document.getElementById("navProgressFill");
+    const label = document.getElementById("navProgressPct");
+    if (fill) fill.style.width = pct + "%";
+    if (label) label.textContent = pct + "%";
+
+    const retos = ["reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6"]
+      .filter(k => state.progress[k]).length;
+    document.getElementById("statRetos").textContent = retos;
+    document.getElementById("statFavs").textContent = (state.favorites || []).length;
+    const sesiones = [state.progress["s1-done"], state.progress["s2-done"]].filter(Boolean).length;
+    document.getElementById("statSesiones").textContent = sesiones;
+    document.getElementById("statQuiz").textContent = (state.quiz.score || 0) + "/5";
+    document.getElementById("statFinal").textContent = state.progress["proyecto-final"] ? "Sí" : "No";
+    document.getElementById("statPct").textContent = pct + "%";
+    document.getElementById("certPct").textContent = pct + "%";
+    document.getElementById("certDate").textContent = new Date().toLocaleDateString("es-CO");
+    renderPath();
+  }
+
+  function bindProgressInputs() {
+    document.querySelectorAll("[data-progress]").forEach(el => {
+      const key = el.getAttribute("data-progress");
+      el.checked = !!state.progress[key];
+      el.addEventListener("change", () => {
+        state.progress[key] = el.checked;
+        saveState();
+        toast(el.checked ? "Progreso actualizado" : "Marca retirada", el.checked ? "check" : "info");
+      });
+    });
+  }
+
+  /* ========== RUTA ========== */
+  const PATH_STEPS = [
+    { id: "p1", icon: "bot", name: "Comprender Copilot", desc: "Qué puede y qué no debe decidir por ti." },
+    { id: "p2", icon: "message-square-code", name: "Formular instrucciones", desc: "Rol, contexto, tarea, formato y verificación." },
+    { id: "p3", icon: "folder-tree", name: "Organizar información", desc: "De correos y notas a estructuras claras." },
+    { id: "p4", icon: "megaphone", name: "Adaptar comunicaciones", desc: "Técnico, ejecutivo y comunitario." },
+    { id: "p5", icon: "file-search", name: "Analizar documentos", desc: "Comparar versiones y detectar impactos." },
+    { id: "p6", icon: "shield-alert", name: "Identificar riesgos", desc: "Causa, consecuencia y señales de alerta." },
+    { id: "p7", icon: "gantt-chart", name: "Gestionar un proyecto", desc: "Alcance, plan, interesados y avance." },
+    { id: "p8", icon: "landmark", name: "Preparar decisiones", desc: "Escenarios y recomendación argumentada." }
+  ];
+
+  function pathStatus(id, index) {
+    if (state.path[id]) return "done";
+    const firstPending = PATH_STEPS.findIndex(s => !state.path[s.id]);
+    if (index === firstPending) return "active";
+    return "pending";
+  }
+
+  function renderPath() {
+    const track = document.getElementById("pathTrack");
+    if (!track) return;
+    track.innerHTML = PATH_STEPS.map((s, i) => {
+      const st = pathStatus(s.id, i);
+      const badge = st === "done" ? "Completado" : st === "active" ? "En progreso" : "Pendiente";
+      const badgeClass = st === "done" ? "badge--done" : st === "active" ? "badge--active" : "badge--pending";
+      return `<div class="path-item is-${st === "done" ? "done" : st === "active" ? "active" : "pending"}">
+        <div class="path-dot"><i data-lucide="${s.icon}" width="22" height="22"></i></div>
+        <div class="path-body">
+          <span class="badge ${badgeClass}">${badge}</span>
+          <h3>${i + 1}. ${s.name}</h3>
+          <p>${s.desc}</p>
+          <label style="display:inline-flex;gap:0.4rem;margin-top:0.65rem;font-size:0.85rem;cursor:pointer">
+            <input type="checkbox" data-path="${s.id}" ${state.path[s.id] ? "checked" : ""}/> Marcar etapa
+          </label>
+        </div>
+      </div>`;
+    }).join("");
+    if (window.lucide) lucide.createIcons({ nodes: [track] });
+    track.querySelectorAll("[data-path]").forEach(cb => {
+      cb.addEventListener("change", () => {
+        state.path[cb.getAttribute("data-path")] = cb.checked;
+        saveState();
+      });
+    });
+  }
+
+  /* ========== ACORDEONES / TABS ========== */
+  function initAccordions() {
+    document.querySelectorAll(".reto__header").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const reto = btn.closest(".reto");
+        const open = !reto.classList.contains("is-open");
+        reto.classList.toggle("is-open", open);
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    });
+  }
+
+  function initTabs() {
+    document.querySelectorAll(".tab[data-tabs]").forEach(tab => {
+      tab.addEventListener("click", () => {
+        const group = tab.getAttribute("data-tabs");
+        const target = tab.getAttribute("data-tab");
+        document.querySelectorAll(`.tab[data-tabs="${group}"]`).forEach(t => t.setAttribute("aria-selected", "false"));
+        tab.setAttribute("aria-selected", "true");
+        document.querySelectorAll(`[data-tabs-panel="${group}"]`).forEach(p => {
+          p.classList.toggle("is-active", p.id === target);
+        });
+      });
+    });
+  }
+
+  /* ========== COPY ========== */
+  function initCopyButtons() {
+    document.querySelectorAll("[data-copy]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const sel = btn.getAttribute("data-copy");
+        const node = document.querySelector(sel);
+        const text = node ? node.innerText.trim() : "";
+        try {
+          await navigator.clipboard.writeText(text);
+          toast("Prompt copiado");
+        } catch {
+          const ta = document.createElement("textarea");
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          document.execCommand("copy"); ta.remove();
+          toast("Prompt copiado");
+        }
+      });
+    });
+  }
+
+  /* ========== QUIZ ========== */
+  const QUIZ = [
+    {
+      q: "¿Copilot puede tomar la decisión final en un proyecto de alto impacto?",
+      options: ["Sí, si el prompt es detallado", "No; la decisión permanece en personas responsables", "Solo si hay consenso en el chat"],
+      answer: 1,
+      feedback: "Correcto. Copilot apoya el análisis; la decisión final es humana."
+    },
+    {
+      q: "¿Qué debe hacer el usuario cuando falta información?",
+      options: ["Pedir a Copilot que complete con supuestos sin marcarlos", "Indicar ‘no especificado’ y formular preguntas de validación", "Omitir el tema"],
+      answer: 1,
+      feedback: "Correcto. No inventes: señala vacíos y valida."
+    },
+    {
+      q: "¿Cuál es la diferencia entre resumir y analizar?",
+      options: ["Ninguna", "Resumir condensa; analizar interpreta relaciones, riesgos y vacíos con evidencia", "Analizar siempre es más corto"],
+      answer: 1,
+      feedback: "Correcto. Analizar exige criterio y trazabilidad."
+    },
+    {
+      q: "¿Por qué debe indicarse la audiencia en el prompt?",
+      options: ["Para embellecer el texto", "Para adaptar lenguaje, detalle y prioridades del mensaje", "No es necesario"],
+      answer: 1,
+      feedback: "Correcto. La audiencia define tono, extensión y foco."
+    },
+    {
+      q: "¿Qué información no debe cargarse sin autorización?",
+      options: ["Plantillas genéricas", "Datos sensibles, personales o confidenciales sin permiso", "Indicadores públicos de la capacitación"],
+      answer: 1,
+      feedback: "Correcto. Protege confidencialidad y respeta permisos."
+    }
+  ];
+
+  function renderQuiz() {
+    const box = document.getElementById("quizContainer");
+    box.innerHTML = QUIZ.map((item, qi) => `
+      <div class="quiz-q" data-qi="${qi}">
+        <strong>${qi + 1}. ${item.q}</strong>
+        <div class="quiz-options">
+          ${item.options.map((opt, oi) => `
+            <label class="quiz-option" data-qi="${qi}" data-oi="${oi}">
+              <input type="radio" name="quiz-${qi}" value="${oi}" ${state.quiz.answers[qi] === oi ? "checked" : ""} />
+              <span>${opt}</span>
+            </label>`).join("")}
+        </div>
+        <div class="quiz-feedback" id="qf-${qi}"></div>
+      </div>`).join("");
+
+    box.querySelectorAll("input[type=radio]").forEach(input => {
+      input.addEventListener("change", () => {
+        const qi = +input.name.split("-")[1];
+        const oi = +input.value;
+        state.quiz.answers[qi] = oi;
+        const item = QUIZ[qi];
+        const feedback = document.getElementById(`qf-${qi}`);
+        const options = box.querySelectorAll(`.quiz-option[data-qi="${qi}"]`);
+        options.forEach(o => o.classList.remove("is-correct", "is-wrong"));
+        options.forEach(o => {
+          const idx = +o.getAttribute("data-oi");
+          if (idx === item.answer) o.classList.add("is-correct");
+          else if (idx === oi && oi !== item.answer) o.classList.add("is-wrong");
+        });
+        feedback.textContent = oi === item.answer ? item.feedback : "Revisa el principio de supervisión humana y no invención.";
+        feedback.classList.add("is-visible");
+        feedback.style.color = oi === item.answer ? "var(--success)" : "var(--danger)";
+        state.quiz.score = QUIZ.reduce((acc, it, i) => acc + (state.quiz.answers[i] === it.answer ? 1 : 0), 0);
+        document.getElementById("quizScore").textContent = state.quiz.score;
+        saveState();
+      });
+    });
+
+    // restore visuals
+    Object.entries(state.quiz.answers || {}).forEach(([qi, oi]) => {
+      const input = box.querySelector(`input[name="quiz-${qi}"][value="${oi}"]`);
+      if (input) input.dispatchEvent(new Event("change"));
+    });
+    document.getElementById("quizScore").textContent = state.quiz.score || 0;
+  }
+
+  /* ========== OPORTUNIDAD / PROYECTO ========== */
+  function fillForm(form, data) {
+    Object.entries(data || {}).forEach(([k, v]) => {
+      const el = form.elements.namedItem(k);
+      if (el) el.value = v;
+    });
+  }
+  function readForm(form) {
+    const data = {};
+    Array.from(form.elements).forEach(el => {
+      if (el.name) data[el.name] = el.value;
+    });
+    return data;
+  }
+
+  function initOportunidad() {
+    const form = document.getElementById("oportunidadForm");
+    fillForm(form, state.oportunidad);
+    document.getElementById("opSave").addEventListener("click", () => {
+      state.oportunidad = readForm(form);
+      saveState();
+      toast("Oportunidad guardada");
+    });
+    document.getElementById("opClear").addEventListener("click", () => {
+      openModal("¿Limpiar el formulario de oportunidad?", () => {
+        form.reset();
+        state.oportunidad = {};
+        saveState();
+        closeModal();
+        toast("Formulario limpio", "eraser");
+      });
+    });
+    document.getElementById("opPrint").addEventListener("click", () => window.print());
+    document.getElementById("opDownload").addEventListener("click", () => {
+      const data = readForm(form);
+      const text = Object.entries(data).map(([k, v]) => `${k}: ${v}`).join("\n");
+      downloadText("mi-oportunidad-copilot.txt", text);
+      toast("Archivo descargado");
+    });
+  }
+
+  function updateProyectoPreview() {
+    const form = document.getElementById("proyectoForm");
+    const d = readForm(form);
+    const preview = document.getElementById("pfPreview");
+    preview.innerHTML = `<h3>Vista previa automática</h3>
+      <dl>
+        <dt>Problema</dt><dd>${esc(d.problema) || "—"}</dd>
+        <dt>Área / usuarios</dt><dd>${esc(d.area) || "—"} · ${esc(d.usuarios) || "—"}</dd>
+        <dt>Resultado esperado</dt><dd>${esc(d.esperado) || "—"}</dd>
+        <dt>Apps M365</dt><dd>${esc(d.apps) || "—"}</dd>
+        <dt>Prompt principal</dt><dd>${esc(d.prompt) || "—"}</dd>
+        <dt>Validación humana</dt><dd>${esc(d.validacion) || "—"}</dd>
+        <dt>Plan 30 / 60 / 90</dt>
+        <dd><strong>30:</strong> ${esc(d.d30) || "—"}<br><strong>60:</strong> ${esc(d.d60) || "—"}<br><strong>90:</strong> ${esc(d.d90) || "—"}</dd>
+      </dl>`;
+  }
+  function esc(s) {
+    return String(s || "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c]));
+  }
+
+  function initProyecto() {
+    const form = document.getElementById("proyectoForm");
+    fillForm(form, state.proyecto);
+    updateProyectoPreview();
+    form.addEventListener("input", () => {
+      state.proyecto = readForm(form);
+      updateProyectoPreview();
+      saveState();
+    });
+    document.getElementById("pfSave").addEventListener("click", () => {
+      state.proyecto = readForm(form);
+      saveState();
+      toast("Proyecto final guardado");
+    });
+  }
+
+  function initAvanceFields() {
+    document.querySelectorAll("[data-store]").forEach(el => {
+      const key = el.getAttribute("data-store").replace("avance.", "");
+      el.value = (state.avance && state.avance[key]) || "";
+      el.addEventListener("input", () => {
+        state.avance = state.avance || {};
+        state.avance[key] = el.value;
+        saveState();
+      });
+    });
+  }
+
+  function downloadText(filename, text) {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  /* ========== RIESGOS ========== */
+  const DEFAULT_RISKS = [
+    { riesgo: "Retraso del equipo principal", categoria: "Contractual", causa: "Cadena de suministro", consecuencia: "Desfase de intervención", prob: "Alta", impacto: "Alto", nivel: "Alto", respuesta: "Replanificar / dual sourcing", responsable: "Compras", alerta: "Confirmación < 21 días" },
+    { riesgo: "Rechazo de horarios por comunidad", categoria: "Social", causa: "Ruido / molestias", consecuencia: "Retrasos y reputación", prob: "Media", impacto: "Alto", nivel: "Alto", respuesta: "Ventanas diurnas negociadas", responsable: "Comunicaciones", alerta: "Quejas > 5/semana" },
+    { riesgo: "Hallazgo ambiental no previsto", categoria: "Ambiental", causa: "Inspección incompleta", consecuencia: "Paradas y controles extra", prob: "Baja", impacto: "Alto", nivel: "Medio", respuesta: "Plan de contingencia HSE", responsable: "HSE", alerta: "Desviación de muestreo" },
+    { riesgo: "Indisponibilidad personal crítico", categoria: "Operativo", causa: "Sobrecarga / vacaciones", consecuencia: "Cuello de botella técnico", prob: "Media", impacto: "Alto", nivel: "Alto", respuesta: "Backup capacitado", responsable: "Operaciones", alerta: "Cobertura < 1" }
+  ];
+
+  function renderRisks() {
+    if (!state.risks) state.risks = DEFAULT_RISKS.map(r => ({ ...r }));
+    const body = document.getElementById("riskBody");
+    const cat = document.getElementById("riskFilterCat").value;
+    const nivel = document.getElementById("riskFilterNivel").value;
+    body.innerHTML = "";
+    state.risks.forEach((r, idx) => {
+      if (cat !== "all" && r.categoria !== cat) return;
+      if (nivel !== "all" && r.nivel !== nivel) return;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><input data-risk="${idx}" data-field="riesgo" value="${escAttr(r.riesgo)}" /></td>
+        <td><select data-risk="${idx}" data-field="categoria">${riskCats(r.categoria)}</select></td>
+        <td><input data-risk="${idx}" data-field="causa" value="${escAttr(r.causa)}" /></td>
+        <td><input data-risk="${idx}" data-field="consecuencia" value="${escAttr(r.consecuencia)}" /></td>
+        <td><select data-risk="${idx}" data-field="prob">${opts(["Baja","Media","Alta"], r.prob)}</select></td>
+        <td><select data-risk="${idx}" data-field="impacto">${opts(["Bajo","Medio","Alto"], r.impacto)}</select></td>
+        <td><select data-risk="${idx}" data-field="nivel">${opts(["Bajo","Medio","Alto"], r.nivel)}</select></td>
+        <td><input data-risk="${idx}" data-field="respuesta" value="${escAttr(r.respuesta)}" /></td>
+        <td><input data-risk="${idx}" data-field="responsable" value="${escAttr(r.responsable)}" /></td>
+        <td><input data-risk="${idx}" data-field="alerta" value="${escAttr(r.alerta)}" /></td>`;
+      body.appendChild(tr);
+    });
+    body.querySelectorAll("[data-risk]").forEach(el => {
+      el.addEventListener("change", () => {
+        const i = +el.getAttribute("data-risk");
+        const f = el.getAttribute("data-field");
+        state.risks[i][f] = el.value;
+        saveState();
+      });
+    });
+  }
+  function escAttr(s) { return String(s || "").replace(/"/g, "&quot;"); }
+  function opts(list, selected) {
+    return list.map(v => `<option ${v === selected ? "selected" : ""}>${v}</option>`).join("");
+  }
+  function riskCats(selected) {
+    const cats = ["Técnico","Operativo","Seguridad","Ambiental","Social","Contractual","Financiero","Regulatorio","Reputacional"];
+    return opts(cats, selected);
+  }
+
+  /* ========== STAKEHOLDER MAP ========== */
+  function renderStakeMap() {
+    const map = document.getElementById("stakeMap");
+    const points = [
+      { name: "Comité", x: 78, y: 82 },
+      { name: "Proveedor", x: 62, y: 78 },
+      { name: "Técnicos", x: 80, y: 52 },
+      { name: "Comunidad", x: 85, y: 48 },
+      { name: "Ambiental", x: 70, y: 45 }
+    ];
+    points.forEach(p => {
+      const d = document.createElement("div");
+      d.className = "stakeholder-dot";
+      d.style.left = p.x + "%";
+      d.style.bottom = p.y + "%";
+      d.textContent = p.name;
+      d.title = `${p.name} · interés/influencia (ficticio)`;
+      map.appendChild(d);
+    });
+  }
+
+  /* ========== CHART ========== */
+  function initChart() {
+    const ctx = document.getElementById("avanceChart");
+    if (!ctx || !window.Chart) return;
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["Avance esperado", "Avance real", "Presupuesto"],
+        datasets: [{
+          label: "%",
+          data: [58, 46, 52],
+          backgroundColor: ["#4a3da6", "#ffec00", "#36428c"],
+          borderRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false }, title: { display: true, text: "Indicadores ficticios del Proyecto Horizonte" } },
+        scales: { y: { beginAtZero: true, max: 100 } }
+      }
+    });
+  }
+
+  /* ========== PROMPTS LIBRARY ========== */
+  const PROMPTS = [
+    { id: "pr1", cat: "Correos", name: "Análisis de correo", use: "Extraer hechos y pendientes", text: "Analiza el correo. Identifica objetivo, hechos, fechas, responsables, compromisos, decisiones pendientes y preguntas abiertas. No inventes. Tabla.", tip: "Pega solo el correo necesario." },
+    { id: "pr2", cat: "Correos", name: "Respuesta ejecutiva", use: "Responder con claridad gerencial", text: "Redacta una respuesta ejecutiva breve: decisión, impacto, siguiente paso y dueño. Sin jerga innecesaria.", tip: "Indica tono formal." },
+    { id: "pr3", cat: "Reuniones", name: "Transcripción a compromisos", use: "Separar decisiones y tareas", text: "Diferencia decisiones, propuestas, opiniones, preguntas y tareas. Matriz: actividad, responsable, fecha, estado. Usa ‘no especificado’.", tip: "Marca lo no confirmado." },
+    { id: "pr4", cat: "Documentos", name: "Comparar versiones", use: "Detectar cambios de significado", text: "Compara versión A y B. Tabla: tema, anterior, actual, impacto posible, validación requerida.", tip: "Adjunta ambas versiones completas." },
+    { id: "pr5", cat: "Documentos", name: "Tres audiencias", use: "Adaptar un informe", text: "Genera tres versiones: técnica, gerencial y comunitaria. Mantén hechos; ajusta detalle y lenguaje.", tip: "Define extensión máxima." },
+    { id: "pr6", cat: "Proyectos", name: "Brief de proyecto", use: "Comprender alcance", text: "Construye brief: objetivo, justificación, alcance, exclusiones, entregables, supuestos, restricciones, interesados y vacíos. Evidenciado vs no especificado.", tip: "Usa solo documentos del caso." },
+    { id: "pr7", cat: "Proyectos", name: "EDT y RACI", use: "Estructurar trabajo", text: "Propón EDT, hitos, dependencias y matriz RACI. Señala supuestos. Recuerda validar con el equipo.", tip: "No tomes fechas como definitivas." },
+    { id: "pr8", cat: "Riesgos", name: "Matriz de riesgos", use: "Clasificar y priorizar", text: "Completa matriz: riesgo, categoría, causa, consecuencia, probabilidad, impacto, nivel, respuesta, responsable, alerta. Sin inventar severidad no sustentada.", tip: "Pide nivel explícito." },
+    { id: "pr9", cat: "Datos", name: "Lectura de KPI", use: "Interpretar avance", text: "Con los indicadores dados, responde: qué ocurre, qué se desvía, causas posibles, impacto, información faltante y decisiones para el comité. Separa hechos e inferencias.", tip: "No extrapolación sin base." },
+    { id: "pr10", cat: "Presentaciones", name: "Deck directivo 8 slides", use: "Preparar comité", text: "Estructura 8 diapositivas: propósito, estado, desviaciones, riesgos, escenarios, recomendación, decisiones, próximos 14 días. Lenguaje ejecutivo.", tip: "Máximo 4 viñetas por slide." },
+    { id: "pr11", cat: "Decisiones", name: "Comparar escenarios", use: "Evaluar opciones A/B/C", text: "Compara escenarios A/B/C en plazo, costo, comunidad, operación y decisión clave. Recomienda una opción con supuestos y validaciones.", tip: "Exige recomendación argumentada." },
+    { id: "pr12", cat: "Comunicación", name: "Mensaje a comunidad", use: "Informar sin alarmar", text: "Redacta mensaje claro: qué cambia, cuándo, cómo afecta, canal de contacto. Lenguaje sencillo. Sin datos técnicos innecesarios.", tip: "Evita promesas no aprobadas." },
+    { id: "pr13", cat: "Verificación", name: "Auditoría de respuesta", use: "Control de calidad", text: "Revisa el texto generado. Lista: hechos verificables, inferencias, supuestos, datos faltantes y riesgos de malinterpretación.", tip: "Úsalo antes de enviar." },
+    { id: "pr14", cat: "Datos", name: "Priorización de tareas", use: "Ordenar la jornada", text: "Clasifica tareas por urgencia/impacto, propone agenda, marca delegables y las que requieren criterio humano. Explica supuestos.", tip: "Incluye restricciones de tiempo." }
+  ];
+
+  let activePromptFilter = "Todos";
+
+  function renderPromptFilters() {
+    const cats = ["Todos", ...new Set(PROMPTS.map(p => p.cat))];
+    const bar = document.getElementById("promptFilters");
+    bar.innerHTML = cats.map(c => `<button type="button" class="filter-chip ${c === activePromptFilter ? "is-active" : ""}" data-filter="${c}">${c}</button>`).join("");
+    bar.querySelectorAll("[data-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        activePromptFilter = btn.getAttribute("data-filter");
+        renderPromptFilters();
+        renderPromptLibrary();
+      });
+    });
+  }
+
+  function renderPromptLibrary() {
+    const grid = document.getElementById("promptLibrary");
+    grid.innerHTML = PROMPTS.filter(p => activePromptFilter === "Todos" || p.cat === activePromptFilter).map(p => {
+      const fav = (state.favorites || []).includes(p.id);
+      return `<article class="card prompt-card" data-cat="${p.cat}">
+        <span class="badge badge--active">${p.cat}</span>
+        <h3>${p.name}</h3>
+        <p><strong>Para qué sirve:</strong> ${p.use}</p>
+        <div class="prompt-box" id="lib-${p.id}">${p.text}</div>
+        <p style="font-size:0.85rem;color:var(--text-muted)"><strong>Recomendación:</strong> ${p.tip}</p>
+        <div class="prompt-actions">
+          <button class="btn btn--sm btn--secondary" data-copy="#lib-${p.id}"><i data-lucide="copy" width="14" height="14"></i> Copiar</button>
+          <button class="btn btn--sm btn--secondary fav-btn ${fav ? "is-fav" : ""}" data-fav="${p.id}"><i data-lucide="star" width="14" height="14"></i> ${fav ? "Favorito" : "Favorito"}</button>
+        </div>
+      </article>`;
+    }).join("");
+    if (window.lucide) lucide.createIcons({ nodes: [grid] });
+    initCopyButtons();
+    grid.querySelectorAll("[data-fav]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-fav");
+        const set = new Set(state.favorites || []);
+        if (set.has(id)) set.delete(id); else set.add(id);
+        state.favorites = [...set];
+        saveState();
+        renderPromptLibrary();
+        toast("Favoritos actualizados", "star");
+      });
+    });
+  }
+
+  function initPromptBuilder() {
+    document.getElementById("buildPrompt").addEventListener("click", () => {
+      const rol = document.getElementById("pcRol").value.trim();
+      const ctx = document.getElementById("pcContexto").value.trim();
+      const tarea = document.getElementById("pcTarea").value.trim();
+      const fuente = document.getElementById("pcFuente").value.trim();
+      const criterios = document.getElementById("pcCriterios").value.trim();
+      const formato = document.getElementById("pcFormato").value.trim();
+      const rest = document.getElementById("pcRestricciones").value.trim();
+      const verif = document.getElementById("pcVerif").value.trim();
+      const text = `Rol: ${rol}.\nContexto: ${ctx}.\nFuente: ${fuente}.\nTarea: ${tarea}.\nCriterios: ${criterios}.\nFormato: ${formato}.\nRestricciones: ${rest}.\nVerificación: ${verif}.`;
+      document.getElementById("builtPrompt").textContent = text;
+      toast("Prompt construido", "wand-2");
+    });
+  }
+
+  /* ========== TEMPLATES ========== */
+  const TEMPLATES = [
+    { name: "Resumen de reunión", body: "Fecha:\nParticipantes:\nObjetivo:\nDecisiones:\nPropuestas pendientes:\nCompromisos (actividad | responsable | fecha | estado):\nPróxima agenda:\nSupuestos / no especificado:" },
+    { name: "Matriz de compromisos", body: "Actividad | Responsable | Fecha | Dependencia | Estado | Evidencia\n---|---|---|---|---|---" },
+    { name: "Comparación de documentos", body: "Tema | Versión anterior | Versión actual | Impacto posible | Validación requerida" },
+    { name: "Registro de riesgos", body: "Riesgo | Categoría | Causa | Consecuencia | Probabilidad | Impacto | Nivel | Respuesta | Responsable | Señal de alerta" },
+    { name: "Matriz RACI", body: "Actividad | R | A | C | I | Notas de validación" },
+    { name: "Mapa de interesados", body: "Interesado | Interés | Influencia | Necesidad de información | Mensaje | Canal | Frecuencia | Responsable" },
+    { name: "Informe ejecutivo", body: "Resumen:\nEstado:\nDesviaciones:\nRiesgos:\nRecomendación:\nDecisiones pedidas:\nPróximos pasos:\nPendientes de validación:" },
+    { name: "Plan de acción", body: "Objetivo:\nAcciones (qué | quién | cuándo | recurso | indicador):\nRiesgos de ejecución:\nValidación humana:" },
+    { name: "Registro de decisiones", body: "Fecha | Decisión | Alternativas consideradas | Evidencia | Responsable | Seguimiento | Supuestos" },
+    { name: "Bitácora de validación humana", body: "Salida de Copilot | Hechos verificados | Inferencias | Correcciones | Aprobador | Fecha" }
+  ];
+
+  function renderTemplates() {
+    const grid = document.getElementById("templatesGrid");
+    grid.innerHTML = TEMPLATES.map((t, i) => `
+      <article class="card">
+        <div class="card__icon"><i data-lucide="layout-template" width="20" height="20"></i></div>
+        <h3>${t.name}</h3>
+        <pre class="prompt-box" id="tpl-${i}" style="white-space:pre-wrap;font-size:0.8rem">${t.body}</pre>
+        <button class="btn btn--sm btn--secondary" data-copy="#tpl-${i}"><i data-lucide="copy" width="14" height="14"></i> Copiar plantilla</button>
+      </article>`).join("");
+    if (window.lucide) lucide.createIcons({ nodes: [grid] });
+    initCopyButtons();
+  }
+
+  /* ========== THEME / NAV / MISC ========== */
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    state.theme = theme;
+    const icon = document.getElementById("themeIcon");
+    if (icon) icon.setAttribute("data-lucide", theme === "dark" ? "sun" : "moon");
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function initTheme() {
+    applyTheme(state.theme || "light");
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      applyTheme(state.theme === "dark" ? "light" : "dark");
+      saveState();
+    });
+  }
+
+  function initNav() {
+    const toggle = document.getElementById("navToggle");
+    const links = document.getElementById("navLinks");
+    toggle.addEventListener("click", () => {
+      const open = links.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+      links.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+    }));
+    // current section highlight
+    const sections = [...document.querySelectorAll("main section[id]")];
+    const navAnchors = [...links.querySelectorAll("a")];
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        navAnchors.forEach(a => a.removeAttribute("aria-current"));
+        const match = navAnchors.find(a => a.getAttribute("href") === "#" + e.target.id);
+        if (match) match.setAttribute("aria-current", "true");
+      });
+    }, { rootMargin: "-40% 0px -50% 0px", threshold: 0 });
+    sections.forEach(s => io.observe(s));
+  }
+
+  function initBackTop() {
+    const btn = document.getElementById("backTop");
+    window.addEventListener("scroll", () => {
+      btn.classList.toggle("is-visible", window.scrollY > 500);
+    });
+    btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  }
+
+  function initEvalActions() {
+    document.getElementById("resetProgress").addEventListener("click", () => {
+      openModal("Se borrará el avance guardado en este navegador. ¿Continuar?", () => {
+        const theme = state.theme;
+        state = defaultState();
+        state.theme = theme;
+        saveState();
+        location.reload();
+      });
+    });
+    document.getElementById("printCert").addEventListener("click", () => {
+      window.print();
+    });
+    document.getElementById("downloadProgress").addEventListener("click", () => {
+      const summary = {
+        porcentaje: calcPercent() + "%",
+        progreso: state.progress,
+        quiz: state.quiz,
+        favoritos: state.favorites,
+        ruta: state.path,
+        fecha: new Date().toISOString()
+      };
+      downloadText("avance-mision-copilot-365.txt", JSON.stringify(summary, null, 2));
+      toast("Resumen descargado");
+    });
+  }
+
+  function initModal() {
+    document.getElementById("modalClose").addEventListener("click", closeModal);
+    document.getElementById("modalCancel").addEventListener("click", closeModal);
+    document.getElementById("modalConfirm").addEventListener("click", () => {
+      if (typeof modalCallback === "function") modalCallback();
+    });
+    document.getElementById("confirmModal").addEventListener("click", e => {
+      if (e.target.id === "confirmModal") closeModal();
+    });
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") closeModal();
+    });
+  }
+
+  /* ========== BOOT ========== */
+  document.addEventListener("DOMContentLoaded", async () => {
+    await initServerSession();
+    initTheme();
+    initNav();
+    initAccordions();
+    initTabs();
+    initCopyButtons();
+    bindProgressInputs();
+    renderPath();
+    renderQuiz();
+    initOportunidad();
+    initProyecto();
+    initAvanceFields();
+    renderRisks();
+    document.getElementById("riskFilterCat").addEventListener("change", renderRisks);
+    document.getElementById("riskFilterNivel").addEventListener("change", renderRisks);
+    document.getElementById("addRiskRow").addEventListener("click", () => {
+      state.risks.push({ riesgo: "", categoria: "Técnico", causa: "", consecuencia: "", prob: "Media", impacto: "Medio", nivel: "Medio", respuesta: "", responsable: "", alerta: "" });
+      saveState();
+      renderRisks();
+      toast("Fila de riesgo agregada", "plus");
+    });
+    renderStakeMap();
+    initChart();
+    renderPromptFilters();
+    renderPromptLibrary();
+    initPromptBuilder();
+    renderTemplates();
+    initBackTop();
+    initEvalActions();
+    initModal();
+    updateProgressUI();
+    if (window.lucide) lucide.createIcons();
+  });
+  </script>
+</body>
+</html>

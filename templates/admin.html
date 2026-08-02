@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel admin · Misión Copilot 365</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand-primary: #4a3da6;
+      --brand-accent: #ffec00;
+      --brand-dark: #221e40;
+      --bg: #f4f3f9;
+      --text: #221e40;
+      --muted: #5a5a72;
+      --border: #d5d2e6;
+      --ok: #2f9e6a;
+      --err: #c0392b;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Montserrat, system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    header {
+      background: var(--brand-dark); color: #fff; border-bottom: 3px solid var(--brand-primary);
+      padding: .9rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    }
+    header img { height: 42px; background: #223342; border-radius: 6px; padding: 3px 8px; }
+    header h1 { font-size: 1rem; margin: 0; }
+    header a, header button.linkish {
+      color: var(--brand-accent); background: none; border: 0; font: inherit; font-weight: 600; cursor: pointer; text-decoration: none;
+    }
+    .wrap { width: min(1200px, calc(100% - 2rem)); margin: 1.5rem auto 3rem; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .85rem; margin-bottom: 1.25rem; }
+    .stat {
+      background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1rem;
+      box-shadow: 0 8px 24px rgba(34,30,64,.06);
+    }
+    .stat b { display: block; font-size: 1.6rem; color: var(--brand-primary); }
+    .stat span { font-size: .8rem; color: var(--muted); font-weight: 600; }
+    .grid { display: grid; grid-template-columns: 340px 1fr; gap: 1.25rem; align-items: start; }
+    .card {
+      background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.15rem;
+      box-shadow: 0 8px 24px rgba(34,30,64,.06);
+    }
+    .card h2 { font-size: 1rem; margin: 0 0 1rem; }
+    label { display: block; font-size: .8rem; font-weight: 650; margin: .7rem 0 .3rem; }
+    input[type=text], input[type=email] {
+      width: 100%; padding: .65rem .75rem; border: 1px solid var(--border); border-radius: 10px; font: inherit;
+    }
+    .check { display: flex; gap: .5rem; align-items: center; margin-top: .85rem; font-size: .88rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+      margin-top: 1rem; padding: .7rem 1rem; border: 0; border-radius: 10px;
+      background: var(--brand-primary); color: #fff; font-weight: 700; cursor: pointer; font: inherit; width: 100%;
+    }
+    .btn:hover { filter: brightness(1.05); }
+    .btn-sm {
+      width: auto; margin: 0; padding: .35rem .6rem; font-size: .75rem; background: #ebe9f5; color: var(--text);
+    }
+    .btn-warn { background: #fff3cd; }
+    .btn-danger { background: #fde8e6; color: var(--err); }
+    .flash {
+      padding: .85rem 1rem; border-radius: 10px; margin-bottom: 1rem; font-size: .9rem; font-weight: 600;
+    }
+    .flash.ok { background: #e7f7ef; color: #1e6b45; border: 1px solid #b7e4c7; }
+    .flash.error { background: #fde8e6; color: var(--err); border: 1px solid #f5c2c0; }
+    .keybox {
+      font-family: ui-monospace, Consolas, monospace; background: var(--brand-dark); color: var(--brand-accent);
+      padding: .5rem .7rem; border-radius: 8px; display: inline-block; margin-top: .5rem; letter-spacing: .04em;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    th, td { text-align: left; padding: .65rem .5rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    .bar { height: 8px; background: #ebe9f5; border-radius: 99px; overflow: hidden; min-width: 80px; }
+    .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent)); }
+    .actions { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .muted { color: var(--muted); font-size: .78rem; }
+    .pill { display: inline-block; padding: .15rem .45rem; border-radius: 99px; font-size: .7rem; font-weight: 700; }
+    .pill-on { background: #e7f7ef; color: #1e6b45; }
+    .pill-off { background: #fde8e6; color: var(--err); }
+    @media (max-width: 960px) {
+      .grid, .stats { grid-template-columns: 1fr; }
+      .table-wrap { overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;align-items:center;gap:.85rem;">
+      <img src="/logo.png" alt="ECCO · Universidad Sergio Arboleda" />
+      <div>
+        <h1>Panel · Misión Copilot 365</h1>
+        <div class="muted" style="color:rgba(255,255,255,.65)">Progreso de estudiantes en línea</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:center;">
+      <button type="button" class="linkish" onclick="location.reload()">Actualizar</button>
+      <a href="/logout">Salir</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+    {% if flash %}
+      <div class="flash {{ flash.type }}">
+        {{ flash.msg }}
+        {% if flash.key %}<div class="keybox">{{ flash.key }}</div>{% endif %}
+      </div>
+    {% endif %}
+
+    <div class="stats">
+      <div class="stat"><b>{{ stats.total }}</b><span>Estudiantes</span></div>
+      <div class="stat"><b>{{ stats.activos }}</b><span>Activos</span></div>
+      <div class="stat"><b>{{ stats.con_avance }}</b><span>Con avance</span></div>
+      <div class="stat"><b>{{ stats.promedio }}%</b><span>Promedio general</span></div>
+    </div>
+
+    <div class="grid">
+      <aside class="card">
+        <h2>Nuevo estudiante</h2>
+        <form method="post" action="/admin/students">
+          <label for="name">Nombre</label>
+          <input id="name" name="name" type="text" required placeholder="Nombre completo" />
+          <label for="email">Correo</label>
+          <input id="email" name="email" type="email" required placeholder="correo@ejemplo.com" />
+          <label class="check">
+            <input type="checkbox" name="send_email" checked />
+            Enviar la clave al correo del estudiante (desde analizamostunegocio@gmail.com)
+          </label>
+          <button class="btn" type="submit">Generar clave y registrar</button>
+        </form>
+        <p class="muted" style="margin-top:1rem">
+          El correo sale desde <strong>analizamostunegocio@gmail.com</strong>.
+          Necesitas la contraseña de aplicación de Gmail en el archivo <code>.env</code>.
+        </p>
+      </aside>
+
+      <section class="card">
+        <h2>Progreso en línea</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Estudiante</th>
+                <th>Avance</th>
+                <th>Retos</th>
+                <th>S1</th>
+                <th>S2</th>
+                <th>Quiz</th>
+                <th>Proyecto</th>
+                <th>Último acceso</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if not students %}
+              <tr><td colspan="9" class="muted">Aún no hay estudiantes registrados.</td></tr>
+              {% endif %}
+              {% for s in students %}
+              <tr>
+                <td>
+                  <strong>{{ s.name }}</strong><br>
+                  <span class="muted">{{ s.email }}</span><br>
+                  {% if s.active %}<span class="pill pill-on">Activo</span>{% else %}<span class="pill pill-off">Inactivo</span>{% endif %}
+                </td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:.5rem;">
+                    <div class="bar"><i style="width:{{ s.percent }}%"></i></div>
+                    <strong>{{ s.percent }}%</strong>
+                  </div>
+                  <div class="muted">{{ s.updated_at or 'Sin sync' }}</div>
+                </td>
+                <td>{{ s.retos }}/6</td>
+                <td>{% if s.s1 %}Sí{% else %}—{% endif %}</td>
+                <td>{% if s.s2 %}Sí{% else %}—{% endif %}</td>
+                <td>{{ s.quiz }}/5</td>
+                <td>{% if s.proyecto %}Sí{% else %}—{% endif %}</td>
+                <td class="muted">{{ s.last_login or 'Nunca' }}</td>
+                <td>
+                  <div class="actions">
+                    <form method="post" action="/admin/students/{{ s.id }}/resend">
+                      <button class="btn btn-sm" type="submit">Reenviar clave</button>
+                    </form>
+                    <form method="post" action="/admin/students/{{ s.id }}/toggle">
+                      <button class="btn btn-sm btn-warn" type="submit">{% if s.active %}Desactivar{% else %}Activar{% endif %}</button>
+                    </form>
+                    <form method="post" action="/admin/students/{{ s.id }}/reset-progress" onsubmit="return confirm('¿Reiniciar progreso de {{ s.name }}?');">
+                      <button class="btn btn-sm btn-danger" type="submit">Reiniciar</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script>
+    // Auto-refresco suave cada 60s para ver progreso en línea
+    setTimeout(() => location.reload(), 60000);
+  </script>
+</body>
+</html>
