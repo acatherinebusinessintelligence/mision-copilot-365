@@ -491,6 +491,29 @@
       width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; accent-color: var(--brand-primary); cursor: pointer;
     }
 
+    /* ========== M365 STEPS ========== */
+    .m365-box {
+      background: color-mix(in srgb, var(--brand-primary) 8%, var(--bg-elevated));
+      border: 1px solid color-mix(in srgb, var(--brand-primary) 25%, var(--border));
+      border-radius: var(--radius-sm); padding: 1rem 1.1rem; margin: 1rem 0;
+    }
+    .m365-box h4 {
+      margin: 0 0 0.65rem; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .app-badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      background: var(--brand-primary); color: #fff; font-size: 0.72rem; font-weight: 700;
+      padding: 0.2rem 0.55rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .m365-box ol { margin: 0; padding-left: 1.2rem; }
+    .m365-box li { margin: 0.35rem 0; font-size: 0.92rem; color: var(--text); }
+    .entregable {
+      background: var(--surface); border-left: 4px solid var(--brand-accent);
+      padding: 0.75rem 1rem; margin: 0.85rem 0; border-radius: 0 10px 10px 0; font-size: 0.9rem;
+    }
+    .entregable strong { display: block; margin-bottom: 0.25rem; }
+
+
     /* ========== TABS ========== */
     .tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
     .tab {
@@ -898,7 +921,11 @@
       <div class="container">
         <p class="section-kicker">Sesión 1</p>
         <h2 class="section-title" id="s1Title">Copilot para la productividad individual</h2>
-        <p class="lead">Utilizar Microsoft Copilot para comprender información, organizar el trabajo, preparar comunicaciones y convertir contenido disperso en productos útiles.</p>
+        <p class="lead">Utilizar Microsoft Copilot en Outlook, Teams, Word y Excel para comprender información, organizar el trabajo, preparar comunicaciones y convertir contenido disperso en entregables listos para validar.</p>
+        <div class="disclaimer disclaimer--info">
+          <i data-lucide="monitor" width="18" height="18"></i>
+          <span><strong>Método de trabajo:</strong> descarga la planilla del reto, abre la aplicación Microsoft 365 indicada, ejecuta Copilot con el prompt y pega el resultado en la planilla. No inventes datos: si falta información, escribe “no especificado”.</span>
+        </div>
         <label class="principle" style="margin:1.25rem 0;cursor:pointer">
           <input type="checkbox" data-progress="s1-done" />
           <span><strong>Marcar Sesión 1 como finalizada</strong> cuando completes los retos y la autoevaluación.</span>
@@ -911,7 +938,7 @@
               <span class="reto__num">1</span>
               <span>
                 <strong>Comprender una solicitud</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Correo sobre intervención programada</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Outlook · Análisis de correo operativo</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -922,29 +949,44 @@
             </span>
           </button>
           <div class="reto__body">
+            <div class="m365-box">
+              <h4><span class="app-badge">Outlook</span> Paso a paso con Copilot</h4>
+              <ol>
+                <li>Abre <strong>Outlook</strong> (escritorio o web).</li>
+                <li>Descarga la planilla del reto y ábrela en Word o OneNote.</li>
+                <li>Copia el correo de abajo y pégalo en un mensaje nuevo o en el chat de Copilot en Outlook.</li>
+                <li>Abre <strong>Copilot</strong> y pega el prompt sugerido.</li>
+                <li>Revisa la tabla generada: elimina cualquier dato inventado.</li>
+                <li>Transfiere el resultado a la planilla y marca lo que requiere validación humana.</li>
+              </ol>
+            </div>
+            <div class="btn-group" style="margin-bottom:1rem">
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="analisis-correo"><i data-lucide="download" width="14" height="14"></i> Descargar planilla (Word)</button>
+            </div>
             <div class="email-box">
               <div class="email-meta">
-                <div><strong>De:</strong> Laura Méndez · Coordinación de Campo</div>
-                <div><strong>Para:</strong> Equipo de Operaciones Urbanas</div>
-                <div><strong>Asunto:</strong> Cambio de fecha — intervención programada Zona Norte</div>
-                <div><strong>Fecha:</strong> 14 de marzo de 2026</div>
+                <div><strong>De:</strong> Laura Méndez &lt;l.mendez@operaciones.local&gt; · Coordinación de Campo</div>
+                <div><strong>Para:</strong> Operaciones Urbanas Norte</div>
+                <div><strong>CC:</strong> Andrés Quintero · Seguridad de Campo</div>
+                <div><strong>Asunto:</strong> URGENTE · Reprogramación intervención preventivo Circuito N-14</div>
+                <div><strong>Enviado:</strong> viernes 14/03/2026 08:42</div>
               </div>
-              <p>Buenos días,</p>
-              <p>La intervención de mantenimiento preventivo prevista para el <strong>22 de marzo</strong> en la zona norte debe reprogramarse al <strong>29 de marzo</strong> por disponibilidad de personal especializado. Solicito confirmación de recepción antes del <strong>18 de marzo</strong>.</p>
-              <p>El responsable técnico designado es <strong>Andrés Quintero</strong>. La comunidad aledaña ha expresado preocupación por el ruido nocturno; aún no hay decisión sobre si la jornada será diurna o nocturna.</p>
+              <p>Buenos días, equipo:</p>
+              <p>La intervención de mantenimiento preventivo del <strong>Circuito N-14 (Zona Norte)</strong>, programada para el <strong>sábado 22/03/2026 de 07:00 a 15:00</strong>, debe moverse al <strong>sábado 29/03/2026 en el mismo horario</strong>. Motivo: no hay disponibilidad confirmada del personal especialista en protecciones para la fecha original.</p>
+              <p>Necesito confirmación de recepción de este mensaje <strong>antes del martes 18/03/2026 a las 12:00</strong>.</p>
+              <p>Responsable técnico designado: <strong>Andrés Quintero</strong>. La junta de acción comunal reportó, el 12/03, preocupación por ruido en jornada nocturna. <strong>Aún no hay decisión formal</strong> sobre si la ventana se mantiene diurna o se evalúa nocturna.</p>
+              <p>Quedo atenta. Laura Méndez · Coordinación de Campo · Ext. 4412</p>
             </div>
-            <p><strong>Identifica con Copilot:</strong></p>
-            <ul class="check-list">
-              <li><input type="checkbox" data-progress="r1-c1" /> Objetivo del correo</li>
-              <li><input type="checkbox" data-progress="r1-c2" /> Información importante</li>
-              <li><input type="checkbox" data-progress="r1-c3" /> Decisión pendiente</li>
-              <li><input type="checkbox" data-progress="r1-c4" /> Responsable</li>
-              <li><input type="checkbox" data-progress="r1-c5" /> Fechas relevantes</li>
-              <li><input type="checkbox" data-progress="r1-c6" /> Preguntas sin resolver</li>
-            </ul>
-            <p><strong>Prompt sugerido</strong></p>
-            <div class="prompt-box" id="prompt-r1">Analiza el siguiente correo. Identifica el objetivo principal, los hechos relevantes, las fechas, los responsables, los compromisos, las decisiones pendientes y las preguntas que aún deben resolverse. No inventes información. Presenta el resultado en una tabla.</div>
+            <div class="entregable"><strong>Entregable:</strong> planilla completada con objetivo, hechos, fechas, responsable, decisión pendiente y preguntas abiertas. Sin inventar información.</div>
+            <p><strong>Prompt para Copilot en Outlook</strong></p>
+            <div class="prompt-box" id="prompt-r1">Eres asistente de operaciones. Analiza el correo a continuación. Identifica: 1) objetivo principal, 2) hechos verificables, 3) fechas y horas, 4) responsables, 5) compromisos, 6) decisiones pendientes, 7) preguntas sin resolver. No inventes datos. Si falta un dato, escribe “no especificado”. Entrega el resultado en una tabla con columnas: Elemento | Hallazgo | Evidencia en el correo.</div>
             <button class="btn btn--sm btn--secondary" data-copy="#prompt-r1"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
+            <ul class="check-list">
+              <li><input type="checkbox" data-progress="r1-c1" /> Objetivo del correo identificado</li>
+              <li><input type="checkbox" data-progress="r1-c2" /> Hechos y fechas transferidos a la planilla</li>
+              <li><input type="checkbox" data-progress="r1-c3" /> Decisión pendiente y responsable marcados</li>
+              <li><input type="checkbox" data-progress="r1-c4" /> Preguntas abiertas listadas sin inventar</li>
+            </ul>
           </div>
         </article>
 
@@ -955,7 +997,7 @@
               <span class="reto__num">2</span>
               <span>
                 <strong>Cadena de correos</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Cronología y respuestas por audiencia</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Outlook · Cronología y respuestas por audiencia</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -966,35 +1008,40 @@
             </span>
           </button>
           <div class="reto__body">
+            <div class="m365-box">
+              <h4><span class="app-badge">Outlook</span> Paso a paso con Copilot</h4>
+              <ol>
+                <li>Descarga la planilla de cronología y respuestas.</li>
+                <li>En Outlook, abre Copilot y pega la cadena completa (los 4 correos).</li>
+                <li>Pide primero la cronología de cambios y compromisos.</li>
+                <li>Luego solicita tres borradores: respuesta técnica, ejecutiva y para usuarios.</li>
+                <li>Compara tono y extensión; copia solo lo validado a la planilla.</li>
+              </ol>
+            </div>
+            <div class="btn-group" style="margin-bottom:1rem">
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="cadena-correos"><i data-lucide="download" width="14" height="14"></i> Descargar planilla (Word)</button>
+            </div>
             <div class="tabs" role="tablist" aria-label="Cadena de correos">
-              <button class="tab" role="tab" aria-selected="true" data-tabs="cadena" data-tab="c1">Correo 1</button>
-              <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c2">Correo 2</button>
-              <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c3">Correo 3</button>
-              <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c4">Correo 4</button>
+              <button class="tab" role="tab" aria-selected="true" data-tabs="cadena" data-tab="c1">01 mar</button>
+              <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c2">04 mar</button>
+              <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c3">06 mar</button>
+              <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c4">07 mar</button>
             </div>
             <div class="tab-panel is-active" data-tabs-panel="cadena" id="c1">
-              <div class="email-box"><strong>1 mar · Planeación:</strong> Se programa mantenimiento de transformador auxiliar el 12 mar, 08:00–14:00. Compromiso: notificar a usuarios 72 horas antes.</div>
+              <div class="email-box"><strong>De:</strong> Planeación de Mantenimiento · <strong>Asunto:</strong> Programación transformador auxiliar ST-Urb-03<br>Se confirma mantenimiento del transformador auxiliar para el <strong>12/03/2026, 08:00–14:00</strong>. Compromiso: notificar a usuarios con mínimo <strong>72 horas</strong> de anticipación. Responsable de aviso: Comunicaciones Zona.</div>
             </div>
             <div class="tab-panel" data-tabs-panel="cadena" id="c2">
-              <div class="email-box"><strong>4 mar · Logística:</strong> El proveedor adelanta la entrega de repuestos. Se propone mover la ventana al 10 mar. Pendiente validar personal de seguridad.</div>
+              <div class="email-box"><strong>De:</strong> Logística de Materiales · <strong>Asunto:</strong> RE: adelanto de repuestos<br>El proveedor confirma entrega anticipada. Se propone adelantar la ventana al <strong>10/03/2026</strong>. Pendiente: validar disponibilidad de personal de seguridad industrial para esa fecha.</div>
             </div>
             <div class="tab-panel" data-tabs-panel="cadena" id="c3">
-              <div class="email-box"><strong>6 mar · Seguridad:</strong> Confirma personal para el 10 mar, pero solicita ampliar el cierre de área hasta las 16:00. Señala riesgo si no hay señalización adicional.</div>
+              <div class="email-box"><strong>De:</strong> Seguridad Industrial · <strong>Asunto:</strong> RE: personal 10/03<br>Se confirma personal para el 10/03. Se solicita ampliar el cierre de área hasta las <strong>16:00</strong>. Riesgo señalado: señalización insuficiente si no se refuerza perímetro antes de las 07:30.</div>
             </div>
             <div class="tab-panel" data-tabs-panel="cadena" id="c4">
-              <div class="email-box"><strong>7 mar · Gerencia de zona:</strong> Aprueba el 10 mar con cierre hasta 16:00. Pide mensaje claro a comunidad y reporte ejecutivo al finalizar.</div>
+              <div class="email-box"><strong>De:</strong> Gerencia de Zona Norte · <strong>Asunto:</strong> Aprobación ventana 10/03<br>Se aprueba intervención el <strong>10/03 con cierre hasta 16:00</strong>. Solicita: 1) mensaje claro a la comunidad, 2) reporte ejecutivo al cierre de la jornada.</div>
             </div>
-            <p><strong>Con Copilot elabora:</strong> cronología, cambios, compromisos, respuesta ejecutiva y respuesta técnica.</p>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Tipo</th><th>Enfoque</th><th>Extensión</th><th>Prioridad</th></tr></thead>
-                <tbody>
-                  <tr><td>Respuesta técnica</td><td>Procedimiento, tiempos, controles</td><td>Media-alta</td><td>Precisión operativa</td></tr>
-                  <tr><td>Respuesta ejecutiva</td><td>Decisión, impacto, siguiente paso</td><td>Corta</td><td>Claridad y riesgo</td></tr>
-                  <tr><td>Comunicación a usuarios</td><td>Qué, cuándo, cómo afecta</td><td>Muy corta</td><td>Simplicidad y empatía</td></tr>
-                </tbody>
-              </table>
-            </div>
+            <div class="entregable"><strong>Entregable:</strong> planilla con cronología, cambios, compromisos y tres borradores de respuesta (técnica, ejecutiva, usuarios), listos para revisión humana.</div>
+            <div class="prompt-box" id="prompt-r2">Con la cadena de correos, elabora: 1) cronología fecha a fecha, 2) cambios respecto al plan inicial, 3) compromisos vigentes, 4) borrador de respuesta técnica, 5) borrador ejecutivo (máx. 8 líneas), 6) mensaje a usuarios (máx. 6 líneas). No inventes. Marca supuestos.</div>
+            <button class="btn btn--sm btn--secondary" data-copy="#prompt-r2"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
           </div>
         </article>
 
@@ -1005,7 +1052,7 @@
               <span class="reto__num">3</span>
               <span>
                 <strong>Reunión a plan de acción</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">De transcripción a matriz de compromisos</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Teams · De transcripción a matriz de compromisos</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -1016,15 +1063,29 @@
             </span>
           </button>
           <div class="reto__body">
-            <div class="transcript-box">
-              <p><strong>Ana (líder):</strong> Propongo iniciar el diagnóstico el 2 de abril.</p>
-              <p><strong>Carlos (técnico):</strong> Podemos, si el acceso al tablero está liberado. Me preocupa que falte el permiso de trabajo en altura.</p>
-              <p><strong>Ana:</strong> Decidido: solicitamos el permiso esta semana. Sofía prepara el listado de materiales para el 28 de marzo.</p>
-              <p><strong>Diego:</strong> Sugiero incluir un ensayo de comunicación a vecinos; aún no está aprobado.</p>
-              <p><strong>Ana:</strong> Sofía también agenda la siguiente reunión para el 4 de abril. Estado de materiales: no especificado aún.</p>
+            <div class="m365-box">
+              <h4><span class="app-badge">Teams</span> + <span class="app-badge">Word</span> Paso a paso</h4>
+              <ol>
+                <li>Descarga la planilla de matriz de compromisos.</li>
+                <li>Abre <strong>Microsoft Teams</strong> → Copilot (o pega la transcripción en Word con Copilot).</li>
+                <li>Pega la transcripción y el prompt.</li>
+                <li>Exige que separe: decisiones, propuestas, opiniones y tareas.</li>
+                <li>Abre la planilla en Excel o Word y completa la matriz. Donde falte dato: “no especificado”.</li>
+              </ol>
             </div>
-            <p>Genera: resumen, decisiones confirmadas, propuestas no aprobadas, matriz de compromisos y próxima agenda.</p>
-            <div class="prompt-box" id="prompt-r3">Analiza esta transcripción y diferencia claramente entre decisiones confirmadas, propuestas, opiniones, preguntas y tareas asignadas. Construye una matriz de compromisos con actividad, responsable, fecha y estado. Si un dato no aparece, indica ‘no especificado’.</div>
+            <div class="btn-group" style="margin-bottom:1rem">
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="matriz-compromisos"><i data-lucide="download" width="14" height="14"></i> Descargar planilla (Excel)</button>
+            </div>
+            <div class="transcript-box">
+              <p><strong>Acta verbal · Comité operativo Proyecto Horizonte · 20/03/2026 09:00</strong></p>
+              <p><strong>Ana Rojas (líder de proyecto):</strong> Propongo iniciar el diagnóstico en sitio el 2 de abril.</p>
+              <p><strong>Carlos Beltrán (técnico de protecciones):</strong> Es viable si el acceso al tablero queda liberado. Me preocupa que todavía no esté el permiso de trabajo en altura.</p>
+              <p><strong>Ana Rojas:</strong> Queda decidido: solicitamos el permiso esta misma semana. Sofía Vargas prepara el listado de materiales para el 28 de marzo.</p>
+              <p><strong>Diego Pardo (comunicaciones):</strong> Sugiero un ensayo de mensaje a vecinos antes de la intervención; aún no está aprobado por gerencia de zona.</p>
+              <p><strong>Ana Rojas:</strong> Sofía agenda la siguiente reunión para el 4 de abril a las 10:00. El estado de inventario de materiales queda pendiente de confirmación de almacén.</p>
+            </div>
+            <div class="entregable"><strong>Entregable:</strong> resumen + matriz de compromisos descargada y diligenciada + lista de propuestas no aprobadas.</div>
+            <div class="prompt-box" id="prompt-r3">Analiza esta transcripción. Diferencia con claridad: decisiones confirmadas, propuestas, opiniones, preguntas y tareas asignadas. Construye una matriz con columnas: Actividad | Responsable | Fecha | Estado | Evidencia. Si un dato no aparece, escribe “no especificado”. No inventes.</div>
             <button class="btn btn--sm btn--secondary" data-copy="#prompt-r3"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
           </div>
         </article>
@@ -1036,7 +1097,7 @@
               <span class="reto__num">4</span>
               <span>
                 <strong>Informe para tres audiencias</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Adaptar lenguaje y prioridad</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Word · Adaptar lenguaje y prioridad</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -1047,21 +1108,26 @@
             </span>
           </button>
           <div class="reto__body">
+            <div class="m365-box">
+              <h4><span class="app-badge">Word</span> Paso a paso con Copilot</h4>
+              <ol>
+                <li>Descarga la planilla de comunicación por audiencia.</li>
+                <li>Abre <strong>Word</strong> → Copilot.</li>
+                <li>Pega el informe técnico y pide las tres versiones en un solo documento.</li>
+                <li>Revisa que los hechos se mantengan iguales en las tres versiones.</li>
+                <li>Copia cada versión a la planilla y valida extensión/tono.</li>
+              </ol>
+            </div>
+            <div class="btn-group" style="margin-bottom:1rem">
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="tres-audiencias"><i data-lucide="download" width="14" height="14"></i> Descargar planilla (Word)</button>
+            </div>
             <div class="doc-box">
-              <p><strong>Informe técnico ficticio — Falla menor en sensor de temperatura (Subestación Urbana 7)</strong></p>
-              <p>Durante inspección rutinaria se detectó lectura intermitente en sensor ST-14. Se activó protocolo de verificación. No hubo interrupción de servicio. Se reemplazará el sensor en ventana de mantenimiento del 5 de abril. Impacto estimado: bajo. Se requiere validación de inventario y notificación preventiva a la comunidad si se extiende el cierre de área.</p>
+              <p><strong>Informe técnico · Hallazgo ST-14 · Subestación Urbana 7 · 18/03/2026</strong></p>
+              <p>Durante inspección rutinaria (turno 06:00–14:00) se detectó lectura intermitente en el sensor de temperatura <strong>ST-14</strong>, tablero de control secundario. Se activó el protocolo de verificación PV-OPS-07. No se registró interrupción de servicio ni afectación a usuarios. Inventario: 1 sensor de reemplazo en almacén central (código INV-ST14-A). Reemplazo programado en ventana del <strong>05/04/2026 09:00–11:00</strong>. Impacto estimado: bajo. Si el cierre de área se extiende más de 30 minutos, Comunicaciones debe emitir aviso preventivo a la comunidad aledaña.</p>
             </div>
-            <p>Solicita a Copilot tres versiones: resumen técnico, resumen gerencial y comunicación sencilla para comunidad.</p>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Audiencia</th><th>Nivel de detalle</th><th>Lenguaje</th><th>Extensión</th><th>Información prioritaria</th></tr></thead>
-                <tbody>
-                  <tr><td>Técnica</td><td>Alto</td><td>Especializado</td><td>Media</td><td>Causa, protocolo, acción</td></tr>
-                  <tr><td>Gerencia</td><td>Medio</td><td>Ejecutivo</td><td>Corta</td><td>Impacto, riesgo, decisión</td></tr>
-                  <tr><td>Comunidad</td><td>Bajo</td><td>Simple</td><td>Muy corta</td><td>Qué ocurre y cómo afecta</td></tr>
-                </tbody>
-              </table>
-            </div>
+            <div class="entregable"><strong>Entregable:</strong> tres versiones en la planilla (técnica, gerencia, comunidad) con los mismos hechos y distinto nivel de detalle.</div>
+            <div class="prompt-box" id="prompt-r4">A partir del informe técnico, genera tres versiones sin alterar los hechos: 1) resumen técnico, 2) resumen para gerencia (impacto, riesgo, decisión), 3) comunicación breve para comunidad. Indica al final qué información se omitió en cada versión y por qué.</div>
+            <button class="btn btn--sm btn--secondary" data-copy="#prompt-r4"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
           </div>
         </article>
 
@@ -1072,7 +1138,7 @@
               <span class="reto__num">5</span>
               <span>
                 <strong>Comparación de documentos</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Cambios de texto y de significado</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Word · Cambios de texto y de significado</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -1083,18 +1149,31 @@
             </span>
           </button>
           <div class="reto__body">
+            <div class="m365-box">
+              <h4><span class="app-badge">Word</span> Paso a paso con Copilot</h4>
+              <ol>
+                <li>Descarga la planilla de comparación documental.</li>
+                <li>En Word, pega Versión A y Versión B en el mismo documento.</li>
+                <li>Usa Copilot con el prompt de comparación.</li>
+                <li>Exige tabla: tema | anterior | actual | impacto | validación requerida.</li>
+                <li>Marca en la planilla qué cambios requieren aprobación formal.</li>
+              </ol>
+            </div>
+            <div class="btn-group" style="margin-bottom:1rem">
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="comparacion-docs"><i data-lucide="download" width="14" height="14"></i> Descargar planilla (Excel)</button>
+            </div>
             <div class="grid grid-2">
               <div class="doc-box">
-                <strong>Versión A — Procedimiento anterior</strong>
-                <p>1. Notificar a usuarios con 48 horas de anticipación.<br>2. El supervisor de turno autoriza el inicio.<br>3. Registro de hallazgos en planilla física.<br>4. Cierre operativo antes de las 17:00.</p>
+                <strong>PRO-OPS-12 · Versión 3.1 (vigente hasta 28/02/2026)</strong>
+                <p>1. Notificar a usuarios con 48 horas de anticipación.<br>2. El supervisor de turno autoriza el inicio de la intervención.<br>3. Registrar hallazgos en planilla física FO-OPS-12.<br>4. Cierre operativo antes de las 17:00.</p>
               </div>
               <div class="doc-box">
-                <strong>Versión B — Procedimiento actualizado</strong>
-                <p>1. Notificar a usuarios con 72 horas de anticipación.<br>2. El líder de seguridad y el supervisor autorizan el inicio.<br>3. Registro de hallazgos en sistema digital compartido.<br>4. Cierre operativo antes de las 16:00, salvo excepción documentada.</p>
+                <strong>PRO-OPS-12 · Versión 4.0 (vigente desde 01/03/2026)</strong>
+                <p>1. Notificar a usuarios con 72 horas de anticipación.<br>2. El líder de seguridad y el supervisor de turno autorizan el inicio.<br>3. Registrar hallazgos en el sistema digital compartido (SharePoint Ops).<br>4. Cierre operativo antes de las 16:00, salvo excepción documentada por gerencia de zona.</p>
               </div>
             </div>
-            <p>Identifica cambios, eliminaciones, nuevas responsabilidades, fechas, contradicciones, impactos y validaciones.</p>
-            <div class="prompt-box" id="prompt-r5">Compara las dos versiones del documento. No te limites a resumir. Identifica cambios textuales y cambios de significado. Presenta una tabla con tema, versión anterior, versión actual, impacto posible y validación requerida.</div>
+            <div class="entregable"><strong>Entregable:</strong> planilla de comparación completa, con impactos y validaciones requeridas.</div>
+            <div class="prompt-box" id="prompt-r5">Compara PRO-OPS-12 v3.1 y v4.0. Identifica cambios textuales y de significado. Tabla: Tema | Versión anterior | Versión actual | Impacto posible | Validación requerida. No inventes cláusulas que no estén en el texto.</div>
             <button class="btn btn--sm btn--secondary" data-copy="#prompt-r5"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
           </div>
         </article>
@@ -1106,7 +1185,7 @@
               <span class="reto__num">6</span>
               <span>
                 <strong>Priorización del trabajo</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Agenda, delegación y criterio humano</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Excel · Agenda, delegación y criterio humano</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -1117,26 +1196,41 @@
             </span>
           </button>
           <div class="reto__body">
+            <div class="m365-box">
+              <h4><span class="app-badge">Excel</span> Paso a paso con Copilot</h4>
+              <ol>
+                <li>Descarga la planilla de priorización (ya trae las 10 tareas).</li>
+                <li>Ábrela en <strong>Excel</strong> → Copilot.</li>
+                <li>Pide clasificar por urgencia/impacto, proponer agenda del día y marcar delegables.</li>
+                <li>Identifica qué tareas exigen criterio humano (no automatizar la decisión).</li>
+                <li>Guarda tu versión priorizada en OneDrive/SharePoint.</li>
+              </ol>
+            </div>
+            <div class="btn-group" style="margin-bottom:1rem">
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="priorizacion"><i data-lucide="download" width="14" height="14"></i> Descargar planilla (Excel)</button>
+            </div>
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr><th>#</th><th>Tarea</th><th>Urgencia</th><th>Impacto</th><th>Dependencia</th><th>Fecha</th><th>Responsable</th><th>Riesgo retraso</th></tr>
+                  <tr><th>#</th><th>Tarea</th><th>Urgencia</th><th>Impacto</th><th>Dependencia</th><th>Límite</th><th>Responsable</th><th>Riesgo retraso</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td>1</td><td>Responder consulta de seguridad</td><td>Alta</td><td>Alto</td><td>Ninguna</td><td>Hoy 11:00</td><td>Tú</td><td>Alto</td></tr>
-                  <tr><td>2</td><td>Revisar borrador de cronograma</td><td>Media</td><td>Alto</td><td>Datos del contratista</td><td>Hoy 17:00</td><td>Tú</td><td>Medio</td></tr>
-                  <tr><td>3</td><td>Actualizar registro de riesgos</td><td>Media</td><td>Alto</td><td>Informe de campo</td><td>Mañana</td><td>Tú</td><td>Medio</td></tr>
-                  <tr><td>4</td><td>Agendar reunión con comunidad</td><td>Alta</td><td>Medio</td><td>Disponibilidad sala</td><td>Hoy 15:00</td><td>Asistente</td><td>Bajo</td></tr>
-                  <tr><td>5</td><td>Preparar resumen ejecutivo</td><td>Alta</td><td>Alto</td><td>KPI de avance</td><td>Mañana 09:00</td><td>Tú</td><td>Alto</td></tr>
-                  <tr><td>6</td><td>Ordenar carpetas de SharePoint</td><td>Baja</td><td>Bajo</td><td>Ninguna</td><td>Viernes</td><td>Practicante</td><td>Bajo</td></tr>
-                  <tr><td>7</td><td>Validar permiso ambiental</td><td>Alta</td><td>Alto</td><td>Área jurídica</td><td>Hoy</td><td>Especialista</td><td>Alto</td></tr>
-                  <tr><td>8</td><td>Redactar mensaje a proveedor</td><td>Media</td><td>Medio</td><td>Confirmación de fecha</td><td>Hoy 16:00</td><td>Tú</td><td>Medio</td></tr>
-                  <tr><td>9</td><td>Revisar facturas menores</td><td>Baja</td><td>Bajo</td><td>Ninguna</td><td>Viernes</td><td>Finanzas</td><td>Bajo</td></tr>
-                  <tr><td>10</td><td>Decidir escenario de reprogramación</td><td>Alta</td><td>Alto</td><td>Análisis de impacto</td><td>Mañana</td><td>Comité</td><td>Alto</td></tr>
+                  <tr><td>1</td><td>Responder consulta de seguridad industrial sobre señalización N-14</td><td>Alta</td><td>Alto</td><td>Ninguna</td><td>Hoy 11:00</td><td>Coordinador de zona</td><td>Alto</td></tr>
+                  <tr><td>2</td><td>Revisar borrador de cronograma Proyecto Horizonte</td><td>Media</td><td>Alto</td><td>Datos del contratista</td><td>Hoy 17:00</td><td>Líder de proyecto</td><td>Medio</td></tr>
+                  <tr><td>3</td><td>Actualizar registro de riesgos (semana 12)</td><td>Media</td><td>Alto</td><td>Informe de campo</td><td>Mañana 12:00</td><td>Líder de proyecto</td><td>Medio</td></tr>
+                  <tr><td>4</td><td>Agendar reunión con junta comunal</td><td>Alta</td><td>Medio</td><td>Disponibilidad de sala</td><td>Hoy 15:00</td><td>Asistente administrativo</td><td>Bajo</td></tr>
+                  <tr><td>5</td><td>Preparar resumen ejecutivo para comité</td><td>Alta</td><td>Alto</td><td>KPI de avance</td><td>Mañana 09:00</td><td>Líder de proyecto</td><td>Alto</td></tr>
+                  <tr><td>6</td><td>Ordenar carpetas SharePoint del expediente</td><td>Baja</td><td>Bajo</td><td>Ninguna</td><td>Viernes 17:00</td><td>Practicante</td><td>Bajo</td></tr>
+                  <tr><td>7</td><td>Validar estado de permiso ambiental</td><td>Alta</td><td>Alto</td><td>Área jurídica</td><td>Hoy 16:00</td><td>Especialista HSE</td><td>Alto</td></tr>
+                  <tr><td>8</td><td>Redactar mensaje formal a proveedor de equipo principal</td><td>Media</td><td>Medio</td><td>Confirmación de fecha</td><td>Hoy 16:00</td><td>Compras</td><td>Medio</td></tr>
+                  <tr><td>9</td><td>Revisar facturas menores de logística</td><td>Baja</td><td>Bajo</td><td>Ninguna</td><td>Viernes 12:00</td><td>Finanzas</td><td>Bajo</td></tr>
+                  <tr><td>10</td><td>Definir escenario de reprogramación para comité</td><td>Alta</td><td>Alto</td><td>Análisis de impacto</td><td>Mañana 14:00</td><td>Comité directivo</td><td>Alto</td></tr>
                 </tbody>
               </table>
             </div>
-            <p>Pide a Copilot: clasificar, priorizar, proponer agenda, señalar lo delegable y lo que exige criterio humano.</p>
+            <div class="entregable"><strong>Entregable:</strong> planilla Excel priorizada + agenda propuesta + lista de tareas delegables vs. criterio humano.</div>
+            <div class="prompt-box" id="prompt-r6">Con esta lista de tareas, clasifica por urgencia e impacto, propone una agenda realista para hoy y mañana, marca qué se puede delegar y qué requiere criterio humano. Explica supuestos. No inventes fechas ni responsables nuevos.</div>
+            <button class="btn btn--sm btn--secondary" data-copy="#prompt-r6"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
           </div>
         </article>
 
@@ -1186,10 +1280,10 @@
       <div class="container">
         <p class="section-kicker">Sesión 2</p>
         <h2 class="section-title" id="s2Title">Copilot para la gestión inteligente de proyectos</h2>
-        <p class="lead">Integrar información de diferentes fuentes para comprender, estructurar, analizar y comunicar un proyecto empresarial.</p>
-        <div class="disclaimer">
-          <i data-lucide="alert-triangle" width="18" height="18"></i>
-          <span><strong>Caso académico ficticio.</strong> No corresponde a una operación ni a una empresa real.</span>
+        <p class="lead">Integrar información de distintas fuentes con Copilot en Word, Excel, Teams y PowerPoint para comprender, estructurar, analizar y comunicar un proyecto empresarial.</p>
+        <div class="disclaimer disclaimer--info">
+          <i data-lucide="info" width="18" height="18"></i>
+          <span><strong>Caso de capacitación operativa.</strong> Los documentos simulan un expediente real de proyecto. Descarga las planillas, trabaja en Microsoft 365 y valida cada salida de Copilot antes de usarla.</span>
         </div>
         <label class="principle" style="margin:1rem 0;cursor:pointer">
           <input type="checkbox" data-progress="s2-done" />
@@ -1197,8 +1291,8 @@
         </label>
 
         <div class="card" style="margin:1.5rem 0">
-          <h3>Proyecto Horizonte</h3>
-          <p>Modernización de infraestructura energética urbana. Una organización ficticia del sector energético planea modernizar una instalación para mejorar la confiabilidad del servicio en una zona urbana en crecimiento.</p>
+          <h3>Proyecto Horizonte · Modernización de infraestructura energética urbana</h3>
+          <p>La Dirección de Operaciones autoriza modernizar tableros y sistemas de monitoreo en una instalación urbana con demanda creciente. El objetivo es mejorar la confiabilidad del servicio bajo plazo, presupuesto controlado, requisitos de seguridad, consideraciones ambientales y comunicación con la comunidad.</p>
           <div class="grid grid-4" style="margin-top:1rem">
             <div class="principle">Plazo limitado</div>
             <div class="principle">Presupuesto controlado</div>
@@ -1242,8 +1336,20 @@
               </span>
             </button>
             <div class="reto__body">
+              <div class="m365-box">
+                <h4><span class="app-badge">Word</span> Paso a paso con Copilot</h4>
+                <ol>
+                  <li>Descarga la planilla de informe ejecutivo (te servirá como brief).</li>
+                  <li>Abre Word → Copilot y pega los documentos del caso (pestañas 1 a 10).</li>
+                  <li>Usa el prompt avanzado (rol + contexto + tarea + criterios + formato + verificación).</li>
+                  <li>Transfiere solo hechos evidenciados a la planilla; marca vacíos como “no especificado”.</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="informe-ejecutivo"><i data-lucide="download" width="14" height="14"></i> Descargar planilla brief</button>
+              </div>
               <p>Elabora: objetivo, justificación, alcance, exclusiones, entregables, supuestos, restricciones, interesados, información faltante y preguntas de validación.</p>
-              <div class="prompt-box" id="prompt-f1">Rol: actúa como analista de proyectos energéticos. Contexto: caso académico ficticio Proyecto Horizonte. Tarea: construir un brief de comprensión del proyecto a partir solo de los documentos suministrados. Criterios: no inventar; separar hechos de supuestos; listar vacíos. Formato: secciones numeradas. Verificación: marca cada ítem como ‘evidenciado’ o ‘no especificado’.</div>
+              <div class="prompt-box" id="prompt-f1">Rol: actúa como analista de proyectos energéticos. Contexto: expediente del Proyecto Horizonte (capacitación operativa). Tarea: construir un brief de comprensión del proyecto usando solo los documentos suministrados. Criterios: no inventar; separar hechos de supuestos; listar vacíos. Formato: secciones numeradas. Verificación: marca cada ítem como ‘evidenciado’ o ‘no especificado’.</div>
               <button class="btn btn--sm btn--secondary" data-copy="#prompt-f1"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt avanzado</button>
             </div>
           </article>
@@ -1257,6 +1363,17 @@
               </span>
             </button>
             <div class="reto__body">
+              <div class="m365-box">
+                <h4><span class="app-badge">Excel</span> + <span class="app-badge">Word</span> Paso a paso</h4>
+                <ol>
+                  <li>Descarga la matriz RACI.</li>
+                  <li>En Excel o Word con Copilot, pide EDT, hitos, dependencias y RACI a partir del brief.</li>
+                  <li>Valida fechas y responsables con tu equipo (no tomes la propuesta como definitiva).</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="raci"><i data-lucide="download" width="14" height="14"></i> Descargar matriz RACI</button>
+              </div>
               <p>Solicita: EDT, hitos, actividades, dependencias, responsables, criterios de aceptación, matriz RACI y cronograma de alto nivel.</p>
               <div class="disclaimer disclaimer--danger">
                 <i data-lucide="shield-alert" width="18" height="18"></i>
@@ -1274,7 +1391,16 @@
               </span>
             </button>
             <div class="reto__body">
+              <div class="m365-box">
+                <h4><span class="app-badge">Excel</span> Paso a paso con Copilot</h4>
+                <ol>
+                  <li>Descarga el registro de riesgos.</li>
+                  <li>Ábrelo en Excel → Copilot y completa causa, consecuencia, probabilidad e impacto con base en los documentos del caso.</li>
+                  <li>Filtra por categoría/nivel en esta página y ajusta la planilla descargada.</li>
+                </ol>
+              </div>
               <div class="btn-group" style="margin-bottom:0.75rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="registro-riesgos"><i data-lucide="download" width="14" height="14"></i> Descargar registro de riesgos</button>
                 <label class="field" style="margin:0">Categoría
                   <select id="riskFilterCat"><option value="all">Todas</option>
                     <option>Técnico</option><option>Operativo</option><option>Seguridad</option><option>Ambiental</option><option>Social</option><option>Contractual</option><option>Financiero</option><option>Regulatorio</option><option>Reputacional</option>
@@ -1283,7 +1409,7 @@
                 <label class="field" style="margin:0">Nivel
                   <select id="riskFilterNivel"><option value="all">Todos</option><option>Bajo</option><option>Medio</option><option>Alto</option></select>
                 </label>
-                <button type="button" class="btn btn--sm btn--energy" id="addRiskRow"><i data-lucide="plus" width="14" height="14"></i> Agregar riesgo</button>
+                <button type="button" class="btn btn--sm btn--primary" id="addRiskRow"><i data-lucide="plus" width="14" height="14"></i> Agregar riesgo</button>
               </div>
               <div class="table-wrap">
                 <table id="riskTable">
@@ -1307,6 +1433,17 @@
               </span>
             </button>
             <div class="reto__body">
+              <div class="m365-box">
+                <h4><span class="app-badge">Excel</span> Paso a paso</h4>
+                <ol>
+                  <li>Descarga el mapa de interesados.</li>
+                  <li>Completa con Copilot en Excel usando los documentos del caso.</li>
+                  <li>Contrasta con el mapa visual de esta página.</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="interesados"><i data-lucide="download" width="14" height="14"></i> Descargar mapa de interesados</button>
+              </div>
               <div class="table-wrap">
                 <table>
                   <thead><tr><th>Interesado</th><th>Interés</th><th>Influencia</th><th>Necesidad info</th><th>Mensaje</th><th>Canal</th><th>Frecuencia</th><th>Responsable</th></tr></thead>
@@ -1396,6 +1533,18 @@
               </span>
             </button>
             <div class="reto__body">
+              <div class="m365-box">
+                <h4><span class="app-badge">PowerPoint</span> + <span class="app-badge">Word</span> Paso a paso</h4>
+                <ol>
+                  <li>Descarga la planilla de informe ejecutivo.</li>
+                  <li>En Word con Copilot, construye los 10 bloques del producto final.</li>
+                  <li>En PowerPoint, pide a Copilot un borrador de 8 diapositivas con lenguaje ejecutivo.</li>
+                  <li>Valida cifras, riesgos y recomendación antes de presentar.</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="informe-ejecutivo"><i data-lucide="download" width="14" height="14"></i> Descargar informe ejecutivo</button>
+              </div>
               <ol>
                 <li>Resumen ejecutivo</li><li>Estado del proyecto</li><li>Desviaciones</li><li>Riesgos prioritarios</li>
                 <li>Escenarios evaluados</li><li>Recomendación argumentada</li><li>Decisiones requeridas</li>
@@ -1461,8 +1610,8 @@
     <section id="recursos" aria-labelledby="recursosTitle">
       <div class="container">
         <p class="section-kicker">Kit de recursos</p>
-        <h2 class="section-title" id="recursosTitle">Plantillas editables</h2>
-        <p class="lead">Copia la plantilla y úsala en Word, OneNote o el bloc de notas.</p>
+        <h2 class="section-title" id="recursosTitle">Planillas para descargar</h2>
+        <p class="lead">No construyas las plantillas desde cero. Descárgalas, ábrelas en Word o Excel y completa el resultado de Copilot. Cada archivo ya trae estructura operativa lista para usar.</p>
         <div class="grid grid-2" id="templatesGrid" style="margin-top:1.5rem"></div>
       </div>
     </section>
@@ -1489,7 +1638,7 @@
           <img src="/logo.png" alt="ECCO · Universidad Sergio Arboleda" class="footer__logo" style="margin:0 auto 1rem;" width="240" height="73" />
           <p class="section-kicker" style="justify-content:center">Certificado simbólico</p>
           <h3>Misión Copilot 365</h3>
-          <p>Se reconoce la participación formativa en la experiencia académica ficticia.</p>
+          <p>Se reconoce la participación formativa en la experiencia Misión Copilot 365.</p>
           <p class="meta">Participante: <span id="certName">Profesional en formación</span></p>
           <p class="meta">Avance: <span id="certPct">0%</span> · Fecha: <span id="certDate"></span></p>
           <p class="meta">Este certificado no constituye acreditación oficial ni evidencia de cumplimiento normativo.</p>
@@ -2040,6 +2189,125 @@
     URL.revokeObjectURL(url);
   }
 
+  function downloadWord(filename, title, innerHtml) {
+    const html = `<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>${title}</title>
+      <style>
+        body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#221E40}
+        h1{font-size:16pt;color:#4A3DA6}
+        h2{font-size:13pt;color:#36428C}
+        table{border-collapse:collapse;width:100%;margin:12px 0}
+        th,td{border:1px solid #999;padding:6px 8px;vertical-align:top}
+        th{background:#EBE9F5;text-align:left}
+        .meta{color:#5A5A72;font-size:10pt}
+        .box{border:1px solid #D5D2E6;padding:10px;margin:10px 0;min-height:48px}
+      </style></head><body>
+      <h1>${title}</h1>
+      <p class="meta">Misión Copilot 365 · ECCO · Universidad Sergio Arboleda</p>
+      <p class="meta">Completa con el resultado de Microsoft Copilot. No inventes datos. Usa “no especificado” cuando falte información.</p>
+      ${innerHtml}
+      <p class="meta">Validación humana obligatoria antes de enviar o decidir.</p>
+      </body></html>`;
+    const blob = new Blob(["\ufeff", html], { type: "application/msword" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename.endsWith(".doc") ? filename : `${filename}.doc`;
+    a.click(); URL.revokeObjectURL(url);
+  }
+
+  function downloadCsv(filename, rows) {
+    const csv = rows.map(r => r.map(c => {
+      const v = String(c ?? "");
+      return /[",\n;]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
+    }).join(";")).join("\n");
+    const blob = new Blob(["\ufeff", csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename.endsWith(".csv") ? filename : `${filename}.csv`;
+    a.click(); URL.revokeObjectURL(url);
+  }
+
+  const PLANILLAS = {
+    "analisis-correo": () => downloadWord("Planilla_01_Analisis_de_correo.doc", "Planilla 01 · Análisis de correo operativo",
+      `<h2>Datos del mensaje</h2><table><tr><th>Campo</th><th>Hallazgo</th><th>Evidencia</th></tr>
+      <tr><td>Objetivo principal</td><td></td><td></td></tr><tr><td>Hechos relevantes</td><td></td><td></td></tr>
+      <tr><td>Fechas y horas</td><td></td><td></td></tr><tr><td>Responsables</td><td></td><td></td></tr>
+      <tr><td>Compromisos</td><td></td><td></td></tr><tr><td>Decisiones pendientes</td><td></td><td></td></tr>
+      <tr><td>Preguntas abiertas</td><td></td><td></td></tr></table>
+      <h2>Validación humana</h2><table><tr><th>Ítem</th><th>¿Verificado?</th><th>Observación</th></tr>
+      <tr><td>No hay datos inventados</td><td></td><td></td></tr><tr><td>Fechas correctas</td><td></td><td></td></tr>
+      <tr><td>Listo para compartir</td><td></td><td></td></tr></table>`),
+    "cadena-correos": () => downloadWord("Planilla_02_Cadena_de_correos.doc", "Planilla 02 · Cronología y respuestas por audiencia",
+      `<h2>Cronología</h2><table><tr><th>Fecha</th><th>Remitente</th><th>Cambio / hecho</th><th>Compromiso</th></tr>
+      <tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></table>
+      <h2>Borrador técnico</h2><div class="box"></div><h2>Borrador ejecutivo</h2><div class="box"></div>
+      <h2>Mensaje a usuarios</h2><div class="box"></div>`),
+    "matriz-compromisos": () => downloadCsv("Planilla_03_Matriz_de_compromisos.csv", [
+      ["Actividad","Responsable","Fecha","Dependencia","Estado","Evidencia","Validación humana"],
+      ["","","","","Pendiente / En curso / Hecho","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]
+    ]),
+    "tres-audiencias": () => downloadWord("Planilla_04_Tres_audiencias.doc", "Planilla 04 · Comunicación para tres audiencias",
+      `<h2>1. Resumen técnico</h2><div class="box"></div><h2>2. Resumen para gerencia</h2><div class="box"></div>
+      <h2>3. Comunicación a comunidad</h2><div class="box"></div>
+      <h2>Control de hechos</h2><table><tr><th>Hecho original</th><th>¿Se conserva en las 3 versiones?</th><th>Observación</th></tr>
+      <tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></table>`),
+    "comparacion-docs": () => downloadCsv("Planilla_05_Comparacion_documental.csv", [
+      ["Tema","Versión anterior","Versión actual","Impacto posible","Validación requerida","Aprobador sugerido"],
+      ["Anticipación a usuarios","48 horas","72 horas","","",""],
+      ["Autorización de inicio","","","","",""],["Registro de hallazgos","","","","",""],
+      ["Horario de cierre","","","","",""],["","","","","",""]
+    ]),
+    "priorizacion": () => downloadCsv("Planilla_06_Priorizacion_jornada.csv", [
+      ["#","Tarea","Urgencia","Impacto","Dependencia","Límite","Responsable","Riesgo retraso","Prioridad propuesta","¿Delegable?","¿Requiere criterio humano?","Bloque agenda"],
+      ["1","Responder consulta de seguridad industrial sobre señalización N-14","Alta","Alto","Ninguna","Hoy 11:00","Coordinador de zona","Alto","","","",""],
+      ["2","Revisar borrador de cronograma Proyecto Horizonte","Media","Alto","Datos del contratista","Hoy 17:00","Líder de proyecto","Medio","","","",""],
+      ["3","Actualizar registro de riesgos (semana 12)","Media","Alto","Informe de campo","Mañana 12:00","Líder de proyecto","Medio","","","",""],
+      ["4","Agendar reunión con junta comunal","Alta","Medio","Disponibilidad de sala","Hoy 15:00","Asistente administrativo","Bajo","","","",""],
+      ["5","Preparar resumen ejecutivo para comité","Alta","Alto","KPI de avance","Mañana 09:00","Líder de proyecto","Alto","","","",""],
+      ["6","Ordenar carpetas SharePoint del expediente","Baja","Bajo","Ninguna","Viernes 17:00","Practicante","Bajo","","","",""],
+      ["7","Validar estado de permiso ambiental","Alta","Alto","Área jurídica","Hoy 16:00","Especialista HSE","Alto","","","",""],
+      ["8","Redactar mensaje formal a proveedor de equipo principal","Media","Medio","Confirmación de fecha","Hoy 16:00","Compras","Medio","","","",""],
+      ["9","Revisar facturas menores de logística","Baja","Bajo","Ninguna","Viernes 12:00","Finanzas","Bajo","","","",""],
+      ["10","Definir escenario de reprogramación para comité","Alta","Alto","Análisis de impacto","Mañana 14:00","Comité directivo","Alto","","","",""]
+    ]),
+    "informe-ejecutivo": () => downloadWord("Planilla_07_Informe_ejecutivo.doc", "Planilla 07 · Informe ejecutivo de proyecto",
+      `<h2>1. Resumen ejecutivo</h2><div class="box"></div><h2>2. Estado del proyecto</h2><div class="box"></div>
+      <h2>3. Desviaciones</h2><div class="box"></div><h2>4. Riesgos prioritarios</h2><div class="box"></div>
+      <h2>5. Escenarios evaluados</h2><div class="box"></div><h2>6. Recomendación</h2><div class="box"></div>
+      <h2>7. Decisiones requeridas</h2><div class="box"></div><h2>8. Próximos pasos</h2><div class="box"></div>
+      <h2>9. Pendiente de validación</h2><div class="box"></div><h2>10. Supuestos</h2><div class="box"></div>`),
+    "registro-riesgos": () => downloadCsv("Planilla_08_Registro_de_riesgos.csv", [
+      ["Riesgo","Categoría","Causa","Consecuencia","Probabilidad","Impacto","Nivel","Respuesta","Responsable","Señal de alerta"],
+      ["","Técnico/Operativo/Seguridad/Ambiental/Social/Contractual/Financiero/Regulatorio/Reputacional","","","Baja/Media/Alta","Bajo/Medio/Alto","","","",""],
+      ["","","","","","","","","",""],["","","","","","","","","",""],["","","","","","","","","",""]
+    ]),
+    "raci": () => downloadCsv("Planilla_09_Matriz_RACI.csv", [
+      ["Actividad","R (Responsible)","A (Accountable)","C (Consulted)","I (Informed)","Criterio de aceptación","Notas de validación"],
+      ["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]
+    ]),
+    "interesados": () => downloadCsv("Planilla_10_Mapa_de_interesados.csv", [
+      ["Interesado","Interés (Alto/Medio/Bajo)","Influencia (Alta/Media/Baja)","Necesidad de información","Mensaje clave","Canal","Frecuencia","Responsable"],
+      ["","","","","","","",""],["","","","","","","",""],["","","","","","","",""],["","","","","","","",""]
+    ]),
+    "bitacora-validacion": () => downloadCsv("Planilla_11_Bitacora_validacion_humana.csv", [
+      ["Fecha","App M365","Salida de Copilot (resumen)","Hechos verificados","Inferencias detectadas","Correcciones aplicadas","Aprobador","Estado"],
+      ["","Outlook/Teams/Word/Excel/PowerPoint","","","","","","Pendiente/Aprobado"],
+      ["","","","","","","",""],["","","","","","","",""]
+    ])
+  };
+
+  function initPlanillaDownloads() {
+    document.querySelectorAll("[data-planilla]").forEach(btn => {
+      if (btn.dataset.boundPlanilla) return;
+      btn.dataset.boundPlanilla = "1";
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-planilla");
+        if (PLANILLAS[key]) { PLANILLAS[key](); toast("Planilla descargada", "download"); }
+        else toast("Planilla no encontrada", "alert-triangle");
+      });
+    });
+  }
+
   /* ========== RIESGOS ========== */
   const DEFAULT_RISKS = [
     { riesgo: "Retraso del equipo principal", categoria: "Contractual", causa: "Cadena de suministro", consecuencia: "Desfase de intervención", prob: "Alta", impacto: "Alto", nivel: "Alto", respuesta: "Replanificar / dual sourcing", responsable: "Compras", alerta: "Confirmación < 21 días" },
@@ -2215,29 +2483,33 @@
 
   /* ========== TEMPLATES ========== */
   const TEMPLATES = [
-    { name: "Resumen de reunión", body: "Fecha:\nParticipantes:\nObjetivo:\nDecisiones:\nPropuestas pendientes:\nCompromisos (actividad | responsable | fecha | estado):\nPróxima agenda:\nSupuestos / no especificado:" },
-    { name: "Matriz de compromisos", body: "Actividad | Responsable | Fecha | Dependencia | Estado | Evidencia\n---|---|---|---|---|---" },
-    { name: "Comparación de documentos", body: "Tema | Versión anterior | Versión actual | Impacto posible | Validación requerida" },
-    { name: "Registro de riesgos", body: "Riesgo | Categoría | Causa | Consecuencia | Probabilidad | Impacto | Nivel | Respuesta | Responsable | Señal de alerta" },
-    { name: "Matriz RACI", body: "Actividad | R | A | C | I | Notas de validación" },
-    { name: "Mapa de interesados", body: "Interesado | Interés | Influencia | Necesidad de información | Mensaje | Canal | Frecuencia | Responsable" },
-    { name: "Informe ejecutivo", body: "Resumen:\nEstado:\nDesviaciones:\nRiesgos:\nRecomendación:\nDecisiones pedidas:\nPróximos pasos:\nPendientes de validación:" },
-    { name: "Plan de acción", body: "Objetivo:\nAcciones (qué | quién | cuándo | recurso | indicador):\nRiesgos de ejecución:\nValidación humana:" },
-    { name: "Registro de decisiones", body: "Fecha | Decisión | Alternativas consideradas | Evidencia | Responsable | Seguimiento | Supuestos" },
-    { name: "Bitácora de validación humana", body: "Salida de Copilot | Hechos verificados | Inferencias | Correcciones | Aprobador | Fecha" }
+    { name: "Análisis de correo", desc: "Outlook · Extraer hechos, fechas y pendientes", key: "analisis-correo", type: "Word" },
+    { name: "Cadena de correos", desc: "Outlook · Cronología y 3 audiencias", key: "cadena-correos", type: "Word" },
+    { name: "Matriz de compromisos", desc: "Teams/Word · Tras reunión", key: "matriz-compromisos", type: "Excel" },
+    { name: "Tres audiencias", desc: "Word · Técnico, gerencia, comunidad", key: "tres-audiencias", type: "Word" },
+    { name: "Comparación documental", desc: "Word/Excel · Cambios e impactos", key: "comparacion-docs", type: "Excel" },
+    { name: "Priorización de jornada", desc: "Excel · Agenda y delegación", key: "priorizacion", type: "Excel" },
+    { name: "Informe ejecutivo", desc: "Word/PowerPoint · Comité", key: "informe-ejecutivo", type: "Word" },
+    { name: "Registro de riesgos", desc: "Excel · Matriz completa", key: "registro-riesgos", type: "Excel" },
+    { name: "Matriz RACI", desc: "Excel · Roles del proyecto", key: "raci", type: "Excel" },
+    { name: "Mapa de interesados", desc: "Excel · Comunicación", key: "interesados", type: "Excel" },
+    { name: "Bitácora de validación", desc: "Excel · Control humano de Copilot", key: "bitacora-validacion", type: "Excel" }
   ];
 
   function renderTemplates() {
     const grid = document.getElementById("templatesGrid");
-    grid.innerHTML = TEMPLATES.map((t, i) => `
+    grid.innerHTML = TEMPLATES.map((t) => `
       <article class="card">
-        <div class="card__icon"><i data-lucide="layout-template" width="20" height="20"></i></div>
+        <div class="card__icon"><i data-lucide="download" width="20" height="20"></i></div>
         <h3>${t.name}</h3>
-        <pre class="prompt-box" id="tpl-${i}" style="white-space:pre-wrap;font-size:0.8rem">${t.body}</pre>
-        <button class="btn btn--sm btn--secondary" data-copy="#tpl-${i}"><i data-lucide="copy" width="14" height="14"></i> Copiar plantilla</button>
+        <p>${t.desc}</p>
+        <p style="margin-top:.5rem"><span class="app-badge">${t.type}</span></p>
+        <div class="btn-group" style="margin-top:.85rem">
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="${t.key}"><i data-lucide="download" width="14" height="14"></i> Descargar planilla</button>
+        </div>
       </article>`).join("");
     if (window.lucide) lucide.createIcons({ nodes: [grid] });
-    initCopyButtons();
+    initPlanillaDownloads();
   }
 
   /* ========== THEME / NAV / MISC ========== */
@@ -2360,6 +2632,7 @@
     renderPromptLibrary();
     initPromptBuilder();
     renderTemplates();
+    initPlanillaDownloads();
     initBackTop();
     initEvalActions();
     initModal();
