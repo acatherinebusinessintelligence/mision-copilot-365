@@ -89,6 +89,16 @@ def init_db():
             updated_at TEXT NOT NULL,
             FOREIGN KEY(student_id) REFERENCES students(id) ON DELETE CASCADE
         );
+
+        CREATE TABLE IF NOT EXISTS access_requests (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL COLLATE NOCASE,
+            status TEXT NOT NULL DEFAULT 'pending',
+            created_at TEXT NOT NULL,
+            resolved_at TEXT,
+            note TEXT
+        );
         """
     )
     db.commit()
@@ -209,6 +219,62 @@ Esta es una capacitación académica. No compartas tu clave con otras personas.
         return False, f"Error SMTP: {exc}"
 
 
+def send_admin_notification(name: str, email: str) -> tuple[bool, str]:
+    """Avisa al admin que hay una solicitud de clave pendiente."""
+    smtp_email = os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com")
+    smtp_password = os.getenv("SMTP_APP_PASSWORD", "").replace(" ", "")
+    smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
+    smtp_port = int(os.getenv("SMTP_PORT", "587"))
+    from_name = os.getenv("MAIL_FROM_NAME", "Misión Copilot 365")
+    base_url = os.getenv("APP_BASE_URL", "http://127.0.0.1:5000").rstrip("/")
+    admin_to = smtp_email
+
+    if not smtp_password:
+        return False, "Falta SMTP_APP_PASSWORD"
+
+    body = f"""Nueva solicitud de acceso a Misión Copilot 365
+
+Nombre: {name}
+Correo: {email}
+
+Revisa y aprueba en el panel:
+{base_url}/admin
+
+— Sistema {from_name}
+"""
+    msg = EmailMessage()
+    msg["Subject"] = f"Solicitud de clave · {name}"
+    msg["From"] = f"{from_name} <{smtp_email}>"
+    msg["To"] = admin_to
+    msg.set_content(body)
+    try:
+        with smtplib.SMTP(smtp_host, smtp_port, timeout=30) as server:
+            server.starttls()
+            server.login(smtp_email, smtp_password)
+            server.send_message(msg)
+        return True, "ok"
+    except Exception as exc:  # noqa: BLE001
+        return False, str(exc)
+
+
+def create_student_record(db: sqlite3.Connection, name: str, email: str) -> tuple[int, str]:
+    access_key = generate_access_key()
+    cur = db.execute(
+        """
+        INSERT INTO students (name, email, access_key, key_hash, active, created_at)
+        VALUES (?, ?, ?, ?, 1, ?)
+        """,
+        (name, email, access_key, generate_password_hash(access_key), utc_now()),
+    )
+    student_id = cur.lastrowid
+    db.execute(
+        "INSERT INTO progress (student_id, payload, percent, updated_at) VALUES (?, '{}', 0, ?)",
+        (student_id, utc_now()),
+    )
+    db.commit()
+    return student_id, access_key
+
+
 def student_summary(row: sqlite3.Row, progress_row: sqlite3.Row | None) -> dict:
     payload = {}
     percent = 0
@@ -287,7 +353,10 @@ def login_post():
     ).fetchone()
 
     if not row or not check_password_hash(row["key_hash"], access_key):
-        return render_template("login.html", error="Correo o clave incorrectos."), 401
+        return render_template(
+            "login.html",
+            error="Correo o clave incorrectos. Si no tienes clave, solicítala abajo.",
+        ), 401
 
     db.execute("UPDATE students SET last_login = ? WHERE id = ?", (utc_now(), row["id"]))
     db.commit()
@@ -297,6 +366,59 @@ def login_post():
     session["student_name"] = row["name"]
     session["student_email"] = row["email"]
     return redirect(url_for("mission"))
+
+
+@app.get("/solicitar-clave")
+def solicitar_clave():
+    if session.get("student_id"):
+        return redirect(url_for("mission"))
+    return render_template("solicitar.html")
+
+
+@app.post("/solicitar-clave")
+def solicitar_clave_post():
+    name = (request.form.get("name") or "").strip()
+    email = (request.form.get("email") or "").strip().lower()
+
+    if not name or not email or "@" not in email:
+        return render_template("solicitar.html", error="Nombre y correo válidos son obligatorios."), 400
+
+    db = get_db()
+    existing = db.execute(
+        "SELECT id FROM students WHERE email = ? AND active = 1",
+        (email,),
+    ).fetchone()
+    if existing:
+        return render_template(
+            "solicitar.html",
+            error="Este correo ya tiene acceso. Revisa tu bandeja o pide reenvío al administrador.",
+            info=None,
+        ), 400
+
+    pending = db.execute(
+        "SELECT id FROM access_requests WHERE email = ? AND status = 'pending'",
+        (email,),
+    ).fetchone()
+    if pending:
+        return render_template(
+            "solicitar.html",
+            info="Ya tienes una solicitud pendiente. Te enviaremos la clave cuando sea aprobada.",
+        )
+
+    db.execute(
+        """
+        INSERT INTO access_requests (name, email, status, created_at)
+        VALUES (?, ?, 'pending', ?)
+        """,
+        (name, email, utc_now()),
+    )
+    db.commit()
+    send_admin_notification(name, email)
+
+    return render_template(
+        "solicitar.html",
+        info="Solicitud enviada. Cuando se apruebe, recibirás tu clave en el correo indicado.",
+    )
 
 
 @app.post("/logout")
@@ -432,14 +554,6 @@ def admin_home():
 
     rows = []
     for s in students:
-        prog = None
-        if s["percent"] is not None or s["payload"]:
-            prog = {
-                "payload": s["payload"],
-                "percent": s["percent"] or 0,
-                "updated_at": s["updated_at"],
-            }
-            # sqlite Row no admite dict literal directo con keys de progress; armamos summary manual
         summary = {
             "id": s["id"],
             "name": s["name"],
@@ -473,14 +587,29 @@ def admin_home():
             summary["quiz"] = int((payload.get("quiz") or {}).get("score") or 0)
         rows.append(summary)
 
+    requests_pending = db.execute(
+        """
+        SELECT * FROM access_requests
+        WHERE status = 'pending'
+        ORDER BY created_at ASC
+        """
+    ).fetchall()
+
     stats = {
         "total": len(rows),
         "activos": sum(1 for r in rows if r["active"]),
         "con_avance": sum(1 for r in rows if r["percent"] > 0),
         "promedio": int(round(sum(r["percent"] for r in rows) / len(rows), 0)) if rows else 0,
+        "solicitudes": len(requests_pending),
     }
     flash = session.pop("flash", None)
-    return render_template("admin.html", students=rows, stats=stats, flash=flash)
+    return render_template(
+        "admin.html",
+        students=rows,
+        stats=stats,
+        flash=flash,
+        requests=requests_pending,
+    )
 
 
 @app.post("/admin/students")
@@ -494,22 +623,9 @@ def admin_create_student():
         session["flash"] = {"type": "error", "msg": "Nombre y correo válidos son obligatorios."}
         return redirect(url_for("admin_home"))
 
-    access_key = generate_access_key()
     db = get_db()
     try:
-        cur = db.execute(
-            """
-            INSERT INTO students (name, email, access_key, key_hash, active, created_at)
-            VALUES (?, ?, ?, ?, 1, ?)
-            """,
-            (name, email, access_key, generate_password_hash(access_key), utc_now()),
-        )
-        student_id = cur.lastrowid
-        db.execute(
-            "INSERT INTO progress (student_id, payload, percent, updated_at) VALUES (?, '{}', 0, ?)",
-            (student_id, utc_now()),
-        )
-        db.commit()
+        student_id, access_key = create_student_record(db, name, email)
     except sqlite3.IntegrityError:
         session["flash"] = {"type": "error", "msg": f"Ya existe un estudiante con el correo {email}."}
         return redirect(url_for("admin_home"))
@@ -529,6 +645,66 @@ def admin_create_student():
         "msg": f"Estudiante creado. Clave: {access_key}.{mail_note}",
         "key": access_key,
     }
+    return redirect(url_for("admin_home"))
+
+
+@app.post("/admin/requests/<int:request_id>/approve")
+@require_admin
+def admin_approve_request(request_id: int):
+    db = get_db()
+    req = db.execute("SELECT * FROM access_requests WHERE id = ?", (request_id,)).fetchone()
+    if not req or req["status"] != "pending":
+        session["flash"] = {"type": "error", "msg": "Solicitud no encontrada o ya resuelta."}
+        return redirect(url_for("admin_home"))
+
+    existing = db.execute(
+        "SELECT id, access_key, name FROM students WHERE email = ?",
+        (req["email"],),
+    ).fetchone()
+
+    if existing:
+        access_key = existing["access_key"]
+        student_id = existing["id"]
+        name = existing["name"] or req["name"]
+        db.execute("UPDATE students SET active = 1 WHERE id = ?", (student_id,))
+    else:
+        student_id, access_key = create_student_record(db, req["name"], req["email"])
+        name = req["name"]
+
+    ok, detail = send_access_email(req["email"], name, access_key)
+    db.execute(
+        "UPDATE access_requests SET status = 'approved', resolved_at = ?, note = ? WHERE id = ?",
+        (utc_now(), detail if not ok else "clave enviada", request_id),
+    )
+    if ok:
+        db.execute("UPDATE students SET email_sent_at = ? WHERE id = ?", (utc_now(), student_id))
+    db.commit()
+
+    if ok:
+        session["flash"] = {
+            "type": "ok",
+            "msg": f"Solicitud aprobada. Clave enviada a {req['email']}.",
+            "key": access_key,
+        }
+    else:
+        session["flash"] = {
+            "type": "error",
+            "msg": f"Estudiante creado, pero el correo falló: {detail}. Clave: {access_key}",
+            "key": access_key,
+        }
+    return redirect(url_for("admin_home"))
+
+
+@app.post("/admin/requests/<int:request_id>/reject")
+@require_admin
+def admin_reject_request(request_id: int):
+    db = get_db()
+    db.execute(
+        "UPDATE access_requests SET status = 'rejected', resolved_at = ? WHERE id = ? AND status = 'pending'",
+        (utc_now(), request_id),
+    )
+    db.commit()
+    session["flash"] = {"type": "ok", "msg": "Solicitud rechazada."}
     return redirect(url_for("admin_home"))
 
 

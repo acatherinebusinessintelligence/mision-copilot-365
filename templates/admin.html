@@ -29,7 +29,7 @@
       color: var(--brand-accent); background: none; border: 0; font: inherit; font-weight: 600; cursor: pointer; text-decoration: none;
     }
     .wrap { width: min(1200px, calc(100% - 2rem)); margin: 1.5rem auto 3rem; }
-    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .85rem; margin-bottom: 1.25rem; }
+    .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: .85rem; margin-bottom: 1.25rem; }
     .stat {
       background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1rem;
       box-shadow: 0 8px 24px rgba(34,30,64,.06);
@@ -78,8 +78,11 @@
     .pill-on { background: #e7f7ef; color: #1e6b45; }
     .pill-off { background: #fde8e6; color: var(--err); }
     @media (max-width: 960px) {
-      .grid, .stats { grid-template-columns: 1fr; }
+      .grid, .stats { grid-template-columns: 1fr 1fr; }
       .table-wrap { overflow-x: auto; }
+    }
+    @media (max-width: 640px) {
+      .stats { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -111,7 +114,45 @@
       <div class="stat"><b>{{ stats.activos }}</b><span>Activos</span></div>
       <div class="stat"><b>{{ stats.con_avance }}</b><span>Con avance</span></div>
       <div class="stat"><b>{{ stats.promedio }}%</b><span>Promedio general</span></div>
+      <div class="stat"><b>{{ stats.solicitudes }}</b><span>Solicitudes</span></div>
     </div>
+
+    {% if requests %}
+    <section class="card" style="margin-bottom:1.25rem;">
+      <h2>Solicitudes de clave pendientes</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in requests %}
+            <tr>
+              <td><strong>{{ r.name }}</strong></td>
+              <td>{{ r.email }}</td>
+              <td class="muted">{{ r.created_at }}</td>
+              <td>
+                <div class="actions">
+                  <form method="post" action="/admin/requests/{{ r.id }}/approve">
+                    <button class="btn btn-sm" type="submit" style="background:var(--brand-primary);color:#fff;">Aprobar y enviar clave</button>
+                  </form>
+                  <form method="post" action="/admin/requests/{{ r.id }}/reject">
+                    <button class="btn btn-sm btn-danger" type="submit">Rechazar</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {% endif %}
 
     <div class="grid">
       <aside class="card">
