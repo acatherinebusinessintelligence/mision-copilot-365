@@ -245,7 +245,7 @@ Laura Méndez · Coordinación de Campo · Ext. 4412
 Simulación formativa · Misión Copilot 365 · Reto 1
 Remitente técnico de envío: {smtp_email}
 Destinatario del ejercicio: {name} <{to_email}>
-Instrucción: abre este correo en Outlook, analiza con Copilot y completa la plantilla Word adjunta (solo Hallazgo y Evidencia). No llenes validación humana ni control de calidad.
+Instrucción: abre este correo en Outlook y analízalo con Copilot. La plantilla Word del reto se descarga por separado en la plataforma (solo Hallazgo y Evidencia). No llenes validación humana ni control de calidad.
 """
 
     msg = EmailMessage()
@@ -254,15 +254,6 @@ Instrucción: abre este correo en Outlook, analiza con Copilot y completa la pla
     msg["To"] = to_email
     msg["Reply-To"] = smtp_email
     msg.set_content(body)
-
-    plantilla = BASE_DIR / "planillas" / "MCP365_P01_Formato_analisis_correo.docx"
-    if plantilla.exists():
-        msg.add_attachment(
-            plantilla.read_bytes(),
-            maintype="application",
-            subtype="vnd.openxmlformats-officedocument.wordprocessingml.document",
-            filename="MCP365_P01_Formato_analisis_correo.docx",
-        )
 
     try:
         with smtplib.SMTP(smtp_host, smtp_port, timeout=30) as server:
