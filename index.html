@@ -952,17 +952,16 @@
             <div class="m365-box">
               <h4><span class="app-badge">Outlook</span> Paso a paso con Copilot</h4>
               <ol>
-                <li>Abre <strong>Outlook</strong> (escritorio o web).</li>
-                <li>Copia el correo de abajo y pégalo en un mensaje nuevo o en el chat de Copilot en Outlook.</li>
-                <li>Abre <strong>Copilot</strong> y pega el prompt sugerido (exige el formato de salida).</li>
-                <li>Verifica que la respuesta cumpla el formato: <strong>Elemento | Hallazgo | Evidencia en el correo</strong>. No se pide un archivo con nombre específico: cualquier Word, OneNote o tabla en el propio chat vale si respeta esas columnas.</li>
-                <li>Revisa la tabla: elimina cualquier dato inventado. Si falta información, deja “no especificado”.</li>
-                <li>Marca qué hallazgos requieren validación humana antes de actuar.</li>
+                <li>Descarga el <strong>formato adjunto</strong> del reto y ábrelo en <strong>Word</strong> (conserva colores, tablas y secciones).</li>
+                <li>Abre <strong>Outlook</strong>, copia el correo de abajo y tenlo listo (puedes pegarlo en el chat de Copilot o en Word).</li>
+                <li>En Word, abre <strong>Copilot</strong>, adjunta/referencia el formato abierto y pega el prompt sugerido + el correo.</li>
+                <li>Pide a Copilot que <strong>llene solo la tabla de análisis</strong> del formato. No debe crear un documento nuevo ni rehacer el archivo.</li>
+                <li>Verifica: colores, encabezados y formas del formato siguen iguales; solo se llenaron <strong>Hallazgo</strong> y <strong>Evidencia</strong>.</li>
+                <li>Deja vacíos <strong>Validación humana</strong> y <strong>Control de calidad</strong>: esos los completa la persona, no Copilot.</li>
               </ol>
-              <p style="margin:0.75rem 0 0;font-size:0.88rem;color:var(--text-muted)">Opcional: descarga el formato de referencia si quieres una plantilla en blanco con las mismas columnas.</p>
             </div>
             <div class="btn-group" style="margin-bottom:1rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-planilla="analisis-correo"><i data-lucide="download" width="14" height="14"></i> Formato de referencia (opcional)</button>
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="analisis-correo"><i data-lucide="download" width="14" height="14"></i> Descargar formato adjunto (Word)</button>
             </div>
             <div class="email-box">
               <div class="email-meta">
@@ -978,15 +977,24 @@
               <p>Responsable técnico designado: <strong>Andrés Quintero</strong>. La junta de acción comunal reportó, el 12/03, preocupación por ruido en jornada nocturna. <strong>Aún no hay decisión formal</strong> sobre si la ventana se mantiene diurna o se evalúa nocturna.</p>
               <p>Quedo atenta. Laura Méndez · Coordinación de Campo · Ext. 4412</p>
             </div>
-            <div class="entregable"><strong>Entregable:</strong> tabla con el formato <em>Elemento | Hallazgo | Evidencia en el correo</em> que cubra objetivo, hechos, fechas, responsables, compromisos, decisiones pendientes y preguntas sin resolver. No se exige un archivo con nombre fijo: lo obligatorio es cumplir el formato. Sin inventar información.</div>
-            <p><strong>Prompt para Copilot en Outlook</strong></p>
-            <div class="prompt-box" id="prompt-r1">Eres asistente de operaciones. Analiza el correo a continuación. Identifica: 1) objetivo principal, 2) hechos verificables, 3) fechas y horas, 4) responsables, 5) compromisos, 6) decisiones pendientes, 7) preguntas sin resolver. No inventes datos. Si falta un dato, escribe “no especificado”. Entrega el resultado ÚNICAMENTE en una tabla con estas columnas exactas: Elemento | Hallazgo | Evidencia en el correo. Cada fila debe corresponder a uno de los 7 elementos anteriores. No uses otro formato ni agregues columnas.</div>
+            <div class="entregable"><strong>Entregable:</strong> el mismo formato adjunto, con la tabla <em>Elemento | Hallazgo | Evidencia en el correo</em> completada (7 filas). Conservar colores y estructura del archivo. Sin inventar datos. Validación humana y control de calidad quedan en blanco para la persona.</div>
+            <p><strong>Prompt para Copilot (usar con el formato adjunto abierto en Word)</strong></p>
+            <div class="prompt-box" id="prompt-r1">Eres asistente de operaciones. Analiza el correo que te entrego y LLENA el formato adjunto que ya está abierto (no crees un archivo nuevo ni rehagas el documento).
+
+Instrucciones de entrega:
+1) Conserva exactamente la estructura, colores, encabezados, chips, tablas y formas del formato adjunto.
+2) Solo completa, en la sección de análisis, las columnas Hallazgo y Evidencia en el correo para estos 7 elementos: 1) objetivo principal, 2) hechos verificables, 3) fechas y horas, 4) responsables, 5) compromisos, 6) decisiones pendientes, 7) preguntas sin resolver.
+3) No inventes datos. Si falta un dato, escribe “no especificado”.
+4) NO llenes ni marques: Validación humana, Control de calidad, firmas, ni campos de estado del participante. Esas secciones quedan vacías para revisión humana.
+5) No reescribas títulos, no agregues secciones nuevas y no cambies el diseño del formato.
+
+Entrega: el mismo documento con solo esas celdas de análisis llenas.</div>
             <button class="btn btn--sm btn--secondary" data-copy="#prompt-r1"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
             <ul class="check-list">
-              <li><input type="checkbox" data-progress="r1-c1" /> Salida en formato Elemento | Hallazgo | Evidencia</li>
-              <li><input type="checkbox" data-progress="r1-c2" /> Los 7 elementos del prompt están cubiertos</li>
+              <li><input type="checkbox" data-progress="r1-c1" /> Se usó el formato adjunto (sin recrear el archivo)</li>
+              <li><input type="checkbox" data-progress="r1-c2" /> Tabla Elemento | Hallazgo | Evidencia con los 7 elementos</li>
               <li><input type="checkbox" data-progress="r1-c3" /> Sin datos inventados (vacíos = “no especificado”)</li>
-              <li><input type="checkbox" data-progress="r1-c4" /> Validación humana marcada donde hace falta</li>
+              <li><input type="checkbox" data-progress="r1-c4" /> Validación humana y control de calidad sin llenar por Copilot</li>
             </ul>
           </div>
         </article>
@@ -2328,11 +2336,22 @@
   const emptyRows = (cols, n) => Array.from({ length: n }, () => Array(cols).fill(""));
 
   const PLANILLAS = {
-    "analisis-correo": () => downloadWord("MCP365_P01_Formato_analisis_correo.doc", "Formato de referencia · Análisis de correo", "MCP-365-P01", "Outlook + Copilot", `
-      <p><em>Este documento es solo un formato de referencia. El entregable del reto es cualquier salida que respete las columnas Elemento | Hallazgo | Evidencia en el correo. No se exige este archivo con nombre fijo.</em></p>
-      <h2>Formato obligatorio de salida</h2>
+    "analisis-correo": () => downloadWord("MCP365_P01_Formato_analisis_correo.doc", "Formato adjunto · Análisis de correo operativo", "MCP-365-P01", "Outlook + Copilot", `
+      <div class="hint"><strong>Para Copilot:</strong> llena SOLO la sección 2 (columnas Hallazgo y Evidencia). Conserva colores, tablas y diseño. No recrees el archivo.</div>
+      <div class="rule"><strong>Para la persona:</strong> no pidas a Copilot que complete Validación humana ni Control de calidad. Esas secciones son solo humanas.</div>
+      <h2>1. Identificación del mensaje (opcional · puede quedar en blanco)</h2>
       <table class="data">
-        <tr><th>Elemento</th><th>Hallazgo</th><th>Evidencia en el correo</th></tr>
+        <tr><th>Campo</th><th>Dato</th><th>Fuente / evidencia</th></tr>
+        <tr><td>De (remitente y cargo)</td><td></td><td></td></tr>
+        <tr><td>Para / CC</td><td></td><td></td></tr>
+        <tr><td>Asunto</td><td></td><td></td></tr>
+        <tr><td>Fecha y hora de envío</td><td></td><td></td></tr>
+        <tr><td>Código / activo / circuito</td><td></td><td></td></tr>
+      </table>
+      <h2>2. Análisis estructurado · LLENAR CON COPILOT</h2>
+      <p style="font-size:10pt;color:#36428C"><strong>Formato obligatorio:</strong> Elemento | Hallazgo | Evidencia en el correo</p>
+      <table class="data">
+        <tr><th style="width:28%">Elemento</th><th style="width:36%">Hallazgo</th><th style="width:36%">Evidencia en el correo</th></tr>
         <tr><td>1) Objetivo principal</td><td></td><td></td></tr>
         <tr><td>2) Hechos verificables</td><td></td><td></td></tr>
         <tr><td>3) Fechas y horas</td><td></td><td></td></tr>
@@ -2341,13 +2360,14 @@
         <tr><td>6) Decisiones pendientes</td><td></td><td></td></tr>
         <tr><td>7) Preguntas sin resolver</td><td></td><td></td></tr>
       </table>
-      <h2>Validación humana (opcional)</h2>
+      <h2>8. Validación humana · NO LLENAR CON COPILOT</h2>
       <table class="data">
-        <tr><th>Hallazgo a validar</th><th>¿Por qué requiere revisión?</th><th>Estado</th></tr>
+        <tr><th>Hallazgo a validar</th><th>¿Por qué requiere revisión humana?</th><th>Estado</th></tr>
         <tr><td></td><td></td><td>☐ Pendiente ☐ Validado</td></tr>
         <tr><td></td><td></td><td>☐ Pendiente ☐ Validado</td></tr>
         <tr><td></td><td></td><td>☐ Pendiente ☐ Validado</td></tr>
-      </table>`),
+      </table>
+      <p style="font-size:9.5pt;color:#5A5A72"><em>La sección “Control de calidad” al final del documento también queda vacía: la completa el participante, no Copilot.</em></p>`),
 
     "cadena-correos": () => downloadWord("MCP365_P02_Cadena_correos_audiencias.doc", "Cadena de correos · Cronología y respuestas", "MCP-365-P02", "Outlook + Copilot", `
       <h2>1. Cronología de la cadena</h2>
@@ -2931,7 +2951,7 @@
 
   /* ========== PROMPTS LIBRARY ========== */
   const PROMPTS = [
-    { id: "pr1", cat: "Correos", name: "Análisis de correo", use: "Extraer hechos y pendientes en formato fijo", text: "Eres asistente de operaciones. Analiza el correo a continuación. Identifica: 1) objetivo principal, 2) hechos verificables, 3) fechas y horas, 4) responsables, 5) compromisos, 6) decisiones pendientes, 7) preguntas sin resolver. No inventes datos. Si falta un dato, escribe “no especificado”. Entrega el resultado ÚNICAMENTE en una tabla con estas columnas exactas: Elemento | Hallazgo | Evidencia en el correo. Cada fila debe corresponder a uno de los 7 elementos anteriores. No uses otro formato ni agregues columnas.", tip: "Lo obligatorio es el formato de columnas, no un archivo con nombre fijo." },
+    { id: "pr1", cat: "Correos", name: "Análisis de correo", use: "Llenar formato adjunto sin recrearlo", text: "Eres asistente de operaciones. Analiza el correo que te entrego y LLENA el formato adjunto que ya está abierto (no crees un archivo nuevo ni rehagas el documento).\n\nInstrucciones de entrega:\n1) Conserva exactamente la estructura, colores, encabezados, chips, tablas y formas del formato adjunto.\n2) Solo completa, en la sección de análisis, las columnas Hallazgo y Evidencia en el correo para estos 7 elementos: 1) objetivo principal, 2) hechos verificables, 3) fechas y horas, 4) responsables, 5) compromisos, 6) decisiones pendientes, 7) preguntas sin resolver.\n3) No inventes datos. Si falta un dato, escribe “no especificado”.\n4) NO llenes ni marques: Validación humana, Control de calidad, firmas, ni campos de estado del participante.\n5) No reescribas títulos, no agregues secciones nuevas y no cambies el diseño del formato.\n\nEntrega: el mismo documento con solo esas celdas de análisis llenas.", tip: "Abre el .doc en Word y usa Copilot sobre ese archivo, no en un chat vacío." },
     { id: "pr2", cat: "Correos", name: "Respuesta ejecutiva", use: "Responder con claridad gerencial", text: "Redacta una respuesta ejecutiva breve: decisión, impacto, siguiente paso y dueño. Sin jerga innecesaria.", tip: "Indica tono formal." },
     { id: "pr3", cat: "Reuniones", name: "Transcripción a compromisos", use: "Separar decisiones y tareas", text: "Diferencia decisiones, propuestas, opiniones, preguntas y tareas. Matriz: actividad, responsable, fecha, estado. Usa ‘no especificado’.", tip: "Marca lo no confirmado." },
     { id: "pr4", cat: "Documentos", name: "Comparar versiones", use: "Detectar cambios de significado", text: "Compara versión A y B. Tabla: tema, anterior, actual, impacto posible, validación requerida.", tip: "Adjunta ambas versiones completas." },
@@ -3011,7 +3031,7 @@
 
   /* ========== TEMPLATES ========== */
   const TEMPLATES = [
-    { name: "Formato análisis de correo", desc: "Outlook · Elemento | Hallazgo | Evidencia (referencia opcional)", key: "analisis-correo", type: "Word" },
+    { name: "Formato análisis de correo", desc: "Outlook/Word · Llenar Hallazgo y Evidencia; validación humana vacía", key: "analisis-correo", type: "Word" },
     { name: "Cadena de correos", desc: "Outlook · Cronología, cambios y 3 borradores por audiencia", key: "cadena-correos", type: "Word" },
     { name: "Matriz de compromisos", desc: "Teams/Word · Decisiones, tareas y próxima agenda", key: "matriz-compromisos", type: "Word" },
     { name: "Tres audiencias", desc: "Word · Técnico, gerencia, comunidad + control de hechos", key: "tres-audiencias", type: "Word" },
