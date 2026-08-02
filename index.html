@@ -2189,24 +2189,67 @@
     URL.revokeObjectURL(url);
   }
 
-  function downloadWord(filename, title, innerHtml) {
-    const html = `<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>${title}</title>
-      <style>
-        body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#221E40}
-        h1{font-size:16pt;color:#4A3DA6}
-        h2{font-size:13pt;color:#36428C}
-        table{border-collapse:collapse;width:100%;margin:12px 0}
-        th,td{border:1px solid #999;padding:6px 8px;vertical-align:top}
-        th{background:#EBE9F5;text-align:left}
-        .meta{color:#5A5A72;font-size:10pt}
-        .box{border:1px solid #D5D2E6;padding:10px;margin:10px 0;min-height:48px}
-      </style></head><body>
-      <h1>${title}</h1>
-      <p class="meta">Misión Copilot 365 · ECCO · Universidad Sergio Arboleda</p>
-      <p class="meta">Completa con el resultado de Microsoft Copilot. No inventes datos. Usa “no especificado” cuando falte información.</p>
-      ${innerHtml}
-      <p class="meta">Validación humana obligatoria antes de enviar o decidir.</p>
-      </body></html>`;
+  function downloadWord(filename, title, code, appM365, innerHtml) {
+    const today = new Date().toLocaleDateString("es-CO");
+    const html = `<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
+<head><meta charset="utf-8"><title>${title}</title>
+<style>
+  @page { margin: 1.8cm; }
+  body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#221E40;line-height:1.35}
+  .banner{background:#221E40;color:#fff;padding:14px 16px;margin:0 0 14px 0}
+  .banner h1{margin:0;font-size:16pt;color:#FFEC00}
+  .banner p{margin:4px 0 0;font-size:9.5pt;color:#D5D2E6}
+  .chip{display:inline-block;background:#4A3DA6;color:#fff;font-size:8.5pt;font-weight:700;padding:2px 8px;margin-right:6px}
+  .chip-y{background:#FFEC00;color:#221E40}
+  .meta-table td{border:none;padding:3px 8px 3px 0;font-size:10pt}
+  h2{font-size:12.5pt;color:#4A3DA6;border-bottom:2px solid #4A3DA6;padding-bottom:4px;margin:18px 0 8px}
+  h3{font-size:11pt;color:#36428C;margin:12px 0 6px}
+  table.data{border-collapse:collapse;width:100%;margin:8px 0 14px}
+  table.data th,table.data td{border:1px solid #8B86A8;padding:7px 8px;vertical-align:top}
+  table.data th{background:#4A3DA6;color:#fff;text-align:left;font-size:10pt}
+  table.data tr:nth-child(even) td{background:#F4F3F9}
+  .hint{background:#FFF8CC;border-left:4px solid #FFEC00;padding:8px 10px;margin:8px 0;font-size:10pt}
+  .rule{background:#EFEAFB;border-left:4px solid #4A3DA6;padding:8px 10px;margin:8px 0;font-size:10pt}
+  .box{border:1px solid #B8B3CF;padding:10px;margin:8px 0 12px;min-height:64px;background:#FAFAFC}
+  .sig td{border:none;padding:18px 8px 4px 0;width:33%;font-size:10pt}
+  .foot{margin-top:22px;font-size:9pt;color:#5A5A72;border-top:1px solid #D5D2E6;padding-top:8px}
+  .num{width:28px;text-align:center;font-weight:700;color:#4A3DA6}
+</style></head>
+<body>
+  <div class="banner">
+    <h1>${title}</h1>
+    <p>Misión Copilot 365 · ECCO · Universidad Sergio Arboleda · Capacitación empresarial</p>
+  </div>
+  <p>
+    <span class="chip">${code || "PLANILLA"}</span>
+    <span class="chip chip-y">${appM365 || "Microsoft 365"}</span>
+  </p>
+  <table class="meta-table">
+    <tr><td><strong>Participante:</strong></td><td>________________________________</td><td><strong>Fecha:</strong></td><td>${today}</td></tr>
+    <tr><td><strong>Área / rol:</strong></td><td>________________________________</td><td><strong>App usada:</strong></td><td>${appM365 || "________________"}</td></tr>
+    <tr><td><strong>Correo:</strong></td><td>________________________________</td><td><strong>Estado:</strong></td><td>☐ Borrador &nbsp; ☐ Validado &nbsp; ☐ Entregado</td></tr>
+  </table>
+  <div class="rule"><strong>Regla de oro:</strong> Copilot propone; tú validas. No inventes fechas, responsables ni cifras. Si falta un dato, escribe <em>no especificado</em>. Diferencia hechos e inferencias.</div>
+  <div class="hint"><strong>Cómo usarla:</strong> 1) Abre la app Microsoft 365 indicada · 2) Ejecuta Copilot con el prompt del reto · 3) Pega aquí solo información verificada · 4) Completa la validación humana · 5) Firma antes de compartir.</div>
+  ${innerHtml}
+  <h2>9. Control de calidad (obligatorio)</h2>
+  <table class="data">
+    <tr><th style="width:55%">Criterio</th><th>Cumple</th><th>Observación</th></tr>
+    <tr><td>Los hechos coinciden con la fuente original</td><td>☐ Sí &nbsp; ☐ No</td><td></td></tr>
+    <tr><td>No hay datos inventados por Copilot</td><td>☐ Sí &nbsp; ☐ No</td><td></td></tr>
+    <tr><td>Se marcaron vacíos como “no especificado”</td><td>☐ Sí &nbsp; ☐ No</td><td></td></tr>
+    <tr><td>Se separaron hechos e inferencias</td><td>☐ Sí &nbsp; ☐ No</td><td></td></tr>
+    <tr><td>Listo para uso operativo / entrega</td><td>☐ Sí &nbsp; ☐ No</td><td></td></tr>
+  </table>
+  <h2>10. Firmas</h2>
+  <table class="sig"><tr>
+    <td>Elaboró (participante)<br>_______________________<br>Nombre / fecha</td>
+    <td>Revisó (par o líder)<br>_______________________<br>Nombre / fecha</td>
+    <td>Aprobó (si aplica)<br>_______________________<br>Nombre / fecha</td>
+  </tr></table>
+  <div class="foot">Documento generado para la experiencia formativa Misión Copilot 365. Uso académico-operativo. No sustituye procedimientos oficiales de la organización.</div>
+</body></html>`;
     const blob = new Blob(["\ufeff", html], { type: "application/msword" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -2226,74 +2269,375 @@
     a.click(); URL.revokeObjectURL(url);
   }
 
+  const emptyRows = (cols, n) => Array.from({ length: n }, () => Array(cols).fill(""));
+
   const PLANILLAS = {
-    "analisis-correo": () => downloadWord("Planilla_01_Analisis_de_correo.doc", "Planilla 01 · Análisis de correo operativo",
-      `<h2>Datos del mensaje</h2><table><tr><th>Campo</th><th>Hallazgo</th><th>Evidencia</th></tr>
-      <tr><td>Objetivo principal</td><td></td><td></td></tr><tr><td>Hechos relevantes</td><td></td><td></td></tr>
-      <tr><td>Fechas y horas</td><td></td><td></td></tr><tr><td>Responsables</td><td></td><td></td></tr>
-      <tr><td>Compromisos</td><td></td><td></td></tr><tr><td>Decisiones pendientes</td><td></td><td></td></tr>
-      <tr><td>Preguntas abiertas</td><td></td><td></td></tr></table>
-      <h2>Validación humana</h2><table><tr><th>Ítem</th><th>¿Verificado?</th><th>Observación</th></tr>
-      <tr><td>No hay datos inventados</td><td></td><td></td></tr><tr><td>Fechas correctas</td><td></td><td></td></tr>
-      <tr><td>Listo para compartir</td><td></td><td></td></tr></table>`),
-    "cadena-correos": () => downloadWord("Planilla_02_Cadena_de_correos.doc", "Planilla 02 · Cronología y respuestas por audiencia",
-      `<h2>Cronología</h2><table><tr><th>Fecha</th><th>Remitente</th><th>Cambio / hecho</th><th>Compromiso</th></tr>
-      <tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></table>
-      <h2>Borrador técnico</h2><div class="box"></div><h2>Borrador ejecutivo</h2><div class="box"></div>
-      <h2>Mensaje a usuarios</h2><div class="box"></div>`),
-    "matriz-compromisos": () => downloadCsv("Planilla_03_Matriz_de_compromisos.csv", [
-      ["Actividad","Responsable","Fecha","Dependencia","Estado","Evidencia","Validación humana"],
-      ["","","","","Pendiente / En curso / Hecho","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]
-    ]),
-    "tres-audiencias": () => downloadWord("Planilla_04_Tres_audiencias.doc", "Planilla 04 · Comunicación para tres audiencias",
-      `<h2>1. Resumen técnico</h2><div class="box"></div><h2>2. Resumen para gerencia</h2><div class="box"></div>
-      <h2>3. Comunicación a comunidad</h2><div class="box"></div>
-      <h2>Control de hechos</h2><table><tr><th>Hecho original</th><th>¿Se conserva en las 3 versiones?</th><th>Observación</th></tr>
-      <tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></table>`),
-    "comparacion-docs": () => downloadCsv("Planilla_05_Comparacion_documental.csv", [
-      ["Tema","Versión anterior","Versión actual","Impacto posible","Validación requerida","Aprobador sugerido"],
-      ["Anticipación a usuarios","48 horas","72 horas","","",""],
-      ["Autorización de inicio","","","","",""],["Registro de hallazgos","","","","",""],
-      ["Horario de cierre","","","","",""],["","","","","",""]
-    ]),
-    "priorizacion": () => downloadCsv("Planilla_06_Priorizacion_jornada.csv", [
-      ["#","Tarea","Urgencia","Impacto","Dependencia","Límite","Responsable","Riesgo retraso","Prioridad propuesta","¿Delegable?","¿Requiere criterio humano?","Bloque agenda"],
-      ["1","Responder consulta de seguridad industrial sobre señalización N-14","Alta","Alto","Ninguna","Hoy 11:00","Coordinador de zona","Alto","","","",""],
-      ["2","Revisar borrador de cronograma Proyecto Horizonte","Media","Alto","Datos del contratista","Hoy 17:00","Líder de proyecto","Medio","","","",""],
-      ["3","Actualizar registro de riesgos (semana 12)","Media","Alto","Informe de campo","Mañana 12:00","Líder de proyecto","Medio","","","",""],
-      ["4","Agendar reunión con junta comunal","Alta","Medio","Disponibilidad de sala","Hoy 15:00","Asistente administrativo","Bajo","","","",""],
-      ["5","Preparar resumen ejecutivo para comité","Alta","Alto","KPI de avance","Mañana 09:00","Líder de proyecto","Alto","","","",""],
-      ["6","Ordenar carpetas SharePoint del expediente","Baja","Bajo","Ninguna","Viernes 17:00","Practicante","Bajo","","","",""],
-      ["7","Validar estado de permiso ambiental","Alta","Alto","Área jurídica","Hoy 16:00","Especialista HSE","Alto","","","",""],
-      ["8","Redactar mensaje formal a proveedor de equipo principal","Media","Medio","Confirmación de fecha","Hoy 16:00","Compras","Medio","","","",""],
-      ["9","Revisar facturas menores de logística","Baja","Bajo","Ninguna","Viernes 12:00","Finanzas","Bajo","","","",""],
-      ["10","Definir escenario de reprogramación para comité","Alta","Alto","Análisis de impacto","Mañana 14:00","Comité directivo","Alto","","","",""]
-    ]),
-    "informe-ejecutivo": () => downloadWord("Planilla_07_Informe_ejecutivo.doc", "Planilla 07 · Informe ejecutivo de proyecto",
-      `<h2>1. Resumen ejecutivo</h2><div class="box"></div><h2>2. Estado del proyecto</h2><div class="box"></div>
-      <h2>3. Desviaciones</h2><div class="box"></div><h2>4. Riesgos prioritarios</h2><div class="box"></div>
-      <h2>5. Escenarios evaluados</h2><div class="box"></div><h2>6. Recomendación</h2><div class="box"></div>
-      <h2>7. Decisiones requeridas</h2><div class="box"></div><h2>8. Próximos pasos</h2><div class="box"></div>
-      <h2>9. Pendiente de validación</h2><div class="box"></div><h2>10. Supuestos</h2><div class="box"></div>`),
-    "registro-riesgos": () => downloadCsv("Planilla_08_Registro_de_riesgos.csv", [
-      ["Riesgo","Categoría","Causa","Consecuencia","Probabilidad","Impacto","Nivel","Respuesta","Responsable","Señal de alerta"],
-      ["","Técnico/Operativo/Seguridad/Ambiental/Social/Contractual/Financiero/Regulatorio/Reputacional","","","Baja/Media/Alta","Bajo/Medio/Alto","","","",""],
-      ["","","","","","","","","",""],["","","","","","","","","",""],["","","","","","","","","",""]
-    ]),
-    "raci": () => downloadCsv("Planilla_09_Matriz_RACI.csv", [
-      ["Actividad","R (Responsible)","A (Accountable)","C (Consulted)","I (Informed)","Criterio de aceptación","Notas de validación"],
-      ["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]
-    ]),
-    "interesados": () => downloadCsv("Planilla_10_Mapa_de_interesados.csv", [
-      ["Interesado","Interés (Alto/Medio/Bajo)","Influencia (Alta/Media/Baja)","Necesidad de información","Mensaje clave","Canal","Frecuencia","Responsable"],
-      ["","","","","","","",""],["","","","","","","",""],["","","","","","","",""],["","","","","","","",""]
-    ]),
-    "bitacora-validacion": () => downloadCsv("Planilla_11_Bitacora_validacion_humana.csv", [
-      ["Fecha","App M365","Salida de Copilot (resumen)","Hechos verificados","Inferencias detectadas","Correcciones aplicadas","Aprobador","Estado"],
-      ["","Outlook/Teams/Word/Excel/PowerPoint","","","","","","Pendiente/Aprobado"],
-      ["","","","","","","",""],["","","","","","","",""]
-    ])
+    "analisis-correo": () => downloadWord("MCP365_P01_Analisis_correo_operativo.doc", "Análisis de correo operativo", "MCP-365-P01", "Outlook + Copilot", `
+      <h2>1. Identificación del mensaje</h2>
+      <table class="data">
+        <tr><th>Campo</th><th>Dato</th><th>Fuente / evidencia</th></tr>
+        <tr><td>De (remitente y cargo)</td><td></td><td></td></tr>
+        <tr><td>Para / CC</td><td></td><td></td></tr>
+        <tr><td>Asunto</td><td></td><td></td></tr>
+        <tr><td>Fecha y hora de envío</td><td></td><td></td></tr>
+        <tr><td>Prioridad percibida (Alta/Media/Baja)</td><td></td><td></td></tr>
+        <tr><td>Código / activo / circuito mencionado</td><td></td><td></td></tr>
+      </table>
+      <h2>2. Análisis estructurado (salida de Copilot + tu ajuste)</h2>
+      <table class="data">
+        <tr><th>#</th><th>Elemento</th><th>Hallazgo</th><th>Evidencia textual</th><th>¿Hecho o inferencia?</th><th>Acción sugerida</th></tr>
+        <tr><td class="num">1</td><td>Objetivo principal</td><td></td><td></td><td>☐ Hecho ☐ Inferencia</td><td></td></tr>
+        <tr><td class="num">2</td><td>Hechos relevantes</td><td></td><td></td><td>☐ Hecho ☐ Inferencia</td><td></td></tr>
+        <tr><td class="num">3</td><td>Fechas y horas críticas</td><td></td><td></td><td>☐ Hecho ☐ Inferencia</td><td></td></tr>
+        <tr><td class="num">4</td><td>Responsables nombrados</td><td></td><td></td><td>☐ Hecho ☐ Inferencia</td><td></td></tr>
+        <tr><td class="num">5</td><td>Compromisos / solicitudes</td><td></td><td></td><td>☐ Hecho ☐ Inferencia</td><td></td></tr>
+        <tr><td class="num">6</td><td>Decisiones pendientes</td><td></td><td></td><td>☐ Hecho ☐ Inferencia</td><td></td></tr>
+        <tr><td class="num">7</td><td>Preguntas abiertas</td><td></td><td></td><td>☐ Hecho ☐ Inferencia</td><td></td></tr>
+        <tr><td class="num">8</td><td>Riesgos implícitos</td><td></td><td></td><td>☐ Hecho ☐ Inferencia</td><td></td></tr>
+      </table>
+      <h2>3. Resumen ejecutivo (máx. 5 líneas)</h2>
+      <div class="box"></div>
+      <h2>4. Próximo paso recomendado</h2>
+      <table class="data">
+        <tr><th>Qué</th><th>Quién</th><th>Cuándo</th><th>Canal</th><th>Estado</th></tr>
+        <tr><td></td><td></td><td></td><td>Correo / Teams / Reunión</td><td>☐ Pendiente ☐ Hecho</td></tr>
+      </table>`),
+
+    "cadena-correos": () => downloadWord("MCP365_P02_Cadena_correos_audiencias.doc", "Cadena de correos · Cronología y respuestas", "MCP-365-P02", "Outlook + Copilot", `
+      <h2>1. Cronología de la cadena</h2>
+      <table class="data">
+        <tr><th>#</th><th>Fecha</th><th>Remitente / área</th><th>Hecho o cambio</th><th>Compromiso resultante</th><th>Impacto</th></tr>
+        <tr><td>1</td><td></td><td></td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
+        <tr><td>2</td><td></td><td></td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
+        <tr><td>3</td><td></td><td></td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
+        <tr><td>4</td><td></td><td></td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
+        <tr><td>5</td><td></td><td></td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
+      </table>
+      <h2>2. Cambios respecto al plan inicial</h2>
+      <table class="data">
+        <tr><th>Tema</th><th>Plan inicial</th><th>Plan vigente</th><th>Quién decidió</th><th>Pendiente de comunicar</th></tr>
+        <tr><td>Fecha / ventana</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
+        <tr><td>Horario / cierre de área</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
+        <tr><td>Personal / seguridad</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
+        <tr><td>Otros</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
+      </table>
+      <h2>3. Respuesta técnica (precisión operativa)</h2>
+      <div class="hint">Incluye: procedimiento, tiempos, controles, responsable técnico. Extensión media-alta.</div>
+      <div class="box"></div>
+      <h2>4. Respuesta ejecutiva (máx. 8 líneas)</h2>
+      <div class="hint">Incluye: decisión, impacto, riesgo, siguiente paso y dueño.</div>
+      <div class="box"></div>
+      <h2>5. Comunicación a usuarios / comunidad (máx. 6 líneas)</h2>
+      <div class="hint">Lenguaje simple: qué ocurre, cuándo, cómo afecta, canal de contacto. Sin jerga técnica.</div>
+      <div class="box"></div>
+      <h2>6. Comparación de audiencias</h2>
+      <table class="data">
+        <tr><th>Versión</th><th>Nivel de detalle</th><th>Tono</th><th>Extensión</th><th>¿Lista para envío?</th></tr>
+        <tr><td>Técnica</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
+        <tr><td>Ejecutiva</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
+        <tr><td>Usuarios</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
+      </table>`),
+
+    "matriz-compromisos": () => downloadWord("MCP365_P03_Matriz_compromisos_reunion.doc", "Matriz de compromisos post-reunión", "MCP-365-P03", "Teams + Word + Copilot", `
+      <h2>1. Datos de la reunión</h2>
+      <table class="data">
+        <tr><th>Campo</th><th>Información</th></tr>
+        <tr><td>Nombre / código de reunión</td><td></td></tr>
+        <tr><td>Fecha y hora</td><td></td></tr>
+        <tr><td>Facilitador</td><td></td></tr>
+        <tr><td>Participantes</td><td></td></tr>
+        <tr><td>Objetivo declarado</td><td></td></tr>
+      </table>
+      <h2>2. Clasificación de la conversación</h2>
+      <table class="data">
+        <tr><th>Tipo</th><th>Contenido (pega o resume con evidencia)</th><th>Estado</th></tr>
+        <tr><td>Decisiones confirmadas</td><td></td><td>☐ Cerrada</td></tr>
+        <tr><td>Propuestas no aprobadas</td><td></td><td>☐ Abierta</td></tr>
+        <tr><td>Opiniones / preocupaciones</td><td></td><td>☐ Registrada</td></tr>
+        <tr><td>Preguntas sin resolver</td><td></td><td>☐ Pendiente</td></tr>
+      </table>
+      <h2>3. Matriz de compromisos</h2>
+      <table class="data">
+        <tr><th>#</th><th>Actividad</th><th>Responsable</th><th>Fecha límite</th><th>Dependencia</th><th>Estado</th><th>Evidencia / entregable</th><th>Validado por</th></tr>
+        <tr><td>1</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
+        <tr><td>2</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
+        <tr><td>3</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
+        <tr><td>4</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
+        <tr><td>5</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
+        <tr><td>6</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
+        <tr><td>7</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
+        <tr><td>8</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
+      </table>
+      <h2>4. Próxima agenda</h2>
+      <table class="data">
+        <tr><th>Tema</th><th>Objetivo</th><th>Preparación requerida</th><th>Dueño</th></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <h2>5. Resumen para difusión (5 líneas)</h2>
+      <div class="box"></div>`),
+
+    "tres-audiencias": () => downloadWord("MCP365_P04_Comunicacion_tres_audiencias.doc", "Comunicación adaptada a tres audiencias", "MCP-365-P04", "Word + Copilot", `
+      <h2>1. Fuente técnica (pegar extracto clave)</h2>
+      <div class="box"></div>
+      <h2>2. Versión A · Resumen técnico</h2>
+      <div class="hint">Audiencia: especialistas. Prioriza causa, protocolo, acción y controles. Lenguaje especializado permitido.</div>
+      <div class="box"></div>
+      <h2>3. Versión B · Resumen para gerencia</h2>
+      <div class="hint">Audiencia: dirección. Prioriza impacto, riesgo, decisión requerida y plazo. Máximo 10 líneas.</div>
+      <div class="box"></div>
+      <h2>4. Versión C · Comunicación a comunidad / usuarios</h2>
+      <div class="hint">Audiencia general. Prioriza qué ocurre, cuándo, cómo afecta y a quién contactar. Sin códigos técnicos innecesarios.</div>
+      <div class="box"></div>
+      <h2>5. Matriz de consistencia de hechos</h2>
+      <table class="data">
+        <tr><th>Hecho original</th><th>¿En versión técnica?</th><th>¿En gerencia?</th><th>¿En comunidad?</th><th>¿Se alteró el significado?</th><th>Corrección</th></tr>
+        <tr><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+      </table>
+      <h2>6. Información omitida a propósito</h2>
+      <table class="data">
+        <tr><th>Versión</th><th>Qué se omitió</th><th>Por qué</th><th>¿Riesgo de malentendido?</th></tr>
+        <tr><td>Técnica</td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
+        <tr><td>Gerencia</td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
+        <tr><td>Comunidad</td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
+      </table>`),
+
+    "comparacion-docs": () => downloadWord("MCP365_P05_Comparacion_documental.doc", "Comparación documental · Cambios e impactos", "MCP-365-P05", "Word + Excel + Copilot", `
+      <h2>1. Identificación de documentos</h2>
+      <table class="data">
+        <tr><th>Campo</th><th>Versión anterior</th><th>Versión actual</th></tr>
+        <tr><td>Código / nombre</td><td></td><td></td></tr>
+        <tr><td>Número de versión</td><td></td><td></td></tr>
+        <tr><td>Vigencia</td><td></td><td></td></tr>
+        <tr><td>Área emisora</td><td></td><td></td></tr>
+      </table>
+      <h2>2. Matriz de cambios (texto y significado)</h2>
+      <table class="data">
+        <tr><th>#</th><th>Tema</th><th>Versión anterior</th><th>Versión actual</th><th>Tipo de cambio</th><th>Impacto posible</th><th>Validación requerida</th><th>Aprobador sugerido</th></tr>
+        <tr><td>1</td><td>Anticipación a usuarios</td><td>48 horas</td><td>72 horas</td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
+        <tr><td>2</td><td>Autorización de inicio</td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td>Registro de hallazgos</td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td>Horario de cierre</td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td></td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
+        <tr><td>6</td><td></td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
+        <tr><td>7</td><td></td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
+        <tr><td>8</td><td></td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
+      </table>
+      <h2>3. Elementos eliminados / nuevos</h2>
+      <table class="data">
+        <tr><th>Tipo</th><th>Descripción</th><th>Riesgo si se ignora</th></tr>
+        <tr><td>Eliminado</td><td></td><td></td></tr>
+        <tr><td>Nuevo</td><td></td><td></td></tr>
+        <tr><td>Contradicción detectada</td><td></td><td></td></tr>
+      </table>
+      <h2>4. Recomendación de transición</h2>
+      <div class="box"></div>`),
+
+    "priorizacion": () => downloadWord("MCP365_P06_Priorizacion_jornada.doc", "Priorización de jornada laboral", "MCP-365-P06", "Excel + Copilot", `
+      <h2>1. Contexto de la jornada</h2>
+      <table class="data">
+        <tr><th>Campo</th><th>Dato</th></tr>
+        <tr><td>Fecha de la jornada</td><td></td></tr>
+        <tr><td>Horas disponibles reales</td><td></td></tr>
+        <tr><td>Restricciones (reuniones fijas, turnos)</td><td></td></tr>
+      </table>
+      <h2>2. Inventario de tareas (completa con Copilot y ajusta)</h2>
+      <table class="data">
+        <tr><th>#</th><th>Tarea</th><th>Urgencia</th><th>Impacto</th><th>Dependencia</th><th>Límite</th><th>Responsable</th><th>Riesgo</th><th>Prioridad 1-10</th><th>¿Delegable?</th><th>¿Criterio humano?</th><th>Bloque agenda</th></tr>
+        <tr><td>1</td><td>Responder consulta de seguridad industrial sobre señalización N-14</td><td>Alta</td><td>Alto</td><td>Ninguna</td><td>Hoy 11:00</td><td>Coordinador de zona</td><td>Alto</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>2</td><td>Revisar borrador de cronograma Proyecto Horizonte</td><td>Media</td><td>Alto</td><td>Datos contratista</td><td>Hoy 17:00</td><td>Líder de proyecto</td><td>Medio</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>3</td><td>Actualizar registro de riesgos (semana 12)</td><td>Media</td><td>Alto</td><td>Informe de campo</td><td>Mañana 12:00</td><td>Líder de proyecto</td><td>Medio</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>4</td><td>Agendar reunión con junta comunal</td><td>Alta</td><td>Medio</td><td>Sala</td><td>Hoy 15:00</td><td>Asistente administrativo</td><td>Bajo</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>5</td><td>Preparar resumen ejecutivo para comité</td><td>Alta</td><td>Alto</td><td>KPI avance</td><td>Mañana 09:00</td><td>Líder de proyecto</td><td>Alto</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>6</td><td>Ordenar carpetas SharePoint del expediente</td><td>Baja</td><td>Bajo</td><td>Ninguna</td><td>Viernes 17:00</td><td>Practicante</td><td>Bajo</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>7</td><td>Validar estado de permiso ambiental</td><td>Alta</td><td>Alto</td><td>Área jurídica</td><td>Hoy 16:00</td><td>Especialista HSE</td><td>Alto</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>8</td><td>Redactar mensaje formal a proveedor de equipo principal</td><td>Media</td><td>Medio</td><td>Confirmación fecha</td><td>Hoy 16:00</td><td>Compras</td><td>Medio</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>9</td><td>Revisar facturas menores de logística</td><td>Baja</td><td>Bajo</td><td>Ninguna</td><td>Viernes 12:00</td><td>Finanzas</td><td>Bajo</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>10</td><td>Definir escenario de reprogramación para comité</td><td>Alta</td><td>Alto</td><td>Análisis impacto</td><td>Mañana 14:00</td><td>Comité directivo</td><td>Alto</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
+      </table>
+      <h2>3. Agenda propuesta</h2>
+      <table class="data">
+        <tr><th>Bloque</th><th>Horario</th><th>Tareas (#)</th><th>Resultado esperado</th></tr>
+        <tr><td>Mañana temprana</td><td></td><td></td><td></td></tr>
+        <tr><td>Media mañana</td><td></td><td></td><td></td></tr>
+        <tr><td>Tarde</td><td></td><td></td><td></td></tr>
+        <tr><td>Cierre / buffer</td><td></td><td></td><td></td></tr>
+      </table>
+      <h2>4. Decisiones que NO debe tomar Copilot</h2>
+      <div class="box"></div>`),
+
+    "informe-ejecutivo": () => downloadWord("MCP365_P07_Informe_ejecutivo_proyecto.doc", "Informe ejecutivo de proyecto · Comité", "MCP-365-P07", "Word + PowerPoint + Copilot", `
+      <h2>1. Portada del informe</h2>
+      <table class="data">
+        <tr><th>Campo</th><th>Contenido</th></tr>
+        <tr><td>Proyecto</td><td>Proyecto Horizonte · Modernización de infraestructura energética urbana</td></tr>
+        <tr><td>Fecha del informe</td><td></td></tr>
+        <tr><td>Elaborado por</td><td></td></tr>
+        <tr><td>Destinatario</td><td>Comité directivo / Dirección de Operaciones</td></tr>
+        <tr><td>Decisión solicitada</td><td></td></tr>
+      </table>
+      <h2>2. Resumen ejecutivo (máx. 12 líneas)</h2>
+      <div class="box"></div>
+      <h2>3. Estado del proyecto</h2>
+      <table class="data">
+        <tr><th>Indicador</th><th>Esperado</th><th>Real</th><th>Variación</th><th>Lectura</th></tr>
+        <tr><td>Avance (%)</td><td>58%</td><td>46%</td><td></td><td></td></tr>
+        <tr><td>Presupuesto ejecutado (%)</td><td>—</td><td>52%</td><td></td><td></td></tr>
+        <tr><td>Actividades críticas retrasadas</td><td>0</td><td>3</td><td></td><td></td></tr>
+        <tr><td>Riesgos altos abiertos</td><td>—</td><td>4</td><td></td><td></td></tr>
+        <tr><td>Decisiones pendientes</td><td>—</td><td>3</td><td></td><td></td></tr>
+      </table>
+      <h2>4. Desviaciones</h2>
+      <table class="data">
+        <tr><th>Desviación</th><th>Desde cuándo</th><th>Causa probable</th><th>Impacto</th><th>Evidencia</th></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <h2>5. Riesgos prioritarios (Top 4)</h2>
+      <table class="data">
+        <tr><th>#</th><th>Riesgo</th><th>Nivel</th><th>Respuesta</th><th>Responsable</th><th>Señal de alerta</th></tr>
+        <tr><td>1</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <h2>6. Escenarios evaluados</h2>
+      <table class="data">
+        <tr><th>Dimensión</th><th>A. Mantener plan</th><th>B. Reprogramar parcialmente</th><th>C. Solución temporal</th></tr>
+        <tr><td>Plazo</td><td></td><td></td><td></td></tr>
+        <tr><td>Costo</td><td></td><td></td><td></td></tr>
+        <tr><td>Comunidad</td><td></td><td></td><td></td></tr>
+        <tr><td>Operación</td><td></td><td></td><td></td></tr>
+        <tr><td>Riesgo residual</td><td></td><td></td><td></td></tr>
+      </table>
+      <h2>7. Recomendación argumentada</h2>
+      <div class="box"></div>
+      <h2>8. Decisiones requeridas del comité</h2>
+      <table class="data">
+        <tr><th>#</th><th>Decisión</th><th>Opciones</th><th>Fecha límite</th><th>Impacto si se aplaza</th></tr>
+        <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <h2>9. Próximos 14 días</h2>
+      <table class="data">
+        <tr><th>Actividad</th><th>Responsable</th><th>Fecha</th><th>Entregable</th></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <h2>10. Pendiente de validación y supuestos</h2>
+      <table class="data">
+        <tr><th>Tipo</th><th>Descripción</th><th>Quién valida</th><th>Estado</th></tr>
+        <tr><td>Información faltante</td><td></td><td></td><td>☐ Abierto ☐ Cerrado</td></tr>
+        <tr><td>Supuesto</td><td></td><td></td><td>☐ Abierto ☐ Cerrado</td></tr>
+        <tr><td>Inferencia de Copilot</td><td></td><td></td><td>☐ Abierto ☐ Cerrado</td></tr>
+      </table>`),
+
+    "registro-riesgos": () => downloadWord("MCP365_P08_Registro_riesgos.doc", "Registro y matriz de riesgos del proyecto", "MCP-365-P08", "Excel + Copilot", `
+      <h2>1. Encabezado del registro</h2>
+      <table class="data">
+        <tr><th>Proyecto</th><td>Proyecto Horizonte</td><th>Fecha de corte</th><td></td></tr>
+        <tr><th>Responsable del registro</th><td></td><th>Revisión</th><td>☐ Inicial ☐ Actualización</td></tr>
+      </table>
+      <h2>2. Matriz de riesgos</h2>
+      <table class="data">
+        <tr><th>ID</th><th>Riesgo</th><th>Categoría</th><th>Causa</th><th>Consecuencia</th><th>Prob.</th><th>Impacto</th><th>Nivel</th><th>Respuesta</th><th>Responsable</th><th>Señal de alerta</th><th>Estado</th></tr>
+        <tr><td>R01</td><td>Retraso del equipo principal</td><td>Contractual</td><td>Cadena de suministro</td><td>Desfase de intervención</td><td>Alta</td><td>Alto</td><td>Alto</td><td></td><td>Compras</td><td>Confirmación &lt; 21 días</td><td>☐ Abierto ☐ Mitigado</td></tr>
+        <tr><td>R02</td><td>Rechazo de horarios por comunidad</td><td>Social</td><td>Ruido / molestias</td><td>Retrasos y reputación</td><td>Media</td><td>Alto</td><td>Alto</td><td></td><td>Comunicaciones</td><td>Quejas &gt; 5/semana</td><td>☐ Abierto ☐ Mitigado</td></tr>
+        <tr><td>R03</td><td>Hallazgo ambiental no previsto</td><td>Ambiental</td><td>Inspección incompleta</td><td>Paradas y controles extra</td><td>Baja</td><td>Alto</td><td>Medio</td><td></td><td>HSE</td><td>Desviación de muestreo</td><td>☐ Abierto ☐ Mitigado</td></tr>
+        <tr><td>R04</td><td>Indisponibilidad de personal crítico</td><td>Operativo</td><td>Sobrecarga / vacaciones</td><td>Cuello de botella técnico</td><td>Media</td><td>Alto</td><td>Alto</td><td></td><td>Operaciones</td><td>Cobertura &lt; 1</td><td>☐ Abierto ☐ Mitigado</td></tr>
+        <tr><td>R05</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Abierto ☐ Mitigado</td></tr>
+        <tr><td>R06</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Abierto ☐ Mitigado</td></tr>
+        <tr><td>R07</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Abierto ☐ Mitigado</td></tr>
+        <tr><td>R08</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Abierto ☐ Mitigado</td></tr>
+      </table>
+      <div class="hint">Categorías: Técnico · Operativo · Seguridad · Ambiental · Social · Contractual · Financiero · Regulatorio · Reputacional</div>
+      <h2>3. Priorización y escalamiento</h2>
+      <table class="data">
+        <tr><th>Riesgos altos a escalar hoy</th><th>Mensaje al comité (3 líneas)</th><th>Dueño del seguimiento</th></tr>
+        <tr><td></td><td></td><td></td></tr>
+      </table>`),
+
+    "raci": () => downloadWord("MCP365_P09_Matriz_RACI.doc", "Matriz RACI y criterios de aceptación", "MCP-365-P09", "Excel + Word + Copilot", `
+      <h2>1. Alcance de la matriz</h2>
+      <table class="data">
+        <tr><th>Proyecto / fase</th><td></td><th>Elaboró</th><td></td></tr>
+        <tr><th>Fecha</th><td></td><th>Validó</th><td></td></tr>
+      </table>
+      <div class="rule"><strong>Leyenda RACI:</strong> R = Responsible (ejecuta) · A = Accountable (responde por el resultado, solo uno) · C = Consulted · I = Informed</div>
+      <h2>2. Matriz RACI</h2>
+      <table class="data">
+        <tr><th>#</th><th>Actividad / entregable</th><th>R</th><th>A</th><th>C</th><th>I</th><th>Criterio de aceptación</th><th>Fecha objetivo</th><th>Notas de validación</th></tr>
+        <tr><td>1</td><td>Diagnóstico en sitio</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>2</td><td>Diseño de intervención</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td>Aprovisionamiento de equipo principal</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td>Plan de comunicación comunitaria</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td>Permisos de seguridad / trabajo en altura</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>6</td><td>Intervención / montaje</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>7</td><td>Pruebas y puesta en servicio</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>8</td><td>Informe a comité directivo</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <h2>3. Alertas de diseño RACI</h2>
+      <table class="data">
+        <tr><th>Chequeo</th><th>Resultado</th><th>Corrección</th></tr>
+        <tr><td>¿Hay exactamente un A por actividad?</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>¿Hay al menos un R por actividad?</td><td>☐ Sí ☐ No</td><td></td></tr>
+        <tr><td>¿Se evitó sobrecargar a la misma persona?</td><td>☐ Sí ☐ No</td><td></td></tr>
+      </table>`),
+
+    "interesados": () => downloadWord("MCP365_P10_Mapa_interesados.doc", "Mapa y plan de interesados", "MCP-365-P10", "Excel + Copilot", `
+      <h2>1. Matriz de interesados</h2>
+      <table class="data">
+        <tr><th>Interesado</th><th>Interés</th><th>Influencia</th><th>Cuadrante</th><th>Necesidad de información</th><th>Mensaje clave</th><th>Canal</th><th>Frecuencia</th><th>Responsable</th><th>KPI de comunicación</th></tr>
+        <tr><td>Comité directivo</td><td>Alto</td><td>Alta</td><td>Gestionar de cerca</td><td>Estado y decisiones</td><td>Riesgo y opciones</td><td>Presentación</td><td>Quincenal</td><td>PM</td><td></td></tr>
+        <tr><td>Equipo técnico</td><td>Alto</td><td>Media</td><td>Mantener informado</td><td>Plan y cambios</td><td>Prioridades</td><td>Reunión</td><td>Semanal</td><td>Líder técnico</td><td></td></tr>
+        <tr><td>Comunidad</td><td>Alto</td><td>Media</td><td>Mantener satisfecho</td><td>Horarios e impacto</td><td>Qué cambia y cuándo</td><td>Boletín / reunión</td><td>Por hito</td><td>Comunicaciones</td><td></td></tr>
+        <tr><td>Proveedor</td><td>Medio</td><td>Alta</td><td>Gestionar de cerca</td><td>Fechas y recepción</td><td>Compromisos</td><td>Correo</td><td>Según hito</td><td>Compras</td><td></td></tr>
+        <tr><td>Área ambiental</td><td>Alto</td><td>Media</td><td>Mantener informado</td><td>Controles</td><td>Cumplimiento plan</td><td>Informe</td><td>Mensual</td><td>HSE</td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <h2>2. Plan de mensajes críticos (próximos 30 días)</h2>
+      <table class="data">
+        <tr><th>Fecha</th><th>Interesado</th><th>Mensaje</th><th>Canal</th><th>Dueño</th><th>Estado</th></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Enviado</td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Enviado</td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Enviado</td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Enviado</td></tr>
+      </table>
+      <h2>3. Riesgos de comunicación</h2>
+      <div class="box"></div>`),
+
+    "bitacora-validacion": () => downloadWord("MCP365_P11_Bitacora_validacion_humana.doc", "Bitácora de validación humana de Copilot", "MCP-365-P11", "Todas las apps M365", `
+      <h2>1. Registro de validaciones</h2>
+      <table class="data">
+        <tr><th>#</th><th>Fecha</th><th>App M365</th><th>Reto / fase</th><th>Salida de Copilot (resumen)</th><th>Hechos verificados</th><th>Inferencias detectadas</th><th>Correcciones aplicadas</th><th>Aprobador</th><th>Estado</th></tr>
+        <tr><td>1</td><td></td><td>☐ Outlook ☐ Teams ☐ Word ☐ Excel ☐ PowerPoint</td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Aprobado ☐ Rechazado</td></tr>
+        <tr><td>2</td><td></td><td>☐ Outlook ☐ Teams ☐ Word ☐ Excel ☐ PowerPoint</td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Aprobado ☐ Rechazado</td></tr>
+        <tr><td>3</td><td></td><td>☐ Outlook ☐ Teams ☐ Word ☐ Excel ☐ PowerPoint</td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Aprobado ☐ Rechazado</td></tr>
+        <tr><td>4</td><td></td><td>☐ Outlook ☐ Teams ☐ Word ☐ Excel ☐ PowerPoint</td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Aprobado ☐ Rechazado</td></tr>
+        <tr><td>5</td><td></td><td>☐ Outlook ☐ Teams ☐ Word ☐ Excel ☐ PowerPoint</td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Aprobado ☐ Rechazado</td></tr>
+        <tr><td>6</td><td></td><td>☐ Outlook ☐ Teams ☐ Word ☐ Excel ☐ PowerPoint</td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Aprobado ☐ Rechazado</td></tr>
+      </table>
+      <h2>2. Lecciones aprendidas sobre prompts</h2>
+      <table class="data">
+        <tr><th>Qué funcionó</th><th>Qué falló</th><th>Ajuste al prompt</th></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+      </table>
+      <h2>3. Declaración del participante</h2>
+      <div class="box">Declaro que revisé las salidas de Copilot usadas en esta capacitación, marqué supuestos e inferencias, y no utilicé información confidencial sin autorización.<br><br>Firma: ______________________ &nbsp;&nbsp; Fecha: ______________</div>`)
   };
 
   function initPlanillaDownloads() {
@@ -2302,7 +2646,7 @@
       btn.dataset.boundPlanilla = "1";
       btn.addEventListener("click", () => {
         const key = btn.getAttribute("data-planilla");
-        if (PLANILLAS[key]) { PLANILLAS[key](); toast("Planilla descargada", "download"); }
+        if (PLANILLAS[key]) { PLANILLAS[key](); toast("Planilla profesional descargada", "download"); }
         else toast("Planilla no encontrada", "alert-triangle");
       });
     });
@@ -2483,17 +2827,17 @@
 
   /* ========== TEMPLATES ========== */
   const TEMPLATES = [
-    { name: "Análisis de correo", desc: "Outlook · Extraer hechos, fechas y pendientes", key: "analisis-correo", type: "Word" },
-    { name: "Cadena de correos", desc: "Outlook · Cronología y 3 audiencias", key: "cadena-correos", type: "Word" },
-    { name: "Matriz de compromisos", desc: "Teams/Word · Tras reunión", key: "matriz-compromisos", type: "Excel" },
-    { name: "Tres audiencias", desc: "Word · Técnico, gerencia, comunidad", key: "tres-audiencias", type: "Word" },
-    { name: "Comparación documental", desc: "Word/Excel · Cambios e impactos", key: "comparacion-docs", type: "Excel" },
-    { name: "Priorización de jornada", desc: "Excel · Agenda y delegación", key: "priorizacion", type: "Excel" },
-    { name: "Informe ejecutivo", desc: "Word/PowerPoint · Comité", key: "informe-ejecutivo", type: "Word" },
-    { name: "Registro de riesgos", desc: "Excel · Matriz completa", key: "registro-riesgos", type: "Excel" },
-    { name: "Matriz RACI", desc: "Excel · Roles del proyecto", key: "raci", type: "Excel" },
-    { name: "Mapa de interesados", desc: "Excel · Comunicación", key: "interesados", type: "Excel" },
-    { name: "Bitácora de validación", desc: "Excel · Control humano de Copilot", key: "bitacora-validacion", type: "Excel" }
+    { name: "Análisis de correo", desc: "Outlook · Identificación, hallazgos, evidencia y próximo paso", key: "analisis-correo", type: "Word" },
+    { name: "Cadena de correos", desc: "Outlook · Cronología, cambios y 3 borradores por audiencia", key: "cadena-correos", type: "Word" },
+    { name: "Matriz de compromisos", desc: "Teams/Word · Decisiones, tareas y próxima agenda", key: "matriz-compromisos", type: "Word" },
+    { name: "Tres audiencias", desc: "Word · Técnico, gerencia, comunidad + control de hechos", key: "tres-audiencias", type: "Word" },
+    { name: "Comparación documental", desc: "Word · Cambios, impactos y validaciones", key: "comparacion-docs", type: "Word" },
+    { name: "Priorización de jornada", desc: "Excel/Word · 10 tareas, agenda y criterio humano", key: "priorizacion", type: "Word" },
+    { name: "Informe ejecutivo", desc: "Word/PowerPoint · 10 bloques para comité", key: "informe-ejecutivo", type: "Word" },
+    { name: "Registro de riesgos", desc: "Excel/Word · Matriz con IDs y escalamiento", key: "registro-riesgos", type: "Word" },
+    { name: "Matriz RACI", desc: "Excel/Word · Roles, aceptación y chequeos", key: "raci", type: "Word" },
+    { name: "Mapa de interesados", desc: "Excel/Word · Cuadrantes y plan de mensajes", key: "interesados", type: "Word" },
+    { name: "Bitácora de validación", desc: "Todas las apps · Control humano de Copilot", key: "bitacora-validacion", type: "Word" }
   ];
 
   function renderTemplates() {
