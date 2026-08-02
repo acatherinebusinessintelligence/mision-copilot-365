@@ -958,6 +958,7 @@
                 <li>Pide a Copilot que <strong>llene solo la tabla de análisis</strong> del formato. No debe crear un documento nuevo ni rehacer el archivo.</li>
                 <li>Verifica: colores, encabezados y formas del formato siguen iguales; solo se llenaron <strong>Hallazgo</strong> y <strong>Evidencia</strong>.</li>
                 <li>Deja vacíos <strong>Validación humana</strong> y <strong>Control de calidad</strong>: esos los completa la persona, no Copilot.</li>
+                <li>Guarda o <strong>descarga el archivo nuevo ya completado</strong> (por ejemplo: <em>MCP365_P01_Analisis_correo_completado.docx</em>) como entregable del reto.</li>
               </ol>
             </div>
             <div class="btn-group" style="margin-bottom:1rem">
@@ -977,9 +978,9 @@
               <p>Responsable técnico designado: <strong>Andrés Quintero</strong>. La junta de acción comunal reportó, el 12/03, preocupación por ruido en jornada nocturna. <strong>Aún no hay decisión formal</strong> sobre si la ventana se mantiene diurna o se evalúa nocturna.</p>
               <p>Quedo atenta. Laura Méndez · Coordinación de Campo · Ext. 4412</p>
             </div>
-            <div class="entregable"><strong>Entregable:</strong> el mismo formato adjunto, con la tabla <em>Elemento | Hallazgo | Evidencia en el correo</em> completada (7 filas). Conservar colores y estructura del archivo. Sin inventar datos. Validación humana y control de calidad quedan en blanco para la persona.</div>
+            <div class="entregable"><strong>Entregable:</strong> archivo descargado del formato adjunto ya completado (tabla <em>Elemento | Hallazgo | Evidencia en el correo</em> con 7 filas). Conservar colores y estructura. Sin inventar datos. Validación humana y control de calidad en blanco.</div>
             <p><strong>Prompt para Copilot (usar con el formato adjunto abierto en Word)</strong></p>
-            <div class="prompt-box" id="prompt-r1">Eres asistente de operaciones. Analiza el correo que te entrego y LLENA el formato adjunto que ya está abierto (no crees un archivo nuevo ni rehagas el documento).
+            <div class="prompt-box" id="prompt-r1">Eres asistente de operaciones. Analiza el correo que te entrego y LLENA el formato adjunto que ya está abierto (no crees un archivo desde cero ni rehagas el diseño del documento).
 
 Instrucciones de entrega:
 1) Conserva exactamente la estructura, colores, encabezados, chips, tablas y formas del formato adjunto.
@@ -987,14 +988,15 @@ Instrucciones de entrega:
 3) No inventes datos. Si falta un dato, escribe “no especificado”.
 4) NO llenes ni marques: Validación humana, Control de calidad, firmas, ni campos de estado del participante. Esas secciones quedan vacías para revisión humana.
 5) No reescribas títulos, no agregues secciones nuevas y no cambies el diseño del formato.
+6) Al terminar, genera y permite DESCARGAR el archivo nuevo ya completado (Word), listo como entregable. Nombre sugerido: MCP365_P01_Analisis_correo_completado.docx.
 
-Entrega: el mismo documento con solo esas celdas de análisis llenas.</div>
+Entrega: el documento completado + descarga del archivo nuevo con solo esas celdas de análisis llenas.</div>
             <button class="btn btn--sm btn--secondary" data-copy="#prompt-r1"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
             <ul class="check-list">
-              <li><input type="checkbox" data-progress="r1-c1" /> Se usó el formato adjunto (sin recrear el archivo)</li>
+              <li><input type="checkbox" data-progress="r1-c1" /> Se usó el formato adjunto (sin recrear el diseño)</li>
               <li><input type="checkbox" data-progress="r1-c2" /> Tabla Elemento | Hallazgo | Evidencia con los 7 elementos</li>
               <li><input type="checkbox" data-progress="r1-c3" /> Sin datos inventados (vacíos = “no especificado”)</li>
-              <li><input type="checkbox" data-progress="r1-c4" /> Validación humana y control de calidad sin llenar por Copilot</li>
+              <li><input type="checkbox" data-progress="r1-c4" /> Archivo nuevo completado descargado; validación humana y CQ sin llenar por Copilot</li>
             </ul>
           </div>
         </article>
@@ -2951,7 +2953,7 @@ Entrega: el mismo documento con solo esas celdas de análisis llenas.</div>
 
   /* ========== PROMPTS LIBRARY ========== */
   const PROMPTS = [
-    { id: "pr1", cat: "Correos", name: "Análisis de correo", use: "Llenar formato adjunto sin recrearlo", text: "Eres asistente de operaciones. Analiza el correo que te entrego y LLENA el formato adjunto que ya está abierto (no crees un archivo nuevo ni rehagas el documento).\n\nInstrucciones de entrega:\n1) Conserva exactamente la estructura, colores, encabezados, chips, tablas y formas del formato adjunto.\n2) Solo completa, en la sección de análisis, las columnas Hallazgo y Evidencia en el correo para estos 7 elementos: 1) objetivo principal, 2) hechos verificables, 3) fechas y horas, 4) responsables, 5) compromisos, 6) decisiones pendientes, 7) preguntas sin resolver.\n3) No inventes datos. Si falta un dato, escribe “no especificado”.\n4) NO llenes ni marques: Validación humana, Control de calidad, firmas, ni campos de estado del participante.\n5) No reescribas títulos, no agregues secciones nuevas y no cambies el diseño del formato.\n\nEntrega: el mismo documento con solo esas celdas de análisis llenas.", tip: "Abre el .doc en Word y usa Copilot sobre ese archivo, no en un chat vacío." },
+    { id: "pr1", cat: "Correos", name: "Análisis de correo", use: "Llenar formato y descargar archivo completado", text: "Eres asistente de operaciones. Analiza el correo que te entrego y LLENA el formato adjunto que ya está abierto (no crees un archivo desde cero ni rehagas el diseño del documento).\n\nInstrucciones de entrega:\n1) Conserva exactamente la estructura, colores, encabezados, chips, tablas y formas del formato adjunto.\n2) Solo completa, en la sección de análisis, las columnas Hallazgo y Evidencia en el correo para estos 7 elementos: 1) objetivo principal, 2) hechos verificables, 3) fechas y horas, 4) responsables, 5) compromisos, 6) decisiones pendientes, 7) preguntas sin resolver.\n3) No inventes datos. Si falta un dato, escribe “no especificado”.\n4) NO llenes ni marques: Validación humana, Control de calidad, firmas, ni campos de estado del participante.\n5) No reescribas títulos, no agregues secciones nuevas y no cambies el diseño del formato.\n6) Al terminar, genera y permite DESCARGAR el archivo nuevo ya completado (Word), listo como entregable. Nombre sugerido: MCP365_P01_Analisis_correo_completado.docx.\n\nEntrega: el documento completado + descarga del archivo nuevo con solo esas celdas de análisis llenas.", tip: "Abre el .doc en Word, llena con Copilot y descarga el archivo completado." },
     { id: "pr2", cat: "Correos", name: "Respuesta ejecutiva", use: "Responder con claridad gerencial", text: "Redacta una respuesta ejecutiva breve: decisión, impacto, siguiente paso y dueño. Sin jerga innecesaria.", tip: "Indica tono formal." },
     { id: "pr3", cat: "Reuniones", name: "Transcripción a compromisos", use: "Separar decisiones y tareas", text: "Diferencia decisiones, propuestas, opiniones, preguntas y tareas. Matriz: actividad, responsable, fecha, estado. Usa ‘no especificado’.", tip: "Marca lo no confirmado." },
     { id: "pr4", cat: "Documentos", name: "Comparar versiones", use: "Detectar cambios de significado", text: "Compara versión A y B. Tabla: tema, anterior, actual, impacto posible, validación requerida.", tip: "Adjunta ambas versiones completas." },
