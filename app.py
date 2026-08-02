@@ -219,6 +219,61 @@ Esta es una capacitación académica. No compartas tu clave con otras personas.
         return False, f"Error SMTP: {exc}"
 
 
+def send_reto1_email(to_email: str, name: str) -> tuple[bool, str]:
+    """Envía el correo operativo del Reto 1 a la bandeja del estudiante."""
+    smtp_email = os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com")
+    smtp_password = os.getenv("SMTP_APP_PASSWORD", "").replace(" ", "")
+    smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
+    smtp_port = int(os.getenv("SMTP_PORT", "587"))
+
+    if not smtp_password:
+        return False, "Falta SMTP_APP_PASSWORD en .env (contraseña de aplicación de Gmail)."
+
+    subject = "URGENTE · Reprogramación intervención preventivo Circuito N-14"
+    body = f"""Buenos días, equipo:
+
+La intervención de mantenimiento preventivo del Circuito N-14 (Zona Norte), programada para el sábado 22/03/2026 de 07:00 a 15:00, debe moverse al sábado 29/03/2026 en el mismo horario. Motivo: no hay disponibilidad confirmada del personal especialista en protecciones para la fecha original.
+
+Necesito confirmación de recepción de este mensaje antes del martes 18/03/2026 a las 12:00.
+
+Responsable técnico designado: Andrés Quintero. La junta de acción comunal reportó, el 12/03, preocupación por ruido en jornada nocturna. Aún no hay decisión formal sobre si la ventana se mantiene diurna o se evalúa nocturna.
+
+Quedo atenta.
+Laura Méndez · Coordinación de Campo · Ext. 4412
+
+---
+Simulación formativa · Misión Copilot 365 · Reto 1
+Remitente técnico de envío: {smtp_email}
+Destinatario del ejercicio: {name} <{to_email}>
+Instrucción: abre este correo en Outlook, analiza con Copilot y completa la plantilla Word adjunta (solo Hallazgo y Evidencia). No llenes validación humana ni control de calidad.
+"""
+
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = f"Laura Méndez · Coordinación de Campo <{smtp_email}>"
+    msg["To"] = to_email
+    msg["Reply-To"] = smtp_email
+    msg.set_content(body)
+
+    plantilla = BASE_DIR / "planillas" / "MCP365_P01_Formato_analisis_correo.docx"
+    if plantilla.exists():
+        msg.add_attachment(
+            plantilla.read_bytes(),
+            maintype="application",
+            subtype="vnd.openxmlformats-officedocument.wordprocessingml.document",
+            filename="MCP365_P01_Formato_analisis_correo.docx",
+        )
+
+    try:
+        with smtplib.SMTP(smtp_host, smtp_port, timeout=30) as server:
+            server.starttls()
+            server.login(smtp_email, smtp_password)
+            server.send_message(msg)
+        return True, f"Correo del Reto 1 enviado a {to_email}"
+    except Exception as exc:  # noqa: BLE001
+        return False, f"Error SMTP: {exc}"
+
+
 def send_admin_notification(name: str, email: str) -> tuple[bool, str]:
     """Avisa al admin que hay una solicitud de clave pendiente."""
     smtp_email = os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com")
@@ -465,6 +520,39 @@ def api_me():
             },
         }
     )
+
+
+@app.post("/api/reto1/send-email")
+@require_student
+def api_send_reto1_email():
+    """Envía el correo del Reto 1 a la bandeja del estudiante autenticado."""
+    to_email = (session.get("student_email") or "").strip()
+    name = (session.get("student_name") or "Participante").strip()
+    if not to_email:
+        return jsonify({"ok": False, "error": "No hay correo en la sesión. Vuelve a iniciar sesión."}), 400
+
+    # Anti-spam: máximo 1 envío cada 90 segundos por sesión
+    now = datetime.now(timezone.utc).timestamp()
+    last = float(session.get("reto1_email_at") or 0)
+    wait = 90 - int(now - last)
+    if wait > 0:
+        return jsonify({
+            "ok": False,
+            "error": f"Espera {wait} s antes de reenviar el correo del reto.",
+        }), 429
+
+    ok, detail = send_reto1_email(to_email, name)
+    if not ok:
+        return jsonify({"ok": False, "error": detail}), 502
+
+    session["reto1_email_at"] = now
+    return jsonify({
+        "ok": True,
+        "message": detail,
+        "to": to_email,
+        "from": os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com"),
+        "subject": "URGENTE · Reprogramación intervención preventivo Circuito N-14",
+    })
 
 
 @app.get("/api/progress")
