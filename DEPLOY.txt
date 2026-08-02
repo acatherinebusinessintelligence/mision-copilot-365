@@ -84,7 +84,16 @@ Salud:       https://acatherinem.pythonanywhere.com/health
 
 8) Si el correo falla (plan free)
 --------------------------------
-El plan gratuito a veces bloquea SMTP externo.
-La clave igual aparece en el panel al crear el estudiante:
-puedes copiarla y enviarla manualmente, o usar "Reenviar clave"
-cuando SMTP esté habilitado (plan de pago).
+El plan gratuito a menudo bloquea SMTP (puerto 587).
+Para el Reto 1 (enviar correo a la bandeja del estudiante):
+
+1. Abre https://script.google.com con analizamostunegocio@gmail.com
+2. Crea un proyecto y pega scripts/gmail_reto1_webhook.gs
+3. Implementar → Aplicación web (Ejecutar como: Yo / Acceso: Cualquiera)
+4. En el .env de PythonAnywhere:
+     EMAIL_WEBHOOK_URL=https://script.google.com/macros/s/.../exec
+     EMAIL_WEBHOOK_SECRET=el-mismo-secreto-del-script
+5. Web → Reload
+
+Las claves de acceso siguen pudiendo copiarse desde el panel admin
+si el envío SMTP de claves también falla.

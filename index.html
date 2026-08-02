@@ -2968,10 +2968,19 @@ Si aún no tienes el archivo .docx editable, solicita que te lo adjuntan y esper
           credentials: "same-origin",
           headers: { "Content-Type": "application/json" },
         });
-        const data = await res.json().catch(() => ({}));
+        const raw = await res.text();
+        let data = {};
+        try { data = JSON.parse(raw); } catch (_) { /* HTML u otro */ }
         if (!res.ok || !data.ok) {
-          toast(data.error || "No se pudo enviar el correo", "alert-triangle");
-          if (status) status.textContent = data.error || "Error al enviar.";
+          let msg = data.error || "";
+          if (!msg) {
+            if (res.status === 404) msg = "Endpoint no encontrado (404). En el servidor falta git pull + Reload.";
+            else if (res.status === 401) msg = "Sesión requerida. Vuelve a iniciar sesión.";
+            else if (res.status === 502) msg = "El servidor no pudo enviar el correo (SMTP/webhook).";
+            else msg = `Error HTTP ${res.status}. ${raw.slice(0, 160)}`;
+          }
+          toast(msg, "alert-triangle");
+          if (status) status.textContent = msg;
           return;
         }
         toast(`Correo enviado a ${data.to}`, "mail");
@@ -2979,8 +2988,9 @@ Si aún no tienes el archivo .docx editable, solicita que te lo adjuntan y esper
           status.innerHTML = `Enviado a <strong>${esc(data.to)}</strong>. Abre Outlook y busca el asunto <em>${esc(data.subject || "")}</em>. Revisa también spam.`;
         }
       } catch (err) {
-        toast("Error de red al enviar el correo", "alert-triangle");
-        if (status) status.textContent = "Error de red. Intenta de nuevo.";
+        const msg = "Error de red al enviar el correo";
+        toast(msg, "alert-triangle");
+        if (status) status.textContent = msg;
       } finally {
         btn.disabled = false;
         btn.innerHTML = prev;

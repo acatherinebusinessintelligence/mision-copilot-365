@@ -219,16 +219,15 @@ Esta es una capacitación académica. No compartas tu clave con otras personas.
         return False, f"Error SMTP: {exc}"
 
 
-def send_reto1_email(to_email: str, name: str) -> tuple[bool, str]:
-    """Envía el correo operativo del Reto 1 a la bandeja del estudiante."""
-    smtp_email = os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com")
-    smtp_password = os.getenv("SMTP_APP_PASSWORD", "").replace(" ", "")
-    smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
-    smtp_port = int(os.getenv("SMTP_PORT", "587"))
+def _smtp_config() -> tuple[str, str, str, int]:
+    email = os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com")
+    password = os.getenv("SMTP_APP_PASSWORD", "").replace(" ", "")
+    host = os.getenv("SMTP_HOST", "smtp.gmail.com")
+    port = int(os.getenv("SMTP_PORT", "587"))
+    return email, password, host, port
 
-    if not smtp_password:
-        return False, "Falta SMTP_APP_PASSWORD en .env (contraseña de aplicación de Gmail)."
 
+def _reto1_email_content(to_email: str, name: str, smtp_email: str) -> tuple[str, str]:
     subject = "URGENTE · Reprogramación intervención preventivo Circuito N-14"
     body = f"""Buenos días, equipo:
 
@@ -247,22 +246,152 @@ Remitente técnico de envío: {smtp_email}
 Destinatario del ejercicio: {name} <{to_email}>
 Instrucción: abre este correo en Outlook y analízalo con Copilot. La plantilla Word del reto se descarga por separado en la plataforma (solo Hallazgo y Evidencia). No llenes validación humana ni control de calidad.
 """
+    return subject, body
+
+
+def _send_email_smtp(to_email: str, subject: str, body: str, from_display: str) -> tuple[bool, str]:
+    smtp_email, smtp_password, smtp_host, smtp_port = _smtp_config()
+    if not smtp_password:
+        return False, "Falta SMTP_APP_PASSWORD en .env"
 
     msg = EmailMessage()
     msg["Subject"] = subject
-    msg["From"] = f"Laura Méndez · Coordinación de Campo <{smtp_email}>"
+    msg["From"] = from_display
     msg["To"] = to_email
     msg["Reply-To"] = smtp_email
     msg.set_content(body)
-
     try:
-        with smtplib.SMTP(smtp_host, smtp_port, timeout=30) as server:
+        with smtplib.SMTP(smtp_host, smtp_port, timeout=20) as server:
             server.starttls()
             server.login(smtp_email, smtp_password)
             server.send_message(msg)
-        return True, f"Correo del Reto 1 enviado a {to_email}"
+        return True, f"Enviado por SMTP a {to_email}"
+    except OSError as exc:
+        return False, (
+            f"SMTP bloqueado o inaccesible ({exc}). "
+            "En PythonAnywhere gratuito el puerto 587 suele estar cerrado. "
+            "Usa EMAIL_WEBHOOK_URL (Google Apps Script) — ver scripts/gmail_reto1_webhook.gs"
+        )
     except Exception as exc:  # noqa: BLE001
         return False, f"Error SMTP: {exc}"
+
+
+def _send_email_webhook(to_email: str, name: str, subject: str, body: str) -> tuple[bool, str]:
+    """Envío por HTTPS (funciona en PythonAnywhere free). Espera un Google Apps Script u otro webhook."""
+    import json
+    import urllib.error
+    import urllib.request
+
+    url = (os.getenv("EMAIL_WEBHOOK_URL") or "").strip()
+    if not url:
+        return False, "EMAIL_WEBHOOK_URL no configurada"
+
+    payload = json.dumps(
+        {
+            "to": to_email,
+            "name": name,
+            "subject": subject,
+            "body": body,
+            "fromName": "Laura Méndez · Coordinación de Campo",
+            "secret": (os.getenv("EMAIL_WEBHOOK_SECRET") or "").strip(),
+        },
+        ensure_ascii=False,
+    ).encode("utf-8")
+
+    req = urllib.request.Request(
+        url,
+        data=payload,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=25) as resp:
+            raw = resp.read().decode("utf-8", errors="replace")
+            if resp.status >= 400:
+                return False, f"Webhook HTTP {resp.status}: {raw[:200]}"
+            return True, f"Enviado por webhook HTTPS a {to_email}"
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")[:200]
+        return False, f"Webhook HTTP {exc.code}: {detail}"
+    except Exception as exc:  # noqa: BLE001
+        return False, f"Webhook falló: {exc}"
+
+
+def _send_email_resend(to_email: str, subject: str, body: str) -> tuple[bool, str]:
+    import json
+    import urllib.error
+    import urllib.request
+
+    api_key = (os.getenv("RESEND_API_KEY") or "").strip()
+    if not api_key:
+        return False, "RESEND_API_KEY no configurada"
+
+    smtp_email, _, _, _ = _smtp_config()
+    from_addr = os.getenv("RESEND_FROM", smtp_email)
+    payload = json.dumps(
+        {
+            "from": f"Laura Méndez <{from_addr}>",
+            "to": [to_email],
+            "subject": subject,
+            "text": body,
+        },
+        ensure_ascii=False,
+    ).encode("utf-8")
+    req = urllib.request.Request(
+        "https://api.resend.com/emails",
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=25) as resp:
+            if resp.status >= 400:
+                return False, f"Resend HTTP {resp.status}"
+            return True, f"Enviado por Resend a {to_email}"
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")[:220]
+        return False, f"Resend HTTP {exc.code}: {detail}"
+    except Exception as exc:  # noqa: BLE001
+        return False, f"Resend falló: {exc}"
+
+
+def send_reto1_email(to_email: str, name: str) -> tuple[bool, str]:
+    """Envía el correo operativo del Reto 1. Prioriza HTTPS (webhook/Resend) y luego SMTP."""
+    smtp_email, smtp_password, _, _ = _smtp_config()
+    subject, body = _reto1_email_content(to_email, name, smtp_email)
+    from_display = f"Laura Méndez · Coordinación de Campo <{smtp_email}>"
+    errors: list[str] = []
+
+    # 1) Webhook HTTPS (recomendado en PA free)
+    if (os.getenv("EMAIL_WEBHOOK_URL") or "").strip():
+        ok, detail = _send_email_webhook(to_email, name, subject, body)
+        if ok:
+            return True, detail
+        errors.append(detail)
+
+    # 2) Resend HTTPS
+    if (os.getenv("RESEND_API_KEY") or "").strip():
+        ok, detail = _send_email_resend(to_email, subject, body)
+        if ok:
+            return True, detail
+        errors.append(detail)
+
+    # 3) SMTP Gmail (requiere salida por puerto 587; a menudo bloqueado en PA free)
+    if smtp_password:
+        ok, detail = _send_email_smtp(to_email, subject, body, from_display)
+        if ok:
+            return True, detail
+        errors.append(detail)
+    else:
+        errors.append("Falta SMTP_APP_PASSWORD en .env")
+
+    if not errors:
+        errors.append("No hay método de envío configurado")
+
+    return False, " · ".join(errors)
 
 
 def send_admin_notification(name: str, email: str) -> tuple[bool, str]:
@@ -543,6 +672,21 @@ def api_send_reto1_email():
         "to": to_email,
         "from": os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com"),
         "subject": "URGENTE · Reprogramación intervención preventivo Circuito N-14",
+    })
+
+
+@app.get("/api/reto1/email-status")
+@require_student
+def api_reto1_email_status():
+    """Diagnóstico de envío para el estudiante autenticado."""
+    _, smtp_password, _, _ = _smtp_config()
+    return jsonify({
+        "ok": True,
+        "student_email": session.get("student_email"),
+        "smtp_configured": bool(smtp_password),
+        "webhook_configured": bool((os.getenv("EMAIL_WEBHOOK_URL") or "").strip()),
+        "resend_configured": bool((os.getenv("RESEND_API_KEY") or "").strip()),
+        "endpoint": "/api/reto1/send-email",
     })
 
 
