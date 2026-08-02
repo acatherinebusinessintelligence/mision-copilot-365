@@ -950,19 +950,20 @@
           </button>
           <div class="reto__body">
             <div class="m365-box">
-              <h4><span class="app-badge">Outlook</span> Paso a paso con Copilot</h4>
+              <h4><span class="app-badge">Outlook</span> + <span class="app-badge">Word</span> Paso a paso con Copilot</h4>
               <ol>
-                <li>Descarga el <strong>formato adjunto</strong> del reto y ábrelo en <strong>Word</strong> (conserva colores, tablas y secciones).</li>
-                <li>Abre <strong>Outlook</strong>, copia el correo de abajo y tenlo listo (puedes pegarlo en el chat de Copilot o en Word).</li>
-                <li>En Word, abre <strong>Copilot</strong>, adjunta/referencia el formato abierto y pega el prompt sugerido + el correo.</li>
-                <li>Pide a Copilot que <strong>llene solo la tabla de análisis</strong> del formato. No debe crear un documento nuevo ni rehacer el archivo.</li>
-                <li>Verifica: colores, encabezados y formas del formato siguen iguales; solo se llenaron <strong>Hallazgo</strong> y <strong>Evidencia</strong>.</li>
-                <li>Deja vacíos <strong>Validación humana</strong> y <strong>Control de calidad</strong>: esos los completa la persona, no Copilot.</li>
-                <li>Guarda o <strong>descarga el archivo nuevo ya completado</strong> (por ejemplo: <em>MCP365_P01_Analisis_correo_completado.docx</em>) como entregable del reto.</li>
+                <li>Descarga la <strong>plantilla oficial .docx</strong> (archivo Word real, no HTML). Ábrela en <strong>Microsoft Word</strong> (escritorio o web).</li>
+                <li>Copia el correo de abajo.</li>
+                <li>En Word, abre <strong>Copilot</strong> <em>sobre ese mismo documento</em> (no en un chat vacío sin archivo).</li>
+                <li>Pega el prompt sugerido y, a continuación, el correo.</li>
+                <li>Copilot debe editar una <strong>copia</strong> del .docx y llenar solo las 14 celdas de Hallazgo y Evidencia.</li>
+                <li>Verifica que el diseño (banner, chips, colores, secciones 1, 8, 9 y 10) se conserve intacto.</li>
+                <li>Guarda/descarga el resultado como <strong>MCP365_P01_Analisis_correo_completado.docx</strong>.</li>
               </ol>
+              <p style="margin:0.75rem 0 0;font-size:0.88rem;color:var(--text-muted)">Si Copilot responde que solo ve texto y no puede editar, vuelve a adjuntar o abrir el archivo <code>.docx</code> en Word y reintenta. No aceptes una reconstrucción del documento.</p>
             </div>
             <div class="btn-group" style="margin-bottom:1rem">
-              <button type="button" class="btn btn--sm btn--energy" data-planilla="analisis-correo"><i data-lucide="download" width="14" height="14"></i> Descargar formato adjunto (Word)</button>
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="analisis-correo"><i data-lucide="download" width="14" height="14"></i> Descargar plantilla oficial (.docx)</button>
             </div>
             <div class="email-box">
               <div class="email-meta">
@@ -980,15 +981,20 @@
             </div>
             <div class="entregable"><strong>Entregable:</strong> <code>MCP365_P01_Analisis_correo_completado.docx</code> — copia de la plantilla oficial con solo las 14 celdas de Hallazgo y Evidencia llenas. Conservar diseño completo. Validación humana, control de calidad y firmas vacías.</div>
             <p><strong>Prompt para Copilot (modo edición de plantilla Word)</strong></p>
-            <div class="prompt-box" id="prompt-r1">ACTÚA EN MODO EDICIÓN DE PLANTILLA WORD.
+            <div class="prompt-box" id="prompt-r1">ACTÚA EN MODO EDICIÓN DE PLANTILLA WORD (.docx REAL).
 
-Eres un asistente de operaciones especializado en análisis de correos. Debes analizar el correo proporcionado y completar el documento Word que está abierto.
+Eres un asistente de operaciones especializado en análisis de correos. Debes analizar el correo proporcionado y completar el documento Word .docx que está abierto o adjunto.
 
-IMPORTANTE: el documento abierto es la PLANTILLA OFICIAL. No debes crear, reconstruir, resumir ni rediseñar el documento.
+IMPORTANTE: el archivo MCP365_P01_Formato_analisis_correo.docx es la PLANTILLA OFICIAL en formato Word real. No debes crear, reconstruir, resumir ni rediseñar el documento a partir de una representación textual.
+
+PRECONDICIÓN DE ARCHIVO
+- Trabaja solo si tienes acceso de edición al archivo .docx (documento abierto en Word o adjunto editable).
+- Si en este momento solo ves texto o una descripción del documento y NO tienes el .docx editable, NO te detengas con una negativa genérica: pide expresamente que te adjuntan o abran MCP365_P01_Formato_analisis_correo.docx y, en cuanto lo tengas, continúa con la edición.
+- Mientras no tengas el .docx, no reconstruyas el documento ni entregues una versión parcial.
 
 TAREA
 
-1. Trabaja directamente sobre una COPIA del documento Word abierto.
+1. Trabaja directamente sobre una COPIA del documento Word .docx abierto/adjunto.
 2. Localiza la sección titulada:
 
 “2. Análisis estructurado · LLENAR CON COPILOT”
@@ -1039,8 +1045,7 @@ Debes mantener íntegramente:
 - Los campos de participante, fecha, área, aplicación, correo y estado.
 - Los cuatro recuadros de instrucciones.
 - Todos los títulos y subtítulos.
-- Las seis tablas del documento.
-- Los bordes, sombreados, anchos de columnas y estilos de las tablas.
+- Todas las tablas del documento (estructura, bordes, sombreados y anchos).
 - Las tipografías, tamaños, negrillas y colores.
 - La numeración original de las secciones.
 - Las casillas de verificación.
@@ -1073,7 +1078,7 @@ Compara la copia completada con la plantilla original y verifica que:
 
 1. La única diferencia sea el contenido incorporado en las 14 celdas autorizadas.
 2. Continúen presentes las secciones 1, 2, 8, 9 y 10.
-3. Continúen presentes las seis tablas originales.
+3. Continúen presentes todas las tablas originales.
 4. Se conserven el banner, los chips, los recuadros, colores y formas.
 5. Las secciones de validación humana, control de calidad y firmas permanezcan vacías y sin marcar.
 6. No se haya agregado ningún párrafo antes o después de la plantilla.
@@ -1087,7 +1092,7 @@ MCP365_P01_Analisis_correo_completado.docx
 
 Entrega el documento completo, desde el banner superior hasta el texto institucional final, no solamente la tabla diligenciada.
 
-Si técnicamente no puedes editar la copia conservando todos los elementos de la plantilla, detente e informa la limitación. En ese caso, no reconstruyas el documento ni entregues una versión parcial.</div>
+Si aún no tienes el archivo .docx editable, solicita que te lo adjuntan y espera. No reconstruyas la plantilla ni entregues una versión parcial hecha desde texto.</div>
             <button class="btn btn--sm btn--secondary" data-copy="#prompt-r1"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
             <ul class="check-list">
               <li><input type="checkbox" data-progress="r1-c1" /> Se usó el formato adjunto (sin recrear el diseño)</li>
@@ -2344,6 +2349,15 @@ Si técnicamente no puedes editar la copia conservando todos los elementos de la
     });
   }
 
+  function downloadStaticFile(url, filename) {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename || "";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
   function downloadText(filename, text) {
     const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -2435,38 +2449,10 @@ Si técnicamente no puedes editar la copia conservando todos los elementos de la
   const emptyRows = (cols, n) => Array.from({ length: n }, () => Array(cols).fill(""));
 
   const PLANILLAS = {
-    "analisis-correo": () => downloadWord("MCP365_P01_Formato_analisis_correo.doc", "Formato adjunto · Análisis de correo operativo", "MCP-365-P01", "Outlook + Copilot", `
-      <div class="hint"><strong>Para Copilot:</strong> llena SOLO la sección 2 (columnas Hallazgo y Evidencia). Conserva colores, tablas y diseño. No recrees el archivo.</div>
-      <div class="rule"><strong>Para la persona:</strong> no pidas a Copilot que complete Validación humana ni Control de calidad. Esas secciones son solo humanas.</div>
-      <h2>1. Identificación del mensaje (opcional · puede quedar en blanco)</h2>
-      <table class="data">
-        <tr><th>Campo</th><th>Dato</th><th>Fuente / evidencia</th></tr>
-        <tr><td>De (remitente y cargo)</td><td></td><td></td></tr>
-        <tr><td>Para / CC</td><td></td><td></td></tr>
-        <tr><td>Asunto</td><td></td><td></td></tr>
-        <tr><td>Fecha y hora de envío</td><td></td><td></td></tr>
-        <tr><td>Código / activo / circuito</td><td></td><td></td></tr>
-      </table>
-      <h2>2. Análisis estructurado · LLENAR CON COPILOT</h2>
-      <p style="font-size:10pt;color:#36428C"><strong>Formato obligatorio:</strong> Elemento | Hallazgo | Evidencia en el correo</p>
-      <table class="data">
-        <tr><th style="width:28%">Elemento</th><th style="width:36%">Hallazgo</th><th style="width:36%">Evidencia en el correo</th></tr>
-        <tr><td>1) Objetivo principal</td><td></td><td></td></tr>
-        <tr><td>2) Hechos verificables</td><td></td><td></td></tr>
-        <tr><td>3) Fechas y horas</td><td></td><td></td></tr>
-        <tr><td>4) Responsables</td><td></td><td></td></tr>
-        <tr><td>5) Compromisos</td><td></td><td></td></tr>
-        <tr><td>6) Decisiones pendientes</td><td></td><td></td></tr>
-        <tr><td>7) Preguntas sin resolver</td><td></td><td></td></tr>
-      </table>
-      <h2>8. Validación humana · NO LLENAR CON COPILOT</h2>
-      <table class="data">
-        <tr><th>Hallazgo a validar</th><th>¿Por qué requiere revisión humana?</th><th>Estado</th></tr>
-        <tr><td></td><td></td><td>☐ Pendiente ☐ Validado</td></tr>
-        <tr><td></td><td></td><td>☐ Pendiente ☐ Validado</td></tr>
-        <tr><td></td><td></td><td>☐ Pendiente ☐ Validado</td></tr>
-      </table>
-      <p style="font-size:9.5pt;color:#5A5A72"><em>La sección “Control de calidad” al final del documento también queda vacía: la completa el participante, no Copilot.</em></p>`),
+    "analisis-correo": () => downloadStaticFile(
+      "planillas/MCP365_P01_Formato_analisis_correo.docx",
+      "MCP365_P01_Formato_analisis_correo.docx"
+    ),
 
     "cadena-correos": () => downloadWord("MCP365_P02_Cadena_correos_audiencias.doc", "Cadena de correos · Cronología y respuestas", "MCP-365-P02", "Outlook + Copilot", `
       <h2>1. Cronología de la cadena</h2>
@@ -3050,7 +3036,7 @@ Si técnicamente no puedes editar la copia conservando todos los elementos de la
 
   /* ========== PROMPTS LIBRARY ========== */
   const PROMPTS = [
-    { id: "pr1", cat: "Correos", name: "Análisis de correo", use: "Edición de plantilla Word · 14 celdas + descarga .docx", text: "ACTÚA EN MODO EDICIÓN DE PLANTILLA WORD.\n\nEres un asistente de operaciones especializado en análisis de correos. Debes analizar el correo proporcionado y completar el documento Word que está abierto.\n\nIMPORTANTE: el documento abierto es la PLANTILLA OFICIAL. No debes crear, reconstruir, resumir ni rediseñar el documento.\n\nTAREA\n\n1. Trabaja directamente sobre una COPIA del documento Word abierto.\n2. Localiza la sección titulada:\n\n“2. Análisis estructurado · LLENAR CON COPILOT”\n\n3. Dentro de esa sección, identifica la tabla que contiene estas tres columnas:\n\n- Elemento\n- Hallazgo\n- Evidencia en el correo\n\n4. Completa EXCLUSIVAMENTE las celdas vacías de las columnas “Hallazgo” y “Evidencia en el correo” correspondientes a estas siete filas:\n\n1) Objetivo principal\n2) Hechos verificables\n3) Fechas y horas\n4) Responsables\n5) Compromisos\n6) Decisiones pendientes\n7) Preguntas sin resolver\n\nALCANCE EXACTO DE LA EDICIÓN\n\nSolo puedes modificar 14 celdas:\n\n- Siete celdas de la columna “Hallazgo”.\n- Siete celdas de la columna “Evidencia en el correo”.\n\nNingún otro elemento del documento puede modificarse.\n\nREGLAS DE CONTENIDO\n\n- Analiza únicamente la información contenida en el correo entregado.\n- No inventes fechas, nombres, cargos, cifras, responsables, compromisos ni decisiones.\n- Cuando el correo no contenga información suficiente, escribe exactamente: “No especificado”.\n- En “Hallazgo”, redacta una conclusión breve, clara y objetiva.\n- En “Evidencia en el correo”, incluye una cita breve o una referencia precisa al fragmento que sustenta el hallazgo.\n- Diferencia claramente los hechos explícitos de cualquier posible interpretación.\n- Mantén el contenido conciso para evitar alterar innecesariamente el tamaño de las filas.\n\nELEMENTOS QUE DEBEN CONSERVARSE SIN NINGÚN CAMBIO\n\nDebes mantener íntegramente:\n\n- El banner superior y su composición.\n- El título y subtítulo.\n- Los colores institucionales.\n- Los chips “MCP-365-P01” y “Outlook + Copilot”.\n- Los campos de participante, fecha, área, aplicación, correo y estado.\n- Los cuatro recuadros de instrucciones.\n- Todos los títulos y subtítulos.\n- Las seis tablas del documento.\n- Los bordes, sombreados, anchos de columnas y estilos de las tablas.\n- Las tipografías, tamaños, negrillas y colores.\n- La numeración original de las secciones.\n- Las casillas de verificación.\n- La sección 1 de identificación.\n- La sección 8 de validación humana.\n- La sección 9 de control de calidad.\n- La sección 10 de firmas.\n- El texto institucional ubicado al final.\n- Los encabezados, pies de página, formas y demás elementos visuales existentes.\n\nPROHIBICIONES\n\n- No crees un documento desde cero.\n- No copies únicamente la sección 2 en un documento nuevo.\n- No agregues frases como “Se completó únicamente la sección 2”.\n- No reemplaces las tablas por texto, listas o tablas nuevas.\n- No elimines secciones vacías.\n- No completes los datos del participante.\n- No marques el estado del documento.\n- No llenes la identificación del mensaje.\n- No completes ni marques la validación humana.\n- No completes ni marques el control de calidad.\n- No completes las firmas.\n- No cambies el diseño, la orientación, los márgenes ni la composición.\n- No agregues explicaciones dentro del documento.\n\nVERIFICACIÓN OBLIGATORIA ANTES DE ENTREGAR\n\nCompara la copia completada con la plantilla original y verifica que:\n\n1. La única diferencia sea el contenido incorporado en las 14 celdas autorizadas.\n2. Continúen presentes las secciones 1, 2, 8, 9 y 10.\n3. Continúen presentes las seis tablas originales.\n4. Se conserven el banner, los chips, los recuadros, colores y formas.\n5. Las secciones de validación humana, control de calidad y firmas permanezcan vacías y sin marcar.\n6. No se haya agregado ningún párrafo antes o después de la plantilla.\n7. El texto no esté cortado, superpuesto ni fuera de las celdas.\n\nENTREGA\n\nGuarda la copia editada como un documento Word real en formato .docx con el nombre:\n\nMCP365_P01_Analisis_correo_completado.docx\n\nEntrega el documento completo, desde el banner superior hasta el texto institucional final, no solamente la tabla diligenciada.\n\nSi técnicamente no puedes editar la copia conservando todos los elementos de la plantilla, detente e informa la limitación. En ese caso, no reconstruyas el documento ni entregues una versión parcial.", tip: "Abre la plantilla en Word, pega este prompt + el correo, descarga MCP365_P01_Analisis_correo_completado.docx." },
+    { id: "pr1", cat: "Correos", name: "Análisis de correo", use: "Editar plantilla .docx real · 14 celdas", text: "ACTÚA EN MODO EDICIÓN DE PLANTILLA WORD (.docx REAL).\n\nEres un asistente de operaciones especializado en análisis de correos. Debes analizar el correo proporcionado y completar el documento Word .docx que está abierto o adjunto.\n\nIMPORTANTE: el archivo MCP365_P01_Formato_analisis_correo.docx es la PLANTILLA OFICIAL en formato Word real. No debes crear, reconstruir, resumir ni rediseñar el documento a partir de una representación textual.\n\nPRECONDICIÓN DE ARCHIVO\n- Trabaja solo si tienes acceso de edición al archivo .docx (documento abierto en Word o adjunto editable).\n- Si en este momento solo ves texto o una descripción del documento y NO tienes el .docx editable, NO te detengas con una negativa genérica: pide expresamente que te adjuntan o abran MCP365_P01_Formato_analisis_correo.docx y, en cuanto lo tengas, continúa con la edición.\n- Mientras no tengas el .docx, no reconstruyas el documento ni entregues una versión parcial.\n\nTAREA\n\n1. Trabaja directamente sobre una COPIA del documento Word .docx abierto/adjunto.\n2. Localiza la sección titulada:\n\n“2. Análisis estructurado · LLENAR CON COPILOT”\n\n3. Dentro de esa sección, identifica la tabla que contiene estas tres columnas:\n\n- Elemento\n- Hallazgo\n- Evidencia en el correo\n\n4. Completa EXCLUSIVAMENTE las celdas vacías de las columnas “Hallazgo” y “Evidencia en el correo” correspondientes a estas siete filas:\n\n1) Objetivo principal\n2) Hechos verificables\n3) Fechas y horas\n4) Responsables\n5) Compromisos\n6) Decisiones pendientes\n7) Preguntas sin resolver\n\nALCANCE EXACTO DE LA EDICIÓN\n\nSolo puedes modificar 14 celdas:\n\n- Siete celdas de la columna “Hallazgo”.\n- Siete celdas de la columna “Evidencia en el correo”.\n\nNingún otro elemento del documento puede modificarse.\n\nREGLAS DE CONTENIDO\n\n- Analiza únicamente la información contenida en el correo entregado.\n- No inventes fechas, nombres, cargos, cifras, responsables, compromisos ni decisiones.\n- Cuando el correo no contenga información suficiente, escribe exactamente: “No especificado”.\n- En “Hallazgo”, redacta una conclusión breve, clara y objetiva.\n- En “Evidencia en el correo”, incluye una cita breve o una referencia precisa al fragmento que sustenta el hallazgo.\n- Diferencia claramente los hechos explícitos de cualquier posible interpretación.\n- Mantén el contenido conciso para evitar alterar innecesariamente el tamaño de las filas.\n\nELEMENTOS QUE DEBEN CONSERVARSE SIN NINGÚN CAMBIO\n\nDebes mantener íntegramente:\n\n- El banner superior y su composición.\n- El título y subtítulo.\n- Los colores institucionales.\n- Los chips “MCP-365-P01” y “Outlook + Copilot”.\n- Los campos de participante, fecha, área, aplicación, correo y estado.\n- Los cuatro recuadros de instrucciones.\n- Todos los títulos y subtítulos.\n- Todas las tablas del documento (estructura, bordes, sombreados y anchos).\n- Las tipografías, tamaños, negrillas y colores.\n- La numeración original de las secciones.\n- Las casillas de verificación.\n- La sección 1 de identificación.\n- La sección 8 de validación humana.\n- La sección 9 de control de calidad.\n- La sección 10 de firmas.\n- El texto institucional ubicado al final.\n- Los encabezados, pies de página, formas y demás elementos visuales existentes.\n\nPROHIBICIONES\n\n- No crees un documento desde cero.\n- No copies únicamente la sección 2 en un documento nuevo.\n- No agregues frases como “Se completó únicamente la sección 2”.\n- No reemplaces las tablas por texto, listas o tablas nuevas.\n- No elimines secciones vacías.\n- No completes los datos del participante.\n- No marques el estado del documento.\n- No llenes la identificación del mensaje.\n- No completes ni marques la validación humana.\n- No completes ni marques el control de calidad.\n- No completes las firmas.\n- No cambies el diseño, la orientación, los márgenes ni la composición.\n- No agregues explicaciones dentro del documento.\n\nVERIFICACIÓN OBLIGATORIA ANTES DE ENTREGAR\n\nCompara la copia completada con la plantilla original y verifica que:\n\n1. La única diferencia sea el contenido incorporado en las 14 celdas autorizadas.\n2. Continúen presentes las secciones 1, 2, 8, 9 y 10.\n3. Continúen presentes todas las tablas originales.\n4. Se conserven el banner, los chips, los recuadros, colores y formas.\n5. Las secciones de validación humana, control de calidad y firmas permanezcan vacías y sin marcar.\n6. No se haya agregado ningún párrafo antes o después de la plantilla.\n7. El texto no esté cortado, superpuesto ni fuera de las celdas.\n\nENTREGA\n\nGuarda la copia editada como un documento Word real en formato .docx con el nombre:\n\nMCP365_P01_Analisis_correo_completado.docx\n\nEntrega el documento completo, desde el banner superior hasta el texto institucional final, no solamente la tabla diligenciada.\n\nSi aún no tienes el archivo .docx editable, solicita que te lo adjuntan y espera. No reconstruyas la plantilla ni entregues una versión parcial hecha desde texto.", tip: "Descarga MCP365_P01_Formato_analisis_correo.docx, ábrelo en Word y usa Copilot sobre ese archivo." },
     { id: "pr2", cat: "Correos", name: "Respuesta ejecutiva", use: "Responder con claridad gerencial", text: "Redacta una respuesta ejecutiva breve: decisión, impacto, siguiente paso y dueño. Sin jerga innecesaria.", tip: "Indica tono formal." },
     { id: "pr3", cat: "Reuniones", name: "Transcripción a compromisos", use: "Separar decisiones y tareas", text: "Diferencia decisiones, propuestas, opiniones, preguntas y tareas. Matriz: actividad, responsable, fecha, estado. Usa ‘no especificado’.", tip: "Marca lo no confirmado." },
     { id: "pr4", cat: "Documentos", name: "Comparar versiones", use: "Detectar cambios de significado", text: "Compara versión A y B. Tabla: tema, anterior, actual, impacto posible, validación requerida.", tip: "Adjunta ambas versiones completas." },
@@ -3130,7 +3116,7 @@ Si técnicamente no puedes editar la copia conservando todos los elementos de la
 
   /* ========== TEMPLATES ========== */
   const TEMPLATES = [
-    { name: "Formato análisis de correo", desc: "Outlook/Word · Llenar Hallazgo y Evidencia; validación humana vacía", key: "analisis-correo", type: "Word" },
+    { name: "Formato análisis de correo", desc: "Plantilla oficial .docx · solo 14 celdas de análisis", key: "analisis-correo", type: "Word" },
     { name: "Cadena de correos", desc: "Outlook · Cronología, cambios y 3 borradores por audiencia", key: "cadena-correos", type: "Word" },
     { name: "Matriz de compromisos", desc: "Teams/Word · Decisiones, tareas y próxima agenda", key: "matriz-compromisos", type: "Word" },
     { name: "Tres audiencias", desc: "Word · Técnico, gerencia, comunidad + control de hechos", key: "tres-audiencias", type: "Word" },

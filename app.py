@@ -315,6 +315,11 @@ def assets(filename: str):
     return send_from_directory(BASE_DIR, filename)
 
 
+@app.get("/planillas/<path:filename>")
+def planillas(filename: str):
+    return send_from_directory(BASE_DIR / "planillas", filename)
+
+
 @app.get("/logo.png")
 def logo():
     return send_from_directory(BASE_DIR, "logo.png")
