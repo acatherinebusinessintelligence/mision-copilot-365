@@ -1293,7 +1293,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-03-r2-two-files-v8"
+APP_CODE_VERSION = "2026-08-03-r2-prompt-docx-v9"
 
 
 @app.get("/health")

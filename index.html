@@ -1152,7 +1152,7 @@
                 <li>Descarga <strong>dos archivos</strong>: (A) <em>Fuente de correos</em> ST-Urb-03 y (B) <em>Plantilla de llenado</em>.</li>
                 <li>Ábrelos en <strong>Word</strong>. La fuente tiene De / Para / Asunto / Fecha / cuerpo. La plantilla tiene tablas vacías.</li>
                 <li>Activa Copilot sobre la <strong>plantilla de llenado</strong> (puedes adjuntar o referenciar también la fuente).</li>
-                <li>Copia el prompt del reto: debe llenar solo celdas/cuadros vacíos, citar fecha + De + Asunto, y <strong>no cambiar</strong> estructura ni diseño.</li>
+                <li>Copia el prompt del reto (modo plantilla Word): Copilot debe entregar <code>MCP365_P02_Cadena_correos_completado.docx</code> como copia diligenciada de <code>MCP365_P02_Formato_cadena_correos.docx</code>, sin cambiar el diseño.</li>
                 <li>Validación humana y control de calidad los completa la persona.</li>
                 <li>Guarda la plantilla ya llenada como <code>MCP365_P02_Cadena_correos_completado.docx</code>.</li>
                 <li><em>Opcional:</em> envía los 4 correos a tu bandeja para contrastar en Outlook.</li>
@@ -2416,6 +2416,134 @@
     ta.value = buildPromptR1Text(getPromptR1Fields());
   }
 
+  function getPromptR2Fields() {
+    const box = document.getElementById("promptConfig-r2");
+    const c = RETO_CASES.r2;
+    const out = {};
+    if (c && c.fields) c.fields.forEach(([k, , def]) => { out[k] = def; });
+    if (box) {
+      box.querySelectorAll("[data-reto-field]").forEach(el => {
+        out[el.getAttribute("data-reto-field")] = (el.value || "").trim();
+      });
+    }
+    return out;
+  }
+
+  /** Prompt Reto 2: modo plantilla Word (igual lógica que R1) → genera .docx descargable. */
+  function buildPromptR2Text(f) {
+    const bracket = (v) => "[[" + (v || "") + "]]";
+    return [
+      "PROMPT CONFIGURABLE PARA COPILOT",
+      "MODO EDICIÓN DE PLANTILLA WORD (.docx REAL)",
+      "Caso: Cadena de correos · ST-Urb-03 · Reto 2",
+      "",
+      "INSTRUCCIONES PARA EL PARTICIPANTE",
+      "1) Descarga y abre la FUENTE: MCP365_P02_Fuente_correos_ST-Urb-03.docx",
+      "2) Descarga y abre la PLANTILLA: MCP365_P02_Formato_cadena_correos.docx",
+      "3) En Word, usa Copilot con la plantilla como documento de trabajo (adjunta o referencia también la fuente).",
+      "4) Pega este prompt. Debes obtener un .docx descargable con el nombre de salida.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "1. CONFIGURACIÓN DEL ANÁLISIS",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "ROL DE COPILOT",
+      bracket(f.rol),
+      "",
+      "APLICACIÓN",
+      bracket(f.app),
+      "",
+      "DOCUMENTO FUENTE (SOLO ANÁLISIS · NO EDITAR)",
+      bracket(f.fuente),
+      "",
+      "PLANTILLA WORD QUE SE DEBE COMPLETAR",
+      bracket(f.archivo),
+      "",
+      "QUÉ DEBES LLENAR",
+      bracket(f.objetivo),
+      "",
+      "QUÉ NO DEBES CAMBIAR",
+      bracket(f.conservar),
+      "",
+      "SECCIONES QUE NO DEBES COMPLETAR",
+      bracket("\n" + (f.restringidos || "") + "\n"),
+      "",
+      "RESPUESTA CUANDO NO EXISTA INFORMACIÓN",
+      bracket(f.vacio),
+      "",
+      "NOMBRE DEL ARCHIVO DE SALIDA (DESCARGABLE)",
+      bracket(f.salida),
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "2. INSTRUCCIÓN PARA COPILOT",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "ACTÚA EN MODO EDICIÓN DE PLANTILLA WORD (.docx REAL).",
+      "",
+      "La plantilla oficial es: MCP365_P02_Formato_cadena_correos.docx",
+      "La fuente oficial es: MCP365_P02_Fuente_correos_ST-Urb-03.docx",
+      "",
+      "Debes producir un archivo Word .docx descargable llamado exactamente:",
+      "MCP365_P02_Cadena_correos_completado.docx",
+      "",
+      "Ese archivo de salida DEBE ser una copia completada de la plantilla MCP365_P02_Formato_cadena_correos.docx",
+      "(mismo diseño, mismas tablas, mismos títulos). No inventes otro formato.",
+      "",
+      "PRECONDICIÓN",
+      "1. Comprueba acceso editable a MCP365_P02_Formato_cadena_correos.docx",
+      "2. Comprueba acceso de lectura a MCP365_P02_Fuente_correos_ST-Urb-03.docx",
+      "3. Si solo ves texto/vista previa y no el .docx, pide que se abran o adjunten los archivos reales.",
+      "4. Mientras no tengas la plantilla .docx, no reconstruyas el diseño ni entregues una versión parcial.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "3. TAREA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "1. Crea una copia editable de MCP365_P02_Formato_cadena_correos.docx",
+      "2. Analiza exclusivamente MCP365_P02_Fuente_correos_ST-Urb-03.docx (De, Para, Asunto, Fecha, cuerpo).",
+      "3. Completa SOLO las celdas y cuadros vacíos de las secciones 1 a 6 de la plantilla.",
+      "4. En evidencias cita siempre: fecha + De + Asunto + fragmento breve.",
+      "5. Deja sin completar Validación humana y Control de calidad.",
+      "6. Guarda / entrega la copia como MCP365_P02_Cadena_correos_completado.docx para descarga.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "4. REGLAS DE CONTENIDO",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "• Usa solo la fuente de correos indicada.",
+      "• No inventes fechas, nombres, compromisos ni decisiones.",
+      "• Si falta un dato: «No especificado».",
+      "• No presentes inferencias como hechos; marca «Interpretación» si aplica.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "5. CONSERVACIÓN DE LA PLANTILLA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Mantén banner, títulos, colores, tablas, bordes, tipografías, casillas y texto institucional.",
+      "Puedes aumentar altura de filas; no cambies anchos de columna ni la composición.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "6. PROHIBICIONES",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "• No crees un documento con otro diseño distinto a la plantilla.",
+      "• No reemplaces la plantilla por un resumen en chat sin .docx.",
+      "• No entregues solo tablas sueltas o markdown.",
+      "• No conviertas tablas en listas.",
+      "• No elimines secciones vacías.",
+      "• No completes validación humana ni control de calidad.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "7. ENTREGA OBLIGATORIA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Entrega el archivo .docx completo listo para descargar:",
+      "MCP365_P02_Cadena_correos_completado.docx",
+      "basado en MCP365_P02_Formato_cadena_correos.docx ya diligenciado.",
+      "Si no puedes generar el .docx conservando la plantilla, informa la limitación; no reconstruyas el formato."
+    ].join("\n");
+  }
+
 
   /* ========== RETO ENGINE (patrón S1·R1 reutilizable; R1 no se remonta) ========== */
   const RETO_CASES = {
@@ -2457,8 +2585,8 @@
       ],
       [
         "archivo",
-        "Plantilla a completar (no reconstruir)",
-        "MCP365_P02_Formato_cadena_correos.docx — este documento abierto. Completa SOLO celdas y cuadros vacíos de las secciones 1 a 6."
+        "Plantilla Word que se debe completar",
+        "MCP365_P02_Formato_cadena_correos.docx — plantilla oficial de llenado. Trabaja sobre una COPIA editable de este archivo. Completa SOLO celdas y cuadros vacíos de las secciones 1 a 6."
       ],
       [
         "objetivo",
@@ -2468,7 +2596,7 @@
       [
         "conservar",
         "Qué NO debes cambiar",
-        "Títulos, tablas, colores, diseño, número de filas/columnas, tipografía ni estructura del archivo. No crees un documento nuevo. No reescribas la plantilla desde cero."
+        "Banner, títulos, tablas, colores, número de filas/columnas, tipografía y estructura de MCP365_P02_Formato_cadena_correos.docx. No rediseñes. La salida debe ser esa misma plantilla ya diligenciada."
       ],
       [
         "restringidos",
@@ -2482,8 +2610,8 @@
       ],
       [
         "salida",
-        "Nombre del archivo de salida",
-        "MCP365_P02_Cadena_correos_completado.docx (es la plantilla de llenado ya completada)."
+        "Nombre del archivo de salida (descargable)",
+        "MCP365_P02_Cadena_correos_completado.docx — copia completada de MCP365_P02_Formato_cadena_correos.docx, lista para descargar."
       ]
     ],
     "checklist": [
@@ -3450,6 +3578,7 @@
 };
 
   function buildPromptFromCase(caseId) {
+    if (caseId === "r2") return buildPromptR2Text(getPromptR2Fields());
     const c = RETO_CASES[caseId];
     if (!c) return "";
     const box = document.getElementById("promptConfig-" + caseId);
@@ -3489,14 +3618,14 @@
       "No inventes datos. Si falta información, usa la respuesta definida en la configuración.",
       "No completes validación humana, control de calidad ni firmas salvo que estén autorizados.",
       "Conserva el diseño del archivo oficial: no cambies títulos, tablas, colores, estructura ni tipografía.",
-      "No reconstruyas el documento desde cero ni entregues un archivo nuevo distinto de la plantilla.",
+      "Entrega el archivo de salida como copia completada de la plantilla oficial (mismo diseño), con el nombre definido en la configuración, listo para descargar.",
       "",
       "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "3. VERIFICACIÓN Y ENTREGA",
       "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "",
-      "Antes de entregar: confirma que solo se editó lo autorizado y que el archivo final usa el nombre de salida definido.",
-      "Si no puedes editar el archivo conservando el diseño, informa la limitación. No entregues una versión parcial reconstruida."
+      "Antes de entregar: confirma que solo se editó lo autorizado, que el diseño de la plantilla se conservó y que el archivo final es un .docx real con el nombre de salida.",
+      "Si no puedes editar/conservar la plantilla, informa la limitación. No entregues una versión parcial reconstruida."
     );
     return lines.join("\n");
   }
