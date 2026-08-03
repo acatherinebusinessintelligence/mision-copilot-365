@@ -229,7 +229,8 @@ def _smtp_config() -> tuple[str, str, str, int]:
 
 def _reto1_email_content(to_email: str, name: str, smtp_email: str) -> tuple[str, str]:
     subject = "URGENTE · Reprogramación intervención preventivo Circuito N-14"
-    body = f"""Buenos días, equipo:
+    first = (name or "equipo").strip().split()[0] if (name or "").strip() else "equipo"
+    body = f"""Buenos días, {first}:
 
 La intervención de mantenimiento preventivo del Circuito N-14 (Zona Norte), programada para el sábado 21/03/2026 de 07:00 a 15:00, debe moverse al sábado 28/03/2026 en el mismo horario. Motivo: no hay disponibilidad confirmada del personal especialista en protecciones para la fecha original.
 
@@ -238,15 +239,122 @@ Necesito confirmación de recepción de este mensaje antes del martes 17/03/2026
 Responsable técnico designado: Andrés Quintero. La junta de acción comunal reportó, el 12/03, preocupación por ruido en jornada nocturna. Aún no hay decisión formal sobre si la ventana se mantiene diurna o se evalúa nocturna.
 
 Quedo atenta.
-Laura Méndez · Coordinación de Campo · Ext. 4412
 
----
-Simulación formativa · Misión Copilot 365 · Reto 1
-Remitente técnico de envío: {smtp_email}
-Destinatario del ejercicio: {name} <{to_email}>
-Instrucción: abre este correo en Outlook y analízalo con Copilot. La plantilla Word del reto se descarga por separado en la plataforma (solo Hallazgo y Evidencia). No llenes validación humana ni control de calidad.
+Laura Méndez
+Coordinación de Campo · Ext. 4412
 """
     return subject, body
+
+
+def _first_name(name: str) -> str:
+    parts = (name or "").strip().split()
+    return parts[0] if parts else "colegas"
+
+
+def get_reto_r2_parts() -> list[dict]:
+    """Cuatro correos de la cadena ST-Urb-03 (uno por pestaña del Reto 2)."""
+    return [
+        {
+            "id": "r2-1",
+            "label": "01 mar",
+            "from_name": "Planeación de Mantenimiento",
+            "subject": "Programación transformador auxiliar ST-Urb-03",
+            "sig": "Martha Ríos\nPlaneación de Mantenimiento · Zona Norte",
+            "body_tpl": (
+                "Buenos días, {first}:\n\n"
+                "Se confirma el mantenimiento del transformador auxiliar de la subestación ST-Urb-03 "
+                "para el 12/03/2026, en la ventana 08:00–14:00.\n\n"
+                "Compromiso operativo: notificar a usuarios con mínimo 72 horas de anticipación.\n"
+                "Responsable del aviso: Comunicaciones Zona.\n\n"
+                "Quedo pendiente de cualquier novedad de agenda.\n\n"
+                "{sig}\n"
+            ),
+        },
+        {
+            "id": "r2-2",
+            "label": "04 mar",
+            "from_name": "Logística de Materiales",
+            "subject": "RE: adelanto de repuestos · ST-Urb-03",
+            "sig": "Julián Pardo\nLogística de Materiales",
+            "body_tpl": (
+                "Hola, {first}:\n\n"
+                "El proveedor confirma entrega anticipada de los repuestos del transformador auxiliar.\n"
+                "Con ese adelanto, proponemos mover la ventana de intervención al 10/03/2026 "
+                "(misma franja preliminar 08:00–14:00).\n\n"
+                "Pendiente: validar disponibilidad de personal de seguridad industrial para esa fecha "
+                "antes de comunicar el cambio a la comunidad.\n\n"
+                "Gracias.\n\n"
+                "{sig}\n"
+            ),
+        },
+        {
+            "id": "r2-3",
+            "label": "06 mar",
+            "from_name": "Seguridad Industrial",
+            "subject": "RE: personal 10/03 · ST-Urb-03",
+            "sig": "Carolina Vélez\nSeguridad Industrial · Zona Norte",
+            "body_tpl": (
+                "Buenos días, {first}:\n\n"
+                "Confirmamos personal de seguridad industrial para el 10/03/2026.\n"
+                "Solicitamos ampliar el cierre de área hasta las 16:00 para cubrir el retiro de equipos "
+                "y la inspección final.\n\n"
+                "Riesgo señalado: señalización insuficiente si no se refuerza el perímetro antes de las 07:30.\n"
+                "Agradecemos coordinación con Comunicaciones Zona para el aviso a vecinos.\n\n"
+                "Quedo atenta.\n\n"
+                "{sig}\n"
+            ),
+        },
+        {
+            "id": "r2-4",
+            "label": "07 mar",
+            "from_name": "Gerencia de Zona Norte",
+            "subject": "Aprobación ventana 10/03 · ST-Urb-03",
+            "sig": "Diego Castaño\nGerencia de Zona Norte",
+            "body_tpl": (
+                "Equipo,\n\n"
+                "Se aprueba la intervención del transformador auxiliar ST-Urb-03 el 10/03/2026 "
+                "con cierre de área hasta las 16:00.\n\n"
+                "Solicito:\n"
+                "1) Mensaje claro a la comunidad con al menos 72 horas de anticipación.\n"
+                "2) Reporte ejecutivo al cierre de la jornada (alcance, novedades y estado final).\n\n"
+                "Favor confirmar recepción.\n\n"
+                "{sig}\n"
+            ),
+        },
+    ]
+
+
+def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: str) -> tuple[str, str, str]:
+    """Contenido centralizado. Retorna (subject, body, from_display_name).
+
+    Los cuerpos van sin marcas de 'simulación': deben leerse como correo operativo real.
+    """
+    reto_id = (reto_id or "r1").strip().lower().replace("_", "-")
+    if reto_id in ("r1", "reto1", "reto-1"):
+        subject, body = _reto1_email_content(to_email, name, smtp_email)
+        return subject, body, "Laura Méndez · Coordinación de Campo"
+
+    # r2-all se resuelve en send_reto_email (4 envíos independientes)
+    if reto_id in ("r2", "reto2", "reto-2", "r2-all", "r2all"):
+        return "", "", ""
+
+    aliases = {
+        "r21": "r2-1", "r22": "r2-2", "r23": "r2-3", "r24": "r2-4",
+        "reto2-1": "r2-1", "reto2-2": "r2-2", "reto2-3": "r2-3", "reto2-4": "r2-4",
+    }
+    reto_id = aliases.get(reto_id, reto_id)
+    first = _first_name(name)
+
+    for p in get_reto_r2_parts():
+        if reto_id == p["id"]:
+            body = p["body_tpl"].format(first=first, sig=p["sig"])
+            return p["subject"], body, p["from_name"]
+
+    return "", "", ""
+
+
+def list_reto_email_ids() -> list[str]:
+    return ["r1", "r2", "r2-all"] + [p["id"] for p in get_reto_r2_parts()]
 
 
 def _send_email_smtp(to_email: str, subject: str, body: str, from_display: str) -> tuple[bool, str]:
@@ -283,11 +391,7 @@ def _send_email_webhook(
     body: str,
     from_name: str = "Laura Méndez · Coordinación de Campo",
 ) -> tuple[bool, str]:
-    """Envío por HTTPS (funciona en PythonAnywhere free). Google Apps Script u otro webhook.
-
-    Apps Script suele responder 302 en POST; urllib convierte el redirect en GET y
-    doPost nunca corre. Aquí re-POSTeamos al Location y exigimos JSON ok:true.
-    """
+    """Envío por HTTPS. Re-POSTea redirects de Apps Script y exige JSON ok:true."""
     import json
     import urllib.error
     import urllib.request
@@ -417,118 +521,11 @@ def _send_email_resend(to_email: str, subject: str, body: str) -> tuple[bool, st
         return False, f"Resend falló: {exc}"
 
 
-
-def get_reto_r2_parts() -> list[dict]:
-    """Cuatro correos de la cadena ST-Urb-03 (uno por pestaña del Reto 2)."""
-    return [
-        {
-            "id": "r2-1",
-            "label": "01 mar",
-            "from_name": "Planeación de Mantenimiento",
-            "subject": "Programación transformador auxiliar ST-Urb-03",
-            "body": (
-                "Se confirma mantenimiento del transformador auxiliar para el 12/03/2026, 08:00–14:00.\n"
-                "Compromiso: notificar a usuarios con mínimo 72 horas de anticipación.\n"
-                "Responsable de aviso: Comunicaciones Zona."
-            ),
-        },
-        {
-            "id": "r2-2",
-            "label": "04 mar",
-            "from_name": "Logística de Materiales",
-            "subject": "RE: adelanto de repuestos · ST-Urb-03",
-            "body": (
-                "El proveedor confirma entrega anticipada. Se propone adelantar la ventana al 10/03/2026.\n"
-                "Pendiente: validar disponibilidad de personal de seguridad industrial para esa fecha."
-            ),
-        },
-        {
-            "id": "r2-3",
-            "label": "06 mar",
-            "from_name": "Seguridad Industrial",
-            "subject": "RE: personal 10/03 · ST-Urb-03",
-            "body": (
-                "Se confirma personal para el 10/03. Se solicita ampliar el cierre de área hasta las 16:00.\n"
-                "Riesgo señalado: señalización insuficiente si no se refuerza perímetro antes de las 07:30."
-            ),
-        },
-        {
-            "id": "r2-4",
-            "label": "07 mar",
-            "from_name": "Gerencia de Zona Norte",
-            "subject": "Aprobación ventana 10/03 · ST-Urb-03",
-            "body": (
-                "Se aprueba intervención el 10/03 con cierre hasta 16:00.\n"
-                "Solicita: 1) mensaje claro a la comunidad, 2) reporte ejecutivo al cierre de la jornada."
-            ),
-        },
-    ]
-
-
-def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: str) -> tuple[str, str, str]:
-    """Contenido centralizado. Retorna (subject, body, from_display_name)."""
-    reto_id = (reto_id or "r1").strip().lower().replace("_", "-")
-    if reto_id in ("r1", "reto1", "reto-1"):
-        subject, body = _reto1_email_content(to_email, name, smtp_email)
-        return subject, body, "Laura Méndez · Coordinación de Campo"
-
-    # Cadena completa (compatibilidad)
-    if reto_id in ("r2", "reto2", "reto-2", "r2-all", "r2all"):
-        parts = get_reto_r2_parts()
-        subject = "Cadena ST-Urb-03 · 4 correos del Reto 2 (resumen)"
-        chunks = [
-            f"Hola {name},",
-            "",
-            "Simulación Reto 2 · Misión Copilot 365. Resumen de la cadena (también puedes pedir cada correo por separado).",
-            "",
-        ]
-        for i, p in enumerate(parts, 1):
-            chunks.append(f"--- Correo {i} · {p['label']} · {p['from_name']} ---")
-            chunks.append(f"Asunto: {p['subject']}")
-            chunks.append(p["body"])
-            chunks.append("")
-        chunks.append(f"Remitente técnico: {smtp_email}")
-        chunks.append(f"Destinatario: {name} <{to_email}>")
-        chunks.append("La planilla se descarga en la plataforma (no va adjunta).")
-        return subject, "\n".join(chunks), "Misión Copilot 365 · Cadena ST-Urb-03"
-
-    # Alias numéricos: r21 -> r2-1, etc.
-    aliases = {
-        "r21": "r2-1", "r22": "r2-2", "r23": "r2-3", "r24": "r2-4",
-        "reto2-1": "r2-1", "reto2-2": "r2-2", "reto2-3": "r2-3", "reto2-4": "r2-4",
-    }
-    reto_id = aliases.get(reto_id, reto_id)
-
-    for p in get_reto_r2_parts():
-        if reto_id == p["id"]:
-            footer = (
-                f"\n\n---\nSimulación formativa · Reto 2 · {p['label']}\n"
-                f"Remitente técnico: {smtp_email}\n"
-                f"Destinatario del ejercicio: {name} <{to_email}>\n"
-                "La planilla se descarga en la plataforma (no va adjunta)."
-            )
-            return p["subject"], p["body"] + footer, p["from_name"]
-
-    return "", "", ""
-
-
-def list_reto_email_ids() -> list[str]:
-    return ["r1", "r2", "r2-all"] + [p["id"] for p in get_reto_r2_parts()]
-
-
-def send_reto_email(reto_id: str, to_email: str, name: str) -> tuple[bool, str]:
+def _deliver_reto_message(
+    to_email: str, name: str, subject: str, body: str, from_name: str
+) -> tuple[bool, str]:
     smtp_email, smtp_password, _, _ = _smtp_config()
-    subject, body, from_name = get_reto_email_content(reto_id, to_email, name, smtp_email)
-    if not subject or not body:
-        disponibles = ", ".join(list_reto_email_ids())
-        return False, (
-            f"No hay correo simulado configurado para el reto '{reto_id}'. "
-            f"IDs válidos en este servidor: {disponibles}. "
-            "Si esperabas r2-1/r2-all, ejecuta git pull + Web Reload en PythonAnywhere."
-        )
-
     from_display = f"{from_name} <{smtp_email}>"
-
     errors: list[str] = []
     if (os.getenv("EMAIL_WEBHOOK_URL") or "").strip():
         ok, detail = _send_email_webhook(to_email, name, subject, body, from_name)
@@ -548,6 +545,38 @@ def send_reto_email(reto_id: str, to_email: str, name: str) -> tuple[bool, str]:
     else:
         errors.append("Falta SMTP_APP_PASSWORD en .env")
     return False, " · ".join(errors) if errors else "No hay método de envío configurado"
+
+
+def send_reto_email(reto_id: str, to_email: str, name: str) -> tuple[bool, str]:
+    smtp_email, _, _, _ = _smtp_config()
+    reto_norm = (reto_id or "r1").strip().lower().replace("_", "-")
+
+    # Cadena R2: cuatro correos independientes (no un resumen pedagógico)
+    if reto_norm in ("r2", "reto2", "reto-2", "r2-all", "r2all"):
+        sent = 0
+        fails: list[str] = []
+        for p in get_reto_r2_parts():
+            subject, body, from_name = get_reto_email_content(p["id"], to_email, name, smtp_email)
+            ok, detail = _deliver_reto_message(to_email, name, subject, body, from_name)
+            if ok:
+                sent += 1
+            else:
+                fails.append(f"{p['label']}: {detail}")
+        if sent == 4:
+            return True, f"Enviados 4 correos de la cadena ST-Urb-03 a {to_email}"
+        if sent > 0:
+            return False, f"Solo llegaron {sent}/4. " + " · ".join(fails)
+        return False, " · ".join(fails) if fails else "No se pudo enviar la cadena"
+
+    subject, body, from_name = get_reto_email_content(reto_norm, to_email, name, smtp_email)
+    if not subject or not body:
+        disponibles = ", ".join(list_reto_email_ids())
+        return False, (
+            f"No hay correo simulado configurado para el reto '{reto_id}'. "
+            f"IDs válidos en este servidor: {disponibles}. "
+            "Si esperabas r2-1/r2-all, ejecuta git pull + Web Reload en PythonAnywhere."
+        )
+    return _deliver_reto_message(to_email, name, subject, body, from_name)
 
 def send_reto1_email(to_email: str, name: str) -> tuple[bool, str]:
     """Envía el correo operativo del Reto 1. Prioriza HTTPS (webhook/Resend) y luego SMTP."""
@@ -829,6 +858,8 @@ def api_send_reto_email():
     subject, _, _ = get_reto_email_content(
         reto_id, to_email, name, os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com")
     )
+    if not subject and reto_id.replace("_", "-") in ("r2", "reto2", "reto-2", "r2-all", "r2all"):
+        subject = "Cadena ST-Urb-03 (4 correos)"
     self_send = to_email.lower() == os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com").lower()
     tip = ""
     if self_send:
@@ -1235,7 +1266,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-03-webhook-fix-v3"
+APP_CODE_VERSION = "2026-08-03-real-emails-v4"
 
 
 @app.get("/health")

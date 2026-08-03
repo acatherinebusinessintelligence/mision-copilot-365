@@ -1152,7 +1152,7 @@
             <div class="m365-box">
               <h4><span class="app-badge">Outlook</span> + <span class="app-badge">Word</span> Paso a paso con Copilot</h4>
               <ol>
-                <li>Envía los <strong>4 correos</strong> de la cadena (botones 01 / 04 / 06 / 07 mar) a tu bandeja. Llegan desde <code>analizamostunegocio@gmail.com</code> con remitentes simulados distintos.</li>
+                <li>Envía los <strong>4 correos</strong> de la cadena (botones 01 / 04 / 06 / 07 mar, o «Enviar los 4») a tu bandeja. Llegan como mensajes operativos independientes (nombres de área distintos).</li>
                 <li>Abre <strong>Outlook</strong> y busca los asuntos ST-Urb-03 (también puedes usar las pestañas de esta página).</li>
                 <li>Descarga la <strong>planilla oficial</strong> y ábrela en <strong>Word</strong>.</li>
                 <li>Ajusta el prompt configurable y cópialo.</li>
@@ -1168,10 +1168,10 @@
               <button type="button" class="btn btn--sm btn--primary" data-reto-email="r2-2"><i data-lucide="mail" width="14" height="14"></i> 04 mar</button>
               <button type="button" class="btn btn--sm btn--primary" data-reto-email="r2-3"><i data-lucide="mail" width="14" height="14"></i> 06 mar</button>
               <button type="button" class="btn btn--sm btn--primary" data-reto-email="r2-4"><i data-lucide="mail" width="14" height="14"></i> 07 mar</button>
-              <button type="button" class="btn btn--sm btn--secondary" data-reto-email="r2-all"><i data-lucide="mails" width="14" height="14"></i> Enviar los 4 (resumen)</button>
+              <button type="button" class="btn btn--sm btn--secondary" data-reto-email="r2-all"><i data-lucide="mails" width="14" height="14"></i> Enviar los 4</button>
               <button type="button" class="btn btn--sm btn--energy" data-planilla="cadena-correos"><i data-lucide="download" width="14" height="14"></i> Descargar planilla oficial (Word)</button>
             </div>
-            <p id="retoEmailStatus-r2" data-reto-email-hint style="margin:0 0 1rem;font-size:0.88rem;color:var(--text-muted)">El correo se enviará a tu correo de acceso desde <code>analizamostunegocio@gmail.com</code>. Si iniciaste sesión con esa misma cuenta Gmail, revisa <em>Enviados</em> / <em>Todos</em> / spam (Gmail a veces no muestra bien el envío a uno mismo).</p>
+            <p id="retoEmailStatus-r2" data-reto-email-hint style="margin:0 0 1rem;font-size:0.88rem;color:var(--text-muted)">Cada botón envía un correo operativo real a tu bandeja (saludo, firma y asunto propios). «Enviar los 4» manda los cuatro por separado, no un resumen.</p>
             <div class="tabs" role="tablist" aria-label="Cadena de correos">
               <button class="tab" role="tab" aria-selected="true" data-tabs="cadena" data-tab="c1">01 mar</button>
               <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c2">04 mar</button>
@@ -1179,16 +1179,16 @@
               <button class="tab" role="tab" aria-selected="false" data-tabs="cadena" data-tab="c4">07 mar</button>
             </div>
             <div class="tab-panel is-active" data-tabs-panel="cadena" id="c1">
-              <div class="email-box"><strong>De:</strong> Planeación de Mantenimiento · <strong>Asunto:</strong> Programación transformador auxiliar ST-Urb-03<br>Se confirma mantenimiento del transformador auxiliar para el <strong>12/03/2026, 08:00–14:00</strong>. Compromiso: notificar a usuarios con mínimo <strong>72 horas</strong> de anticipación. Responsable de aviso: Comunicaciones Zona.</div>
+              <div class="email-box"><strong>De:</strong> Martha Ríos · Planeación de Mantenimiento · <strong>Asunto:</strong> Programación transformador auxiliar ST-Urb-03<br>Confirma mantenimiento del transformador auxiliar ST-Urb-03 el <strong>12/03/2026, 08:00–14:00</strong>. Compromiso: aviso a usuarios con mínimo <strong>72 horas</strong>. Responsable: Comunicaciones Zona.</div>
             </div>
             <div class="tab-panel" data-tabs-panel="cadena" id="c2">
-              <div class="email-box"><strong>De:</strong> Logística de Materiales · <strong>Asunto:</strong> RE: adelanto de repuestos<br>El proveedor confirma entrega anticipada. Se propone adelantar la ventana al <strong>10/03/2026</strong>. Pendiente: validar disponibilidad de personal de seguridad industrial para esa fecha.</div>
+              <div class="email-box"><strong>De:</strong> Julián Pardo · Logística de Materiales · <strong>Asunto:</strong> RE: adelanto de repuestos · ST-Urb-03<br>Proveedor confirma entrega anticipada. Propone adelantar la ventana al <strong>10/03/2026</strong>. Pendiente: validar personal de seguridad industrial.</div>
             </div>
             <div class="tab-panel" data-tabs-panel="cadena" id="c3">
-              <div class="email-box"><strong>De:</strong> Seguridad Industrial · <strong>Asunto:</strong> RE: personal 10/03<br>Se confirma personal para el 10/03. Se solicita ampliar el cierre de área hasta las <strong>16:00</strong>. Riesgo señalado: señalización insuficiente si no se refuerza perímetro antes de las 07:30.</div>
+              <div class="email-box"><strong>De:</strong> Carolina Vélez · Seguridad Industrial · <strong>Asunto:</strong> RE: personal 10/03 · ST-Urb-03<br>Confirma personal para el 10/03. Solicita cierre de área hasta las <strong>16:00</strong>. Riesgo: señalización insuficiente si no se refuerza perímetro antes de las 07:30.</div>
             </div>
             <div class="tab-panel" data-tabs-panel="cadena" id="c4">
-              <div class="email-box"><strong>De:</strong> Gerencia de Zona Norte · <strong>Asunto:</strong> Aprobación ventana 10/03<br>Se aprueba intervención el <strong>10/03 con cierre hasta 16:00</strong>. Solicita: 1) mensaje claro a la comunidad, 2) reporte ejecutivo al cierre de la jornada.</div>
+              <div class="email-box"><strong>De:</strong> Diego Castaño · Gerencia de Zona Norte · <strong>Asunto:</strong> Aprobación ventana 10/03 · ST-Urb-03<br>Aprueba intervención el <strong>10/03 con cierre hasta 16:00</strong>. Pide: 1) mensaje claro a la comunidad, 2) reporte ejecutivo al cierre.</div>
             </div>
             <div data-reto-enhance="r2"></div>
           </div>
