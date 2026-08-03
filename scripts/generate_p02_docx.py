@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Genera la plantilla oficial MCP-365-P02 (.docx) con la cadena fuente ST-Urb-03."""
+"""Genera dos .docx del Reto 2:
+1) Fuente de correos ST-Urb-03
+2) Plantilla de llenado (sin correos embebidos)
+"""
 from pathlib import Path
 import sys
 
@@ -13,7 +16,8 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from app import get_reto_r2_parts  # noqa: E402
 
-OUT = ROOT / "planillas" / "MCP365_P02_Formato_cadena_correos.docx"
+OUT_FUENTE = ROOT / "planillas" / "MCP365_P02_Fuente_correos_ST-Urb-03.docx"
+OUT_PLANILLA = ROOT / "planillas" / "MCP365_P02_Formato_cadena_correos.docx"
 PURPLE = "4A3DA6"
 DARK = "221E40"
 YELLOW = "FFEC00"
@@ -123,22 +127,51 @@ def heading(doc, text):
     pPr.append(pBdr)
 
 
+def setup_page(doc):
+    section = doc.sections[0]
+    section.top_margin = Cm(1.5)
+    section.bottom_margin = Cm(1.5)
+    section.left_margin = Cm(1.8)
+    section.right_margin = Cm(1.8)
+
+
+def add_banner(doc, title: str):
+    banner = doc.add_table(rows=1, cols=1)
+    cell = banner.rows[0].cells[0]
+    shade_cell(cell, DARK)
+    cell.text = ""
+    p1 = cell.paragraphs[0]
+    set_run(p1.add_run(title), size=16, bold=True, color=YELLOW)
+    p2 = cell.add_paragraph()
+    set_run(
+        p2.add_run("Misión Copilot 365 · ECCO · Universidad Sergio Arboleda"),
+        size=9,
+        color="D5D2E6",
+    )
+    doc.add_paragraph()
+
+
+def add_chips(doc, left: str, right: str):
+    chips = doc.add_table(rows=1, cols=2)
+    set_cell_text(chips.rows[0].cells[0], left, bold=True, color="FFFFFF", size=9, fill=PURPLE, center=True)
+    set_cell_text(chips.rows[0].cells[1], right, bold=True, color=DARK, size=9, fill=YELLOW, center=True)
+    doc.add_paragraph()
+
+
 def add_email_block(doc, index: int, part: dict):
     body = part["body_tpl"].format(sig=part["sig"]).strip()
     table = doc.add_table(rows=1, cols=1)
     cell = table.rows[0].cells[0]
     shade_cell(cell, EMAIL_BG)
     cell.text = ""
-
-    def add_line(label: str, value: str, *, first=False):
-        p = cell.paragraphs[0] if first else cell.add_paragraph()
-        r1 = p.add_run(f"{label}: ")
-        set_run(r1, size=10, bold=True, color=PURPLE)
-        r2 = p.add_run(value)
-        set_run(r2, size=10, bold=False, color=DARK)
-
     title = cell.paragraphs[0]
     set_run(title.add_run(f"Correo {index} · {part['date']}"), size=11, bold=True, color=DARK)
+
+    def add_line(label: str, value: str):
+        p = cell.add_paragraph()
+        set_run(p.add_run(f"{label}: "), size=10, bold=True, color=PURPLE)
+        set_run(p.add_run(value), size=10, bold=False, color=DARK)
+
     add_line("De", part["from_name"])
     add_line("Para", part["to_line"])
     add_line("Asunto", part["subject"])
@@ -159,38 +192,40 @@ def add_empty_box(doc, hint: str):
     doc.add_paragraph()
 
 
-def main():
-    OUT.parent.mkdir(parents=True, exist_ok=True)
+def build_fuente():
     doc = Document()
-    section = doc.sections[0]
-    section.top_margin = Cm(1.5)
-    section.bottom_margin = Cm(1.5)
-    section.left_margin = Cm(1.8)
-    section.right_margin = Cm(1.8)
-
-    banner = doc.add_table(rows=1, cols=1)
-    cell = banner.rows[0].cells[0]
-    shade_cell(cell, DARK)
-    cell.text = ""
-    p1 = cell.paragraphs[0]
-    set_run(
-        p1.add_run("Formato adjunto · Cadena de correos · ST-Urb-03"),
-        size=16,
-        bold=True,
-        color=YELLOW,
+    setup_page(doc)
+    add_banner(doc, "Fuente documental · Cadena de correos ST-Urb-03")
+    add_chips(doc, "MCP-365-P02-F", "Solo lectura · 4 correos")
+    add_callout(
+        doc,
+        "Uso:",
+        "Este archivo es la FUENTE. No es la plantilla de llenado. "
+        "Ábrelo junto con MCP365_P02_Formato_cadena_correos.docx. "
+        "Copilot analiza estos correos (De, Para, Asunto, Fecha, cuerpo) "
+        "y completa solo la plantilla de llenado.",
+        RULE_BG,
     )
-    p2 = cell.add_paragraph()
-    set_run(
-        p2.add_run("Misión Copilot 365 · ECCO · Universidad Sergio Arboleda"),
-        size=9,
-        color="D5D2E6",
+    add_callout(
+        doc,
+        "Regla de evidencia:",
+        "Al citar, usa siempre: fecha + De + Asunto. "
+        "Ejemplo: «04/03/2026 · Julián Pardo · Logística de Materiales · RE: adelanto de repuestos · ST-Urb-03».",
+        HINT_BG,
     )
-    doc.add_paragraph()
+    heading(doc, "Correos de la cadena (no editar)")
+    for i, part in enumerate(get_reto_r2_parts(), 1):
+        add_email_block(doc, i, part)
+    OUT_FUENTE.parent.mkdir(parents=True, exist_ok=True)
+    doc.save(OUT_FUENTE)
+    print(f"OK -> {OUT_FUENTE}")
 
-    chips = doc.add_table(rows=1, cols=2)
-    set_cell_text(chips.rows[0].cells[0], "MCP-365-P02", bold=True, color="FFFFFF", size=9, fill=PURPLE, center=True)
-    set_cell_text(chips.rows[0].cells[1], "Word + Copilot", bold=True, color=DARK, size=9, fill=YELLOW, center=True)
-    doc.add_paragraph()
+
+def build_planilla():
+    doc = Document()
+    setup_page(doc)
+    add_banner(doc, "Plantilla de llenado · Cadena de correos · ST-Urb-03")
+    add_chips(doc, "MCP-365-P02", "Word + Copilot · Llenar")
 
     add_table(
         doc,
@@ -199,7 +234,8 @@ def main():
             ["Participante", "________________________________"],
             ["Área / rol", "________________________________"],
             ["Fecha", "________________"],
-            ["App usada", "Word + Copilot (fuente en este documento)"],
+            ["App usada", "Word + Copilot"],
+            ["Fuente usada", "MCP365_P02_Fuente_correos_ST-Urb-03.docx"],
             ["Estado", "☐ Borrador    ☐ Validado    ☐ Entregado"],
         ],
         col_widths=[4, 12],
@@ -208,44 +244,31 @@ def main():
 
     add_callout(
         doc,
-        "Fuente obligatoria:",
-        "La sección 1 contiene los 4 correos del caso (De, Para, Asunto, Fecha y cuerpo). "
-        "Copilot debe analizar ESA sección. No inventes mensajes. No uses solo Outlook: "
-        "Word Copilot no ve tu bandeja.",
+        "Archivos del reto:",
+        "1) MCP365_P02_Fuente_correos_ST-Urb-03.docx = correos (De/Para/Asunto). "
+        "2) ESTE archivo = plantilla de llenado. Abre ambos en Word. "
+        "Copilot debe leer la fuente y completar SOLO las celdas/cuadros vacíos de esta plantilla.",
         RULE_BG,
     )
     add_callout(
         doc,
-        "Cómo usarla:",
-        "1) Descarga este .docx · 2) Ábrelo en Word · 3) Abre Copilot SOBRE ESTE archivo · "
-        "4) Pega el prompt del Reto 2 · 5) Completa solo secciones 2–6 · "
-        "6) No reescribas la sección 1 · 7) Guarda como MCP365_P02_Cadena_correos_completado.docx · "
-        "8) Validación humana y control de calidad: solo la persona.",
+        "Para Copilot:",
+        "No recrees el documento. No cambies títulos, tablas, colores ni diseño. "
+        "No completes Validación humana ni Control de calidad. "
+        "Si falta un dato en la fuente: escribe «No especificado».",
         HINT_BG,
     )
     add_callout(
         doc,
-        "Regla De / Asunto:",
-        "En cronología y evidencias cita siempre: fecha + De (remitente) + Asunto. "
-        "Ejemplo: «04/03/2026 · Julián Pardo · RE: adelanto de repuestos · ST-Urb-03».",
+        "Entrega:",
+        "Guarda ESTE archivo (ya lleno) como MCP365_P02_Cadena_correos_completado.docx.",
         HINT_BG,
     )
 
-    heading(doc, "1. Correos fuente ST-Urb-03 · NO EDITAR (solo lectura para Copilot)")
+    heading(doc, "1. Cronología de la cadena · LLENAR CON COPILOT")
     add_para(
         doc,
-        "Cadena operativa del transformador auxiliar ST-Urb-03. Identifica cada mensaje por De, Para, Asunto y Fecha.",
-        size=10,
-        color="5A5A72",
-        space_after=8,
-    )
-    for i, part in enumerate(get_reto_r2_parts(), 1):
-        add_email_block(doc, i, part)
-
-    heading(doc, "2. Cronología de la cadena · LLENAR CON COPILOT")
-    add_para(
-        doc,
-        "Una fila por correo. En «Evidencia» cita De + Asunto + fragmento textual.",
+        "Una fila por correo de la fuente. En «Evidencia» cita fecha + De + Asunto + fragmento textual.",
         size=9,
         color="5A5A72",
         space_after=4,
@@ -260,7 +283,7 @@ def main():
         col_widths=[1, 2, 3, 3, 2.5, 2.5, 2.5],
     )
 
-    heading(doc, "3. Cambios respecto al plan inicial · LLENAR CON COPILOT")
+    heading(doc, "2. Cambios respecto al plan inicial · LLENAR CON COPILOT")
     add_table(
         doc,
         ["Tema", "Plan inicial (correo 01 mar)", "Plan vigente", "Quién lo indicó (De + Asunto)", "Pendiente de comunicar"],
@@ -273,7 +296,7 @@ def main():
         col_widths=[3, 3.5, 3, 4, 2.5],
     )
 
-    heading(doc, "4. Compromisos vigentes · LLENAR CON COPILOT")
+    heading(doc, "3. Compromisos vigentes · LLENAR CON COPILOT")
     add_table(
         doc,
         ["#", "Compromiso", "Responsable", "Origen (De + Asunto + fecha)", "Estado"],
@@ -286,16 +309,16 @@ def main():
         col_widths=[1, 4.5, 3, 5, 2.5],
     )
 
-    heading(doc, "5. Respuesta técnica · LLENAR CON COPILOT")
-    add_empty_box(doc, "Precisión operativa: procedimiento, tiempos, controles, responsable. Solo con datos de la sección 1.")
+    heading(doc, "4. Respuesta técnica · LLENAR CON COPILOT")
+    add_empty_box(doc, "Precisión operativa: procedimiento, tiempos, controles, responsable. Solo con datos de la fuente.")
 
-    heading(doc, "6. Respuesta ejecutiva (máx. 8 líneas) · LLENAR CON COPILOT")
+    heading(doc, "5. Respuesta ejecutiva (máx. 8 líneas) · LLENAR CON COPILOT")
     add_empty_box(doc, "Decisión, impacto, riesgo, siguiente paso y dueño. Cita el correo de aprobación (De + Asunto).")
 
-    heading(doc, "7. Comunicación a usuarios / comunidad (máx. 6 líneas) · LLENAR CON COPILOT")
+    heading(doc, "6. Comunicación a usuarios / comunidad (máx. 6 líneas) · LLENAR CON COPILOT")
     add_empty_box(doc, "Lenguaje simple: qué ocurre, cuándo, cómo afecta, canal. Sin jerga. Basado en fechas vigentes de la cadena.")
 
-    heading(doc, "8. Validación humana · SOLO LA PERSONA (no Copilot)")
+    heading(doc, "7. Validación humana · SOLO LA PERSONA (no Copilot)")
     add_table(
         doc,
         ["Pregunta", "Respuesta"],
@@ -307,20 +330,26 @@ def main():
         col_widths=[7, 9],
     )
 
-    heading(doc, "9. Control de calidad · SOLO LA PERSONA (no Copilot)")
+    heading(doc, "8. Control de calidad · SOLO LA PERSONA (no Copilot)")
     add_table(
         doc,
         ["Criterio", "Cumple"],
         [
-            ["Sección 1 intacta (correos fuente no reescritos)", "☐ Sí ☐ No"],
+            ["Diseño de la plantilla conservado (sin reconstruir)", "☐ Sí ☐ No"],
             ["Tres audiencias completas y diferenciadas", "☐ Sí ☐ No"],
             ["Archivo guardado como MCP365_P02_Cadena_correos_completado.docx", "☐ Sí ☐ No"],
         ],
         col_widths=[12, 4],
     )
 
-    doc.save(OUT)
-    print(f"OK -> {OUT}")
+    OUT_PLANILLA.parent.mkdir(parents=True, exist_ok=True)
+    doc.save(OUT_PLANILLA)
+    print(f"OK -> {OUT_PLANILLA}")
+
+
+def main():
+    build_fuente()
+    build_planilla()
 
 
 if __name__ == "__main__":

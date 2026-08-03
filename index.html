@@ -1147,22 +1147,23 @@
           </button>
           <div class="reto__body">
             <div class="m365-box">
-              <h4><span class="app-badge">Word</span> + <span class="app-badge">Copilot</span> Paso a paso (fuente en el .docx)</h4>
+              <h4><span class="app-badge">Word</span> + <span class="app-badge">Copilot</span> Paso a paso (fuente + plantilla)</h4>
               <ol>
-                <li><strong>Descarga la planilla oficial .docx</strong>. Incluye en la <em>sección 1</em> los 4 correos del caso con <strong>De</strong>, <strong>Para</strong>, <strong>Asunto</strong>, <strong>Fecha</strong> y cuerpo. Word Copilot <strong>no ve Outlook</strong>: sin esa sección no puede completar el análisis.</li>
-                <li>Ábrela en <strong>Word</strong> y activa Copilot <strong>sobre ese archivo</strong> (no sobre un documento vacío).</li>
-                <li>Copia el prompt del reto (pide citar siempre fecha + De + Asunto).</li>
-                <li>Completa solo secciones 2–7: cronología, cambios, compromisos y tres borradores. <strong>No reescribas</strong> la sección 1.</li>
-                <li>No inventes datos. Validación humana y control de calidad (secciones 8–9) los completa la persona.</li>
-                <li>Guarda como <code>MCP365_P02_Cadena_correos_completado.docx</code>.</li>
-                <li><em>Opcional:</em> envía los 4 correos a tu bandeja para contrastar en Outlook (misma cadena), pero el análisis del entregable usa la sección 1 del .docx.</li>
+                <li>Descarga <strong>dos archivos</strong>: (A) <em>Fuente de correos</em> ST-Urb-03 y (B) <em>Plantilla de llenado</em>.</li>
+                <li>Ábrelos en <strong>Word</strong>. La fuente tiene De / Para / Asunto / Fecha / cuerpo. La plantilla tiene tablas vacías.</li>
+                <li>Activa Copilot sobre la <strong>plantilla de llenado</strong> (puedes adjuntar o referenciar también la fuente).</li>
+                <li>Copia el prompt del reto: debe llenar solo celdas/cuadros vacíos, citar fecha + De + Asunto, y <strong>no cambiar</strong> estructura ni diseño.</li>
+                <li>Validación humana y control de calidad los completa la persona.</li>
+                <li>Guarda la plantilla ya llenada como <code>MCP365_P02_Cadena_correos_completado.docx</code>.</li>
+                <li><em>Opcional:</em> envía los 4 correos a tu bandeja para contrastar en Outlook.</li>
               </ol>
             </div>
-            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>1) Planilla con correos fuente</strong> (obligatorio para Copilot):</p>
+            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>Descargas obligatorias</strong> (dos archivos):</p>
             <div class="btn-group" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
-              <button type="button" class="btn btn--sm btn--energy" data-planilla="cadena-correos"><i data-lucide="download" width="14" height="14"></i> Descargar planilla oficial (.docx) con cadena ST-Urb-03</button>
+              <button type="button" class="btn btn--sm btn--secondary" data-planilla="cadena-fuente"><i data-lucide="mail" width="14" height="14"></i> Descargar fuente de correos ST-Urb-03 (.docx)</button>
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="cadena-correos"><i data-lucide="download" width="14" height="14"></i> Descargar plantilla de llenado (.docx)</button>
             </div>
-            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>2) Opcional · copia a mi bandeja</strong> (mismo contenido; para práctica en Outlook):</p>
+            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>Opcional · copia a mi bandeja</strong>:</p>
             <div class="btn-group" style="margin-bottom:0.5rem;flex-wrap:wrap;gap:0.5rem">
               <button type="button" class="btn btn--sm btn--primary" data-reto-email="r2-1"><i data-lucide="mail" width="14" height="14"></i> 01 mar</button>
               <button type="button" class="btn btn--sm btn--primary" data-reto-email="r2-2"><i data-lucide="mail" width="14" height="14"></i> 04 mar</button>
@@ -2428,73 +2429,67 @@
     "email": true,
     "planilla": {
       "key": "cadena-correos",
-      "label": "Descargar planilla oficial (.docx) con cadena ST-Urb-03"
+      "label": "Descargar plantilla de llenado (.docx)"
     },
     "output": "MCP365_P02_Cadena_correos_completado.docx",
     "steps": [
-      "<strong>Descarga la planilla .docx</strong>. La sección 1 trae los 4 correos con De, Para, Asunto, Fecha y cuerpo. Word Copilot no ve Outlook.",
-      "Ábrela en <strong>Word</strong> y usa Copilot <strong>sobre ese archivo</strong>.",
-      "Copia el prompt (exige citar fecha + De + Asunto).",
-      "Completa secciones 2–7. No reescribas la sección 1. Validación y CQ solo humanas.",
-      "Guarda como <code>MCP365_P02_Cadena_correos_completado.docx</code>.",
-      "Opcional: envía los 4 correos a tu bandeja para contrastar en Outlook."
+      "Descarga <strong>fuente de correos</strong> y <strong>plantilla de llenado</strong> (dos botones).",
+      "Ábrelos en Word. Usa Copilot sobre la plantilla, con la fuente como documento a analizar.",
+      "Copia el prompt: llena solo celdas vacías; cita fecha + De + Asunto; no cambies diseño.",
+      "Guarda la plantilla llenada como <code>MCP365_P02_Cadena_correos_completado.docx</code>.",
+      "Opcional: envía los 4 correos a tu bandeja."
     ],
     "fields": [
       [
         "rol",
         "Rol de Copilot",
-        "Asistente de operaciones que reconstruye cronologías citando De, Para, Asunto y fecha de cada correo, y redacta respuestas por audiencia."
+        "Asistente de operaciones. Lees la fuente de correos y completas únicamente la plantilla de llenado, citando De, Para, Asunto y fecha."
       ],
       [
         "app",
-        "Aplicación de origen",
+        "Aplicación",
         "Word + Copilot."
       ],
       [
         "fuente",
-        "Fuente que se debe analizar",
-        "Sección 1 de ESTE documento Word (MCP365_P02_Formato_cadena_correos.docx): cuatro correos ST-Urb-03 con De, Para, Asunto, Fecha y cuerpo. No uses la bandeja de Outlook como única fuente: no está disponible para Word Copilot."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Construir cronología (una fila por correo), cambios vs plan inicial (01/03), compromisos vigentes y tres borradores (técnica, ejecutiva, usuarios). En cada hallazgo cita: fecha + De + Asunto. Si falta un dato: No especificado. No inventes."
+        "Documento fuente (solo lectura / análisis)",
+        "MCP365_P02_Fuente_correos_ST-Urb-03.docx — cuatro correos ST-Urb-03 con De, Para, Asunto, Fecha y cuerpo. Analiza ese archivo. No inventes mensajes."
       ],
       [
         "archivo",
-        "Archivo que se debe completar",
-        "MCP365_P02_Formato_cadena_correos.docx (plantilla oficial del reto, con correos fuente en sección 1)."
+        "Plantilla a completar (no reconstruir)",
+        "MCP365_P02_Formato_cadena_correos.docx — este documento abierto. Completa SOLO celdas y cuadros vacíos de las secciones 1 a 6."
       ],
       [
-        "seccion",
-        "Secciones autorizadas",
-        "2 Cronología · 3 Cambios · 4 Compromisos · 5 Respuesta técnica · 6 Respuesta ejecutiva · 7 Comunicación a usuarios."
+        "objetivo",
+        "Qué debes llenar",
+        "1 Cronología (una fila por correo) · 2 Cambios vs plan inicial · 3 Compromisos · 4 Respuesta técnica · 5 Respuesta ejecutiva (máx. 8 líneas) · 6 Comunicación a usuarios (máx. 6 líneas). En evidencias cita: fecha + De + Asunto."
+      ],
+      [
+        "conservar",
+        "Qué NO debes cambiar",
+        "Títulos, tablas, colores, diseño, número de filas/columnas, tipografía ni estructura del archivo. No crees un documento nuevo. No reescribas la plantilla desde cero."
       ],
       [
         "restringidos",
-        "Campos que deben quedar sin completar / sin reescribir",
-        "Sección 1 Correos fuente (no editar).\nValidación humana.\nControl de calidad.\nFirmas."
+        "Secciones que NO debes completar",
+        "7 Validación humana.\n8 Control de calidad.\nFirmas.\nDatos del participante (salvo que el usuario los pida)."
       ],
       [
         "vacio",
-        "Respuesta cuando no exista información",
+        "Si falta un dato en la fuente",
         "No especificado."
-      ],
-      [
-        "detalle",
-        "Nivel de detalle y evidencia",
-        "Cronología fecha a fecha con De y Asunto. Evidencia = cita textual breve. Borrador ejecutivo máx. 8 líneas; mensaje a usuarios máx. 6 líneas."
       ],
       [
         "salida",
         "Nombre del archivo de salida",
-        "MCP365_P02_Cadena_correos_completado.docx."
+        "MCP365_P02_Cadena_correos_completado.docx (es la plantilla de llenado ya completada)."
       ]
     ],
     "checklist": [
       [
         "r2-c1",
-        "Plantilla .docx abierta con sección 1 (4 correos De/Para/Asunto)"
+        "Descargué fuente de correos y plantilla de llenado (2 archivos)"
       ],
       [
         "r2-c2",
@@ -2506,16 +2501,16 @@
       ],
       [
         "r2-c4",
-        "Sección 1 intacta; validación humana y CQ sin completar por Copilot"
+        "Diseño de la plantilla conservado; validación/CQ sin Copilot"
       ],
       [
         "r2-c5",
-        "Práctica propia opcional con cadena real de mi bandeja"
+        "Archivo final: MCP365_P02_Cadena_correos_completado.docx"
       ]
     ],
-    "practice_title": "Al terminar el caso · Practica con una cadena real de tu bandeja",
-    "practice": "Exporta o pega 3–4 correos reales (anonimizados) en una copia de la plantilla, reemplazando la sección 1. Adapta el prompt. Conserva cronología + tres audiencias. Guarda como MCP365_P02_Cadena_[tu-tema]_completado.docx.",
-    "deliverable": "Entregable: MCP365_P02_Cadena_correos_completado.docx con cronología (De/Asunto), cambios, compromisos y tres borradores. Sección 1 intacta. Validación humana y CQ vacíos."
+    "practice_title": "Al terminar el caso · Practica con una cadena real",
+    "practice": "Sustituye la fuente por 3–4 correos propios anonimizados y reutiliza la plantilla de llenado. Adapta el prompt. Guarda como MCP365_P02_Cadena_[tu-tema]_completado.docx.",
+    "deliverable": "Entregable: MCP365_P02_Cadena_correos_completado.docx (plantilla llenada). Diseño intacto. Validación humana y CQ vacíos."
   },
   "r3": {
     "id": "r3",
@@ -3493,7 +3488,8 @@
       "Completa solo los campos/secciones autorizados del archivo indicado.",
       "No inventes datos. Si falta información, usa la respuesta definida en la configuración.",
       "No completes validación humana, control de calidad ni firmas salvo que estén autorizados.",
-      "Conserva el diseño del archivo oficial; no reconstruyas el documento desde cero.",
+      "Conserva el diseño del archivo oficial: no cambies títulos, tablas, colores, estructura ni tipografía.",
+      "No reconstruyas el documento desde cero ni entregues un archivo nuevo distinto de la plantilla.",
       "",
       "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "3. VERIFICACIÓN Y ENTREGA",
@@ -3984,6 +3980,10 @@
       "MCP365_P01_Formato_analisis_correo.docx"
     ),
 
+    "cadena-fuente": () => downloadStaticFile(
+      "planillas/MCP365_P02_Fuente_correos_ST-Urb-03.docx",
+      "MCP365_P02_Fuente_correos_ST-Urb-03.docx"
+    ),
     "cadena-correos": () => downloadStaticFile(
       "planillas/MCP365_P02_Formato_cadena_correos.docx",
       "MCP365_P02_Formato_cadena_correos.docx"
@@ -4668,7 +4668,8 @@
   /* ========== TEMPLATES ========== */
   const TEMPLATES = [
     { name: "Formato análisis de correo", desc: "Plantilla oficial .docx · solo 14 celdas de análisis", key: "analisis-correo", type: "Word" },
-    { name: "Cadena de correos ST-Urb-03", desc: "Word .docx · sección 1 con De/Para/Asunto + tablas a llenar", key: "cadena-correos", type: "Word" },
+    { name: "Fuente correos ST-Urb-03", desc: "Word .docx · 4 correos con De/Para/Asunto/Fecha (solo lectura)", key: "cadena-fuente", type: "Word" },
+    { name: "Plantilla llenado cadena", desc: "Word .docx · cronología, cambios, compromisos y 3 audiencias", key: "cadena-correos", type: "Word" },
     { name: "Matriz de compromisos", desc: "Teams/Word · Decisiones, tareas y próxima agenda", key: "matriz-compromisos", type: "Word" },
     { name: "Tres audiencias", desc: "Word · Técnico, gerencia, comunidad + control de hechos", key: "tres-audiencias", type: "Word" },
     { name: "Comparación documental", desc: "Word · Cambios, impactos y validaciones", key: "comparacion-docs", type: "Word" },
