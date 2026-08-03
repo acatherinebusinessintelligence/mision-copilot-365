@@ -1244,7 +1244,7 @@
               <span class="reto__num">3</span>
               <span>
                 <strong>Reunión a plan de acción</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Teams · De transcripción a matriz de compromisos</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Teams + Word · Modo edición de plantilla (como Reto 1 y 2)</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -1256,21 +1256,21 @@
           </button>
           <div class="reto__body">
             <div class="m365-box">
-              <h4><span class="app-badge">Teams</span> + <span class="app-badge">Word</span> Paso a paso con Copilot</h4>
+              <h4><span class="app-badge">Teams</span> + <span class="app-badge">Word</span> + <span class="app-badge">Copilot</span> Paso a paso</h4>
               <ol>
-                <li>Descarga la <strong>planilla oficial</strong> de matriz de compromisos.</li>
-                <li>Usa la transcripción del comité de esta página (o Teams).</li>
-                <li>Ajusta el prompt configurable y cópialo.</li>
-                <li>En Word/Teams → Copilot, separa decisiones, propuestas, opiniones y tareas.</li>
-                <li>Completa la matriz Actividad | Responsable | Fecha | Estado | Evidencia. Usa “No especificado” si falta un dato.</li>
-                <li>Validación humana y control de calidad los completa la persona.</li>
-                <li>Guarda como <code>MCP365_P03_Matriz_compromisos_completada.docx</code>.</li>
-                <li>Después: practica con una reunión propia anonimizada.</li>
+                <li>Descarga <strong>fuente</strong> y <strong>plantilla</strong> (dos botones).</li>
+                <li>Usa la <strong>misma forma de acceso a la plantilla</strong> que te funcionó en los retos anteriores.</li>
+                <li>Proporciona a Copilot: <code>MCP365_P03_Fuente_transcripcion_Teams_Proyecto_Horizonte.docx</code> + <code>MCP365_P03_Matriz_compromisos_reunion.docx</code> + este prompt.</li>
+                <li>Copilot debe entregar <code>MCP365_P03_Matriz_compromisos_completada.docx</code> (copia de la plantilla; propuestas no aprobadas dentro de la sección 2).</li>
+                <li>«Validado por», control de calidad y firmas los completa la persona.</li>
               </ol>
             </div>
-            <div class="btn-group" style="margin-bottom:1rem">
-              <button type="button" class="btn btn--sm btn--energy" data-planilla="matriz-compromisos"><i data-lucide="download" width="14" height="14"></i> Descargar planilla oficial (Word/Excel)</button>
+            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>Descargas obligatorias</strong> (dos archivos):</p>
+            <div class="btn-group" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
+              <button type="button" class="btn btn--sm btn--secondary" data-planilla="matriz-fuente"><i data-lucide="file-text" width="14" height="14"></i> Descargar fuente transcripción Teams (.docx)</button>
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="matriz-compromisos"><i data-lucide="download" width="14" height="14"></i> Descargar plantilla de llenado (.docx)</button>
             </div>
+            <p style="margin:0 0 0.35rem;font-size:0.88rem;color:var(--text-muted)">Vista previa corta (la fuente completa está en el .docx):</p>
             <div class="transcript-box">
               <p><strong>Acta verbal · Comité operativo Proyecto Horizonte · 20/03/2026 09:00</strong></p>
               <p><strong>Ana Rojas (líder de proyecto):</strong> Propongo iniciar el diagnóstico en sitio el 2 de abril.</p>
@@ -2733,6 +2733,461 @@
   }
 
 
+
+  function getPromptR3Fields() {
+    const box = document.getElementById("promptConfig-r3");
+    const c = RETO_CASES.r3;
+    const out = {};
+    if (c && c.fields) c.fields.forEach(([k, , def]) => { out[k] = def; });
+    if (box) {
+      box.querySelectorAll("[data-reto-field]").forEach(el => {
+        out[el.getAttribute("data-reto-field")] = (el.value || "").trim();
+      });
+    }
+    return out;
+  }
+
+  /** Prompt Reto 3: modo edición de plantilla Word (mismo patrón que Reto 1 y 2). */
+  function buildPromptR3Text(f) {
+    const bracket = (v) => "[[" + (v || "") + "]]";
+    return [
+      "PROMPT CONFIGURABLE PARA COPILOT",
+      "MODO EDICIÓN DE PLANTILLA WORD",
+      "CASO: TRANSCRIPCIÓN DE TEAMS · PROYECTO HORIZONTE · RETO 3",
+      "",
+      "INSTRUCCIONES PARA EL PARTICIPANTE",
+      "",
+      "Revisa los campos de configuración. Utiliza este prompt siguiendo el mismo procedimiento que funcionó en los retos anteriores.",
+      "",
+      "Archivos requeridos:",
+      "",
+      "FUENTE:",
+      "",
+      "MCP365_P03_Fuente_transcripcion_Teams_Proyecto_Horizonte.docx",
+      "",
+      "PLANTILLA:",
+      "",
+      "MCP365_P03_Matriz_compromisos_reunion.docx",
+      "",
+      "ENTREGABLE:",
+      "",
+      "MCP365_P03_Matriz_compromisos_completada.docx",
+      "",
+      "La lista de propuestas no aprobadas debe quedar incluida dentro de la sección 2 de la matriz. No debe generarse como un documento separado.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "1. CONFIGURACIÓN DEL ANÁLISIS",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "ROL DE COPILOT",
+      "",
+      bracket(f.rol),
+      "",
+      "APLICACIONES DE ORIGEN",
+      "",
+      bracket(f.app),
+      "",
+      "FUENTE QUE SE DEBE ANALIZAR",
+      "",
+      bracket(f.fuente),
+      "",
+      "REUNIÓN O CASO",
+      "",
+      bracket(f.reunion),
+      "",
+      "OBJETIVO DEL ANÁLISIS",
+      "",
+      bracket(f.objetivo),
+      "",
+      "ARCHIVO WORD QUE SE DEBE COMPLETAR",
+      "",
+      bracket(f.archivo),
+      "",
+      "SECCIONES QUE COPILOT PUEDE COMPLETAR",
+      "",
+      bracket("\n" + (f.secciones || "") + "\n"),
+      "",
+      "CAMPOS AUTORIZADOS EN “1. DATOS DE LA REUNIÓN”",
+      "",
+      bracket("\n" + (f.sec1 || "") + "\n"),
+      "",
+      "FILAS AUTORIZADAS EN “2. CLASIFICACIÓN DE LA CONVERSACIÓN”",
+      "",
+      bracket("\n" + (f.sec2 || "") + "\n"),
+      "",
+      "CAMPOS AUTORIZADOS EN “3. MATRIZ DE COMPROMISOS”",
+      "",
+      bracket("\n" + (f.sec3 || "") + "\n"),
+      "",
+      "CAMPOS AUTORIZADOS EN “4. PRÓXIMA AGENDA”",
+      "",
+      bracket("\n" + (f.sec4 || "") + "\n"),
+      "",
+      "CAMPO AUTORIZADO EN “5. RESUMEN PARA DIFUSIÓN”",
+      "",
+      bracket(f.sec5),
+      "",
+      "CAMPOS O SECCIONES QUE DEBEN QUEDAR SIN COMPLETAR",
+      "",
+      bracket("\n" + (f.restringidos || "") + "\n"),
+      "",
+      "RESPUESTA CUANDO FALTE UN DATO DE UN COMPROMISO REAL",
+      "",
+      bracket(f.vacio),
+      "",
+      "TRATAMIENTO DE FILAS NO UTILIZADAS",
+      "",
+      bracket(f.filas_vacias),
+      "",
+      "NIVEL DE DETALLE",
+      "",
+      bracket(f.detalle),
+      "",
+      "FORMATO DE EVIDENCIA",
+      "",
+      bracket(f.evidencia),
+      "",
+      "NOMBRE DEL ARCHIVO DE SALIDA",
+      "",
+      bracket(f.salida),
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "2. INSTRUCCIÓN PARA COPILOT",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "ACTÚA EN MODO EDICIÓN DE PLANTILLA WORD (.docx REAL).",
+      "",
+      "Analiza exclusivamente la transcripción indicada y completa una copia editable de la plantilla oficial.",
+      "",
+      "No reconstruyas la matriz desde una representación textual.",
+      "",
+      "No crees un documento con otro diseño.",
+      "",
+      "No conviertas las tablas en párrafos o listas.",
+      "",
+      "PRECONDICIÓN DEL ARCHIVO",
+      "",
+      "1. Comprueba que puedes acceder al archivo fuente.",
+      "2. Comprueba que puedes acceder a la plantilla Word editable.",
+      "3. Comprueba que puedes crear una copia conservando su diseño.",
+      "4. Si puedes editar la copia, continúa.",
+      "5. Si solo puedes leer o previsualizar la plantilla, detente.",
+      "",
+      "Si no puedes conservar la plantilla, responde:",
+      "",
+      "“No puedo completar la matriz conservando su formato. No generaré un documento alternativo.”",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "3. TAREA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "1. Crea una copia de la plantilla oficial.",
+      "2. Analiza la transcripción completa, desde el inicio hasta el cierre.",
+      "3. Identifica a los participantes y conserva sus nombres tal como aparecen.",
+      "4. Completa los datos de la reunión.",
+      "5. Clasifica la conversación.",
+      "6. Elabora dentro de la sección 2 una lista de propuestas no aprobadas.",
+      "7. Completa la matriz únicamente con compromisos verificables.",
+      "8. Propón la próxima agenda utilizando asuntos pendientes de la reunión.",
+      "9. Redacta el resumen para difusión.",
+      "10. Guarda la copia con el nombre definido en la configuración.",
+      "",
+      "Trabaja sección por sección dentro del mismo documento.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "4. REGLAS PARA CLASIFICAR LA CONVERSACIÓN",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "DECISIONES CONFIRMADAS",
+      "",
+      "Registra una decisión únicamente cuando la transcripción contenga una confirmación explícita, por ejemplo:",
+      "",
+      "* “Queda decidido”.",
+      "* “Aprobamos”.",
+      "* “Se autoriza”.",
+      "* “Se confirma”.",
+      "* Una aceptación expresa equivalente.",
+      "",
+      "No conviertas una propuesta, recomendación o posibilidad en una decisión.",
+      "",
+      "Para cada decisión incluye:",
+      "",
+      "* Decisión breve.",
+      "* Persona que la confirmó.",
+      "* Marca de tiempo.",
+      "* Evidencia breve.",
+      "",
+      "Marca la opción “Cerrada” solamente cuando la decisión esté confirmada.",
+      "",
+      "PROPUESTAS NO APROBADAS",
+      "",
+      "Incluye todas las propuestas que:",
+      "",
+      "* Fueron sugeridas, pero no aprobadas.",
+      "* Quedaron condicionadas a permisos, accesos o confirmaciones.",
+      "* Se conservaron como fecha o alternativa tentativa.",
+      "* Requieren una aprobación posterior.",
+      "* Fueron discutidas, pero no autorizadas definitivamente.",
+      "",
+      "Utiliza una lista numerada dentro de la celda.",
+      "",
+      "Para cada propuesta registra:",
+      "",
+      "1. Propuesta.",
+      "2. Persona que la presentó.",
+      "3. Motivo por el que no está aprobada.",
+      "4. Estado o condición pendiente.",
+      "5. Evidencia con marca de tiempo.",
+      "",
+      "No incluyas como “no aprobada” una actividad que sí recibió aprobación expresa.",
+      "",
+      "Si se aprobó preparar un borrador, pero no distribuirlo, diferencia claramente:",
+      "",
+      "* La preparación aprobada.",
+      "* La distribución todavía no aprobada.",
+      "",
+      "Marca la opción “Abierta” cuando existan propuestas pendientes de aprobación.",
+      "",
+      "OPINIONES O PREOCUPACIONES",
+      "",
+      "Registra como opinión o preocupación:",
+      "",
+      "* Recomendaciones personales o técnicas.",
+      "* Expresiones como “me preocupa”, “preferiría” o “me parece”.",
+      "* Riesgos mencionados sin que constituyan una decisión.",
+      "* Condiciones técnicas señaladas durante la conversación.",
+      "",
+      "No conviertas una recomendación técnica en compromiso.",
+      "",
+      "Marca la opción “Registrada”.",
+      "",
+      "PREGUNTAS SIN RESOLVER",
+      "",
+      "Incluye preguntas o asuntos para los cuales la transcripción indique:",
+      "",
+      "* No se conoce la respuesta.",
+      "* No está definido.",
+      "* Está pendiente de confirmación.",
+      "* No se ha identificado al responsable.",
+      "* No existe fecha de respuesta.",
+      "* Depende de una autorización posterior.",
+      "",
+      "Marca la opción “Pendiente”.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "5. REGLAS PARA LA MATRIZ DE COMPROMISOS",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Registra únicamente compromisos que tengan una acción asignada o aceptada expresamente.",
+      "",
+      "Una propuesta, recomendación, preocupación o pregunta no constituye por sí sola un compromiso.",
+      "",
+      "ACTIVIDAD",
+      "",
+      "* Redacta una acción concreta.",
+      "* Comienza con un verbo en infinitivo.",
+      "* No combines varias actividades diferentes en una misma fila.",
+      "",
+      "RESPONSABLE",
+      "",
+      "* Registra solamente a la persona o área asignada explícitamente.",
+      "* No deduzcas responsables por su cargo o participación.",
+      "* Si existe el compromiso, pero el responsable no fue definido, escribe “No especificado”.",
+      "",
+      "FECHA LÍMITE",
+      "",
+      "* Copia la fecha exacta mencionada.",
+      "* Diferencia una fecha límite de una fecha tentativa.",
+      "* Si no hay fecha asignada, escribe “No especificado”.",
+      "* No calcules fechas por cuenta propia.",
+      "",
+      "DEPENDENCIA",
+      "",
+      "Registra las condiciones que deben cumplirse antes de ejecutar el compromiso, por ejemplo:",
+      "",
+      "* Permiso.",
+      "* Autorización.",
+      "* Acceso.",
+      "* Confirmación de inventario.",
+      "* Información de otra área.",
+      "* Aprobación de una comunicación.",
+      "",
+      "Incluye únicamente dependencias mencionadas en la transcripción.",
+      "",
+      "Si no existe una dependencia explícita, escribe “No especificado”.",
+      "",
+      "ESTADO",
+      "",
+      "Marca una sola opción:",
+      "",
+      "* Pendiente.",
+      "* En curso.",
+      "* Hecho.",
+      "",
+      "Utiliza “Hecho” solamente cuando la transcripción confirme que la actividad fue completada.",
+      "",
+      "Utiliza “En curso” solamente cuando la fuente indique que la actividad ya comenzó.",
+      "",
+      "Cuando se asigne o acepte un compromiso, pero no se confirme su cumplimiento, marca “Pendiente”.",
+      "",
+      "EVIDENCIA O ENTREGABLE",
+      "",
+      "Incluye:",
+      "",
+      "* Entregable esperado.",
+      "* Persona que asumió o asignó el compromiso.",
+      "* Marca de tiempo.",
+      "* Cita breve o referencia precisa.",
+      "",
+      "Ejemplo de estructura:",
+      "",
+      "Entregable: [resultado esperado] · Evidencia: [participante] · [marca de tiempo] · “[cita breve]”",
+      "",
+      "VALIDADO POR",
+      "",
+      "Deja completamente vacías las ocho celdas de la columna “Validado por”.",
+      "",
+      "No escribas nombres, “Copilot”, “Pendiente” ni “No especificado”.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "6. REGLAS PARA LA PRÓXIMA AGENDA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Utiliza únicamente:",
+      "",
+      "* Temas expresamente previstos para la siguiente reunión.",
+      "* Preguntas sin resolver.",
+      "* Dependencias pendientes.",
+      "* Compromisos que deban revisarse posteriormente.",
+      "",
+      "Si el tema de agenda se deriva de un pendiente y no fue definido expresamente, comienza con:",
+      "",
+      "“Propuesta de agenda:”",
+      "",
+      "Registra como dueño únicamente a una persona asignada expresamente.",
+      "",
+      "Si no existe dueño identificado, escribe “No especificado”.",
+      "",
+      "No presentes una agenda propuesta como decisión confirmada.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "7. RESUMEN PARA DIFUSIÓN",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Redacta un resumen de máximo cinco líneas.",
+      "",
+      "Incluye:",
+      "",
+      "* Propósito de la reunión.",
+      "* Principales decisiones confirmadas.",
+      "* Compromisos más relevantes.",
+      "* Dependencias o asuntos pendientes.",
+      "* Fecha de la siguiente reunión, si está confirmada.",
+      "",
+      "No presentes propuestas abiertas como decisiones.",
+      "",
+      "No incluyas información técnica innecesaria.",
+      "",
+      "No incluyas datos inventados.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "8. CONSERVACIÓN DE LA PLANTILLA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Mantén sin modificaciones:",
+      "",
+      "* Banner.",
+      "* Título.",
+      "* Subtítulo.",
+      "* Chips o etiquetas.",
+      "* Colores.",
+      "* Tablas.",
+      "* Bordes.",
+      "* Tipografías.",
+      "* Recuadros.",
+      "* Numeración.",
+      "* Encabezados de columnas.",
+      "* Número de filas.",
+      "* Número de columnas.",
+      "* Texto institucional.",
+      "* Control de calidad.",
+      "* Firmas.",
+      "",
+      "Las filas pueden aumentar su altura si hace falta.",
+      "",
+      "No cambies el ancho de las columnas ni la composición.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "9. PROHIBICIONES",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "* No crees un documento desde cero.",
+      "* No reemplaces la plantilla por un documento nuevo.",
+      "* No conviertas tablas en párrafos.",
+      "* No utilices barras verticales para simular tablas.",
+      "* No agregues compromisos implícitos.",
+      "* No conviertas propuestas en decisiones.",
+      "* No asignes responsables por inferencia.",
+      "* No calcules fechas.",
+      "* No escribas en “Validado por”.",
+      "* No completes el control de calidad.",
+      "* No marques sus casillas.",
+      "* No completes las firmas.",
+      "* No escribas el nombre del archivo como título.",
+      "* No agregues conclusiones después del texto institucional.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "10. VERIFICACIÓN OBLIGATORIA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Antes de guardar, confirma:",
+      "",
+      "1. Los datos de la reunión provienen de la transcripción.",
+      "2. Las decisiones tienen confirmación explícita.",
+      "3. Las propuestas no aprobadas aparecen en una lista separada dentro de la sección 2.",
+      "4. Las propuestas no fueron presentadas como decisiones.",
+      "5. Las opiniones no fueron convertidas en compromisos.",
+      "6. Las preguntas abiertas siguen identificadas como pendientes.",
+      "7. Cada compromiso tiene actividad, responsable, fecha, dependencia, estado y evidencia.",
+      "8. Los datos faltantes de compromisos reales aparecen como “No especificado”.",
+      "9. Las filas no utilizadas están vacías.",
+      "10. Solo se marcó un estado por compromiso.",
+      "11. La columna “Validado por” está completamente vacía.",
+      "12. El control de calidad está completamente vacío.",
+      "13. Sus casillas Sí y No permanecen sin marcar.",
+      "14. Las firmas permanecen vacías.",
+      "15. El documento conserva el formato original.",
+      "16. El archivo final es un `.docx` real.",
+      "",
+      "Si alguna comprobación falla, corrige la copia antes de guardarla.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "11. ENTREGA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Guarda y entrega la copia completa con el nombre:",
+      "",
+      "MCP365_P03_Matriz_compromisos_completada.docx",
+      "",
+      "El documento debe conservar el formato oficial e incluir:",
+      "",
+      "* Datos de la reunión.",
+      "* Clasificación de la conversación.",
+      "* Lista de propuestas no aprobadas.",
+      "* Matriz de compromisos.",
+      "* Próxima agenda.",
+      "* Resumen para difusión.",
+      "",
+      "La validación humana, la columna “Validado por”, el control de calidad y las firmas deben permanecer vacíos.",
+      "",
+      "No entregues la lista de propuestas como un archivo independiente.",
+      "",
+      "No entregues únicamente un resumen o una tabla en el panel de Copilot."
+    ].join("\n");
+  }
+
+
   /* ========== RETO ENGINE (patrón S1·R1 reutilizable; R1 no se remonta) ========== */
   const RETO_CASES = {
   "r2": {
@@ -2782,98 +3237,46 @@
   "r3": {
     "id": "r3",
     "title": "Reunión a plan de acción",
-    "apps": [
-      "Teams",
-      "Word"
-    ],
+    "apps": ["Teams", "Word", "Copilot"],
     "email": false,
-    "planilla": {
-      "key": "matriz-compromisos",
-      "label": "Descargar planilla oficial (Word/Excel)"
-    },
+    "planilla": {"key": "matriz-compromisos", "label": "Descargar plantilla de llenado (.docx)"},
     "output": "MCP365_P03_Matriz_compromisos_completada.docx",
     "steps": [
-      "Descarga la <strong>planilla oficial</strong> de matriz de compromisos.",
-      "Copia la transcripción del comité (en esta página) o ábrela en <strong>Teams/Word</strong>.",
-      "Ajusta el prompt configurable según tu reunión y cópialo.",
-      "En Word o Teams → Copilot, separa decisiones, propuestas, opiniones y tareas.",
-      "Completa la matriz: Actividad | Responsable | Fecha | Estado | Evidencia. Usa “No especificado” si falta un dato.",
-      "No inventes responsables ni fechas. Deja validación humana y control de calidad a la persona.",
-      "Guarda como <code>MCP365_P03_Matriz_compromisos_completada.docx</code>.",
-      "Después: usa una transcripción propia (sin datos sensibles), adapta el prompt y reutiliza la planilla."
+      "Descarga <strong>fuente</strong> y <strong>plantilla</strong> (dos botones).",
+      "Usa la <strong>misma forma de acceso a la plantilla</strong> que funcionó en los retos anteriores.",
+      "Proporciona a Copilot: fuente .docx + plantilla + este prompt.",
+      "Entrega: <code>MCP365_P03_Matriz_compromisos_completada.docx</code>. Propuestas no aprobadas dentro de la sección 2. Validado por, CQ y firmas solo la persona."
     ],
     "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Facilitador de reuniones que convierte transcripciones en matrices de compromisos."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "Teams / Word."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "Acta verbal · Comité operativo Proyecto Horizonte · 20/03/2026 09:00."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Diferenciar decisiones, propuestas, opiniones y tareas; construir matriz Actividad | Responsable | Fecha | Estado | Evidencia."
-      ],
-      [
-        "archivo",
-        "Archivo que se debe completar",
-        "MCP365_P03 matriz de compromisos (planilla oficial)."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Validación humana.\nControl de calidad.\nFirmas."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "detalle",
-        "Nivel de detalle",
-        "Una fila por compromiso; evidencia breve citada de la transcripción."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_P03_Matriz_compromisos_completada.docx."
-      ]
+      ["rol", "Rol de Copilot", "Asistente de operaciones especializado en análisis de reuniones, clasificación de conversaciones y seguimiento de compromisos."],
+      ["app", "Aplicaciones de origen", "Teams + Word + Copilot."],
+      ["fuente", "Fuente que se debe analizar", "MCP365_P03_Fuente_transcripcion_Teams_Proyecto_Horizonte.docx — transcripción de una reunión de una hora descargada de Microsoft Teams."],
+      ["reunion", "Reunión o caso", "Comité operativo del Proyecto Horizonte."],
+      ["objetivo", "Objetivo del análisis", "Diferenciar decisiones confirmadas, propuestas no aprobadas, opiniones, preocupaciones y preguntas abiertas; identificar compromisos verificables y completar la matriz de seguimiento."],
+      ["archivo", "Archivo Word que se debe completar", "MCP365_P03_Matriz_compromisos_reunion.docx."],
+      ["secciones", "Secciones que Copilot puede completar", "1. Datos de la reunión.\n2. Clasificación de la conversación.\n3. Matriz de compromisos.\n4. Próxima agenda.\n5. Resumen para difusión."],
+      ["sec1", "Campos autorizados en «1. Datos de la reunión»", "* Nombre o código de la reunión.\n* Fecha y hora.\n* Facilitador.\n* Participantes.\n* Objetivo declarado."],
+      ["sec2", "Filas autorizadas en «2. Clasificación de la conversación»", "* Decisiones confirmadas.\n* Propuestas no aprobadas.\n* Opiniones o preocupaciones.\n* Preguntas sin resolver."],
+      ["sec3", "Campos autorizados en «3. Matriz de compromisos»", "En las ocho filas existentes:\n* Actividad.\n* Responsable.\n* Fecha límite.\n* Dependencia.\n* Estado.\n* Evidencia o entregable.\n\nLa columna «Validado por» debe permanecer vacía."],
+      ["sec4", "Campos autorizados en «4. Próxima agenda»", "En las tres filas existentes:\n* Tema.\n* Objetivo.\n* Preparación requerida.\n* Dueño."],
+      ["sec5", "Campo autorizado en «5. Resumen para difusión»", "Cuadro de resumen de máximo cinco líneas."],
+      ["restringidos", "Campos o secciones que deben quedar sin completar", "* Participante.\n* Área o rol.\n* Correo.\n* Estado general del documento.\n* Columna «Validado por» de la matriz de compromisos.\n* Control de calidad.\n* Casillas Sí y No del control de calidad.\n* Observaciones del control de calidad.\n* Firmas.\n* Elaboró.\n* Revisó.\n* Aprobó."],
+      ["vacio", "Respuesta cuando falte un dato de un compromiso real", "No especificado."],
+      ["filas_vacias", "Tratamiento de filas no utilizadas", "Si existen menos de ocho compromisos verificables, deja completamente vacías las filas restantes. No escribas «No especificado» en una fila que no corresponde a ningún compromiso."],
+      ["detalle", "Nivel de detalle", "Breve, verificable y operativo. Máximo dos oraciones por celda."],
+      ["evidencia", "Formato de evidencia", "Nombre del participante · marca de tiempo de Teams · cita breve o referencia precisa."],
+      ["salida", "Nombre del archivo de salida", "MCP365_P03_Matriz_compromisos_completada.docx."]
     ],
     "checklist": [
-      [
-        "r3-c1",
-        "Transcripción del caso utilizada como única fuente"
-      ],
-      [
-        "r3-c2",
-        "Planilla de matriz completada sin inventar datos"
-      ],
-      [
-        "r3-c3",
-        "Decisiones separadas de propuestas y opiniones"
-      ],
-      [
-        "r3-c4",
-        "Validación humana y control de calidad sin completar por Copilot"
-      ],
-      [
-        "r3-c5",
-        "Práctica propia con una reunión real (sin datos sensibles)"
-      ]
+      ["r3-c1", "Fuente .docx + plantilla disponibles"],
+      ["r3-c2", "Usé el mismo acceso a plantilla que en retos anteriores"],
+      ["r3-c3", "Propuestas no aprobadas dentro de la sección 2 (no archivo aparte)"],
+      ["r3-c4", "Matriz con compromisos verificables; Validado por / CQ / firmas vacíos"],
+      ["r3-c5", "Descargué MCP365_P03_Matriz_compromisos_completada.docx con diseño intacto"]
     ],
-    "practice_title": "Al terminar el caso · Practica con tu propia reunión",
-    "practice": "Toma una transcripción o notas de una reunión propia (anonimiza nombres si hace falta). Cambia fuente, objetivo y nombre de salida. Conserva la matriz de 5 columnas. Guarda como MCP365_P03_Matriz_[tu-reunion]_completada.docx.",
-    "deliverable": "Entregable del caso: MCP365_P03_Matriz_compromisos_completada.docx + lista de propuestas no aprobadas. Validación humana y control de calidad vacíos."
+    "practice_title": "Al terminar · Practica con tu propia reunión",
+    "practice": "Usa una transcripción propia anonimizada + la plantilla. Adapta los campos del prompt. Guarda como MCP365_P03_Matriz_[tu-reunion]_completada.docx.",
+    "deliverable": "Entregable: MCP365_P03_Matriz_compromisos_completada.docx (copia de la plantilla). Propuestas no aprobadas en sección 2. Validado por, CQ y firmas vacíos para Copilot."
   },
   "r4": {
     "id": "r4",
@@ -3718,6 +4121,7 @@
 
   function buildPromptFromCase(caseId) {
     if (caseId === "r2") return buildPromptR2Text(getPromptR2Fields());
+    if (caseId === "r3") return buildPromptR3Text(getPromptR3Fields());
     const c = RETO_CASES[caseId];
     if (!c) return "";
     const box = document.getElementById("promptConfig-" + caseId);
@@ -4257,45 +4661,15 @@
       "MCP365_P02_Formato_cadena_correos.docx"
     ),
 
-    "matriz-compromisos": () => downloadWord("MCP365_P03_Matriz_compromisos_reunion.doc", "Matriz de compromisos post-reunión", "MCP-365-P03", "Teams + Word + Copilot", `
-      <h2>1. Datos de la reunión</h2>
-      <table class="data">
-        <tr><th>Campo</th><th>Información</th></tr>
-        <tr><td>Nombre / código de reunión</td><td></td></tr>
-        <tr><td>Fecha y hora</td><td></td></tr>
-        <tr><td>Facilitador</td><td></td></tr>
-        <tr><td>Participantes</td><td></td></tr>
-        <tr><td>Objetivo declarado</td><td></td></tr>
-      </table>
-      <h2>2. Clasificación de la conversación</h2>
-      <table class="data">
-        <tr><th>Tipo</th><th>Contenido (pega o resume con evidencia)</th><th>Estado</th></tr>
-        <tr><td>Decisiones confirmadas</td><td></td><td>☐ Cerrada</td></tr>
-        <tr><td>Propuestas no aprobadas</td><td></td><td>☐ Abierta</td></tr>
-        <tr><td>Opiniones / preocupaciones</td><td></td><td>☐ Registrada</td></tr>
-        <tr><td>Preguntas sin resolver</td><td></td><td>☐ Pendiente</td></tr>
-      </table>
-      <h2>3. Matriz de compromisos</h2>
-      <table class="data">
-        <tr><th>#</th><th>Actividad</th><th>Responsable</th><th>Fecha límite</th><th>Dependencia</th><th>Estado</th><th>Evidencia / entregable</th><th>Validado por</th></tr>
-        <tr><td>1</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
-        <tr><td>2</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
-        <tr><td>3</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
-        <tr><td>4</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
-        <tr><td>5</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
-        <tr><td>6</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
-        <tr><td>7</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
-        <tr><td>8</td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ En curso ☐ Hecho</td><td></td><td></td></tr>
-      </table>
-      <h2>4. Próxima agenda</h2>
-      <table class="data">
-        <tr><th>Tema</th><th>Objetivo</th><th>Preparación requerida</th><th>Dueño</th></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-      </table>
-      <h2>5. Resumen para difusión (5 líneas)</h2>
-      <div class="box"></div>`),
+    "matriz-fuente": () => downloadStaticFile(
+      "planillas/MCP365_P03_Fuente_transcripcion_Teams_Proyecto_Horizonte.docx",
+      "MCP365_P03_Fuente_transcripcion_Teams_Proyecto_Horizonte.docx"
+    ),
+
+    "matriz-compromisos": () => downloadStaticFile(
+      "planillas/MCP365_P03_Matriz_compromisos_reunion.docx",
+      "MCP365_P03_Matriz_compromisos_reunion.docx"
+    ),
 
     "tres-audiencias": () => downloadWord("MCP365_P04_Comunicacion_tres_audiencias.doc", "Comunicación adaptada a tres audiencias", "MCP-365-P04", "Word + Copilot", `
       <h2>1. Fuente técnica (pegar extracto clave)</h2>
@@ -4938,7 +5312,8 @@
     { name: "Formato análisis de correo", desc: "Plantilla oficial .docx · solo 14 celdas de análisis", key: "analisis-correo", type: "Word" },
     { name: "Fuente correos ST-Urb-03", desc: "Word .docx · 4 correos con De/Para/Asunto/Fecha (solo lectura)", key: "cadena-fuente", type: "Word" },
     { name: "Plantilla llenado cadena", desc: "Word .docx · cronología, cambios, compromisos y 3 audiencias", key: "cadena-correos", type: "Word" },
-    { name: "Matriz de compromisos", desc: "Teams/Word · Decisiones, tareas y próxima agenda", key: "matriz-compromisos", type: "Word" },
+    { name: "Fuente transcripción Horizonte", desc: "Word .docx · Transcripción Teams Proyecto Horizonte (solo lectura)", key: "matriz-fuente", type: "Word" },
+    { name: "Matriz de compromisos", desc: "Word .docx · Datos, clasificación, matriz, agenda y difusión", key: "matriz-compromisos", type: "Word" },
     { name: "Tres audiencias", desc: "Word · Técnico, gerencia, comunidad + control de hechos", key: "tres-audiencias", type: "Word" },
     { name: "Comparación documental", desc: "Word · Cambios, impactos y validaciones", key: "comparacion-docs", type: "Word" },
     { name: "Priorización de jornada", desc: "Excel/Word · 10 tareas, agenda y criterio humano", key: "priorizacion", type: "Word" },
