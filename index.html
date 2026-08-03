@@ -540,6 +540,32 @@
       box-shadow: var(--focus);
       border-color: var(--brand-primary);
     }
+    .practice-invite {
+      margin: 1.25rem 0 0.5rem;
+      padding: 1.1rem 1.2rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid color-mix(in srgb, var(--brand-accent) 55%, var(--border));
+      background: linear-gradient(135deg, color-mix(in srgb, var(--brand-accent) 18%, var(--bg-elevated)), var(--bg-elevated));
+    }
+    .practice-invite h4 {
+      margin: 0 0 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 1rem;
+      color: var(--brand-dark);
+    }
+    [data-theme="dark"] .practice-invite h4 { color: var(--text); }
+    .practice-invite p { margin: 0 0 0.75rem; font-size: 0.94rem; }
+    .practice-invite ol { margin: 0 0 0.75rem; padding-left: 1.2rem; }
+    .practice-invite li { margin: 0.4rem 0; font-size: 0.92rem; }
+    .practice-invite__note {
+      margin: 0 !important;
+      padding: 0.65rem 0.75rem;
+      border-left: 3px solid var(--brand-primary);
+      background: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+      font-size: 0.88rem !important;
+    }
     .check-list { list-style: none; padding: 0; margin: 1rem 0; }
     .check-list li {
       display: flex; align-items: flex-start; gap: 0.65rem;
@@ -1018,6 +1044,7 @@
                 <li>Copilot debe editar una <strong>copia</strong> del .docx y llenar solo las 14 celdas de Hallazgo y Evidencia.</li>
                 <li>Verifica banner, chips, colores y secciones 1, 8, 9 y 10 intactos; validación humana y control de calidad vacíos.</li>
                 <li>Guarda como <strong>MCP365_P01_Analisis_correo_completado.docx</strong>.</li>
+                <li><strong>Después del caso:</strong> elige un correo real de tu bandeja, ajusta el prompt (campos de abajo) y reutiliza la plantilla cambiando lo necesario para tu ejercicio propio.</li>
               </ol>
               <p style="margin:0.75rem 0 0;font-size:0.88rem;color:var(--text-muted)">Si Copilot solo ve texto y no el .docx, vuelve a abrir/adjuntar el archivo en Word. No aceptes una reconstrucción del documento.</p>
             </div>
@@ -1041,7 +1068,7 @@
               <p>Responsable técnico designado: <strong>Andrés Quintero</strong>. La junta de acción comunal reportó, el 12/03, preocupación por ruido en jornada nocturna. <strong>Aún no hay decisión formal</strong> sobre si la ventana se mantiene diurna o se evalúa nocturna.</p>
               <p>Quedo atenta. Laura Méndez · Coordinación de Campo · Ext. 4412</p>
             </div>
-            <div class="entregable"><strong>Entregable:</strong> <code>MCP365_P01_Analisis_correo_completado.docx</code> — copia de la plantilla oficial con solo las 14 celdas de Hallazgo y Evidencia llenas. Conservar diseño completo. Validación humana, control de calidad y firmas vacías.</div>
+            <div class="entregable"><strong>Entregable del caso:</strong> <code>MCP365_P01_Analisis_correo_completado.docx</code> (Circuito N-14).<br><strong>Práctica propia (recomendada al terminar):</strong> prompt y formato ajustados a un correo real de tu bandeja, con nombre de archivo propio. Validación humana y control de calidad vacíos para la persona.</div>
             <p><strong>Prompt configurable para Copilot</strong></p>
             <p class="text-muted" style="font-size:0.88rem;margin-top:-0.35rem">Edita cada campo. El prompt completo se actualiza abajo. Luego pulsa <em>Copiar prompt</em>.</p>
             <div class="prompt-config" id="promptConfigR1">
@@ -1084,8 +1111,23 @@
               <li><input type="checkbox" data-progress="r1-c1" /> Correo del reto recibido en Outlook desde analizamostunegocio@gmail.com</li>
               <li><input type="checkbox" data-progress="r1-c2" /> Plantilla .docx usada (sin recrear el diseño)</li>
               <li><input type="checkbox" data-progress="r1-c3" /> Tabla Elemento | Hallazgo | Evidencia con los 7 elementos (sin inventar)</li>
-              <li><input type="checkbox" data-progress="r1-c4" /> Archivo completado descargado; validación humana y CQ sin llenar por Copilot</li>
+              <li><input type="checkbox" data-progress="r1-c4" /> Archivo del caso N-14 completado; validación humana y CQ sin llenar por Copilot</li>
+              <li><input type="checkbox" data-progress="r1-c5" /> Práctica propia: prompt y formato ajustados a un correo real de mi bandeja</li>
             </ul>
+
+            <div class="practice-invite">
+              <h4><i data-lucide="sparkles" width="18" height="18"></i> Al terminar el caso · Invítate a practicar con tu bandeja</h4>
+              <p>El Reto 1 te mostró el método con el Circuito N-14. Ahora aplica el mismo flujo a <strong>un correo real de tu Outlook</strong> que necesite un análisis similar (reprogramación, solicitud urgente, compromiso pendiente, etc.).</p>
+              <ol>
+                <li>Elige en tu bandeja un correo operativo propio (no el del ejercicio).</li>
+                <li>En los campos de arriba, cambia al menos: <em>Remitente</em>, <em>Asunto</em>, <em>Fuente</em>, <em>Objetivo</em> y, si aplica, <em>Filas</em> o <em>Columnas</em>.</li>
+                <li>Cada estudiante debe dejar el prompt <strong>adaptado a su correo</strong> (no copies el del N-14 sin modificarlo).</li>
+                <li>Descarga de nuevo la plantilla .docx (o usa la que ya descargaste) y cámbiale solo lo necesario: título del caso, nombre de salida, o filas de análisis si tu correo pide otros elementos.</li>
+                <li>Abre la plantilla en Word + Copilot, pega <strong>tu</strong> prompt y analiza el correo de tu bandeja.</li>
+                <li>Guarda tu entregable con un nombre propio, por ejemplo: <code>MCP365_P01_Analisis_[tu-tema]_completado.docx</code>.</li>
+              </ol>
+              <p class="practice-invite__note"><strong>Qué debe cambiar por estudiante:</strong> remitente, asunto, objetivo del análisis y evidencia tomada de su correo. La estructura Elemento | Hallazgo | Evidencia se mantiene. Validación humana y control de calidad siguen siendo solo de la persona.</p>
+            </div>
           </div>
         </article>
 
