@@ -2422,60 +2422,58 @@
     "id": "r2",
     "title": "Cadena de correos",
     "apps": [
-      "Outlook",
-      "Word"
+      "Word",
+      "Copilot"
     ],
     "email": true,
     "planilla": {
       "key": "cadena-correos",
-      "label": "Descargar planilla oficial (Word)"
+      "label": "Descargar planilla oficial (.docx) con cadena ST-Urb-03"
     },
     "output": "MCP365_P02_Cadena_correos_completado.docx",
     "steps": [
-      "Pulsa los botones de envío (01 / 04 / 06 / 07 mar o «Enviar los 4»). Llegan cuatro correos con De / Para / Asunto del caso ST-Urb-03.",
-      "Abre <strong>Outlook</strong> y localiza los asuntos ST-Urb-03 (también puedes usar las pestañas de esta página como respaldo).",
-      "Descarga la <strong>planilla oficial</strong> y ábrela en <strong>Word</strong>.",
-      "Ajusta el prompt configurable (remitente, objetivo, entregable) si lo necesitas y cópialo.",
-      "En Word → Copilot, analiza la cadena: cronología, cambios, compromisos y tres borradores (técnico, ejecutivo, usuarios).",
-      "No inventes datos. Marca supuestos. Deja validación humana y control de calidad para la persona.",
+      "<strong>Descarga la planilla .docx</strong>. La sección 1 trae los 4 correos con De, Para, Asunto, Fecha y cuerpo. Word Copilot no ve Outlook.",
+      "Ábrela en <strong>Word</strong> y usa Copilot <strong>sobre ese archivo</strong>.",
+      "Copia el prompt (exige citar fecha + De + Asunto).",
+      "Completa secciones 2–7. No reescribas la sección 1. Validación y CQ solo humanas.",
       "Guarda como <code>MCP365_P02_Cadena_correos_completado.docx</code>.",
-      "Después: elige una cadena real de tu bandeja, adapta el prompt y reutiliza la planilla con tu caso."
+      "Opcional: envía los 4 correos a tu bandeja para contrastar en Outlook."
     ],
     "fields": [
       [
         "rol",
         "Rol de Copilot",
-        "Asistente de operaciones que reconstruye cronologías y redacta respuestas por audiencia."
+        "Asistente de operaciones que reconstruye cronologías citando De, Para, Asunto y fecha de cada correo, y redacta respuestas por audiencia."
       ],
       [
         "app",
         "Aplicación de origen",
-        "Outlook."
+        "Word + Copilot."
       ],
       [
         "fuente",
         "Fuente que se debe analizar",
-        "Cadena de cuatro correos sobre el transformador auxiliar ST-Urb-03 (01, 04, 06 y 07/03/2026)."
+        "Sección 1 de ESTE documento Word (MCP365_P02_Formato_cadena_correos.docx): cuatro correos ST-Urb-03 con De, Para, Asunto, Fecha y cuerpo. No uses la bandeja de Outlook como única fuente: no está disponible para Word Copilot."
       ],
       [
         "objetivo",
         "Objetivo del análisis",
-        "Construir cronología, cambios vs plan inicial, compromisos vigentes y tres borradores de respuesta (técnica, ejecutiva y usuarios)."
+        "Construir cronología (una fila por correo), cambios vs plan inicial (01/03), compromisos vigentes y tres borradores (técnica, ejecutiva, usuarios). En cada hallazgo cita: fecha + De + Asunto. Si falta un dato: No especificado. No inventes."
       ],
       [
         "archivo",
         "Archivo que se debe completar",
-        "MCP365_P02_Cadena_correos_audiencias.doc (planilla oficial del reto)."
+        "MCP365_P02_Formato_cadena_correos.docx (plantilla oficial del reto, con correos fuente en sección 1)."
       ],
       [
         "seccion",
         "Secciones autorizadas",
-        "Cronología, cambios, compromisos y borradores por audiencia."
+        "2 Cronología · 3 Cambios · 4 Compromisos · 5 Respuesta técnica · 6 Respuesta ejecutiva · 7 Comunicación a usuarios."
       ],
       [
         "restringidos",
-        "Campos que deben quedar sin completar",
-        "Validación humana.\nControl de calidad.\nFirmas."
+        "Campos que deben quedar sin completar / sin reescribir",
+        "Sección 1 Correos fuente (no editar).\nValidación humana.\nControl de calidad.\nFirmas."
       ],
       [
         "vacio",
@@ -2484,8 +2482,8 @@
       ],
       [
         "detalle",
-        "Nivel de detalle",
-        "Cronología fecha a fecha; borrador ejecutivo máx. 8 líneas; mensaje a usuarios máx. 6 líneas."
+        "Nivel de detalle y evidencia",
+        "Cronología fecha a fecha con De y Asunto. Evidencia = cita textual breve. Borrador ejecutivo máx. 8 líneas; mensaje a usuarios máx. 6 líneas."
       ],
       [
         "salida",
@@ -2496,28 +2494,28 @@
     "checklist": [
       [
         "r2-c1",
-        "Correo/cadena del reto disponible (bandeja o pestañas)"
+        "Plantilla .docx abierta con sección 1 (4 correos De/Para/Asunto)"
       ],
       [
         "r2-c2",
-        "Planilla oficial usada sin reconstruir el diseño"
+        "Cronología cita fecha + De + Asunto de cada mensaje"
       ],
       [
         "r2-c3",
-        "Cronología, cambios y tres borradores sin inventar datos"
+        "Cambios, compromisos y tres borradores sin inventar datos"
       ],
       [
         "r2-c4",
-        "Validación humana y control de calidad sin completar por Copilot"
+        "Sección 1 intacta; validación humana y CQ sin completar por Copilot"
       ],
       [
         "r2-c5",
-        "Práctica propia con una cadena real de mi bandeja"
+        "Práctica propia opcional con cadena real de mi bandeja"
       ]
     ],
     "practice_title": "Al terminar el caso · Practica con una cadena real de tu bandeja",
-    "practice": "Aplica el mismo método a una cadena de correos propia (sin datos confidenciales). Cambia remitente, asunto, objetivo y nombre de salida. Conserva la estructura de cronología + tres audiencias. Guarda como MCP365_P02_Cadena_[tu-tema]_completado.docx.",
-    "deliverable": "Entregable del caso: MCP365_P02_Cadena_correos_completado.docx con cronología, cambios, compromisos y tres borradores. Validación humana y control de calidad vacíos."
+    "practice": "Exporta o pega 3–4 correos reales (anonimizados) en una copia de la plantilla, reemplazando la sección 1. Adapta el prompt. Conserva cronología + tres audiencias. Guarda como MCP365_P02_Cadena_[tu-tema]_completado.docx.",
+    "deliverable": "Entregable: MCP365_P02_Cadena_correos_completado.docx con cronología (De/Asunto), cambios, compromisos y tres borradores. Sección 1 intacta. Validación humana y CQ vacíos."
   },
   "r3": {
     "id": "r3",
