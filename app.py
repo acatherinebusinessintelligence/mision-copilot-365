@@ -1293,7 +1293,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-03-r4-whatsapp-fuente-v1"
+APP_CODE_VERSION = "2026-08-03-r5-excel-pdf-v1"
 
 
 @app.get("/health")

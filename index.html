@@ -1337,7 +1337,7 @@
               <span class="reto__num">5</span>
               <span>
                 <strong>Comparación de documentos</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Word · Cambios de texto y de significado</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Excel · PRO-OPS-12 v3.1 vs v4.0 · Modo edición de plantilla</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -1349,29 +1349,31 @@
           </button>
           <div class="reto__body">
             <div class="m365-box">
-              <h4><span class="app-badge">Word</span> + <span class="app-badge">Excel</span> Paso a paso con Copilot</h4>
+              <h4><span class="app-badge">Excel</span> + <span class="app-badge">Copilot</span> Paso a paso</h4>
               <ol>
-                <li>Descarga la <strong>planilla oficial</strong> de comparación.</li>
-                <li>En Word, pega PRO-OPS-12 v3.1 y v4.0 (textos de esta página).</li>
-                <li>Ajusta el prompt configurable y cópialo.</li>
-                <li>Pide la tabla Tema | Anterior | Actual | Impacto | Validación requerida.</li>
-                <li>No inventes cláusulas. Validación humana y control de calidad los completa la persona.</li>
-                <li>Guarda como <code>MCP365_P05_Comparacion_docs_completada.xlsx</code>.</li>
-                <li>Después: compara dos versiones reales de un documento propio anonimizado.</li>
+                <li>Descarga la <strong>plantilla Excel</strong> y las <strong>fuentes PDF</strong> (botones abajo).</li>
+                <li>Opcional: descarga las versiones Word como respaldo.</li>
+                <li>Usa la <strong>misma forma de acceso a la plantilla</strong> que te funcionó en los retos anteriores.</li>
+                <li>Proporciona a Copilot: <code>PRO-OPS-12_Version_3_1.pdf</code> + <code>PRO-OPS-12_Version_4_0.pdf</code> + <code>MCP365_P05_Comparacion_documental.xlsx</code> + este prompt.</li>
+                <li>Copilot completa solo la hoja <strong>Comparación</strong> (secciones autorizadas). No toca <strong>Validación y calidad</strong>.</li>
+                <li>Guarda como <code>MCP365_P05_Comparacion_documental_completada.xlsx</code>.</li>
               </ol>
             </div>
-            <div class="btn-group" style="margin-bottom:1rem">
-              <button type="button" class="btn btn--sm btn--energy" data-planilla="comparacion-docs"><i data-lucide="download" width="14" height="14"></i> Descargar planilla oficial (Excel)</button>
+            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>Descargas obligatorias</strong>:</p>
+            <div class="btn-group" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="comparacion-docs"><i data-lucide="download" width="14" height="14"></i> Plantilla Excel (.xlsx)</button>
+              <button type="button" class="btn btn--sm btn--secondary" data-planilla="pro-ops-12-v31-pdf"><i data-lucide="file-text" width="14" height="14"></i> Fuente PDF v3.1</button>
+              <button type="button" class="btn btn--sm btn--secondary" data-planilla="pro-ops-12-v40-pdf"><i data-lucide="file-text" width="14" height="14"></i> Fuente PDF v4.0</button>
             </div>
-            <div class="grid grid-2">
-              <div class="doc-box">
-                <strong>PRO-OPS-12 · Versión 3.1 (vigente hasta 28/02/2026)</strong>
-                <p>1. Notificar a usuarios con 48 horas de anticipación.<br>2. El supervisor de turno autoriza el inicio de la intervención.<br>3. Registrar hallazgos en planilla física FO-OPS-12.<br>4. Cierre operativo antes de las 17:00.</p>
-              </div>
-              <div class="doc-box">
-                <strong>PRO-OPS-12 · Versión 4.0 (vigente desde 01/03/2026)</strong>
-                <p>1. Notificar a usuarios con 72 horas de anticipación.<br>2. El líder de seguridad y el supervisor de turno autorizan el inicio.<br>3. Registrar hallazgos en el sistema digital compartido (SharePoint Ops).<br>4. Cierre operativo antes de las 16:00, salvo excepción documentada por gerencia de zona.</p>
-              </div>
+            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>Respaldo opcional (Word)</strong>:</p>
+            <div class="btn-group" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
+              <button type="button" class="btn btn--sm btn--ghost" data-planilla="pro-ops-12-v31-docx"><i data-lucide="file" width="14" height="14"></i> Word v3.1</button>
+              <button type="button" class="btn btn--sm btn--ghost" data-planilla="pro-ops-12-v40-docx"><i data-lucide="file" width="14" height="14"></i> Word v4.0</button>
+            </div>
+            <div class="doc-box">
+              <p><strong>Fuentes oficiales:</strong> <code>PRO-OPS-12_Version_3_1.pdf</code> (histórica · vigencia hasta 28/02/2026) y <code>PRO-OPS-12_Version_4_0.pdf</code> (vigente desde 01/03/2026).</p>
+              <p><strong>Plantilla:</strong> <code>MCP365_P05_Comparacion_documental.xlsx</code> · Entregable: <code>MCP365_P05_Comparacion_documental_completada.xlsx</code>.</p>
+              <p class="text-muted" style="font-size:0.88rem;margin:0">Compara ambas versiones: cambios textuales y de significado, impactos, elementos nuevos/eliminados, contradicciones y recomendación de transición. Solo hoja «Comparación».</p>
             </div>
             <div data-reto-enhance="r5"></div>
           </div>
@@ -3417,6 +3419,223 @@
   }
 
 
+
+  function getPromptR5Fields() {
+    const box = document.getElementById("promptConfig-r5");
+    const c = RETO_CASES.r5;
+    const out = {};
+    if (c && c.fields) c.fields.forEach(([k, , def]) => { out[k] = def; });
+    if (box) {
+      box.querySelectorAll("[data-reto-field]").forEach(el => {
+        out[el.getAttribute("data-reto-field")] = (el.value || "").trim();
+      });
+    }
+    return out;
+  }
+
+  /** Prompt Reto 5: modo edición de plantilla Excel (.xlsx real). */
+  function buildPromptR5Text(f) {
+    const bracket = (v) => "[[" + (v || "") + "]]";
+    return [
+      "PROMPT CONFIGURABLE PARA COPILOT",
+      "MODO EDICIÓN DE PLANTILLA EXCEL",
+      "CASO: COMPARACIÓN DOCUMENTAL · PRO-OPS-12 V3.1 vs V4.0 · RETO 5",
+      "",
+      "INSTRUCCIONES PARA EL PARTICIPANTE",
+      "",
+      "Revisa los campos de configuración. Utiliza este prompt siguiendo el mismo procedimiento que funcionó en los retos anteriores.",
+      "",
+      "Archivos requeridos:",
+      "",
+      "FUENTES OFICIALES (PDF):",
+      "",
+      "PRO-OPS-12_Version_3_1.pdf",
+      "PRO-OPS-12_Version_4_0.pdf",
+      "",
+      "RESPALDO OPCIONAL (Word):",
+      "",
+      "PRO-OPS-12_Version_3_1.docx",
+      "PRO-OPS-12_Version_4_0.docx",
+      "",
+      "PLANTILLA:",
+      "",
+      "MCP365_P05_Comparacion_documental.xlsx",
+      "",
+      "ENTREGABLE:",
+      "",
+      "MCP365_P05_Comparacion_documental_completada.xlsx",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "1. CONFIGURACIÓN DEL ANÁLISIS",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "ROL DE COPILOT",
+      "",
+      bracket(f.rol),
+      "",
+      "APLICACIONES DE ORIGEN",
+      "",
+      bracket(f.app),
+      "",
+      "FUENTES QUE SE DEBEN ANALIZAR",
+      "",
+      bracket(f.fuente),
+      "",
+      "CASO O IDENTIFICADOR",
+      "",
+      bracket(f.caso),
+      "",
+      "OBJETIVO DEL ANÁLISIS",
+      "",
+      bracket(f.objetivo),
+      "",
+      "ARCHIVO EXCEL QUE SE DEBE COMPLETAR",
+      "",
+      bracket(f.archivo),
+      "",
+      "HOJA QUE COPILOT PUEDE EDITAR",
+      "",
+      bracket(f.hoja_autorizada),
+      "",
+      "SECCIONES AUTORIZADAS EN LA HOJA COMPARACIÓN",
+      "",
+      bracket("\n" + (f.secciones || "") + "\n"),
+      "",
+      "SECCIÓN 4 · CAMPOS AUTORIZADOS",
+      "",
+      bracket("\n" + (f.sec4 || "") + "\n"),
+      "",
+      "SECCIÓN 5 · CAMPOS AUTORIZADOS",
+      "",
+      bracket("\n" + (f.sec5 || "") + "\n"),
+      "",
+      "SECCIÓN 6 · CAMPOS AUTORIZADOS",
+      "",
+      bracket("\n" + (f.sec6 || "") + "\n"),
+      "",
+      "HOJAS O CAMPOS QUE DEBEN QUEDAR SIN COMPLETAR / SIN MODIFICAR",
+      "",
+      bracket("\n" + (f.restringidos || "") + "\n"),
+      "",
+      "RESPUESTA CUANDO NO EXISTA INFORMACIÓN",
+      "",
+      bracket(f.vacio),
+      "",
+      "NIVEL DE DETALLE",
+      "",
+      bracket(f.detalle),
+      "",
+      "FORMATO DE EVIDENCIA",
+      "",
+      bracket(f.evidencia),
+      "",
+      "NOMBRE DEL ARCHIVO DE SALIDA",
+      "",
+      bracket(f.salida),
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "2. INSTRUCCIÓN PARA COPILOT",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "ACTÚA EN MODO EDICIÓN DE PLANTILLA EXCEL (.xlsx REAL).",
+      "",
+      "Analiza exclusivamente las dos versiones de PRO-OPS-12 indicadas y completa una copia editable de la plantilla oficial.",
+      "",
+      "No reconstruyas el libro desde una representación textual.",
+      "",
+      "No crees un documento Word ni un Excel con otro diseño.",
+      "",
+      "No conviertas hojas o tablas en párrafos.",
+      "",
+      "PRECONDICIÓN DEL ARCHIVO",
+      "",
+      "1. Comprueba que puedes acceder a ambas fuentes (PDF oficiales; Word solo como respaldo equivalente).",
+      "2. Comprueba que puedes acceder a la plantilla Excel editable.",
+      "3. Comprueba que puedes crear una copia conservando hojas, fórmulas, listas desplegables y formato.",
+      "4. Si puedes editar la copia, continúa.",
+      "5. Si solo puedes leer o previsualizar la plantilla, detente.",
+      "",
+      "Si no puedes conservar la plantilla, responde:",
+      "",
+      "“No puedo completar la plantilla conservando su formato. No generaré un documento alternativo.”",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "3. TAREA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "1. Crea una copia de MCP365_P05_Comparacion_documental.xlsx.",
+      "2. Lee ambas normas completas (v3.1 y v4.0).",
+      "3. Trabaja únicamente en la hoja «Comparación».",
+      "4. Completa la sección 4 (matriz de cambios) con evidencia de ambas versiones.",
+      "5. Completa la sección 5 (elementos nuevos, eliminados y contradicciones).",
+      "6. Completa la sección 6 (recomendación de transición).",
+      "7. No modifiques la hoja «Validación y calidad».",
+      "8. No modifiques Instrucciones ni Catálogos.",
+      "9. Guarda la copia con el nombre definido en la configuración.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "4. REGLAS DE CONTENIDO",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "* Usa únicamente las dos normas suministradas.",
+      "* Distingue cambio textual, cambio de significado o ambos.",
+      "* Una obligación nueva no equivale a una simple reescritura.",
+      "* Si una regla del cuerpo contradice un anexo, regístrala como contradicción.",
+      "* No inventes impactos, responsables, plazos ni cláusulas.",
+      "* Cita versión, sección y fragmento breve en cada evidencia.",
+      "* Para datos ausentes escribe “No especificado”.",
+      "* Deja la columna «Estado de validación» en Pendiente.",
+      "* Respeta la vigencia: v4.0 desde 01/03/2026.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "5. CONSERVACIÓN DE LA PLANTILLA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Mantén sin modificaciones: nombres de hojas, títulos, encabezados, estructura, fórmulas, listas desplegables, colores, anchos y formato.",
+      "",
+      "Las filas pueden aumentar su altura si hace falta.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "6. PROHIBICIONES",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "* No crees un archivo desde cero.",
+      "* No reemplaces la plantilla por un documento nuevo.",
+      "* No edites la hoja «Validación y calidad».",
+      "* No completes datos del participante.",
+      "* No alteres la identificación documental prellenada ni las fórmulas.",
+      "* No marques validaciones humanas como cumplidas.",
+      "* No inventes información externa.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "7. VERIFICACIÓN OBLIGATORIA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Antes de guardar, confirma:",
+      "",
+      "1. Se compararon ambas versiones oficiales.",
+      "2. La matriz incluye cambios textuales y de significado con evidencia.",
+      "3. Hay elementos nuevos, eliminados y/o contradicciones cuando apliquen.",
+      "4. Existe recomendación de transición.",
+      "5. La hoja «Validación y calidad» permanece sin completar.",
+      "6. El archivo final es un `.xlsx` real con el nombre de salida.",
+      "",
+      "Si alguna comprobación falla, corrige la copia antes de guardarla.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "8. ENTREGA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Guarda y entrega:",
+      "",
+      "MCP365_P05_Comparacion_documental_completada.xlsx",
+      "",
+      "No entregues únicamente un resumen en el panel de Copilot."
+    ].join("\n");
+  }
+
+
   /* ========== RETO ENGINE (patrón S1·R1 reutilizable; R1 no se remonta) ========== */
   const RETO_CASES = {
   "r2": {
@@ -3554,98 +3773,45 @@
   "r5": {
     "id": "r5",
     "title": "Comparación de documentos",
-    "apps": [
-      "Word",
-      "Excel"
-    ],
+    "apps": ["Excel", "Copilot"],
     "email": false,
-    "planilla": {
-      "key": "comparacion-docs",
-      "label": "Descargar planilla oficial (Excel/Word)"
-    },
-    "output": "MCP365_P05_Comparacion_docs_completada.xlsx",
+    "planilla": {"key": "comparacion-docs", "label": "Plantilla Excel (.xlsx)"},
+    "output": "MCP365_P05_Comparacion_documental_completada.xlsx",
     "steps": [
-      "Descarga la <strong>planilla oficial</strong> de comparación documental.",
-      "En <strong>Word</strong>, pega PRO-OPS-12 v3.1 y v4.0 (textos de esta página).",
-      "Ajusta el prompt y cópialo.",
-      "Pide a Copilot la tabla: Tema | Versión anterior | Versión actual | Impacto posible | Validación requerida.",
-      "No inventes cláusulas. Marca qué cambios requieren aprobación formal.",
-      "Transfiere a la planilla. Validación humana y control de calidad para la persona.",
-      "Guarda como <code>MCP365_P05_Comparacion_docs_completada.xlsx</code> (o .docx si usas Word).",
-      "Después: compara dos versiones reales de un procedimiento propio (anonimizado)."
+      "Descarga plantilla Excel + fuentes PDF v3.1 y v4.0.",
+      "Opcional: respaldos Word.",
+      "Usa el mismo acceso a plantilla que en retos anteriores.",
+      "Copilot completa solo hoja Comparación; no toca Validación y calidad.",
+      "Entrega: <code>MCP365_P05_Comparacion_documental_completada.xlsx</code>."
     ],
     "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Analista documental que detecta cambios de texto y de significado."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "Word / Excel."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "PRO-OPS-12 versión 3.1 vs versión 4.0."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Identificar cambios textuales y de significado; impacto posible y validación requerida."
-      ],
-      [
-        "archivo",
-        "Archivo que se debe completar",
-        "MCP365_P05 planilla de comparación."
-      ],
-      [
-        "tabla",
-        "Tabla que se debe completar",
-        "Tema | Versión anterior | Versión actual | Impacto posible | Validación requerida."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Validación humana.\nControl de calidad.\nFirmas."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_P05_Comparacion_docs_completada.xlsx."
-      ]
+      ["rol", "Rol de Copilot", "Analista documental especializado en comparación normativa, detección de cambios textuales y de significado, evaluación de impactos y recomendaciones de transición."],
+      ["app", "Aplicaciones de origen", "Excel + Copilot (fuentes PDF oficiales; Word opcional como respaldo)."],
+      ["fuente", "Fuentes que se deben analizar", "PRO-OPS-12_Version_3_1.pdf (histórica) y PRO-OPS-12_Version_4_0.pdf (vigente). Si se usan los .docx de respaldo, deben ser las mismas versiones; no mezclar ni inventar cláusulas."],
+      ["caso", "Caso o identificador", "PRO-OPS-12 · Versión 3.1 vs Versión 4.0."],
+      ["objetivo", "Objetivo del análisis", "Comparar ambas versiones; identificar cambios textuales y de significado; evaluar impactos; detectar elementos nuevos, eliminados y contradicciones; formular una recomendación de transición verificable."],
+      ["archivo", "Archivo Excel que se debe completar", "MCP365_P05_Comparacion_documental.xlsx."],
+      ["hoja_autorizada", "Hoja que Copilot puede editar", "Comparación."],
+      ["secciones", "Secciones autorizadas en la hoja Comparación", "4. Matriz de cambios (filas 1–12 ya numeradas).\n5. Elementos nuevos, eliminados y contradicciones.\n6. Recomendación de transición."],
+      ["sec4", "Sección 4 · Campos autorizados (matriz)", "En las 12 filas existentes, completar:\n* Versión 3.1\n* Evidencia V3.1\n* Versión 4.0\n* Evidencia V4.0\n* Tipo de cambio (Textual / Significado / Ambos)\n* Naturaleza (Modificado / Nuevo / Eliminado / Sin cambio)\n* Impacto posible\n* Acción de transición\n* Aprobador sugerido\n* Prioridad (Alta / Media / Baja)\n\nNo modificar la columna «Estado de validación» (dejar Pendiente).\nNo cambiar el número ni el tema/sección prellenados."],
+      ["sec5", "Sección 5 · Campos autorizados", "Filas disponibles:\n* Tipo (Elemento nuevo / Elemento eliminado / Contradicción detectada)\n* Descripción\n* Evidencia precisa\n* Riesgo si se ignora\n* Acción recomendada"],
+      ["sec6", "Sección 6 · Campos autorizados", "* Regla efectiva\n* Excepciones\n* Acciones obligatorias\n* Responsable principal\n* Fecha límite\n* Evidencia de cierre"],
+      ["restringidos", "Hojas o campos que deben quedar sin completar / sin modificar", "* Hoja «Validación y calidad» completa (validación humana y control de calidad).\n* Hoja «Instrucciones».\n* Hoja «Catálogos».\n* Sección 1 · Datos del participante (Nombre, Correo, Fecha, Área/rol, Estado).\n* Sección 2 · Identificación de documentos (ya prellenada).\n* Sección 3 · Resumen automático (fórmulas).\n* Columna «Estado de validación» de la matriz.\n* Títulos, encabezados, estructura, listas desplegables y formato."],
+      ["vacio", "Respuesta cuando no exista información", "No especificado."],
+      ["detalle", "Nivel de detalle", "Breve y verificable. Cada diferencia con evidencia precisa (versión, sección y fragmento breve). No inventes impactos ni responsables."],
+      ["evidencia", "Formato de evidencia", "Versión · sección o título · cita breve del fragmento."],
+      ["salida", "Nombre del archivo de salida", "MCP365_P05_Comparacion_documental_completada.xlsx."]
     ],
     "checklist": [
-      [
-        "r5-c1",
-        "Ambas versiones PRO-OPS-12 usadas sin agregar cláusulas"
-      ],
-      [
-        "r5-c2",
-        "Tabla de comparación completa"
-      ],
-      [
-        "r5-c3",
-        "Impactos y validaciones marcados"
-      ],
-      [
-        "r5-c4",
-        "Validación humana y control de calidad sin completar por Copilot"
-      ],
-      [
-        "r5-c5",
-        "Práctica propia con dos versiones de un documento real"
-      ]
+      ["r5-c1", "Plantilla .xlsx + PDFs v3.1 y v4.0 descargados"],
+      ["r5-c2", "Usé el mismo acceso a plantilla que en retos anteriores"],
+      ["r5-c3", "Hoja Comparación: matriz, hallazgos y recomendación con evidencia"],
+      ["r5-c4", "Hoja Validación y calidad intacta / vacía para la persona"],
+      ["r5-c5", "Guardé MCP365_P05_Comparacion_documental_completada.xlsx"]
     ],
-    "practice_title": "Al terminar el caso · Compara dos versiones propias",
-    "practice": "Toma dos versiones de un procedimiento o instructivo propio (sin datos sensibles). Cambia fuente, objetivo y salida. Conserva la tabla de 5 columnas. Guarda como MCP365_P05_Comparacion_[tu-doc]_completada.xlsx.",
-    "deliverable": "Entregable del caso: MCP365_P05_Comparacion_docs_completada.xlsx con impactos y validaciones. Validación humana y control de calidad vacíos."
+    "practice_title": "Al terminar · Compara dos versiones propias",
+    "practice": "Usa dos versiones de un procedimiento propio (anonimizado) + la plantilla Excel. Adapta los campos del prompt. Guarda como MCP365_P05_Comparacion_[tu-doc]_completada.xlsx.",
+    "deliverable": "Entregable: MCP365_P05_Comparacion_documental_completada.xlsx. Solo hoja Comparación llenada por Copilot; Validación y calidad vacía."
   },
   "r6": {
     "id": "r6",
@@ -4301,6 +4467,7 @@
     if (caseId === "r2") return buildPromptR2Text(getPromptR2Fields());
     if (caseId === "r3") return buildPromptR3Text(getPromptR3Fields());
     if (caseId === "r4") return buildPromptR4Text(getPromptR4Fields());
+    if (caseId === "r5") return buildPromptR5Text(getPromptR5Fields());
     const c = RETO_CASES[caseId];
     if (!c) return "";
     const box = document.getElementById("promptConfig-" + caseId);
@@ -4860,36 +5027,30 @@
       "MCP365_P04_Comunicacion_tres_audiencias.docx"
     ),
 
-    "comparacion-docs": () => downloadWord("MCP365_P05_Comparacion_documental.doc", "Comparación documental · Cambios e impactos", "MCP-365-P05", "Word + Excel + Copilot", `
-      <h2>1. Identificación de documentos</h2>
-      <table class="data">
-        <tr><th>Campo</th><th>Versión anterior</th><th>Versión actual</th></tr>
-        <tr><td>Código / nombre</td><td></td><td></td></tr>
-        <tr><td>Número de versión</td><td></td><td></td></tr>
-        <tr><td>Vigencia</td><td></td><td></td></tr>
-        <tr><td>Área emisora</td><td></td><td></td></tr>
-      </table>
-      <h2>2. Matriz de cambios (texto y significado)</h2>
-      <table class="data">
-        <tr><th>#</th><th>Tema</th><th>Versión anterior</th><th>Versión actual</th><th>Tipo de cambio</th><th>Impacto posible</th><th>Validación requerida</th><th>Aprobador sugerido</th></tr>
-        <tr><td>1</td><td>Anticipación a usuarios</td><td>48 horas</td><td>72 horas</td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
-        <tr><td>2</td><td>Autorización de inicio</td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
-        <tr><td>3</td><td>Registro de hallazgos</td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
-        <tr><td>4</td><td>Horario de cierre</td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
-        <tr><td>5</td><td></td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
-        <tr><td>6</td><td></td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
-        <tr><td>7</td><td></td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
-        <tr><td>8</td><td></td><td></td><td></td><td>☐ Textual ☐ Significado ☐ Ambos</td><td></td><td></td><td></td></tr>
-      </table>
-      <h2>3. Elementos eliminados / nuevos</h2>
-      <table class="data">
-        <tr><th>Tipo</th><th>Descripción</th><th>Riesgo si se ignora</th></tr>
-        <tr><td>Eliminado</td><td></td><td></td></tr>
-        <tr><td>Nuevo</td><td></td><td></td></tr>
-        <tr><td>Contradicción detectada</td><td></td><td></td></tr>
-      </table>
-      <h2>4. Recomendación de transición</h2>
-      <div class="box"></div>`),
+    "comparacion-docs": () => downloadStaticFile(
+      "planillas/MCP365_P05_Comparacion_documental.xlsx",
+      "MCP365_P05_Comparacion_documental.xlsx"
+    ),
+
+    "pro-ops-12-v31-pdf": () => downloadStaticFile(
+      "planillas/PRO-OPS-12_Version_3_1.pdf",
+      "PRO-OPS-12_Version_3_1.pdf"
+    ),
+
+    "pro-ops-12-v40-pdf": () => downloadStaticFile(
+      "planillas/PRO-OPS-12_Version_4_0.pdf",
+      "PRO-OPS-12_Version_4_0.pdf"
+    ),
+
+    "pro-ops-12-v31-docx": () => downloadStaticFile(
+      "planillas/PRO-OPS-12_Version_3_1.docx",
+      "PRO-OPS-12_Version_3_1.docx"
+    ),
+
+    "pro-ops-12-v40-docx": () => downloadStaticFile(
+      "planillas/PRO-OPS-12_Version_4_0.docx",
+      "PRO-OPS-12_Version_4_0.docx"
+    ),
 
     "priorizacion": () => downloadWord("MCP365_P06_Priorizacion_jornada.doc", "Priorización de jornada laboral", "MCP-365-P06", "Excel + Copilot", `
       <h2>1. Contexto de la jornada</h2>
@@ -5476,7 +5637,11 @@
     { name: "Matriz de compromisos", desc: "Word .docx · Datos, clasificación, matriz, agenda y difusión", key: "matriz-compromisos", type: "Word" },
     { name: "Fuente chat WhatsApp ST-14", desc: "Word .docx · Chat O&M SU7 · Hallazgo ST-14 (solo lectura)", key: "tres-audiencias-fuente", type: "Word" },
     { name: "Tres audiencias", desc: "Word .docx · Técnico, gerencia, comunidad + consistencia", key: "tres-audiencias", type: "Word" },
-    { name: "Comparación documental", desc: "Word · Cambios, impactos y validaciones", key: "comparacion-docs", type: "Word" },
+    { name: "Comparación documental", desc: "Excel .xlsx · Matriz PRO-OPS-12 v3.1 vs v4.0", key: "comparacion-docs", type: "Excel" },
+    { name: "PRO-OPS-12 v3.1 (PDF)", desc: "Fuente oficial histórica", key: "pro-ops-12-v31-pdf", type: "PDF" },
+    { name: "PRO-OPS-12 v4.0 (PDF)", desc: "Fuente oficial vigente", key: "pro-ops-12-v40-pdf", type: "PDF" },
+    { name: "PRO-OPS-12 v3.1 (Word)", desc: "Respaldo opcional", key: "pro-ops-12-v31-docx", type: "Word" },
+    { name: "PRO-OPS-12 v4.0 (Word)", desc: "Respaldo opcional", key: "pro-ops-12-v40-docx", type: "Word" },
     { name: "Priorización de jornada", desc: "Excel/Word · 10 tareas, agenda y criterio humano", key: "priorizacion", type: "Word" },
     { name: "Informe ejecutivo", desc: "Word/PowerPoint · 10 bloques para comité", key: "informe-ejecutivo", type: "Word" },
     { name: "Registro de riesgos", desc: "Excel/Word · Matriz con IDs y escalamiento", key: "registro-riesgos", type: "Word" },
