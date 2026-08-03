@@ -229,8 +229,7 @@ def _smtp_config() -> tuple[str, str, str, int]:
 
 def _reto1_email_content(to_email: str, name: str, smtp_email: str) -> tuple[str, str]:
     subject = "URGENTE · Reprogramación intervención preventivo Circuito N-14"
-    first = (name or "equipo").strip().split()[0] if (name or "").strip() else "equipo"
-    body = f"""Buenos días, {first}:
+    body = """Buenos días, equipo:
 
 La intervención de mantenimiento preventivo del Circuito N-14 (Zona Norte), programada para el sábado 21/03/2026 de 07:00 a 15:00, debe moverse al sábado 28/03/2026 en el mismo horario. Motivo: no hay disponibilidad confirmada del personal especialista en protecciones para la fecha original.
 
@@ -253,15 +252,17 @@ def _first_name(name: str) -> str:
 
 def get_reto_r2_parts() -> list[dict]:
     """Cuatro correos de la cadena ST-Urb-03 (uno por pestaña del Reto 2)."""
+    # De / Para = cabecera del caso (operativa). El estudiante recibe una copia en su bandeja.
     return [
         {
             "id": "r2-1",
             "label": "01 mar",
-            "from_name": "Planeación de Mantenimiento",
+            "from_name": "Martha Ríos · Planeación de Mantenimiento",
+            "to_line": "Comunicaciones Zona; Logística de Materiales; Seguridad Industrial",
             "subject": "Programación transformador auxiliar ST-Urb-03",
             "sig": "Martha Ríos\nPlaneación de Mantenimiento · Zona Norte",
             "body_tpl": (
-                "Buenos días, {first}:\n\n"
+                "Buenos días,\n\n"
                 "Se confirma el mantenimiento del transformador auxiliar de la subestación ST-Urb-03 "
                 "para el 12/03/2026, en la ventana 08:00–14:00.\n\n"
                 "Compromiso operativo: notificar a usuarios con mínimo 72 horas de anticipación.\n"
@@ -273,11 +274,12 @@ def get_reto_r2_parts() -> list[dict]:
         {
             "id": "r2-2",
             "label": "04 mar",
-            "from_name": "Logística de Materiales",
+            "from_name": "Julián Pardo · Logística de Materiales",
+            "to_line": "Planeación de Mantenimiento; Comunicaciones Zona; Seguridad Industrial",
             "subject": "RE: adelanto de repuestos · ST-Urb-03",
             "sig": "Julián Pardo\nLogística de Materiales",
             "body_tpl": (
-                "Hola, {first}:\n\n"
+                "Buenos días,\n\n"
                 "El proveedor confirma entrega anticipada de los repuestos del transformador auxiliar.\n"
                 "Con ese adelanto, proponemos mover la ventana de intervención al 10/03/2026 "
                 "(misma franja preliminar 08:00–14:00).\n\n"
@@ -290,11 +292,12 @@ def get_reto_r2_parts() -> list[dict]:
         {
             "id": "r2-3",
             "label": "06 mar",
-            "from_name": "Seguridad Industrial",
+            "from_name": "Carolina Vélez · Seguridad Industrial",
+            "to_line": "Logística de Materiales; Planeación de Mantenimiento; Comunicaciones Zona",
             "subject": "RE: personal 10/03 · ST-Urb-03",
             "sig": "Carolina Vélez\nSeguridad Industrial · Zona Norte",
             "body_tpl": (
-                "Buenos días, {first}:\n\n"
+                "Buenos días,\n\n"
                 "Confirmamos personal de seguridad industrial para el 10/03/2026.\n"
                 "Solicitamos ampliar el cierre de área hasta las 16:00 para cubrir el retiro de equipos "
                 "y la inspección final.\n\n"
@@ -307,7 +310,8 @@ def get_reto_r2_parts() -> list[dict]:
         {
             "id": "r2-4",
             "label": "07 mar",
-            "from_name": "Gerencia de Zona Norte",
+            "from_name": "Diego Castaño · Gerencia de Zona Norte",
+            "to_line": "Comunicaciones Zona; Planeación de Mantenimiento; Seguridad Industrial; Logística de Materiales",
             "subject": "Aprobación ventana 10/03 · ST-Urb-03",
             "sig": "Diego Castaño\nGerencia de Zona Norte",
             "body_tpl": (
@@ -343,11 +347,10 @@ def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: s
         "reto2-1": "r2-1", "reto2-2": "r2-2", "reto2-3": "r2-3", "reto2-4": "r2-4",
     }
     reto_id = aliases.get(reto_id, reto_id)
-    first = _first_name(name)
 
     for p in get_reto_r2_parts():
         if reto_id == p["id"]:
-            body = p["body_tpl"].format(first=first, sig=p["sig"])
+            body = p["body_tpl"].format(sig=p["sig"])
             return p["subject"], body, p["from_name"]
 
     return "", "", ""
@@ -1266,7 +1269,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-03-real-emails-v4"
+APP_CODE_VERSION = "2026-08-03-de-para-v5"
 
 
 @app.get("/health")
