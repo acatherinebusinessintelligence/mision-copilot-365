@@ -858,12 +858,27 @@ def api_send_reto_email():
         return jsonify({"ok": False, "error": detail}), 502
 
     session[key] = now
-    subject, _, _ = get_reto_email_content(
-        reto_id, to_email, name, os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com")
-    )
-    if not subject and reto_id.replace("_", "-") in ("r2", "reto2", "reto-2", "r2-all", "r2all"):
-        subject = "Cadena ST-Urb-03 (4 correos)"
-    self_send = to_email.lower() == os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com").lower()
+    smtp_email = os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com")
+    subject, _, from_name = get_reto_email_content(reto_id, to_email, name, smtp_email)
+    emails_sent = []
+    rid = reto_id.replace("_", "-")
+    if rid in ("r2", "reto2", "reto-2", "r2-all", "r2all"):
+        subject = "4 correos ST-Urb-03 (Martha, Julián, Carolina, Diego)"
+        for p in get_reto_r2_parts():
+            emails_sent.append({
+                "id": p["id"],
+                "from": p["from_name"],
+                "to": p["to_line"],
+                "subject": p["subject"],
+            })
+    elif subject:
+        emails_sent.append({
+            "id": rid,
+            "from": from_name,
+            "to": to_email,
+            "subject": subject,
+        })
+    self_send = to_email.lower() == smtp_email.lower()
     tip = ""
     if self_send:
         tip = (
@@ -874,10 +889,15 @@ def api_send_reto_email():
         "ok": True,
         "message": detail + tip,
         "to": to_email,
-        "from": os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com"),
+        "from": from_name or smtp_email,
         "subject": subject,
         "reto_id": reto_id,
         "self_send": self_send,
+        "emails": emails_sent,
+        "note": (
+            "Ignora correos viejos con asunto 'Cadena ST-Urb-03 · 4 correos del Reto 2 (resumen)' "
+            "o texto 'Simulación Reto 2'. Ese formato ya no se usa."
+        ),
     })
 
 
@@ -1269,7 +1289,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-03-de-para-v5"
+APP_CODE_VERSION = "2026-08-03-no-digest-v6"
 
 
 @app.get("/health")

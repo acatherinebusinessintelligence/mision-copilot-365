@@ -3635,7 +3635,16 @@
             let extra = data.self_send
               ? " <strong>Atención:</strong> enviaste a la misma cuenta Gmail de salida; revisa Enviados / Todos / Spam, o entra con el correo del estudiante."
               : "";
-            status.innerHTML = "Enviado a <strong>" + esc(data.to) + "</strong>. Asunto: <em>" + esc(data.subject || "") + "</em>." + extra + " Revisa también spam.";
+            let list = "";
+            if (Array.isArray(data.emails) && data.emails.length) {
+              list = "<ul style='margin:0.4rem 0 0;padding-left:1.1rem'>" + data.emails.map(function (e) {
+                return "<li><strong>De:</strong> " + esc(e.from || "") + " · <strong>Asunto:</strong> <em>" + esc(e.subject || "") + "</em></li>";
+              }).join("") + "</ul>";
+            }
+            const discard = data.note
+              ? "<p style='margin:0.5rem 0 0;font-size:0.82rem'>Descarta correos viejos con texto «Simulación Reto 2» o asunto «…(resumen)».</p>"
+              : "";
+            status.innerHTML = "Enviado a <strong>" + esc(data.to) + "</strong>." + extra + list + discard;
           }
         } catch (e) {
           toast("Error de red al enviar el correo", "alert-triangle");
@@ -3650,7 +3659,7 @@
     // Actualizar textos de destino de correo
     if (currentStudent && currentStudent.email) {
       document.querySelectorAll("[data-reto-email-hint]").forEach(el => {
-        el.innerHTML = "El correo se enviará a <strong>" + esc(currentStudent.email) + "</strong> desde <code>analizamostunegocio@gmail.com</code>.";
+        el.innerHTML = "Copia del caso a <strong>" + esc(currentStudent.email) + "</strong>. En Outlook busca los remitentes del caso (Martha, Julián, Carolina, Diego / Laura Méndez), no un resumen «Simulación Reto 2».";
       });
     }
     initCopyButtons();
