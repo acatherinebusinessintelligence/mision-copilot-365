@@ -156,7 +156,7 @@ def calc_percent_from_payload(payload: dict) -> int:
     keys = [
         "reto-r1", "reto-r2", "reto-r3", "reto-r4", "reto-r5", "reto-r6",
         "s1-done", "s2-done", "proyecto-final",
-        "fase-1", "fase-2", "fase-3", "fase-4", "fase-5", "fase-6", "fase-7",
+        "fase-1", "fase-2", "fase-3", "fase-4", "fase-5", "fase-6", "fase-7", "fase-8",
     ]
     done = sum(1 for k in keys if progress.get(k))
     quiz_score = min(5, int((payload.get("quiz") or {}).get("score") or 0))
@@ -231,9 +231,9 @@ def _reto1_email_content(to_email: str, name: str, smtp_email: str) -> tuple[str
     subject = "URGENTE · Reprogramación intervención preventivo Circuito N-14"
     body = f"""Buenos días, equipo:
 
-La intervención de mantenimiento preventivo del Circuito N-14 (Zona Norte), programada para el sábado 22/03/2026 de 07:00 a 15:00, debe moverse al sábado 29/03/2026 en el mismo horario. Motivo: no hay disponibilidad confirmada del personal especialista en protecciones para la fecha original.
+La intervención de mantenimiento preventivo del Circuito N-14 (Zona Norte), programada para el sábado 21/03/2026 de 07:00 a 15:00, debe moverse al sábado 28/03/2026 en el mismo horario. Motivo: no hay disponibilidad confirmada del personal especialista en protecciones para la fecha original.
 
-Necesito confirmación de recepción de este mensaje antes del martes 18/03/2026 a las 12:00.
+Necesito confirmación de recepción de este mensaje antes del martes 17/03/2026 a las 12:00.
 
 Responsable técnico designado: Andrés Quintero. La junta de acción comunal reportó, el 12/03, preocupación por ruido en jornada nocturna. Aún no hay decisión formal sobre si la ventana se mantiene diurna o se evalúa nocturna.
 
@@ -358,28 +358,72 @@ def _send_email_resend(to_email: str, subject: str, body: str) -> tuple[bool, st
         return False, f"Resend falló: {exc}"
 
 
-def send_reto1_email(to_email: str, name: str) -> tuple[bool, str]:
-    """Envía el correo operativo del Reto 1. Prioriza HTTPS (webhook/Resend) y luego SMTP."""
-    smtp_email, smtp_password, _, _ = _smtp_config()
-    subject, body = _reto1_email_content(to_email, name, smtp_email)
-    from_display = f"Laura Méndez · Coordinación de Campo <{smtp_email}>"
-    errors: list[str] = []
 
-    # 1) Webhook HTTPS (recomendado en PA free)
+def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: str) -> tuple[str, str]:
+    """Contenido centralizado de correos simulados por reto."""
+    reto_id = (reto_id or "r1").strip().lower()
+    if reto_id in ("r1", "reto1", "reto-1"):
+        return _reto1_email_content(to_email, name, smtp_email)
+
+    if reto_id in ("r2", "reto2", "reto-2"):
+        subject = "Cadena ST-Urb-03 · Programación y cambios de ventana (Reto 2)"
+        body = f"""Hola {name},
+
+Este mensaje simula la cadena de correos del Reto 2 · Misión Copilot 365.
+
+--- Correo 1 · 01/03/2026 · Planeación de Mantenimiento ---
+Asunto: Programación transformador auxiliar ST-Urb-03
+Se confirma mantenimiento del transformador auxiliar para el 12/03/2026, 08:00–14:00.
+Compromiso: notificar a usuarios con mínimo 72 horas de anticipación.
+Responsable de aviso: Comunicaciones Zona.
+
+--- Correo 2 · 04/03/2026 · Logística de Materiales ---
+Asunto: RE: adelanto de repuestos
+El proveedor confirma entrega anticipada. Se propone adelantar la ventana al 10/03/2026.
+Pendiente: validar disponibilidad de personal de seguridad industrial para esa fecha.
+
+--- Correo 3 · 06/03/2026 · Seguridad Industrial ---
+Asunto: RE: personal 10/03
+Se confirma personal para el 10/03. Se solicita ampliar el cierre de área hasta las 16:00.
+Riesgo: señalización insuficiente si no se refuerza perímetro antes de las 07:30.
+
+--- Correo 4 · 07/03/2026 · Gerencia de Zona Norte ---
+Asunto: Aprobación ventana 10/03
+Se aprueba intervención el 10/03 con cierre hasta 16:00.
+Solicita: 1) mensaje claro a la comunidad, 2) reporte ejecutivo al cierre de la jornada.
+
+---
+Simulación formativa · Reto 2
+Remitente técnico: {smtp_email}
+Destinatario: {name} <{to_email}>
+La planilla se descarga en la plataforma (no va adjunta).
+"""
+        return subject, body
+
+    return "", ""
+
+
+def send_reto_email(reto_id: str, to_email: str, name: str) -> tuple[bool, str]:
+    smtp_email, smtp_password, _, _ = _smtp_config()
+    subject, body = get_reto_email_content(reto_id, to_email, name, smtp_email)
+    if not subject or not body:
+        return False, f"No hay correo simulado configurado para el reto '{reto_id}'."
+
+    from_display = f"Misión Copilot 365 · Simulación <{smtp_email}>"
+    if (reto_id or "").lower() in ("r1", "reto1", "reto-1"):
+        from_display = f"Laura Méndez · Coordinación de Campo <{smtp_email}>"
+
+    errors: list[str] = []
     if (os.getenv("EMAIL_WEBHOOK_URL") or "").strip():
         ok, detail = _send_email_webhook(to_email, name, subject, body)
         if ok:
             return True, detail
         errors.append(detail)
-
-    # 2) Resend HTTPS
     if (os.getenv("RESEND_API_KEY") or "").strip():
         ok, detail = _send_email_resend(to_email, subject, body)
         if ok:
             return True, detail
         errors.append(detail)
-
-    # 3) SMTP Gmail (requiere salida por puerto 587; a menudo bloqueado en PA free)
     if smtp_password:
         ok, detail = _send_email_smtp(to_email, subject, body, from_display)
         if ok:
@@ -387,11 +431,11 @@ def send_reto1_email(to_email: str, name: str) -> tuple[bool, str]:
         errors.append(detail)
     else:
         errors.append("Falta SMTP_APP_PASSWORD en .env")
+    return False, " · ".join(errors) if errors else "No hay método de envío configurado"
 
-    if not errors:
-        errors.append("No hay método de envío configurado")
-
-    return False, " · ".join(errors)
+def send_reto1_email(to_email: str, name: str) -> tuple[bool, str]:
+    """Envía el correo operativo del Reto 1. Prioriza HTTPS (webhook/Resend) y luego SMTP."""
+    return send_reto_email('r1', to_email, name)
 
 
 def send_admin_notification(name: str, email: str) -> tuple[bool, str]:
@@ -640,6 +684,41 @@ def api_me():
             },
         }
     )
+
+
+
+@app.post("/api/reto/send-email")
+@require_student
+def api_send_reto_email():
+    """Envía el correo simulado del reto indicado al estudiante autenticado."""
+    payload = request.get_json(silent=True) or {}
+    reto_id = (payload.get("reto_id") or request.args.get("reto_id") or "r1").strip().lower()
+    to_email = (session.get("student_email") or "").strip()
+    name = (session.get("student_name") or "Participante").strip()
+    if not to_email:
+        return jsonify({"ok": False, "error": "No hay correo en la sesión. Vuelve a iniciar sesión."}), 400
+
+    now = datetime.now(timezone.utc).timestamp()
+    key = f"reto_email_at_{reto_id}"
+    last = float(session.get(key) or 0)
+    wait = 90 - int(now - last)
+    if wait > 0:
+        return jsonify({"ok": False, "error": f"Espera {wait} s antes de reenviar este reto."}), 429
+
+    ok, detail = send_reto_email(reto_id, to_email, name)
+    if not ok:
+        return jsonify({"ok": False, "error": detail}), 502
+
+    session[key] = now
+    subject, _ = get_reto_email_content(reto_id, to_email, name, os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com"))
+    return jsonify({
+        "ok": True,
+        "message": detail,
+        "to": to_email,
+        "from": os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com"),
+        "subject": subject,
+        "reto_id": reto_id,
+    })
 
 
 @app.post("/api/reto1/send-email")
