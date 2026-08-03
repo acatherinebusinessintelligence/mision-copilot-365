@@ -1293,7 +1293,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-03-r5-excel-design-v4"
+APP_CODE_VERSION = "2026-08-03-r5-plantilla-edit-v5"
 
 
 @app.get("/health")
