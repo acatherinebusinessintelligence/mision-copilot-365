@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP-365-P06 · Priorización operativa de tareas</title>
+<style>
+:root {
+  --navy: #211D40;
+  --purple: #4B3FAA;
+  --yellow: #FFEC00;
+  --bluegray: #E7EDF5;
+  --bg: #F5F7FA;
+  --green: #D9EAD3;
+  --amber: #FFF2CC;
+  --red: #F4CCCC;
+  --text: #25283A;
+  --white: #FFFFFF;
+  --border: #d0d7e2;
+  --shadow: 0 2px 10px rgba(33, 29, 64, 0.08);
+  --radius: 10px;
+  --font: Aptos, Calibri, "Segoe UI", Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.45;
+}
+a { color: var(--purple); }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 16px 48px; }
+.header {
+  background: var(--navy);
+  color: var(--white);
+  padding: 22px 0 0;
+}
+.header-inner { max-width: 1440px; margin: 0 auto; padding: 0 16px 18px; }
+.header h1 {
+  margin: 0 0 6px;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+  color: var(--white);
+}
+.header .sub {
+  margin: 0 0 14px;
+  color: var(--bluegray);
+  font-size: 0.95rem;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.12);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.22);
+}
+.chip--yellow { background: var(--yellow); color: var(--navy); border-color: transparent; }
+.chip--green { background: var(--green); color: var(--navy); border-color: transparent; }
+.chip--amber { background: var(--amber); color: var(--text); border-color: transparent; }
+.chip--red { background: var(--red); color: var(--text); border-color: transparent; }
+.chip--purple { background: var(--purple); color: var(--white); border-color: transparent; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--yellow);
+  color: var(--navy);
+}
+.btn:hover { filter: brightness(0.96); }
+.btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+.btn--ghost {
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255,255,255,0.35);
+}
+.btn--ghost:hover { background: rgba(255,255,255,0.08); }
+.btn--sm { padding: 6px 10px; font-size: 0.82rem; }
+.band {
+  background: var(--purple);
+  color: var(--white);
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.nav-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 8px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+.nav a {
+  text-decoration: none;
+  color: var(--navy);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.nav a:hover, .nav a:focus-visible { background: var(--bluegray); outline: none; }
+section.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 18px 16px;
+  margin: 18px 0;
+}
+section.card h2 {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  color: var(--navy);
+}
+.section-lead { margin: 0 0 14px; color: #4a5060; font-size: 0.92rem; }
+.collapsible-body.collapsed { display: none; }
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+}
+.kpi {
+  background: var(--bluegray);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+.kpi .val {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.1;
+}
+.kpi .lab { display: block; font-size: 0.75rem; margin-top: 4px; color: #4a5060; }
+.concl {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: var(--bg);
+  border-left: 4px solid var(--purple);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.92rem;
+}
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.agenda-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--white);
+}
+.agenda-card h3 {
+  margin: 0;
+  padding: 10px 12px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.95rem;
+}
+.agenda-card ul { list-style: none; margin: 0; padding: 8px; }
+.agenda-card li {
+  padding: 8px;
+  margin-bottom: 6px;
+  background: var(--bg);
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+.agenda-card li:last-child { margin-bottom: 0; }
+.agenda-card .meta { display: block; margin-top: 4px; color: #5a6170; font-size: 0.78rem; }
+.filters {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr) auto;
+  gap: 8px;
+  margin-bottom: 10px;
+  align-items: end;
+}
+.filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4a5060;
+}
+.filters input, .filters select {
+  font: inherit;
+  padding: 7px 9px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--text);
+}
+.filters input:focus-visible, .filters select:focus-visible,
+.empty-table input:focus-visible, .empty-table textarea:focus-visible,
+.form-grid input:focus-visible, .form-grid select:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 1px;
+}
+.count-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  color: #4a5060;
+}
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  min-width: 1100px;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  background: var(--purple);
+  color: var(--white);
+  text-align: left;
+  padding: 9px 8px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+tbody td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  background: var(--white);
+}
+tbody tr:nth-child(even) td { background: #fafbfd; }
+tbody tr.hidden { display: none; }
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.badge-p1 { background: var(--red); color: var(--text); }
+.badge-p2 { background: var(--amber); color: var(--text); }
+.badge-p3 { background: var(--bluegray); color: var(--navy); }
+.badge-p4 { background: var(--green); color: var(--navy); }
+.badge-si { background: var(--green); color: var(--navy); }
+.badge-parcial { background: var(--amber); color: var(--text); }
+.badge-no { background: var(--bluegray); color: var(--navy); }
+.badge-urg-alta, .badge-riesgo-alto { background: var(--red); }
+.badge-urg-media, .badge-riesgo-medio { background: var(--amber); }
+.badge-urg-baja, .badge-riesgo-bajo { background: var(--green); }
+.empty-table { width: 100%; min-width: 0; }
+.empty-table th { background: var(--navy); }
+.empty-table input, .empty-table textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 6px 8px;
+  font: inherit;
+  background: var(--white);
+}
+.empty-table textarea { min-height: 42px; resize: vertical; }
+.check-cell { text-align: center; }
+.check-cell input { width: auto; }
+.note {
+  margin: 18px 0 0;
+  padding: 12px 14px;
+  background: var(--bluegray);
+  border-radius: 8px;
+  font-size: 0.88rem;
+}
+.note strong { color: var(--navy); }
+@media (max-width: 1100px) {
+  .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+  .agenda-grid { grid-template-columns: 1fr; }
+  .filters { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .filters { grid-template-columns: 1fr; }
+}
+@media print {
+  body { background: #fff; color: #000; }
+  .nav, .actions, .filters, .no-print { display: none !important; }
+  .header { background: #211D40; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.card { box-shadow: none; break-inside: avoid; }
+  thead th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  tbody tr { break-inside: avoid; }
+  .collapsible-body.collapsed { display: block !important; }
+  .wrap { max-width: none; padding: 0; }
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <h1>MCP-365-P06 · Priorización operativa de tareas</h1>
+    <p class="sub">Referencia de calidad para validación del curso · uso formativo</p>
+    <div class="chips">
+      <span class="chip chip--yellow">10 tareas fuente</span>
+      <span class="chip chip--purple">P1–P4</span>
+      <span class="chip">Agenda Hoy / Mañana / Viernes</span>
+      <span class="chip chip--green">Delegación + criterio humano</span>
+      <span class="chip chip--amber">Uso formativo</span>
+    </div>
+    <div class="actions no-print">
+      <button type="button" class="btn" id="btnPrint" title="Imprimir o guardar como PDF">Imprimir</button>
+      <button type="button" class="btn" id="btnDownload">Descargar HTML</button>
+      <button type="button" class="btn btn--ghost" id="btnReset">Restablecer filtros</button>
+      <button type="button" class="btn btn--ghost" id="btnToggle" aria-expanded="true">Contraer secciones</button>
+    </div>
+  </div>
+  <div class="band">Priorización por límite, urgencia, impacto, riesgo, dependencia y criterio humano</div>
+</header>
+
+<nav class="nav no-print" aria-label="Navegación del informe">
+  <div class="nav-inner">
+    <a href="#resumen">Resumen</a>
+    <a href="#agenda">Agenda</a>
+    <a href="#matriz">Matriz</a>
+    <a href="#delegacion">Delegación</a>
+    <a href="#humano">Criterio humano</a>
+    <a href="#validacion">Validación humana</a>
+    <a href="#calidad">Control de calidad</a>
+    <a href="#fuente">Fuente</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="card" id="resumen" data-collapsible>
+    <h2>1. Resumen ejecutivo e indicadores</h2>
+    <p class="section-lead">Indicadores calculados automáticamente a partir de la matriz. La priorización es una propuesta de referencia; no sustituye la validación humana.</p>
+    <div class="collapsible-body">
+      <div class="kpi-grid">
+        <div class="kpi"><span class="val" id="kpiTotal">0</span><span class="lab">Total de tareas</span></div>
+        <div class="kpi"><span class="val" id="kpiHoy">0</span><span class="lab">Atender hoy</span></div>
+        <div class="kpi"><span class="val" id="kpiP1">0</span><span class="lab">Críticas P1</span></div>
+        <div class="kpi"><span class="val" id="kpiDelSi">0</span><span class="lab">Delegables Sí</span></div>
+        <div class="kpi"><span class="val" id="kpiDelParcial">0</span><span class="lab">Delegables parcial</span></div>
+        <div class="kpi"><span class="val" id="kpiHumano">0</span><span class="lab">Criterio humano Sí</span></div>
+      </div>
+      <div class="concl">
+        La jornada de hoy concentra seis frentes operativos: dos críticos de seguridad/permisos (N-14 y permiso ambiental), preparación anticipada del resumen de comité, y tres tareas de impacto medio-alto con límite el mismo día. Mañana se atienden la reprogramación de comité (P1) y la actualización del registro de riesgos. Viernes quedan dos tareas administrativas P4. La delegación total aplica solo a actividades rutinarias; seguridad, ambiente, riesgos y decisiones de comité conservan criterio humano.
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="agenda" data-collapsible>
+    <h2>2. Agenda sugerida</h2>
+    <p class="section-lead">Distribución operativa sin alterar los límites ni responsables de la fuente. “Hoy (preparar)” indica preparación anticipada del límite de mañana.</p>
+    <div class="collapsible-body">
+      <div class="agenda-grid" id="agendaCards"></div>
+    </div>
+  </section>
+
+  <section class="card" id="matriz" data-collapsible>
+    <h2>3. Matriz de priorización</h2>
+    <p class="section-lead">Campos fuente literales. Orden, prioridad, agenda, delegación, criterio humano, justificación y acción son propuestas de referencia.</p>
+    <div class="collapsible-body">
+      <div class="filters no-print">
+        <label>Buscar
+          <input type="search" id="fSearch" placeholder="Texto en tarea, responsable…" autocomplete="off">
+        </label>
+        <label>Prioridad
+          <select id="fPri">
+            <option value="">Todas</option>
+            <option value="P1">P1</option>
+            <option value="P2">P2</option>
+            <option value="P3">P3</option>
+            <option value="P4">P4</option>
+          </select>
+        </label>
+        <label>Agenda
+          <select id="fAgenda">
+            <option value="">Todas</option>
+            <option value="Hoy">Hoy</option>
+            <option value="Hoy (preparar)">Hoy (preparar)</option>
+            <option value="Mañana">Mañana</option>
+            <option value="Viernes">Viernes</option>
+          </select>
+        </label>
+        <label>Delegación
+          <select id="fDel">
+            <option value="">Todas</option>
+            <option value="Sí">Sí</option>
+            <option value="Parcial">Parcial</option>
+            <option value="No">No</option>
+          </select>
+        </label>
+        <label>Criterio humano
+          <select id="fHum">
+            <option value="">Todos</option>
+            <option value="Sí">Sí</option>
+            <option value="No">No</option>
+          </select>
+        </label>
+        <button type="button" class="btn btn--sm" id="btnReset2">Restablecer</button>
+      </div>
+      <div class="count-bar"><span id="visibleCount">Mostrando 0 de 0</span></div>
+      <div class="table-wrap">
+        <table id="matrixTable">
+          <thead>
+            <tr>
+              <th>Orden</th>
+              <th>Tarea</th>
+              <th>Urgencia</th>
+              <th>Impacto</th>
+              <th>Dependencia</th>
+              <th>Límite</th>
+              <th>Responsable</th>
+              <th>Riesgo</th>
+              <th>Prioridad</th>
+              <th>Agenda</th>
+              <th>Delegable</th>
+              <th>Criterio humano</th>
+              <th>Justificación</th>
+              <th>Acción recomendada</th>
+            </tr>
+          </thead>
+          <tbody id="matrixBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="delegacion" data-collapsible>
+    <h2>4. Delegación sugerida</h2>
+    <p class="section-lead">La delegación no cambia el responsable registrado en la fuente. No se inventan delegados nuevos.</p>
+    <div class="collapsible-body" id="delegacionBody"></div>
+  </section>
+
+  <section class="card" id="humano" data-collapsible>
+    <h2>5. Criterio humano</h2>
+    <p class="section-lead">Se marca “Sí” cuando hay seguridad, ambiente, riesgos, comité, reprogramación o decisión no rutinaria.</p>
+    <div class="collapsible-body" id="humanoBody"></div>
+  </section>
+
+  <section class="card" id="validacion" data-collapsible>
+    <h2>6. Validación humana</h2>
+    <p class="section-lead">Completar por la persona. Campos vacíos a propósito.</p>
+    <div class="collapsible-body">
+      <div class="table-wrap">
+        <table class="empty-table">
+          <thead>
+            <tr>
+              <th>Criterio</th>
+              <th style="width:70px">OK</th>
+              <th>Resultado</th>
+              <th>Observación</th>
+              <th>Responsable</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>La prioridad es razonable</td>
+              <td class="check-cell"><input type="checkbox" aria-label="OK prioridad"></td>
+              <td><input type="text" aria-label="Resultado prioridad" value=""></td>
+              <td><textarea aria-label="Observación prioridad"></textarea></td>
+              <td><input type="text" aria-label="Responsable prioridad" value=""></td>
+              <td><input type="text" aria-label="Fecha prioridad" value=""></td>
+            </tr>
+            <tr>
+              <td>Los límites coinciden con la fuente</td>
+              <td class="check-cell"><input type="checkbox" aria-label="OK límites"></td>
+              <td><input type="text" aria-label="Resultado límites" value=""></td>
+              <td><textarea aria-label="Observación límites"></textarea></td>
+              <td><input type="text" aria-label="Responsable límites" value=""></td>
+              <td><input type="text" aria-label="Fecha límites" value=""></td>
+            </tr>
+            <tr>
+              <td>Los responsables no fueron modificados</td>
+              <td class="check-cell"><input type="checkbox" aria-label="OK responsables"></td>
+              <td><input type="text" aria-label="Resultado responsables" value=""></td>
+              <td><textarea aria-label="Observación responsables"></textarea></td>
+              <td><input type="text" aria-label="Responsable responsables" value=""></td>
+              <td><input type="text" aria-label="Fecha responsables" value=""></td>
+            </tr>
+            <tr>
+              <td>La delegación es viable</td>
+              <td class="check-cell"><input type="checkbox" aria-label="OK delegación"></td>
+              <td><input type="text" aria-label="Resultado delegación" value=""></td>
+              <td><textarea aria-label="Observación delegación"></textarea></td>
+              <td><input type="text" aria-label="Responsable delegación" value=""></td>
+              <td><input type="text" aria-label="Fecha delegación" value=""></td>
+            </tr>
+            <tr>
+              <td>Las tareas sensibles conservan criterio humano</td>
+              <td class="check-cell"><input type="checkbox" aria-label="OK criterio humano"></td>
+              <td><input type="text" aria-label="Resultado criterio humano" value=""></td>
+              <td><textarea aria-label="Observación criterio humano"></textarea></td>
+              <td><input type="text" aria-label="Responsable criterio humano" value=""></td>
+              <td><input type="text" aria-label="Fecha criterio humano" value=""></td>
+            </tr>
+            <tr>
+              <td>La agenda cabe dentro de la jornada</td>
+              <td class="check-cell"><input type="checkbox" aria-label="OK agenda"></td>
+              <td><input type="text" aria-label="Resultado agenda" value=""></td>
+              <td><textarea aria-label="Observación agenda"></textarea></td>
+              <td><input type="text" aria-label="Responsable agenda" value=""></td>
+              <td><input type="text" aria-label="Fecha agenda" value=""></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="calidad" data-collapsible>
+    <h2>7. Control de calidad</h2>
+    <p class="section-lead">Completar por la persona. Respuestas vacías a propósito.</p>
+    <div class="collapsible-body">
+      <div class="table-wrap">
+        <table class="empty-table">
+          <thead>
+            <tr>
+              <th>Criterio</th>
+              <th style="width:70px">OK</th>
+              <th>Resultado</th>
+              <th>Evidencia / nota</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Se analizaron las diez tareas</td><td class="check-cell"><input type="checkbox" aria-label="QC 1"></td><td><input type="text" value="" aria-label="Resultado QC 1"></td><td><textarea aria-label="Nota QC 1"></textarea></td></tr>
+            <tr><td>No se inventaron fechas</td><td class="check-cell"><input type="checkbox" aria-label="QC 2"></td><td><input type="text" value="" aria-label="Resultado QC 2"></td><td><textarea aria-label="Nota QC 2"></textarea></td></tr>
+            <tr><td>No se inventaron horas</td><td class="check-cell"><input type="checkbox" aria-label="QC 3"></td><td><input type="text" value="" aria-label="Resultado QC 3"></td><td><textarea aria-label="Nota QC 3"></textarea></td></tr>
+            <tr><td>No se inventaron responsables</td><td class="check-cell"><input type="checkbox" aria-label="QC 4"></td><td><input type="text" value="" aria-label="Resultado QC 4"></td><td><textarea aria-label="Nota QC 4"></textarea></td></tr>
+            <tr><td>Los filtros funcionan</td><td class="check-cell"><input type="checkbox" aria-label="QC 5"></td><td><input type="text" value="" aria-label="Resultado QC 5"></td><td><textarea aria-label="Nota QC 5"></textarea></td></tr>
+            <tr><td>Los botones funcionan</td><td class="check-cell"><input type="checkbox" aria-label="QC 6"></td><td><input type="text" value="" aria-label="Resultado QC 6"></td><td><textarea aria-label="Nota QC 6"></textarea></td></tr>
+            <tr><td>El diseño es legible en móvil</td><td class="check-cell"><input type="checkbox" aria-label="QC 7"></td><td><input type="text" value="" aria-label="Resultado QC 7"></td><td><textarea aria-label="Nota QC 7"></textarea></td></tr>
+            <tr><td>La impresión conserva el contenido</td><td class="check-cell"><input type="checkbox" aria-label="QC 8"></td><td><input type="text" value="" aria-label="Resultado QC 8"></td><td><textarea aria-label="Nota QC 8"></textarea></td></tr>
+            <tr><td>No existen errores de JavaScript</td><td class="check-cell"><input type="checkbox" aria-label="QC 9"></td><td><input type="text" value="" aria-label="Resultado QC 9"></td><td><textarea aria-label="Nota QC 9"></textarea></td></tr>
+            <tr><td>El nombre del archivo es correcto</td><td class="check-cell"><input type="checkbox" aria-label="QC 10"></td><td><input type="text" value="" aria-label="Resultado QC 10"></td><td><textarea aria-label="Nota QC 10"></textarea></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <p class="note" id="fuente"><strong>Fuente:</strong> MCP365_P06_Base_priorizacion_tareas.xlsx · uso formativo. Este HTML es referencia de calidad para validación del curso; no es la fuente de análisis para Copilot.</p>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /** Datos fuente literales + priorización sugerida de referencia */
+  var TASKS = [
+    {
+      id: 1,
+      tarea: "Responder consulta de seguridad industrial sobre señalización N-14",
+      urgencia: "Alta",
+      impacto: "Alto",
+      dependencia: "Ninguna",
+      limite: "Hoy 11:00",
+      responsable: "Coordinador de zona",
+      riesgo: "Alto",
+      orden: 1,
+      prioridad: "P1",
+      agenda: "Hoy",
+      delegable: "Parcial",
+      humano: "Sí",
+      justificacion: "Límite Hoy 11:00, urgencia alta, impacto alto y riesgo alto. Seguridad industrial exige revisión humana.",
+      accion: "Preparar respuesta técnica y revisar con Coordinador de zona antes de las 11:00."
+    },
+    {
+      id: 7,
+      tarea: "Validar estado de permiso ambiental",
+      urgencia: "Alta",
+      impacto: "Alto",
+      dependencia: "Área jurídica",
+      limite: "Hoy 16:00",
+      responsable: "Especialista HSE",
+      riesgo: "Alto",
+      orden: 2,
+      prioridad: "P1",
+      agenda: "Hoy",
+      delegable: "No",
+      humano: "Sí",
+      justificacion: "Límite Hoy 16:00, urgencia/impacto/riesgo altos; dependencia de Área jurídica y permiso ambiental no transferible.",
+      accion: "Solicitar estado a Área jurídica y validar con Especialista HSE antes de las 16:00."
+    },
+    {
+      id: 5,
+      tarea: "Preparar resumen ejecutivo para comité",
+      urgencia: "Alta",
+      impacto: "Alto",
+      dependencia: "KPI de avance",
+      limite: "Mañana 09:00",
+      responsable: "Líder de proyecto",
+      riesgo: "Alto",
+      orden: 3,
+      prioridad: "P2",
+      agenda: "Hoy (preparar)",
+      delegable: "Parcial",
+      humano: "Sí",
+      justificacion: "Límite Mañana 09:00 con urgencia/impacto/riesgo altos; requiere preparación anticipada hoy.",
+      accion: "Preparar hoy y finalizar antes del límite registrado (Mañana 09:00); integrar KPI de avance."
+    },
+    {
+      id: 4,
+      tarea: "Agendar reunión con junta comunal",
+      urgencia: "Alta",
+      impacto: "Medio",
+      dependencia: "Disponibilidad de sala",
+      limite: "Hoy 15:00",
+      responsable: "Asistente administrativo",
+      riesgo: "Bajo",
+      orden: 4,
+      prioridad: "P2",
+      agenda: "Hoy",
+      delegable: "Sí",
+      humano: "No",
+      justificacion: "Límite Hoy 15:00 y urgencia alta; impacto medio y riesgo bajo; actividad administrativa delegable.",
+      accion: "Confirmar disponibilidad de sala y agendar con Asistente administrativo antes de las 15:00."
+    },
+    {
+      id: 2,
+      tarea: "Revisar borrador de cronograma Proyecto Horizonte",
+      urgencia: "Media",
+      impacto: "Alto",
+      dependencia: "Datos del contratista",
+      limite: "Hoy 17:00",
+      responsable: "Líder de proyecto",
+      riesgo: "Medio",
+      orden: 5,
+      prioridad: "P2",
+      agenda: "Hoy",
+      delegable: "Parcial",
+      humano: "Sí",
+      justificacion: "Límite Hoy 17:00, impacto alto y dependencia de datos del contratista; revisión final humana.",
+      accion: "Solicitar datos del contratista y revisar borrador con Líder de proyecto antes de las 17:00."
+    },
+    {
+      id: 8,
+      tarea: "Redactar mensaje formal a proveedor de equipo principal",
+      urgencia: "Media",
+      impacto: "Medio",
+      dependencia: "Confirmación de fecha",
+      limite: "Hoy 16:00",
+      responsable: "Compras",
+      riesgo: "Medio",
+      orden: 6,
+      prioridad: "P3",
+      agenda: "Hoy",
+      delegable: "Sí",
+      humano: "No",
+      justificacion: "Límite Hoy 16:00 con urgencia/impacto/riesgo medios; redacción operativa tras confirmación de fecha.",
+      accion: "Redactar con Compras una vez confirmada la fecha; enviar antes de las 16:00."
+    },
+    {
+      id: 10,
+      tarea: "Definir escenario de reprogramación para comité",
+      urgencia: "Alta",
+      impacto: "Alto",
+      dependencia: "Análisis de impacto",
+      limite: "Mañana 14:00",
+      responsable: "Comité directivo",
+      riesgo: "Alto",
+      orden: 7,
+      prioridad: "P1",
+      agenda: "Mañana",
+      delegable: "No",
+      humano: "Sí",
+      justificacion: "Límite Mañana 14:00, urgencia/impacto/riesgo altos; decisión de reprogramación de comité no delegable.",
+      accion: "Completar análisis de impacto y preparar escenario para Comité directivo antes de las 14:00."
+    },
+    {
+      id: 3,
+      tarea: "Actualizar registro de riesgos (semana 12)",
+      urgencia: "Media",
+      impacto: "Alto",
+      dependencia: "Informe de campo",
+      limite: "Mañana 12:00",
+      responsable: "Líder de proyecto",
+      riesgo: "Medio",
+      orden: 8,
+      prioridad: "P2",
+      agenda: "Mañana",
+      delegable: "Parcial",
+      humano: "Sí",
+      justificacion: "Límite Mañana 12:00, impacto alto; actualización de riesgos requiere criterio humano.",
+      accion: "Integrar informe de campo y actualizar registro; revisión final por Líder de proyecto antes de las 12:00."
+    },
+    {
+      id: 9,
+      tarea: "Revisar facturas menores de logística",
+      urgencia: "Baja",
+      impacto: "Bajo",
+      dependencia: "Ninguna",
+      limite: "Viernes 12:00",
+      responsable: "Finanzas",
+      riesgo: "Bajo",
+      orden: 9,
+      prioridad: "P4",
+      agenda: "Viernes",
+      delegable: "Sí",
+      humano: "No",
+      justificacion: "Límite Viernes 12:00 con urgencia, impacto y riesgo bajos; actividad rutinaria programable.",
+      accion: "Programar revisión con Finanzas el viernes antes de las 12:00."
+    },
+    {
+      id: 6,
+      tarea: "Ordenar carpetas SharePoint del expediente",
+      urgencia: "Baja",
+      impacto: "Bajo",
+      dependencia: "Ninguna",
+      limite: "Viernes 17:00",
+      responsable: "Practicante",
+      riesgo: "Bajo",
+      orden: 10,
+      prioridad: "P4",
+      agenda: "Viernes",
+      delegable: "Sí",
+      humano: "No",
+      justificacion: "Límite Viernes 17:00 con urgencia, impacto y riesgo bajos; tarea administrativa delegable.",
+      accion: "Asignar a Practicante y completar ordenamiento antes de Viernes 17:00."
+    }
+  ];
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function badgePri(p) {
+    var c = p === "P1" ? "badge-p1" : p === "P2" ? "badge-p2" : p === "P3" ? "badge-p3" : "badge-p4";
+    return '<span class="badge ' + c + '">' + esc(p) + "</span>";
+  }
+
+  function badgeDel(d) {
+    var c = d === "Sí" ? "badge-si" : d === "Parcial" ? "badge-parcial" : "badge-no";
+    return '<span class="badge ' + c + '">' + esc(d) + "</span>";
+  }
+
+  function badgeHum(h) {
+    return '<span class="badge ' + (h === "Sí" ? "badge-si" : "badge-no") + '">' + esc(h) + "</span>";
+  }
+
+  function badgeUrg(u) {
+    var c = u === "Alta" ? "badge-urg-alta" : u === "Media" ? "badge-urg-media" : "badge-urg-baja";
+    return '<span class="badge ' + c + '">' + esc(u) + "</span>";
+  }
+
+  function badgeRiesgo(r) {
+    var c = r === "Alto" ? "badge-riesgo-alto" : r === "Medio" ? "badge-riesgo-medio" : "badge-riesgo-bajo";
+    return '<span class="badge ' + c + '">' + esc(r) + "</span>";
+  }
+
+  function sorted() {
+    return TASKS.slice().sort(function (a, b) { return a.orden - b.orden; });
+  }
+
+  function renderMatrix() {
+    var tb = document.getElementById("matrixBody");
+    tb.innerHTML = sorted().map(function (t) {
+      return "<tr data-pri=\"" + esc(t.prioridad) + "\" data-agenda=\"" + esc(t.agenda) +
+        "\" data-del=\"" + esc(t.delegable) + "\" data-hum=\"" + esc(t.humano) +
+        "\" data-search=\"" + esc((t.tarea + " " + t.responsable + " " + t.dependencia + " " + t.limite).toLowerCase()) + "\">" +
+        "<td>" + esc(t.orden) + "</td>" +
+        "<td>" + esc(t.tarea) + "</td>" +
+        "<td>" + badgeUrg(t.urgencia) + "</td>" +
+        "<td>" + esc(t.impacto) + "</td>" +
+        "<td>" + esc(t.dependencia) + "</td>" +
+        "<td>" + esc(t.limite) + "</td>" +
+        "<td>" + esc(t.responsable) + "</td>" +
+        "<td>" + badgeRiesgo(t.riesgo) + "</td>" +
+        "<td>" + badgePri(t.prioridad) + "</td>" +
+        "<td>" + esc(t.agenda) + "</td>" +
+        "<td>" + badgeDel(t.delegable) + "</td>" +
+        "<td>" + badgeHum(t.humano) + "</td>" +
+        "<td>" + esc(t.justificacion) + "</td>" +
+        "<td>" + esc(t.accion) + "</td>" +
+        "</tr>";
+    }).join("");
+  }
+
+  function agendaBucket(agenda) {
+    if (agenda === "Hoy" || agenda === "Hoy (preparar)") return "Hoy";
+    if (agenda === "Mañana") return "Mañana";
+    return "Viernes";
+  }
+
+  function renderAgenda() {
+    var groups = { Hoy: [], Mañana: [], Viernes: [] };
+    sorted().forEach(function (t) {
+      groups[agendaBucket(t.agenda)].push(t);
+    });
+    var titles = { Hoy: "Hoy", Mañana: "Mañana", Viernes: "Viernes" };
+    document.getElementById("agendaCards").innerHTML = ["Hoy", "Mañana", "Viernes"].map(function (k) {
+      var items = groups[k].map(function (t) {
+        var note = t.agenda === "Hoy (preparar)"
+          ? '<span class="meta">Preparar hoy · límite ' + esc(t.limite) + "</span>"
+          : '<span class="meta">Límite ' + esc(t.limite) + " · " + badgePri(t.prioridad) + "</span>";
+        return "<li><strong>#" + esc(t.orden) + "</strong> " + esc(t.tarea) + note + "</li>";
+      }).join("");
+      return '<article class="agenda-card"><h3>' + titles[k] + " (" + groups[k].length + ")</h3><ul>" +
+        (items || "<li>Sin tareas</li>") + "</ul></article>";
+    }).join("");
+  }
+
+  function renderLists() {
+    var delHtml = ["Sí", "Parcial", "No"].map(function (d) {
+      var rows = sorted().filter(function (t) { return t.delegable === d; });
+      var lis = rows.map(function (t) {
+        return "<li><strong>" + esc(t.tarea) + "</strong> — Responsable fuente: " + esc(t.responsable) +
+          ". " + esc(t.justificacion) + "</li>";
+      }).join("");
+      return "<h3 style=\"margin:12px 0 6px;font-size:0.95rem;color:var(--navy)\">Delegable: " + esc(d) +
+        " (" + rows.length + ")</h3><ul style=\"margin:0 0 8px;padding-left:18px;font-size:0.88rem\">" +
+        (lis || "<li>Ninguna</li>") + "</ul>";
+    }).join("");
+    document.getElementById("delegacionBody").innerHTML = delHtml;
+
+    var humHtml = ["Sí", "No"].map(function (h) {
+      var rows = sorted().filter(function (t) { return t.humano === h; });
+      var lis = rows.map(function (t) {
+        return "<li><strong>" + esc(t.tarea) + "</strong> — " + esc(t.justificacion) + "</li>";
+      }).join("");
+      return "<h3 style=\"margin:12px 0 6px;font-size:0.95rem;color:var(--navy)\">Criterio humano: " + esc(h) +
+        " (" + rows.length + ")</h3><ul style=\"margin:0 0 8px;padding-left:18px;font-size:0.88rem\">" +
+        (lis || "<li>Ninguna</li>") + "</ul>";
+    }).join("");
+    document.getElementById("humanoBody").innerHTML = humHtml;
+  }
+
+  function updateKpis() {
+    document.getElementById("kpiTotal").textContent = String(TASKS.length);
+    document.getElementById("kpiHoy").textContent = String(
+      TASKS.filter(function (t) { return t.agenda === "Hoy" || t.agenda === "Hoy (preparar)"; }).length
+    );
+    document.getElementById("kpiP1").textContent = String(
+      TASKS.filter(function (t) { return t.prioridad === "P1"; }).length
+    );
+    document.getElementById("kpiDelSi").textContent = String(
+      TASKS.filter(function (t) { return t.delegable === "Sí"; }).length
+    );
+    document.getElementById("kpiDelParcial").textContent = String(
+      TASKS.filter(function (t) { return t.delegable === "Parcial"; }).length
+    );
+    document.getElementById("kpiHumano").textContent = String(
+      TASKS.filter(function (t) { return t.humano === "Sí"; }).length
+    );
+  }
+
+  function applyFilters() {
+    var q = (document.getElementById("fSearch").value || "").trim().toLowerCase();
+    var pri = document.getElementById("fPri").value;
+    var ag = document.getElementById("fAgenda").value;
+    var del = document.getElementById("fDel").value;
+    var hum = document.getElementById("fHum").value;
+    var rows = document.querySelectorAll("#matrixBody tr");
+    var visible = 0;
+    rows.forEach(function (tr) {
+      var ok = true;
+      if (q && (tr.getAttribute("data-search") || "").indexOf(q) === -1) ok = false;
+      if (pri && tr.getAttribute("data-pri") !== pri) ok = false;
+      if (ag && tr.getAttribute("data-agenda") !== ag) ok = false;
+      if (del && tr.getAttribute("data-del") !== del) ok = false;
+      if (hum && tr.getAttribute("data-hum") !== hum) ok = false;
+      tr.classList.toggle("hidden", !ok);
+      if (ok) visible += 1;
+    });
+    document.getElementById("visibleCount").textContent =
+      "Mostrando " + visible + " de " + rows.length;
+  }
+
+  function resetFilters() {
+    document.getElementById("fSearch").value = "";
+    document.getElementById("fPri").value = "";
+    document.getElementById("fAgenda").value = "";
+    document.getElementById("fDel").value = "";
+    document.getElementById("fHum").value = "";
+    applyFilters();
+  }
+
+  var expanded = true;
+  function toggleSections() {
+    expanded = !expanded;
+    document.querySelectorAll("[data-collapsible] .collapsible-body").forEach(function (el) {
+      el.classList.toggle("collapsed", !expanded);
+    });
+    var btn = document.getElementById("btnToggle");
+    btn.textContent = expanded ? "Contraer secciones" : "Expandir secciones";
+    btn.setAttribute("aria-expanded", expanded ? "true" : "false");
+  }
+
+  function downloadHtml() {
+    var html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+    var blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "MCP365_P06_Priorizacion_completada.html";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById("btnPrint").addEventListener("click", function () { window.print(); });
+  document.getElementById("btnDownload").addEventListener("click", downloadHtml);
+  document.getElementById("btnReset").addEventListener("click", resetFilters);
+  document.getElementById("btnReset2").addEventListener("click", resetFilters);
+  document.getElementById("btnToggle").addEventListener("click", toggleSections);
+  ["fSearch", "fPri", "fAgenda", "fDel", "fHum"].forEach(function (id) {
+    document.getElementById(id).addEventListener("input", applyFilters);
+    document.getElementById(id).addEventListener("change", applyFilters);
+  });
+
+  renderMatrix();
+  renderAgenda();
+  renderLists();
+  updateKpis();
+  applyFilters();
+})();
+</script>
+</body>
+</html>

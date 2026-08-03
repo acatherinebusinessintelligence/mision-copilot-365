@@ -1386,7 +1386,7 @@
               <span class="reto__num">6</span>
               <span>
                 <strong>Priorización del trabajo</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Excel · Agenda, delegación y criterio humano</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Copilot · Informe HTML (Excel solo como fuente)</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -1398,24 +1398,38 @@
           </button>
           <div class="reto__body">
             <div class="m365-box">
-              <h4><span class="app-badge">Excel</span> Paso a paso con Copilot</h4>
+              <h4><span class="app-badge">Excel</span> + <span class="app-badge">Copilot</span> + <span class="app-badge">HTML</span> Paso a paso con Copilot</h4>
               <ol>
-                <li>Descarga la <strong>base del ejercicio</strong> (10 tareas).</li>
-                <li>Ábrela en <strong>Excel → Copilot</strong>.</li>
-                <li>Ajusta el prompt configurable y cópialo.</li>
-                <li>Clasifica por urgencia/impacto; agenda hoy/mañana; marca delegables vs criterio humano.</li>
-                <li>No inventes fechas ni responsables. Validación humana y control de calidad los completa la persona.</li>
-                <li>Guarda como <code>MCP365_P06_Priorizacion_completada.xlsx</code>.</li>
-                <li>Después: prioriza tu propia lista de tareas del día (sin datos sensibles).</li>
+                <li>Descarga la base oficial con las diez tareas.</li>
+                <li>Abre Copilot Chat y adjunta el archivo Excel. No necesitas modificarlo.</li>
+                <li>Revisa y ajusta los campos configurables del prompt.</li>
+                <li>Copia y ejecuta el prompt completo.</li>
+                <li>Copilot debe clasificar las tareas por urgencia, impacto, dependencia, límite y riesgo por retraso.</li>
+                <li>Debe organizar una agenda para hoy, mañana y viernes; identificar tareas delegables y separar las que requieren criterio humano.</li>
+                <li>No debe inventar fechas, horas, responsables ni dependencias.</li>
+                <li>Descarga o guarda el resultado como: <code>MCP365_P06_Priorizacion_completada.html</code>.</li>
+                <li>Abre el HTML en el navegador y verifica sus filtros, botones y contenido.</li>
+                <li>La validación humana y el control de calidad los completa la persona.</li>
               </ol>
             </div>
-            <div class="btn-group" style="margin-bottom:1rem">
-              <button type="button" class="btn btn--sm btn--energy" data-planilla="priorizacion"><i data-lucide="download" width="14" height="14"></i> Descargar base del ejercicio (Excel)</button>
+            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>Fuente oficial</strong> (no completar en Excel):</p>
+            <div class="btn-group" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="priorizacion"><i data-lucide="download" width="14" height="14"></i> Descargar base Excel (10 tareas)</button>
+            </div>
+            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>Referencia de calidad</strong> (no es fuente de análisis) y <strong>práctica personal</strong>:</p>
+            <div class="btn-group" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
+              <button type="button" class="btn btn--sm btn--ghost" data-planilla="priorizacion-ref"><i data-lucide="eye" width="14" height="14"></i> Ver HTML de referencia</button>
+              <button type="button" class="btn btn--sm btn--secondary" data-planilla="priorizacion-practica"><i data-lucide="sparkles" width="14" height="14"></i> Práctica personal (.html)</button>
+            </div>
+            <div class="doc-box">
+              <p><strong>Fuente:</strong> <code>MCP365_P06_Base_priorizacion_tareas.xlsx</code> — diez tareas; no la modifiques ni la completes.</p>
+              <p><strong>Entregable:</strong> <code>MCP365_P06_Priorizacion_completada.html</code> — informe HTML interactivo generado por Copilot.</p>
+              <p class="text-muted" style="font-size:0.88rem;margin:0">La referencia HTML sirve para validar calidad y funcionamiento del curso. No la uses como fuente de análisis en Copilot.</p>
             </div>
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr><th>#</th><th>Tarea</th><th>Urgencia</th><th>Impacto</th><th>Dependencia</th><th>Límite</th><th>Responsable</th><th>Riesgo retraso</th></tr>
+                  <tr><th>Número</th><th>Tarea</th><th>Urgencia</th><th>Impacto</th><th>Dependencia</th><th>Límite</th><th>Responsable</th><th>Riesgo por retraso</th></tr>
                 </thead>
                 <tbody>
                   <tr><td>1</td><td>Responder consulta de seguridad industrial sobre señalización N-14</td><td>Alta</td><td>Alto</td><td>Ninguna</td><td>Hoy 11:00</td><td>Coordinador de zona</td><td>Alto</td></tr>
@@ -4093,6 +4107,473 @@
     ].join("\n");
   }
 
+  /** Prompt Reto 6: generación de informe HTML de priorización (Excel solo como fuente). */
+  function buildPromptR6Text(f) {
+    const bracket = (v) => "[[" + (v || "") + "]]";
+    return [
+      "PROMPT CONFIGURABLE PARA COPILOT",
+      "GENERACIÓN DE INFORME HTML",
+      "",
+      "CASO",
+      "",
+      "MCP-365-P06 · Priorización operativa de tareas.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "1. CONFIGURACIÓN",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "ROL DE COPILOT",
+      "",
+      bracket(f.rol),
+      "",
+      "FUENTE ÚNICA",
+      "",
+      bracket(f.fuente),
+      "",
+      "OBJETIVO",
+      "",
+      bracket(f.objetivo),
+      "",
+      "NIVELES DE PRIORIDAD",
+      "",
+      bracket("\n" + (f.niveles || "") + "\n"),
+      "",
+      "CRITERIOS DE PRIORIZACIÓN",
+      "",
+      bracket("\n" + (f.criterios || "") + "\n"),
+      "",
+      "CLASIFICACIÓN DE DELEGACIÓN",
+      "",
+      bracket("\n" + (f.delegacion || "") + "\n"),
+      "",
+      "CRITERIO HUMANO",
+      "",
+      bracket("\n" + (f.criterio_humano || "") + "\n"),
+      "",
+      "RESPUESTA CUANDO FALTE INFORMACIÓN",
+      "",
+      bracket(f.vacio),
+      "",
+      "NOMBRE DEL ARCHIVO DE SALIDA",
+      "",
+      bracket(f.salida),
+      "",
+      "PALETA VISUAL",
+      "",
+      bracket("\n" + (f.paleta || "") + "\n"),
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "2. TAREA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Analiza exclusivamente:",
+      "",
+      "MCP365_P06_Base_priorizacion_tareas.xlsx",
+      "",
+      "Extrae exactamente las diez tareas.",
+      "",
+      "Conserva literalmente los datos fuente:",
+      "",
+      "* Tarea.",
+      "* Urgencia.",
+      "* Impacto.",
+      "* Dependencia.",
+      "* Límite.",
+      "* Responsable.",
+      "* Riesgo por retraso.",
+      "",
+      "No modifiques esos campos.",
+      "",
+      "No inventes fechas.",
+      "",
+      "No conviertas “Hoy”, “Mañana” o “Viernes” en fechas de calendario.",
+      "",
+      "No inventes horas diferentes de las registradas.",
+      "",
+      "No cambies los responsables.",
+      "",
+      "No asignes personas nuevas.",
+      "",
+      "Genera un único archivo HTML llamado:",
+      "",
+      "MCP365_P06_Priorizacion_completada.html",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "3. CRITERIOS DE PRIORIZACIÓN",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Evalúa cada tarea considerando, en este orden:",
+      "",
+      "1. Límite.",
+      "2. Urgencia.",
+      "3. Impacto.",
+      "4. Riesgo por retraso.",
+      "5. Dependencia.",
+      "6. Necesidad de criterio humano.",
+      "",
+      "Utiliza:",
+      "",
+      "P1 · CRÍTICA",
+      "",
+      "Para tareas que combinen límite inmediato, urgencia alta, impacto alto o riesgo alto.",
+      "",
+      "P2 · ALTA",
+      "",
+      "Para tareas que deban atenderse pronto por su impacto, dependencia o proximidad del límite.",
+      "",
+      "P3 · MEDIA",
+      "",
+      "Para tareas importantes que pueden programarse después de las críticas y altas.",
+      "",
+      "P4 · PROGRAMABLE",
+      "",
+      "Para tareas de urgencia, impacto y riesgo bajos con un límite posterior.",
+      "",
+      "La clasificación debe ser explicable.",
+      "",
+      "No utilices únicamente el orden original de las filas.",
+      "",
+      "No asignes prioridad alta a todas las tareas.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "4. ORDEN DE EJECUCIÓN",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Asigna un orden del 1 al 10.",
+      "",
+      "El número 1 representa la tarea que debe atenderse primero.",
+      "",
+      "Para cada tarea explica brevemente la razón de su posición.",
+      "",
+      "La justificación debe citar los datos de la fuente, por ejemplo:",
+      "",
+      "* Límite hoy.",
+      "* Urgencia alta.",
+      "* Impacto alto.",
+      "* Riesgo alto.",
+      "* Dependencia pendiente.",
+      "* Decisión de comité.",
+      "* Revisión especializada.",
+      "",
+      "No inventes riesgos adicionales.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "5. AGENDA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Distribuye las tareas en:",
+      "",
+      "* Hoy.",
+      "* Mañana.",
+      "* Viernes.",
+      "",
+      "Conserva el límite original.",
+      "",
+      "Si una tarea vence mañana temprano y necesita preparación hoy, puedes escribir:",
+      "",
+      "“Preparar hoy y finalizar antes del límite registrado.”",
+      "",
+      "Esto es una recomendación operativa, no una modificación del límite.",
+      "",
+      "No asignes una hora nueva.",
+      "",
+      "No cambies una tarea de día sin explicar que se trata de preparación anticipada.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "6. DELEGACIÓN",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Clasifica cada tarea como:",
+      "",
+      "SÍ",
+      "",
+      "La actividad puede ser ejecutada por el responsable indicado o por apoyo operativo sin trasladar una decisión sensible.",
+      "",
+      "PARCIAL",
+      "",
+      "Puede delegarse la recopilación, preparación, organización o redacción inicial, pero la revisión o decisión final necesita criterio humano.",
+      "",
+      "NO",
+      "",
+      "La tarea exige conocimiento especializado, aprobación, decisión de comité, evaluación de riesgos, seguridad, ambiente o responsabilidad no transferible.",
+      "",
+      "La delegación sugerida no cambia el responsable registrado en la fuente.",
+      "",
+      "No inventes un nuevo delegado.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "7. CRITERIO HUMANO",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Marca “Sí” cuando la tarea involucre:",
+      "",
+      "* Seguridad industrial.",
+      "* Permisos ambientales.",
+      "* Evaluación de riesgos.",
+      "* Decisiones ejecutivas.",
+      "* Reprogramaciones.",
+      "* Decisiones de comité.",
+      "* Comunicación externa que necesite aprobación.",
+      "* Interpretación de información incompleta.",
+      "* Aceptación formal de consecuencias.",
+      "",
+      "Marca “No” únicamente para actividades administrativas o rutinarias que puedan seguir reglas verificables.",
+      "",
+      "Incluye una justificación breve.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "8. ESTRUCTURA DEL HTML",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "El HTML debe contener:",
+      "",
+      "1. Encabezado corporativo.",
+      "2. Resumen ejecutivo.",
+      "3. Tarjetas de indicadores.",
+      "4. Agenda sugerida.",
+      "5. Matriz de priorización.",
+      "6. Sección de delegación.",
+      "7. Sección de criterio humano.",
+      "8. Validación humana vacía.",
+      "9. Control de calidad vacío.",
+      "10. Nota de fuente y uso formativo.",
+      "",
+      "INDICADORES",
+      "",
+      "Calcula automáticamente con JavaScript:",
+      "",
+      "* Total de tareas.",
+      "* Tareas para atender hoy.",
+      "* Prioridades críticas.",
+      "* Tareas delegables.",
+      "* Tareas parcialmente delegables.",
+      "* Tareas con criterio humano.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "9. MATRIZ DE PRIORIZACIÓN",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Incluye estas columnas:",
+      "",
+      "* Orden.",
+      "* Tarea.",
+      "* Urgencia.",
+      "* Impacto.",
+      "* Dependencia.",
+      "* Límite.",
+      "* Responsable.",
+      "* Riesgo por retraso.",
+      "* Prioridad sugerida.",
+      "* Agenda sugerida.",
+      "* Delegable.",
+      "* Criterio humano.",
+      "* Justificación.",
+      "* Acción recomendada.",
+      "",
+      "Utiliza filtros funcionales para:",
+      "",
+      "* Buscar por texto.",
+      "* Prioridad.",
+      "* Agenda.",
+      "* Delegación.",
+      "* Criterio humano.",
+      "",
+      "Muestra un contador de resultados visibles.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "10. DISEÑO VISUAL",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "El informe debe tener apariencia corporativa y profesional.",
+      "",
+      "Utiliza la paleta definida en la configuración.",
+      "",
+      "Utiliza:",
+      "",
+      "`font-family: Aptos, Calibri, \"Segoe UI\", Arial, sans-serif;`",
+      "",
+      "Incluye:",
+      "",
+      "* Tarjetas.",
+      "* Chips de estado.",
+      "* Bordes suaves.",
+      "* Sombra ligera.",
+      "* Tablas legibles.",
+      "* Encabezados fijos.",
+      "* Ajuste para dispositivos móviles.",
+      "* Estilos de impresión.",
+      "",
+      "No utilices una página blanca con texto suelto.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "11. INTERACTIVIDAD",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Incluye botones funcionales:",
+      "",
+      "* Imprimir / guardar como PDF: debe ejecutar `window.print()`.",
+      "* Descargar HTML.",
+      "* Restablecer filtros.",
+      "* Expandir o contraer secciones.",
+      "",
+      "El botón “Descargar HTML” debe usar JavaScript y `Blob`.",
+      "",
+      "Debe descargar:",
+      "",
+      "MCP365_P06_Priorizacion_completada.html",
+      "",
+      "El HTML debe funcionar sin conexión a Internet.",
+      "",
+      "No utilices:",
+      "",
+      "* CDN.",
+      "* Bootstrap.",
+      "* Tailwind.",
+      "* Chart.js.",
+      "* Google Fonts.",
+      "* Librerías externas.",
+      "* Recursos remotos.",
+      "",
+      "Incluye todo el CSS y JavaScript dentro del mismo archivo.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "12. VALIDACIÓN HUMANA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Incluye criterios para revisar:",
+      "",
+      "* La prioridad es razonable.",
+      "* Los límites coinciden con la fuente.",
+      "* Los responsables no fueron modificados.",
+      "* La delegación es viable.",
+      "* Las tareas sensibles conservan criterio humano.",
+      "* La agenda cabe dentro de la jornada.",
+      "",
+      "Deja completamente vacíos:",
+      "",
+      "* Resultado.",
+      "* Observación.",
+      "* Responsable.",
+      "* Fecha.",
+      "* Casillas.",
+      "",
+      "No escribas “Pendiente”.",
+      "",
+      "No escribas “No especificado”.",
+      "",
+      "No marques opciones.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "13. CONTROL DE CALIDAD",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Incluye estos criterios:",
+      "",
+      "* Se analizaron las diez tareas.",
+      "* No se inventaron fechas.",
+      "* No se inventaron horas.",
+      "* No se inventaron responsables.",
+      "* Los filtros funcionan.",
+      "* Los botones funcionan.",
+      "* El diseño es legible en móvil.",
+      "* La impresión conserva el contenido.",
+      "* No existen errores de JavaScript.",
+      "* El nombre del archivo es correcto.",
+      "",
+      "Deja las respuestas completamente vacías.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "14. REQUISITOS TÉCNICOS",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "El archivo debe incluir:",
+      "",
+      "* `<!DOCTYPE html>`.",
+      "* `<html lang=\"es\">`.",
+      "* Codificación UTF-8.",
+      "* Configuración viewport.",
+      "* CSS interno.",
+      "* JavaScript interno.",
+      "* Diseño responsive.",
+      "* Navegación accesible.",
+      "* Estados de foco.",
+      "* Estilos `@media print`.",
+      "* Protección de textos para que no se interpreten como código.",
+      "",
+      "No debe requerir Internet.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "15. ENTREGA",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Si puedes crear archivos, entrega directamente:",
+      "",
+      "MCP365_P06_Priorizacion_completada.html",
+      "",
+      "Si no puedes adjuntar el archivo, entrega todo el código dentro de un único bloque:",
+      "",
+      "```html",
+      "<!DOCTYPE html>",
+      "...",
+      "</html>",
+      "```",
+      "",
+      "En ese caso:",
+      "",
+      "* No dividas el código.",
+      "* No utilices puntos suspensivos.",
+      "* No agregues explicaciones.",
+      "* No omitas secciones.",
+      "* No entregues Markdown adicional.",
+      "* Entrega un HTML completo y funcional.",
+      "",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "16. VERIFICACIÓN FINAL",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+      "Antes de entregar, comprueba:",
+      "",
+      "1. Se analizaron exactamente diez tareas.",
+      "2. Los datos fuente permanecen sin cambios.",
+      "3. El orden va del 1 al 10.",
+      "4. Las prioridades no son todas iguales.",
+      "5. La agenda utiliza Hoy, Mañana y Viernes.",
+      "6. No se inventaron fechas ni horas.",
+      "7. No se modificaron responsables.",
+      "8. Cada tarea tiene justificación.",
+      "9. Cada tarea tiene acción recomendada.",
+      "10. Cada tarea tiene clasificación de delegación.",
+      "11. Cada tarea indica si necesita criterio humano.",
+      "12. Los indicadores se calculan automáticamente.",
+      "13. La búsqueda funciona.",
+      "14. Los cuatro filtros funcionan.",
+      "15. El contador se actualiza.",
+      "16. Los botones funcionan.",
+      "17. El diseño responde en móvil.",
+      "18. El archivo funciona sin Internet.",
+      "19. Validación humana está vacía.",
+      "20. Control de calidad está vacío.",
+      "21. No existen errores en consola.",
+      "22. El nombre final es correcto.",
+      "",
+      "No finalices hasta corregir cualquier incumplimiento."
+    ].join("\n");
+  }
+
+  function getPromptR6Fields() {
+    const box = document.getElementById("promptConfig-r6");
+    const c = RETO_CASES.r6;
+    const out = {};
+    if (c && c.fields) c.fields.forEach(([k, , def]) => { out[k] = def; });
+    if (box) {
+      box.querySelectorAll("[data-reto-field]").forEach(el => {
+        out[el.getAttribute("data-reto-field")] = (el.value || "").trim();
+      });
+    }
+    return out;
+  }
+
   /* ========== RETO ENGINE (patrón S1·R1 reutilizable; R1 no se remonta) ========== */
   const RETO_CASES = {
   "r2": {
@@ -4273,96 +4754,52 @@
   "r6": {
     "id": "r6",
     "title": "Priorización del trabajo",
-    "apps": [
-      "Excel"
-    ],
+    "apps": ["Excel", "Copilot", "HTML"],
     "email": false,
-    "planilla": {
-      "key": "priorizacion",
-      "label": "Descargar base del ejercicio (Excel)"
-    },
-    "output": "MCP365_P06_Priorizacion_completada.xlsx",
+    "planilla": {"key": "priorizacion", "label": "Descargar base Excel (10 tareas)"},
+    "output": "MCP365_P06_Priorizacion_completada.html",
     "steps": [
-      "Descarga la <strong>base del ejercicio</strong> (10 tareas).",
-      "Ábrela en <strong>Excel → Copilot</strong>.",
-      "Ajusta el prompt (horizonte de agenda, criterios de delegación) y cópialo.",
-      "Clasifica por urgencia/impacto, propone agenda de hoy y mañana, marca delegables vs criterio humano.",
-      "No inventes fechas ni responsables nuevos.",
-      "Guarda como <code>MCP365_P06_Priorizacion_completada.xlsx</code>.",
-      "Después: prioriza tu propia lista de tareas del día (sin datos sensibles)."
+      "Descarga la base oficial con las diez tareas.",
+      "Abre Copilot Chat y adjunta el archivo Excel. No necesitas modificarlo.",
+      "Revisa y ajusta los campos configurables del prompt.",
+      "Copia y ejecuta el prompt completo.",
+      "Copilot clasifica, agenda (hoy/mañana/viernes), delegación y criterio humano.",
+      "Guarda como <code>MCP365_P06_Priorizacion_completada.html</code> y verifica en el navegador.",
+      "Validación humana y control de calidad los completa la persona."
     ],
     "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Asistente de priorización operativa que propone agendas realistas."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "Excel."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "Lista de 10 tareas del Reto 6 (tabla de la plataforma / planilla)."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Clasificar por urgencia e impacto; proponer agenda hoy/mañana; marcar delegables y tareas de criterio humano."
-      ],
-      [
-        "archivo",
-        "Archivo que se debe completar",
-        "MCP365_P06 planilla de priorización."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Validación humana.\nControl de calidad.\nDecisiones finales de priorización (las confirma la persona)."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "detalle",
-        "Nivel de detalle",
-        "Agenda por bloques de tiempo; explicar supuestos brevemente."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_P06_Priorizacion_completada.xlsx."
-      ]
+      ["rol", "Rol de Copilot", "Asistente de operaciones especializado en priorización, planificación del trabajo, análisis de dependencias, delegación responsable y gestión de riesgos."],
+      ["fuente", "Fuente única", "MCP365_P06_Base_priorizacion_tareas.xlsx — base oficial con diez tareas y los campos Tarea, Urgencia, Impacto, Dependencia, Límite, Responsable y Riesgo por retraso."],
+      ["objetivo", "Objetivo", "Ordenar las diez tareas, proponer una agenda para hoy, mañana y viernes, distinguir actividades delegables de decisiones que requieren criterio humano y generar un informe HTML interactivo."],
+      ["niveles", "Niveles de prioridad", "P1 · Crítica.\nP2 · Alta.\nP3 · Media.\nP4 · Programable."],
+      ["criterios", "Criterios de priorización", "1. Límite.\n2. Urgencia.\n3. Impacto.\n4. Riesgo por retraso.\n5. Dependencia.\n6. Necesidad de criterio humano."],
+      ["delegacion", "Categorías de delegación", "Sí.\nParcial.\nNo."],
+      ["criterio_humano", "Reglas de criterio humano", "Sí: seguridad industrial, permisos ambientales, evaluación de riesgos, decisiones ejecutivas, reprogramaciones, decisiones de comité, comunicación externa con aprobación, información incompleta, aceptación formal de consecuencias.\nNo: solo actividades administrativas o rutinarias con reglas verificables."],
+      ["vacio", "Respuesta para datos ausentes", "No especificado."],
+      ["salida", "Nombre del archivo de salida", "MCP365_P06_Priorizacion_completada.html."],
+      ["paleta", "Paleta visual", "Azul oscuro: #211D40.\nMorado: #4B3FAA.\nAmarillo: #FFEC00.\nAzul grisáceo: #E7EDF5.\nFondo: #F5F7FA.\nVerde: #D9EAD3.\nAmarillo de pendiente: #FFF2CC.\nRojo de alerta: #F4CCCC.\nTexto: #25283A."]
     ],
     "checklist": [
-      [
-        "r6-c1",
-        "Planilla con las 10 tareas descargada"
-      ],
-      [
-        "r6-c2",
-        "Agenda hoy/mañana propuesta sin inventar responsables"
-      ],
-      [
-        "r6-c3",
-        "Delegables vs criterio humano marcados"
-      ],
-      [
-        "r6-c4",
-        "Validación humana y control de calidad sin completar por Copilot"
-      ],
-      [
-        "r6-c5",
-        "Práctica propia con mi lista real de tareas"
-      ]
+      ["r6-c1", "Descargué la base Excel"],
+      ["r6-c2", "Confirmé que contiene diez tareas"],
+      ["r6-c3", "Adjunté el Excel a Copilot"],
+      ["r6-c4", "Copié el prompt completo"],
+      ["r6-c5", "Recibí un HTML completo"],
+      ["r6-c6", "El HTML abre en el navegador"],
+      ["r6-c7", "Se analizaron las diez tareas"],
+      ["r6-c8", "Se conservan límites y responsables"],
+      ["r6-c9", "La agenda distingue hoy, mañana y viernes"],
+      ["r6-c10", "La delegación está clasificada"],
+      ["r6-c11", "El criterio humano está identificado"],
+      ["r6-c12", "Los filtros funcionan"],
+      ["r6-c13", "Los botones funcionan"],
+      ["r6-c14", "La validación humana está vacía"],
+      ["r6-c15", "El control de calidad está vacío"],
+      ["r6-c16", "El archivo se llama correctamente"]
     ],
-    "practice_title": "Al terminar el caso · Prioriza tu propia jornada",
-    "practice": "Exporta o escribe 8–12 tareas reales de tu día (sin información confidencial). Cambia fuente, objetivo y salida. Conserva urgencia/impacto y la distinción delegable vs humano. Guarda como MCP365_P06_Priorizacion_[tu-fecha]_completada.xlsx.",
-    "deliverable": "Entregable del caso: MCP365_P06_Priorizacion_completada.xlsx con agenda y delegación. Validación humana y control de calidad vacíos."
+    "practice_title": "Al terminar el caso · Práctica personal de priorización",
+    "practice": "Después de terminar el caso, abre: <code>MCP365_P06_Practica_personal_priorizacion.html</code>.<br><br>Registra una lista anonimizada de tus tareas del día.<br><br>No incluyas nombres personales, datos de clientes, información contractual reservada, credenciales, datos financieros sensibles ni identificadores internos.<br><br>La herramienta funciona localmente y elimina las tareas al cerrar la pestaña.<br><br>Revisa personalmente la prioridad sugerida, la posibilidad de delegar y las tareas que necesitan criterio humano.",
+    "deliverable": "Entregable del caso: <code>MCP365_P06_Priorizacion_completada.html</code>. Informe HTML interactivo con resumen ejecutivo, agenda sugerida, matriz de priorización, clasificación de delegación y criterio humano. Validación humana y control de calidad vacíos."
   },
   "fase-1": {
     "id": "fase-1",
@@ -4925,6 +5362,7 @@
     if (caseId === "r3") return buildPromptR3Text(getPromptR3Fields());
     if (caseId === "r4") return buildPromptR4Text(getPromptR4Fields());
     if (caseId === "r5") return buildPromptR5Text(getPromptR5Fields());
+    if (caseId === "r6") return buildPromptR6Text(getPromptR6Fields());
     const c = RETO_CASES[caseId];
     if (!c) return "";
     const box = document.getElementById("promptConfig-" + caseId);
@@ -4993,6 +5431,7 @@
       <div class="btn-group" style="margin:0.5rem 0 1rem;flex-wrap:wrap;gap:0.5rem">
         <button class="btn btn--sm btn--secondary" data-copy="#prompt-${caseId}" type="button"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt</button>
         <button class="btn btn--sm btn--ghost" type="button" data-rebuild-prompt="${caseId}"><i data-lucide="refresh-cw" width="16" height="16"></i> Regenerar desde campos</button>
+        <button class="btn btn--sm btn--ghost" type="button" data-reset-prompt="${caseId}"><i data-lucide="rotate-ccw" width="16" height="16"></i> Restablecer valores predeterminados</button>
       </div>`;
   }
 
@@ -5051,6 +5490,23 @@
         const id = btn.getAttribute("data-rebuild-prompt");
         refreshPromptCase(id);
         toast("Prompt regenerado desde los campos", "refresh-cw");
+      });
+    });
+    document.querySelectorAll("[data-reset-prompt]").forEach(btn => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = "1";
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-reset-prompt");
+        const c = RETO_CASES[id];
+        const box = document.getElementById("promptConfig-" + id);
+        if (c && c.fields && box) {
+          c.fields.forEach(([key, , def]) => {
+            const el = box.querySelector('[data-reto-field="' + key + '"]');
+            if (el) el.value = def || "";
+          });
+        }
+        refreshPromptCase(id);
+        toast("Valores predeterminados restablecidos", "rotate-ccw");
       });
     });
     document.querySelectorAll("[data-reto-email]").forEach(btn => {
@@ -5504,40 +5960,22 @@
       "PRO-OPS-12_Version_4_0.docx"
     ),
 
-    "priorizacion": () => downloadWord("MCP365_P06_Priorizacion_jornada.doc", "Priorización de jornada laboral", "MCP-365-P06", "Excel + Copilot", `
-      <h2>1. Contexto de la jornada</h2>
-      <table class="data">
-        <tr><th>Campo</th><th>Dato</th></tr>
-        <tr><td>Fecha de la jornada</td><td></td></tr>
-        <tr><td>Horas disponibles reales</td><td></td></tr>
-        <tr><td>Restricciones (reuniones fijas, turnos)</td><td></td></tr>
-      </table>
-      <h2>2. Inventario de tareas (completa con Copilot y ajusta)</h2>
-      <table class="data">
-        <tr><th>#</th><th>Tarea</th><th>Urgencia</th><th>Impacto</th><th>Dependencia</th><th>Límite</th><th>Responsable</th><th>Riesgo</th><th>Prioridad 1-10</th><th>¿Delegable?</th><th>¿Criterio humano?</th><th>Bloque agenda</th></tr>
-        <tr><td>1</td><td>Responder consulta de seguridad industrial sobre señalización N-14</td><td>Alta</td><td>Alto</td><td>Ninguna</td><td>Hoy 11:00</td><td>Coordinador de zona</td><td>Alto</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>2</td><td>Revisar borrador de cronograma Proyecto Horizonte</td><td>Media</td><td>Alto</td><td>Datos contratista</td><td>Hoy 17:00</td><td>Líder de proyecto</td><td>Medio</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>3</td><td>Actualizar registro de riesgos (semana 12)</td><td>Media</td><td>Alto</td><td>Informe de campo</td><td>Mañana 12:00</td><td>Líder de proyecto</td><td>Medio</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>4</td><td>Agendar reunión con junta comunal</td><td>Alta</td><td>Medio</td><td>Sala</td><td>Hoy 15:00</td><td>Asistente administrativo</td><td>Bajo</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>5</td><td>Preparar resumen ejecutivo para comité</td><td>Alta</td><td>Alto</td><td>KPI avance</td><td>Mañana 09:00</td><td>Líder de proyecto</td><td>Alto</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>6</td><td>Ordenar carpetas SharePoint del expediente</td><td>Baja</td><td>Bajo</td><td>Ninguna</td><td>Viernes 17:00</td><td>Practicante</td><td>Bajo</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>7</td><td>Validar estado de permiso ambiental</td><td>Alta</td><td>Alto</td><td>Área jurídica</td><td>Hoy 16:00</td><td>Especialista HSE</td><td>Alto</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>8</td><td>Redactar mensaje formal a proveedor de equipo principal</td><td>Media</td><td>Medio</td><td>Confirmación fecha</td><td>Hoy 16:00</td><td>Compras</td><td>Medio</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>9</td><td>Revisar facturas menores de logística</td><td>Baja</td><td>Bajo</td><td>Ninguna</td><td>Viernes 12:00</td><td>Finanzas</td><td>Bajo</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>10</td><td>Definir escenario de reprogramación para comité</td><td>Alta</td><td>Alto</td><td>Análisis impacto</td><td>Mañana 14:00</td><td>Comité directivo</td><td>Alto</td><td></td><td>☐ Sí ☐ No</td><td>☐ Sí ☐ No</td><td></td></tr>
-      </table>
-      <h2>3. Agenda propuesta</h2>
-      <table class="data">
-        <tr><th>Bloque</th><th>Horario</th><th>Tareas (#)</th><th>Resultado esperado</th></tr>
-        <tr><td>Mañana temprana</td><td></td><td></td><td></td></tr>
-        <tr><td>Media mañana</td><td></td><td></td><td></td></tr>
-        <tr><td>Tarde</td><td></td><td></td><td></td></tr>
-        <tr><td>Cierre / buffer</td><td></td><td></td><td></td></tr>
-      </table>
-      <h2>4. Decisiones que NO debe tomar Copilot</h2>
-      <div class="box"></div>`),
+    "priorizacion": () => downloadStaticFile(
+      "planillas/MCP365_P06_Base_priorizacion_tareas.xlsx",
+      "MCP365_P06_Base_priorizacion_tareas.xlsx"
+    ),
 
-    "informe-ejecutivo": () => downloadWord("MCP365_P07_Informe_ejecutivo_proyecto.doc", "Informe ejecutivo de proyecto · Comité", "MCP-365-P07", "Word + PowerPoint + Copilot", `
+    "priorizacion-ref": () => downloadStaticFile(
+      "planillas/MCP365_P06_Priorizacion_completada.html",
+      "MCP365_P06_Priorizacion_completada.html"
+    ),
+
+    "priorizacion-practica": () => downloadStaticFile(
+      "planillas/MCP365_P06_Practica_personal_priorizacion.html",
+      "MCP365_P06_Practica_personal_priorizacion.html"
+    ),
+
+"informe-ejecutivo": () => downloadWord("MCP365_P07_Informe_ejecutivo_proyecto.doc", "Informe ejecutivo de proyecto · Comité", "MCP-365-P07", "Word + PowerPoint + Copilot", `
       <h2>1. Portada del informe</h2>
       <table class="data">
         <tr><th>Campo</th><th>Contenido</th></tr>
@@ -6093,7 +6531,9 @@
     { name: "PRO-OPS-12 v4.0 (PDF)", desc: "Fuente oficial vigente", key: "pro-ops-12-v40-pdf", type: "PDF" },
     { name: "PRO-OPS-12 v3.1 (Word)", desc: "Respaldo opcional", key: "pro-ops-12-v31-docx", type: "Word" },
     { name: "PRO-OPS-12 v4.0 (Word)", desc: "Respaldo opcional", key: "pro-ops-12-v40-docx", type: "Word" },
-    { name: "Priorización de jornada", desc: "Excel/Word · 10 tareas, agenda y criterio humano", key: "priorizacion", type: "Word" },
+    { name: "Base priorización P06", desc: "Excel · Diez tareas fuente (no completar)", key: "priorizacion", type: "Excel" },
+    { name: "Priorización P06 (referencia HTML)", desc: "HTML · Referencia de calidad del informe", key: "priorizacion-ref", type: "HTML" },
+    { name: "Práctica personal priorización", desc: "HTML · Lista local anonimizada (se borra al cerrar)", key: "priorizacion-practica", type: "HTML" },
     { name: "Informe ejecutivo", desc: "Word/PowerPoint · 10 bloques para comité", key: "informe-ejecutivo", type: "Word" },
     { name: "Registro de riesgos", desc: "Excel/Word · Matriz con IDs y escalamiento", key: "registro-riesgos", type: "Word" },
     { name: "Matriz RACI", desc: "Excel/Word · Roles, aceptación y chequeos", key: "raci", type: "Word" },

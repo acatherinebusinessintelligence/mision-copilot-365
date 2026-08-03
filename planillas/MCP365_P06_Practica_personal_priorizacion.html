@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP-365-P06 · Práctica personal de priorización</title>
+<style>
+:root {
+  --navy: #211D40;
+  --purple: #4B3FAA;
+  --yellow: #FFEC00;
+  --bluegray: #E7EDF5;
+  --bg: #F5F7FA;
+  --green: #D9EAD3;
+  --amber: #FFF2CC;
+  --red: #F4CCCC;
+  --text: #25283A;
+  --white: #FFFFFF;
+  --border: #d0d7e2;
+  --shadow: 0 2px 10px rgba(33, 29, 64, 0.08);
+  --radius: 10px;
+  --font: Aptos, Calibri, "Segoe UI", Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.45;
+}
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px 40px; }
+.header {
+  background: var(--navy);
+  color: var(--white);
+  padding: 22px 0 0;
+}
+.header-inner { max-width: 1100px; margin: 0 auto; padding: 0 16px 18px; }
+.header h1 {
+  margin: 0 0 6px;
+  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+  color: var(--white);
+}
+.header .sub { margin: 0 0 12px; color: var(--bluegray); font-size: 0.92rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.12);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.22);
+}
+.chip--yellow { background: var(--yellow); color: var(--navy); border-color: transparent; }
+.chip--amber { background: var(--amber); color: var(--text); border-color: transparent; }
+.chip--green { background: var(--green); color: var(--navy); border-color: transparent; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.band {
+  background: var(--purple);
+  color: var(--white);
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--yellow);
+  color: var(--navy);
+}
+.btn:hover { filter: brightness(0.96); }
+.btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+.btn--ghost {
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255,255,255,0.35);
+}
+.btn--ghost:hover { background: rgba(255,255,255,0.08); }
+.btn--danger { background: var(--red); color: var(--text); }
+.btn--purple { background: var(--purple); color: var(--white); }
+.btn--sm { padding: 6px 10px; font-size: 0.82rem; }
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  margin: 18px 0;
+}
+.card h2 { margin: 0 0 6px; font-size: 1.1rem; color: var(--navy); }
+.lead { margin: 0 0 14px; color: #4a5060; font-size: 0.9rem; }
+.privacy {
+  background: var(--amber);
+  border: 1px solid #e6d89a;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.88rem;
+  margin-bottom: 14px;
+}
+.privacy strong { color: var(--navy); }
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.form-grid .full { grid-column: 1 / -1; }
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #4a5060;
+}
+input, select, textarea {
+  font: inherit;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--text);
+}
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 1px;
+}
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.kpi {
+  background: var(--bluegray);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+.kpi .val { display: block; font-size: 1.45rem; font-weight: 700; color: var(--navy); }
+.kpi .lab { display: block; font-size: 0.72rem; margin-top: 4px; color: #4a5060; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 900px; }
+thead th {
+  background: var(--purple);
+  color: var(--white);
+  text-align: left;
+  padding: 9px 8px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+tbody td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  background: var(--white);
+}
+tbody tr:nth-child(even) td { background: #fafbfd; }
+.empty-msg {
+  padding: 18px;
+  text-align: center;
+  color: #5a6170;
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px dashed var(--border);
+}
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.badge-p1 { background: var(--red); }
+.badge-p2 { background: var(--amber); }
+.badge-p3 { background: var(--bluegray); color: var(--navy); }
+.badge-p4 { background: var(--green); color: var(--navy); }
+.rules {
+  font-size: 0.85rem;
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.rules ul { margin: 6px 0 0; padding-left: 18px; }
+.note {
+  margin-top: 8px;
+  padding: 12px 14px;
+  background: var(--bluegray);
+  border-radius: 8px;
+  font-size: 0.88rem;
+}
+@media (max-width: 720px) {
+  .form-grid, .kpi-grid { grid-template-columns: 1fr; }
+}
+@media print {
+  .actions, .form-actions, .no-print { display: none !important; }
+  body { background: #fff; }
+  .card { box-shadow: none; }
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <h1>MCP-365-P06 · Práctica personal de priorización</h1>
+    <p class="sub">Herramienta local · sin servicios externos · datos solo en esta pestaña</p>
+    <div class="chips">
+      <span class="chip chip--yellow">Práctica personal</span>
+      <span class="chip chip--amber">sessionStorage</span>
+      <span class="chip chip--green">Sin Internet</span>
+      <span class="chip">Anonimizado</span>
+    </div>
+    <div class="actions no-print">
+      <button type="button" class="btn" id="btnPrint">Imprimir</button>
+      <button type="button" class="btn" id="btnDownload">Descargar HTML de mi lista</button>
+      <button type="button" class="btn btn--ghost" id="btnSuggest">Sugerir prioridades</button>
+      <button type="button" class="btn btn--ghost btn--danger" id="btnClear" style="border-color:rgba(255,255,255,0.35)">Vaciar todo</button>
+    </div>
+  </div>
+  <div class="band">Agrega tareas anonimizadas. Al cerrar la pestaña se borran (sessionStorage).</div>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <h2>Privacidad</h2>
+    <div class="privacy">
+      <strong>No registres datos personales, de clientes, ni información sensible.</strong>
+      Usa descripciones genéricas (p. ej. “Revisar informe semanal”, “Confirmar reunión de equipo”).
+      Los datos viven solo en memoria / <code>sessionStorage</code> de esta pestaña: al cerrarla se eliminan.
+      No hay envío a servidores ni almacenamiento persistente.
+    </div>
+  </section>
+
+  <section class="card no-print">
+    <h2>Agregar tarea</h2>
+    <p class="lead">Completa los campos y pulsa Agregar. Luego puedes sugerir prioridades con reglas locales.</p>
+    <form id="taskForm" autocomplete="off">
+      <div class="form-grid">
+        <label class="full">Tarea
+          <input type="text" id="fTarea" required maxlength="200" placeholder="Descripción anonimizada">
+        </label>
+        <label>Urgencia
+          <select id="fUrgencia" required>
+            <option value="Alta">Alta</option>
+            <option value="Media" selected>Media</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </label>
+        <label>Impacto
+          <select id="fImpacto" required>
+            <option value="Alto">Alto</option>
+            <option value="Medio" selected>Medio</option>
+            <option value="Bajo">Bajo</option>
+          </select>
+        </label>
+        <label>Dependencia
+          <input type="text" id="fDependencia" maxlength="120" placeholder="Ninguna / área / dato pendiente">
+        </label>
+        <label>Límite
+          <input type="text" id="fLimite" maxlength="80" placeholder="Hoy 14:00 / Mañana / Viernes…">
+        </label>
+        <label>Responsable (rol genérico)
+          <input type="text" id="fResponsable" maxlength="80" placeholder="Ej. Analista, Coordinador">
+        </label>
+        <label>Riesgo por retraso
+          <select id="fRiesgo" required>
+            <option value="Alto">Alto</option>
+            <option value="Medio" selected>Medio</option>
+            <option value="Bajo">Bajo</option>
+          </select>
+        </label>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn">Agregar</button>
+        <button type="button" class="btn btn--purple" id="btnSuggest2">Sugerir prioridades</button>
+        <button type="button" class="btn btn--sm" id="btnClear2" style="background:var(--red)">Vaciar todo</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Indicadores</h2>
+    <div class="kpi-grid">
+      <div class="kpi"><span class="val" id="kpiTotal">0</span><span class="lab">Total</span></div>
+      <div class="kpi"><span class="val" id="kpiP1">0</span><span class="lab">P1 críticas</span></div>
+      <div class="kpi"><span class="val" id="kpiHoy">0</span><span class="lab">Con límite Hoy</span></div>
+      <div class="kpi"><span class="val" id="kpiAlto">0</span><span class="lab">Riesgo alto</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Mi lista de priorización</h2>
+    <p class="lead">Empieza vacía. Orden y prioridad se calculan al pulsar “Sugerir prioridades”.</p>
+    <div id="listArea">
+      <div class="empty-msg" id="emptyMsg">Aún no hay tareas. Agrega la primera arriba.</div>
+      <div class="table-wrap" id="tableWrap" hidden>
+        <table>
+          <thead>
+            <tr>
+              <th>Orden</th>
+              <th>Tarea</th>
+              <th>Urgencia</th>
+              <th>Impacto</th>
+              <th>Dependencia</th>
+              <th>Límite</th>
+              <th>Responsable</th>
+              <th>Riesgo</th>
+              <th>Prioridad</th>
+              <th class="no-print">Quitar</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Reglas de sugerencia (cliente)</h2>
+    <div class="rules">
+      Prioridad sugerida solo en el navegador:
+      <ul>
+        <li><strong>P1</strong> — Urgencia Alta y (Impacto Alto o Riesgo Alto), o límite que contenga “Hoy” con riesgo Alto.</li>
+        <li><strong>P2</strong> — Urgencia Alta, o Impacto Alto, o límite con “Hoy” / “Mañana”.</li>
+        <li><strong>P3</strong> — Urgencia Media o Impacto Medio o Riesgo Medio.</li>
+        <li><strong>P4</strong> — Resto (urgencia/impacto/riesgo bajos o límite lejano).</li>
+      </ul>
+      El orden se obtiene ponderando límite inmediato, urgencia, impacto y riesgo. Es una guía, no una decisión aprobada.
+    </div>
+  </section>
+
+  <p class="note"><strong>MCP-365-P06</strong> · Práctica personal de priorización · uso formativo · sin datos sensibles · se limpia al cerrar la pestaña.</p>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var STORAGE_KEY = "mcp365_p06_practica_personal";
+  var tasks = [];
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function load() {
+    try {
+      var raw = sessionStorage.getItem(STORAGE_KEY);
+      tasks = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(tasks)) tasks = [];
+    } catch (e) {
+      tasks = [];
+    }
+  }
+
+  function save() {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    } catch (e) { /* cuota o modo privado */ }
+  }
+
+  function score(t) {
+    var s = 0;
+    var lim = (t.limite || "").toLowerCase();
+    if (lim.indexOf("hoy") !== -1) s += 40;
+    else if (lim.indexOf("mañana") !== -1 || lim.indexOf("manana") !== -1) s += 25;
+    else if (lim.indexOf("viernes") !== -1) s += 10;
+    if (t.urgencia === "Alta") s += 30;
+    else if (t.urgencia === "Media") s += 15;
+    if (t.impacto === "Alto") s += 25;
+    else if (t.impacto === "Medio") s += 12;
+    if (t.riesgo === "Alto") s += 25;
+    else if (t.riesgo === "Medio") s += 12;
+    return s;
+  }
+
+  function suggestPriority(t) {
+    var lim = (t.limite || "").toLowerCase();
+    var hoy = lim.indexOf("hoy") !== -1;
+    var manana = lim.indexOf("mañana") !== -1 || lim.indexOf("manana") !== -1;
+    if (
+      (t.urgencia === "Alta" && (t.impacto === "Alto" || t.riesgo === "Alto")) ||
+      (hoy && t.riesgo === "Alto")
+    ) return "P1";
+    if (t.urgencia === "Alta" || t.impacto === "Alto" || hoy || manana) return "P2";
+    if (t.urgencia === "Media" || t.impacto === "Medio" || t.riesgo === "Medio") return "P3";
+    return "P4";
+  }
+
+  function applySuggestions() {
+    tasks.forEach(function (t) {
+      t.prioridad = suggestPriority(t);
+      t._score = score(t);
+    });
+    tasks.sort(function (a, b) { return (b._score || 0) - (a._score || 0); });
+    tasks.forEach(function (t, i) { t.orden = i + 1; });
+    save();
+    render();
+  }
+
+  function badgePri(p) {
+    if (!p) return "—";
+    var c = p === "P1" ? "badge-p1" : p === "P2" ? "badge-p2" : p === "P3" ? "badge-p3" : "badge-p4";
+    return '<span class="badge ' + c + '">' + esc(p) + "</span>";
+  }
+
+  function updateKpis() {
+    document.getElementById("kpiTotal").textContent = String(tasks.length);
+    document.getElementById("kpiP1").textContent = String(
+      tasks.filter(function (t) { return t.prioridad === "P1"; }).length
+    );
+    document.getElementById("kpiHoy").textContent = String(
+      tasks.filter(function (t) {
+        return (t.limite || "").toLowerCase().indexOf("hoy") !== -1;
+      }).length
+    );
+    document.getElementById("kpiAlto").textContent = String(
+      tasks.filter(function (t) { return t.riesgo === "Alto"; }).length
+    );
+  }
+
+  function render() {
+    var empty = document.getElementById("emptyMsg");
+    var wrap = document.getElementById("tableWrap");
+    var tb = document.getElementById("tbody");
+    updateKpis();
+    if (!tasks.length) {
+      empty.hidden = false;
+      wrap.hidden = true;
+      tb.innerHTML = "";
+      return;
+    }
+    empty.hidden = true;
+    wrap.hidden = false;
+    var list = tasks.slice().sort(function (a, b) {
+      var oa = a.orden || 999;
+      var ob = b.orden || 999;
+      return oa - ob;
+    });
+    tb.innerHTML = list.map(function (t) {
+      return "<tr>" +
+        "<td>" + esc(t.orden || "—") + "</td>" +
+        "<td>" + esc(t.tarea) + "</td>" +
+        "<td>" + esc(t.urgencia) + "</td>" +
+        "<td>" + esc(t.impacto) + "</td>" +
+        "<td>" + esc(t.dependencia || "—") + "</td>" +
+        "<td>" + esc(t.limite || "—") + "</td>" +
+        "<td>" + esc(t.responsable || "—") + "</td>" +
+        "<td>" + esc(t.riesgo) + "</td>" +
+        "<td>" + badgePri(t.prioridad) + "</td>" +
+        "<td class=\"no-print\"><button type=\"button\" class=\"btn btn--sm\" data-rm=\"" +
+          esc(t.id) + "\" style=\"background:var(--red)\">Quitar</button></td>" +
+        "</tr>";
+    }).join("");
+  }
+
+  function addTask(ev) {
+    ev.preventDefault();
+    var tarea = (document.getElementById("fTarea").value || "").trim();
+    if (!tarea) return;
+    tasks.push({
+      id: String(Date.now()) + "-" + String(Math.random()).slice(2, 8),
+      tarea: tarea,
+      urgencia: document.getElementById("fUrgencia").value,
+      impacto: document.getElementById("fImpacto").value,
+      dependencia: (document.getElementById("fDependencia").value || "").trim() || "Ninguna",
+      limite: (document.getElementById("fLimite").value || "").trim(),
+      responsable: (document.getElementById("fResponsable").value || "").trim(),
+      riesgo: document.getElementById("fRiesgo").value,
+      prioridad: "",
+      orden: ""
+    });
+    save();
+    document.getElementById("taskForm").reset();
+    document.getElementById("fUrgencia").value = "Media";
+    document.getElementById("fImpacto").value = "Medio";
+    document.getElementById("fRiesgo").value = "Medio";
+    document.getElementById("fTarea").focus();
+    render();
+  }
+
+  function clearAll() {
+    if (!tasks.length) return;
+    if (!window.confirm("¿Vaciar todas las tareas de esta práctica?")) return;
+    tasks = [];
+    save();
+    render();
+  }
+
+  function downloadListHtml() {
+    var rows = tasks.slice().sort(function (a, b) {
+      return (a.orden || 999) - (b.orden || 999);
+    });
+    var bodyRows = rows.map(function (t) {
+      return "<tr><td>" + esc(t.orden || "") + "</td><td>" + esc(t.tarea) + "</td><td>" +
+        esc(t.urgencia) + "</td><td>" + esc(t.impacto) + "</td><td>" + esc(t.dependencia) +
+        "</td><td>" + esc(t.limite) + "</td><td>" + esc(t.responsable) + "</td><td>" +
+        esc(t.riesgo) + "</td><td>" + esc(t.prioridad || "") + "</td></tr>";
+    }).join("");
+    var html = "<!DOCTYPE html><html lang=\"es\"><head><meta charset=\"UTF-8\">" +
+      "<title>MCP365_P06_Practica_personal_lista</title>" +
+      "<style>body{font-family:Aptos,Calibri,\"Segoe UI\",Arial,sans-serif;color:#25283A;background:#F5F7FA;padding:24px}" +
+      "h1{color:#211D40}table{border-collapse:collapse;width:100%;background:#fff}" +
+      "th{background:#4B3FAA;color:#fff;padding:8px;text-align:left}td{border:1px solid #d0d7e2;padding:8px}" +
+      ".note{margin-top:16px;padding:12px;background:#E7EDF5;border-radius:8px}</style></head><body>" +
+      "<h1>MCP-365-P06 · Práctica personal (exportación)</h1>" +
+      "<p>Lista local anonimizada · " + esc(new Date().toISOString().slice(0, 10)) + "</p>" +
+      "<table><thead><tr><th>Orden</th><th>Tarea</th><th>Urgencia</th><th>Impacto</th>" +
+      "<th>Dependencia</th><th>Límite</th><th>Responsable</th><th>Riesgo</th><th>Prioridad</th></tr></thead>" +
+      "<tbody>" + (bodyRows || "<tr><td colspan=\"9\">Sin tareas</td></tr>") + "</tbody></table>" +
+      "<p class=\"note\">Uso formativo. No incluir datos personales ni sensibles.</p></body></html>";
+    var blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "MCP365_P06_Practica_personal_lista.html";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById("taskForm").addEventListener("submit", addTask);
+  document.getElementById("btnClear").addEventListener("click", clearAll);
+  document.getElementById("btnClear2").addEventListener("click", clearAll);
+  document.getElementById("btnSuggest").addEventListener("click", applySuggestions);
+  document.getElementById("btnSuggest2").addEventListener("click", applySuggestions);
+  document.getElementById("btnPrint").addEventListener("click", function () { window.print(); });
+  document.getElementById("btnDownload").addEventListener("click", downloadListHtml);
+  document.getElementById("tbody").addEventListener("click", function (ev) {
+    var btn = ev.target.closest("[data-rm]");
+    if (!btn) return;
+    var id = btn.getAttribute("data-rm");
+    tasks = tasks.filter(function (t) { return t.id !== id; });
+    save();
+    render();
+  });
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
