@@ -1494,57 +1494,78 @@
     <section id="sesion2" aria-labelledby="s2Title">
       <div class="container">
         <p class="section-kicker">Sesión 2</p>
-        <h2 class="section-title" id="s2Title">Copilot para la gestión inteligente de proyectos</h2>
-        <p class="lead">Integrar información de distintas fuentes con Copilot en Word, Excel, Teams y PowerPoint para comprender, estructurar, analizar y comunicar un proyecto empresarial.</p>
+        <h2 class="section-title" id="s2Title">Copilot y Power Automate para la gestión inteligente de proyectos</h2>
+        <p class="lead">Automatiza el ciclo de un proyecto empresarial combinando Copilot, Power Automate, Outlook, Word, Excel, SharePoint, Teams y PowerPoint.</p>
+        <p class="lead">La sesión comienza con la recepción de un correo que contiene la solicitud y la ficha inicial de un proyecto. A partir de esta información, los participantes construirán un flujo que almacenará los documentos, extraerá y estructurará los datos, registrará el proyecto, consolidará el presupuesto, analizará los riesgos, generará un informe, solicitará aprobación humana y preparará una presentación ejecutiva.</p>
+        <p class="lead">Cada reto utilizará los resultados del reto anterior. El objetivo no es practicar aplicaciones por separado, sino comprender cómo se conectan para gestionar un proyecto de principio a fin.</p>
+
         <div class="disclaimer disclaimer--info">
           <i data-lucide="info" width="18" height="18"></i>
-          <span><strong>Caso de capacitación operativa.</strong> Los documentos simulan un expediente real de proyecto. Descarga las planillas, trabaja en Microsoft 365 y valida cada salida de Copilot antes de usarla.</span>
+          <span><strong>Caso transversal · Proyecto Horizonte.</strong> Power Automate es la columna vertebral. Copilot estructura y redacta; la aprobación humana nunca la completa Copilot.</span>
         </div>
+
         <label class="principle" style="margin:1rem 0;cursor:pointer">
           <input type="checkbox" data-progress="s2-done" />
-          <span><strong>Marcar Sesión 2 como finalizada</strong> al completar las fases del caso.</span>
+          <span><strong>Marcar Sesión 2 como finalizada</strong> al completar los seis retos encadenados.</span>
         </label>
 
         <div class="card" style="margin:1.5rem 0">
-          <h3>Proyecto Horizonte · Modernización de infraestructura energética urbana</h3>
-          <p>La Dirección de Operaciones autoriza modernizar tableros y sistemas de monitoreo en una instalación urbana con demanda creciente. El objetivo es mejorar la confiabilidad del servicio bajo plazo, presupuesto controlado, requisitos de seguridad, consideraciones ambientales y comunicación con la comunidad.</p>
-          <div class="grid grid-4" style="margin-top:1rem">
-            <div class="principle">Plazo limitado</div>
-            <div class="principle">Presupuesto controlado</div>
-            <div class="principle">Contratistas y seguridad</div>
-            <div class="principle">Comunidad y ambiente</div>
-          </div>
+          <h3>Objetivo de aprendizaje</h3>
+          <p>Al terminar la sesión, el participante podrá:</p>
+          <ul>
+            <li>Crear un flujo automatizado a partir de un correo.</li>
+            <li>Guardar y organizar archivos adjuntos.</li>
+            <li>Extraer información estructurada de un documento Word.</li>
+            <li>Utilizar datos dinámicos dentro de Power Automate.</li>
+            <li>Registrar información de proyectos en Excel.</li>
+            <li>Construir un presupuesto.</li>
+            <li>Crear y priorizar una matriz de riesgos.</li>
+            <li>Generar un informe Word desde una plantilla.</li>
+            <li>Incorporar una aprobación humana.</li>
+            <li>Preparar una presentación ejecutiva con Copilot.</li>
+            <li>Mantener trazabilidad entre fuentes, análisis y entregables.</li>
+          </ul>
         </div>
 
-        <h3>Documentos del caso</h3>
-        <div class="tabs" role="tablist" aria-label="Documentos del caso">
-          <button class="tab" role="tab" aria-selected="true" data-tabs="docs" data-tab="d1">1. Correo</button>
-          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d2">2. Acta</button>
-          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d3">3. Ficha</button>
-          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d4">4. Cronograma</button>
-          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d5">5. Presupuesto</button>
-          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d6">6. Riesgos</button>
-          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d7">7. Comunidad</button>
-          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d8">8. Avance</button>
-          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d9">9. Proveedor</button>
-          <button class="tab" role="tab" aria-selected="false" data-tabs="docs" data-tab="d10">10. Comité</button>
+        <div class="card" style="margin:1.5rem 0">
+          <h3>Caso transversal · Proyecto Horizonte</h3>
+          <p>La organización recibe por correo la solicitud de iniciar el <strong>Proyecto Horizonte</strong>.</p>
+          <p>El correo incluye una ficha Word con: nombre, código, objetivo, alcance, patrocinador, líder, fechas, presupuesto preliminar, entregables, dependencias, restricciones, riesgos iniciales y criterios de éxito.</p>
+          <p>Los datos y archivos producidos en cada reto deben utilizarse en el siguiente.</p>
         </div>
-        <div class="tab-panel is-active doc-box" data-tabs-panel="docs" id="d1"><strong>Correo de inicio:</strong> Se autoriza el arranque del Proyecto Horizonte. Objetivo: elevar confiabilidad en zona urbana en crecimiento. Primer hito: diagnóstico en 30 días. Patrocinador: Dirección de Operaciones.</div>
-        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d2"><strong>Acta de reunión:</strong> Se acuerda equipo núcleo, ventana de intervención preferente diurna, y necesidad de plan de comunicación comunitaria antes de obras mayores.</div>
-        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d3"><strong>Ficha del proyecto:</strong> Alcance: modernizar tableros y sistemas de monitoreo. Exclusiones: red de distribución secundaria. Entregable clave: sistema de supervisión actualizado y protocolo de operación.</div>
-        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d4"><strong>Cronograma preliminar:</strong> Diagnóstico (sem 1–4), diseño (5–8), aprovisionamiento (7–12), intervención (13–18), pruebas (19–20). Camino crítico: entrega de equipo principal.</div>
-        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d5"><strong>Presupuesto resumido:</strong> Total estimado 100 u.m. Equipos 48%, obras 22%, ingeniería 15%, contingencia 10%, comunicación 5%.</div>
-        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d6"><strong>Registro inicial de riesgos:</strong> Retraso de proveedor (alto), rechazo comunitario por horarios (medio), hallazgo ambiental no previsto (medio), indisponibilidad de personal crítico (alto).</div>
-        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d7"><strong>Comentarios de la comunidad:</strong> Solicitan evitar trabajos nocturnos, más señalización y un canal de atención durante la intervención.</div>
-        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d8"><strong>Informe de avance:</strong> Avance real 46% vs esperado 58%. Presupuesto ejecutado 52%. Tres actividades críticas retrasadas. Cuatro riesgos altos abiertos.</div>
-        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d9"><strong>Notificación del proveedor:</strong> El equipo principal llegará con tres semanas de retraso respecto a la fecha comprometida.</div>
-        <div class="tab-panel doc-box" data-tabs-panel="docs" id="d10"><strong>Solicitud del comité:</strong> Presentar escenarios, impactos y recomendación argumentada en la próxima sesión directiva.</div>
 
-        <!-- FASES -->
+        <h3>Archivos oficiales de la sesión</h3>
+        <div class="btn-group" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-correo"><i data-lucide="mail" width="14" height="14"></i> Correo de inicio (.html)</button>
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-ficha"><i data-lucide="file-text" width="14" height="14"></i> Ficha Word</button>
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-control"><i data-lucide="sheet" width="14" height="14"></i> Control Excel</button>
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-informe-plantilla"><i data-lucide="file" width="14" height="14"></i> Plantilla informe</button>
+          <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2-guia-pa"><i data-lucide="book-open" width="14" height="14"></i> Guía Power Automate</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-planilla="s2-resultado"><i data-lucide="eye" width="14" height="14"></i> Resultado esperado</button>
+        </div>
+        <div class="doc-box">
+          <p><strong>Resultado de la sesión:</strong> al terminar, habrás construido el flujo completo de un proyecto: desde la recepción de la solicitud por correo hasta la generación del presupuesto, la matriz de riesgos, el informe aprobado y la presentación ejecutiva.</p>
+          <p style="margin:0.5rem 0 0"><strong>Entregables:</strong> flujo de recepción · carpeta documental · JSON · Excel de control · presupuesto · matriz de riesgos · informe Word · registro de aprobación · presentación PowerPoint · correo final de notificación.</p>
+        </div>
+
+        <div class="practice-invite" style="margin:1.5rem 0">
+          <h4><i data-lucide="sparkles" width="18" height="18"></i> Práctica propia</h4>
+          <p>Adapta el flujo a un proyecto real anonimizado de tu trabajo.</p>
+          <p>Puedes utilizar una solicitud de proyecto, una orden de servicio, un plan de capacitación, una propuesta interna o una solicitud de cambio.</p>
+          <p>Antes de usar información real: elimina datos personales y credenciales; sustituye nombres por roles; elimina información contractual reservada; cambia identificadores internos; conserva únicamente los datos necesarios para practicar.</p>
+        </div>
+
         <div style="margin-top:2.5rem">
-          <article class="reto is-open">
+          <!-- RETO 1 -->
+          <article class="reto is-open" data-reto="fase-1">
             <button class="reto__header" aria-expanded="true">
-              <span class="reto__title-wrap"><span class="reto__num">F1</span><span><strong>Comprender el proyecto</strong></span></span>
+              <span class="reto__title-wrap">
+                <span class="reto__num">1</span>
+                <span>
+                  <strong>Recepción automatizada del proyecto</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Outlook + Power Automate + SharePoint / OneDrive</span>
+                </span>
+              </span>
               <span style="display:flex;gap:0.75rem;align-items:center">
                 <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-1" /> Hecho</label>
                 <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
@@ -1552,25 +1573,33 @@
             </button>
             <div class="reto__body">
               <div class="m365-box">
-                <h4><span class="app-badge">Word</span> Paso a paso con Copilot</h4>
+                <h4><span class="app-badge">Outlook</span> + <span class="app-badge">Power Automate</span> + <span class="app-badge">SharePoint</span> Paso a paso</h4>
                 <ol>
-                  <li>Descarga la planilla de informe ejecutivo (te servirá como brief).</li>
-                  <li>Abre Word → Copilot y pega los documentos del caso (pestañas 1 a 10).</li>
-                  <li>Usa el prompt avanzado (rol + contexto + tarea + criterios + formato + verificación).</li>
-                  <li>Transfiere solo hechos evidenciados a la planilla; marca vacíos como “no especificado”.</li>
+                  <li>Descarga el correo de inicio y la ficha Word. Revisa la guía Power Automate.</li>
+                  <li>Construye un flujo que se active cuando el asunto contenga <code>NUEVO PROYECTO · HORIZONTE</code>.</li>
+                  <li>El flujo debe: detectar el correo; capturar remitente, asunto y fecha; verificar la ficha Word; crear carpeta <code>MCP365_S2_F01_Recepcion_Proyecto_Horizonte</code>; guardar el adjunto; registrar la recepción; enviar confirmación.</li>
+                  <li>No inventes endpoints, credenciales ni rutas reales de producción.</li>
                 </ol>
               </div>
-              <div class="btn-group" style="margin-bottom:1rem">
-                <button type="button" class="btn btn--sm btn--energy" data-planilla="informe-ejecutivo"><i data-lucide="download" width="14" height="14"></i> Descargar planilla brief</button>
+              <div class="btn-group" style="margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-correo"><i data-lucide="download" width="14" height="14"></i> Correo de inicio</button>
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-ficha"><i data-lucide="download" width="14" height="14"></i> Ficha Word</button>
+                <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2-guia-pa"><i data-lucide="book-open" width="14" height="14"></i> Guía PA</button>
               </div>
-              <p>Elabora: objetivo, justificación, alcance, exclusiones, entregables, supuestos, restricciones, interesados, información faltante y preguntas de validación.</p>
               <div data-reto-enhance="fase-1"></div>
             </div>
           </article>
 
-          <article class="reto">
+          <!-- RETO 2 -->
+          <article class="reto" data-reto="fase-2">
             <button class="reto__header" aria-expanded="false">
-              <span class="reto__title-wrap"><span class="reto__num">F2</span><span><strong>Planificar</strong></span></span>
+              <span class="reto__title-wrap">
+                <span class="reto__num">2</span>
+                <span>
+                  <strong>Extracción de información del Word</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Copilot + Word + Power Automate</span>
+                </span>
+              </span>
               <span style="display:flex;gap:0.75rem;align-items:center">
                 <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-2" /> Hecho</label>
                 <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
@@ -1578,28 +1607,33 @@
             </button>
             <div class="reto__body">
               <div class="m365-box">
-                <h4><span class="app-badge">Excel</span> + <span class="app-badge">Word</span> Paso a paso</h4>
+                <h4><span class="app-badge">Copilot</span> + <span class="app-badge">Word</span> + <span class="app-badge">Power Automate</span> Paso a paso</h4>
                 <ol>
-                  <li>Descarga la matriz RACI.</li>
-                  <li>En Excel o Word con Copilot, pide EDT, hitos, dependencias y RACI a partir del brief.</li>
-                  <li>Valida fechas y responsables con tu equipo (no tomes la propuesta como definitiva).</li>
+                  <li>Usa la ficha guardada en el Reto 1: <code>MCP365_S2_Ficha_Proyecto_Horizonte.docx</code>.</li>
+                  <li>Extrae código, nombre, objetivo, alcance, patrocinador, líder, fechas, presupuesto preliminar, entregables, dependencias, restricciones, riesgos y criterios de éxito.</li>
+                  <li>Copilot debe entregar un JSON estructurado. Si falta un dato: <code>No especificado</code>.</li>
+                  <li>No inventes fechas, cifras, responsables ni decisiones.</li>
+                  <li>Compara el JSON con el Word (validación humana) antes de continuar.</li>
+                  <li>Guarda: <code>MCP365_S2_Datos_Proyecto_Horizonte.json</code>.</li>
                 </ol>
               </div>
               <div class="btn-group" style="margin-bottom:1rem">
-                <button type="button" class="btn btn--sm btn--energy" data-planilla="raci"><i data-lucide="download" width="14" height="14"></i> Descargar matriz RACI</button>
-              </div>
-              <p>Solicita: EDT, hitos, actividades, dependencias, responsables, criterios de aceptación, matriz RACI y cronograma de alto nivel.</p>
-              <div class="disclaimer disclaimer--danger">
-                <i data-lucide="shield-alert" width="18" height="18"></i>
-                <span>Copilot puede proponer una estructura, pero las fechas, dependencias y responsabilidades deben validarse con el equipo del proyecto.</span>
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-ficha"><i data-lucide="download" width="14" height="14"></i> Ficha Word (fuente)</button>
               </div>
               <div data-reto-enhance="fase-2"></div>
             </div>
           </article>
 
-          <article class="reto">
+          <!-- RETO 3 -->
+          <article class="reto" data-reto="fase-3">
             <button class="reto__header" aria-expanded="false">
-              <span class="reto__title-wrap"><span class="reto__num">F3</span><span><strong>Analizar riesgos</strong></span></span>
+              <span class="reto__title-wrap">
+                <span class="reto__num">3</span>
+                <span>
+                  <strong>Presupuesto del proyecto</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Power Automate + Excel + Copilot</span>
+                </span>
+              </span>
               <span style="display:flex;gap:0.75rem;align-items:center">
                 <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-3" /> Hecho</label>
                 <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
@@ -1607,42 +1641,32 @@
             </button>
             <div class="reto__body">
               <div class="m365-box">
-                <h4><span class="app-badge">Excel</span> Paso a paso con Copilot</h4>
+                <h4><span class="app-badge">Power Automate</span> + <span class="app-badge">Excel</span> + <span class="app-badge">Copilot</span> Paso a paso</h4>
                 <ol>
-                  <li>Descarga el registro de riesgos.</li>
-                  <li>Ábrelo en Excel → Copilot y completa causa, consecuencia, probabilidad e impacto con base en los documentos del caso.</li>
-                  <li>Filtra por categoría/nivel en esta página y ajusta la planilla descargada.</li>
+                  <li>Registra los datos del JSON en <code>MCP365_S2_Control_Proyecto_Horizonte.xlsx</code>.</li>
+                  <li>Completa la hoja <strong>Presupuesto</strong> con: código de partida, categoría, descripción, cantidad, costo unitario, costo total, responsable, fuente, tipo de cifra, estado de validación y observación.</li>
+                  <li>Diferencia valor confirmado, estimado y no especificado.</li>
+                  <li>Excel calcula subtotales, total, diferencia frente al preliminar y % de desviación.</li>
+                  <li>Power Automate agrega o actualiza filas. No modifiques una cifra confirmada sin aprobación humana.</li>
                 </ol>
               </div>
-              <div class="btn-group" style="margin-bottom:0.75rem">
-                <button type="button" class="btn btn--sm btn--energy" data-planilla="registro-riesgos"><i data-lucide="download" width="14" height="14"></i> Descargar registro de riesgos</button>
-                <label class="field" style="margin:0">Categoría
-                  <select id="riskFilterCat"><option value="all">Todas</option>
-                    <option>Técnico</option><option>Operativo</option><option>Seguridad</option><option>Ambiental</option><option>Social</option><option>Contractual</option><option>Financiero</option><option>Regulatorio</option><option>Reputacional</option>
-                  </select>
-                </label>
-                <label class="field" style="margin:0">Nivel
-                  <select id="riskFilterNivel"><option value="all">Todos</option><option>Bajo</option><option>Medio</option><option>Alto</option></select>
-                </label>
-                <button type="button" class="btn btn--sm btn--primary" id="addRiskRow"><i data-lucide="plus" width="14" height="14"></i> Agregar riesgo</button>
-              </div>
-              <div class="table-wrap">
-                <table id="riskTable">
-                  <thead>
-                    <tr>
-                      <th>Riesgo</th><th>Categoría</th><th>Causa</th><th>Consecuencia</th><th>Prob.</th><th>Impacto</th><th>Nivel</th><th>Respuesta</th><th>Responsable</th><th>Alerta</th>
-                    </tr>
-                  </thead>
-                  <tbody id="riskBody"></tbody>
-                </table>
+              <div class="btn-group" style="margin-bottom:1rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-control"><i data-lucide="download" width="14" height="14"></i> Control Excel</button>
               </div>
               <div data-reto-enhance="fase-3"></div>
             </div>
           </article>
 
-          <article class="reto">
+          <!-- RETO 4 -->
+          <article class="reto" data-reto="fase-4">
             <button class="reto__header" aria-expanded="false">
-              <span class="reto__title-wrap"><span class="reto__num">F4</span><span><strong>Gestionar interesados</strong></span></span>
+              <span class="reto__title-wrap">
+                <span class="reto__num">4</span>
+                <span>
+                  <strong>Matriz de riesgos</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Copilot + Excel + Power Automate</span>
+                </span>
+              </span>
               <span style="display:flex;gap:0.75rem;align-items:center">
                 <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-4" /> Hecho</label>
                 <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
@@ -1650,185 +1674,89 @@
             </button>
             <div class="reto__body">
               <div class="m365-box">
-                <h4><span class="app-badge">Excel</span> Paso a paso</h4>
+                <h4><span class="app-badge">Copilot</span> + <span class="app-badge">Excel</span> + <span class="app-badge">Power Automate</span> Paso a paso</h4>
                 <ol>
-                  <li>Descarga el mapa de interesados.</li>
-                  <li>Completa con Copilot en Excel usando los documentos del caso.</li>
-                  <li>Contrasta con el mapa visual de esta página.</li>
+                  <li>Completa la hoja <strong>Riesgos</strong> del archivo de control (mismo Excel del Reto 3).</li>
+                  <li>Campos: identificador, riesgo, causa, consecuencia, probabilidad, impacto, nivel, control existente, tratamiento, responsable, fecha de revisión, estado, fuente.</li>
+                  <li>Distingue riesgo explícito, inferido, supuesto e información ausente.</li>
+                  <li>Todo riesgo inferido lleva la etiqueta <code>Interpretación para validación</code>.</li>
+                  <li>Ningún riesgo queda marcado automáticamente como validado.</li>
                 </ol>
               </div>
               <div class="btn-group" style="margin-bottom:1rem">
-                <button type="button" class="btn btn--sm btn--energy" data-planilla="interesados"><i data-lucide="download" width="14" height="14"></i> Descargar mapa de interesados</button>
-              </div>
-              <div class="table-wrap">
-                <table>
-                  <thead><tr><th>Interesado</th><th>Interés</th><th>Influencia</th><th>Necesidad info</th><th>Mensaje</th><th>Canal</th><th>Frecuencia</th><th>Responsable</th></tr></thead>
-                  <tbody>
-                    <tr><td>Comité directivo</td><td>Alto</td><td>Alta</td><td>Estado y decisiones</td><td>Riesgo y opciones</td><td>Presentación</td><td>Quincenal</td><td>PM</td></tr>
-                    <tr><td>Equipo técnico</td><td>Alto</td><td>Media</td><td>Plan y cambios</td><td>Prioridades</td><td>Reunión</td><td>Semanal</td><td>Líder técnico</td></tr>
-                    <tr><td>Comunidad</td><td>Alto</td><td>Media</td><td>Horarios e impacto</td><td>Qué cambia y cuándo</td><td>Boletín / reunión</td><td>Por hito</td><td>Comunicaciones</td></tr>
-                    <tr><td>Proveedor</td><td>Medio</td><td>Alta</td><td>Fechas y recepción</td><td>Compromisos</td><td>Correo</td><td>Según hito</td><td>Compras</td></tr>
-                    <tr><td>Área ambiental</td><td>Alto</td><td>Media</td><td>Controles</td><td>Cumplimiento plan</td><td>Informe</td><td>Mensual</td><td>HSE</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <h4>Mapa poder / interés</h4>
-              <div class="stakeholder-map" id="stakeMap" aria-label="Mapa de poder e interés">
-                <span class="stakeholder-map__label stakeholder-map__label--top">Alta influencia</span>
-                <span class="stakeholder-map__label stakeholder-map__label--bottom">Baja influencia</span>
-                <span class="stakeholder-map__label stakeholder-map__label--left">Bajo interés</span>
-                <span class="stakeholder-map__label stakeholder-map__label--right">Alto interés</span>
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-control"><i data-lucide="download" width="14" height="14"></i> Control Excel</button>
               </div>
               <div data-reto-enhance="fase-4"></div>
             </div>
           </article>
 
-          <article class="reto">
+          <!-- RETO 5 -->
+          <article class="reto" data-reto="fase-5">
             <button class="reto__header" aria-expanded="false">
-              <span class="reto__title-wrap"><span class="reto__num">F5</span><span><strong>Analizar el avance</strong></span></span>
+              <span class="reto__title-wrap">
+                <span class="reto__num">5</span>
+                <span>
+                  <strong>Informe y aprobación</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Power Automate + Word + Approvals + Outlook</span>
+                </span>
+              </span>
               <span style="display:flex;gap:0.75rem;align-items:center">
                 <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-5" /> Hecho</label>
                 <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
               </span>
             </button>
             <div class="reto__body">
-              <div class="grid grid-3">
-                <div class="card kpi"><div class="kpi__value">58%</div><div class="kpi__label">Avance esperado</div></div>
-                <div class="card kpi"><div class="kpi__value">46%</div><div class="kpi__label">Avance real</div></div>
-                <div class="card kpi"><div class="kpi__value">52%</div><div class="kpi__label">Presupuesto ejecutado</div></div>
-                <div class="card kpi"><div class="kpi__value">3</div><div class="kpi__label">Actividades críticas retrasadas</div></div>
-                <div class="card kpi"><div class="kpi__value">4</div><div class="kpi__label">Riesgos altos</div></div>
-                <div class="card kpi"><div class="kpi__value">3</div><div class="kpi__label">Decisiones pendientes</div></div>
+              <div class="m365-box">
+                <h4><span class="app-badge">Power Automate</span> + <span class="app-badge">Word</span> + <span class="app-badge">Approvals</span> Paso a paso</h4>
+                <ol>
+                  <li>Usa la plantilla para crear <code>MCP365_S2_Informe_Proyecto_Horizonte.docx</code> con datos del JSON, presupuesto y riesgos.</li>
+                  <li>El informe incluye: identificación, resumen ejecutivo, objetivo, alcance, entregables, cronograma, presupuesto, desviaciones, riesgos prioritarios, dependencias, decisiones pendientes, recomendaciones, fuentes, validación humana y control de calidad.</li>
+                  <li>Power Automate: rellena plantilla → guarda → envía a aprobación → espera respuesta → registra decisión → notifica.</li>
+                  <li>Si es rechazado: registra observaciones, notifica y detén la presentación final.</li>
+                  <li>La aprobación nunca la completa Copilot. Validación humana y CQ quedan vacíos para la persona.</li>
+                </ol>
               </div>
-              <div class="chart-wrap"><canvas id="avanceChart" aria-label="Gráfica de avance"></canvas></div>
-              <div class="form-grid">
-                <div class="field"><label for="av1">¿Qué está ocurriendo?</label><textarea id="av1" data-store="avance.q1"></textarea></div>
-                <div class="field"><label for="av2">¿Qué se está desviando?</label><textarea id="av2" data-store="avance.q2"></textarea></div>
-                <div class="field"><label for="av3">¿Cuáles podrían ser las causas?</label><textarea id="av3" data-store="avance.q3"></textarea></div>
-                <div class="field"><label for="av4">¿Qué impacto tendría?</label><textarea id="av4" data-store="avance.q4"></textarea></div>
-                <div class="field"><label for="av5">¿Qué información falta?</label><textarea id="av5" data-store="avance.q5"></textarea></div>
-                <div class="field"><label for="av6">¿Qué decisiones requiere el comité?</label><textarea id="av6" data-store="avance.q6"></textarea></div>
+              <div class="btn-group" style="margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-informe-plantilla"><i data-lucide="download" width="14" height="14"></i> Plantilla informe</button>
+                <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2-control"><i data-lucide="sheet" width="14" height="14"></i> Control Excel</button>
               </div>
               <div data-reto-enhance="fase-5"></div>
             </div>
           </article>
 
-          <article class="reto">
+          <!-- RETO 6 -->
+          <article class="reto" data-reto="fase-6">
             <button class="reto__header" aria-expanded="false">
-              <span class="reto__title-wrap"><span class="reto__num">F6</span><span><strong>Evento crítico</strong></span></span>
+              <span class="reto__title-wrap">
+                <span class="reto__num">6</span>
+                <span>
+                  <strong>Presentación ejecutiva</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Word + PowerPoint + Copilot · Solo si el informe está aprobado</span>
+                </span>
+              </span>
               <span style="display:flex;gap:0.75rem;align-items:center">
                 <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-6" /> Hecho</label>
                 <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
               </span>
             </button>
             <div class="reto__body">
-              <div class="disclaimer">
-                <i data-lucide="alert-triangle" width="18" height="18"></i>
-                <span>El proveedor informa que el equipo principal llegará con tres semanas de retraso. Al mismo tiempo, representantes de la comunidad solicitan modificar el horario de intervención.</span>
+              <div class="disclaimer disclaimer--danger">
+                <i data-lucide="shield-alert" width="18" height="18"></i>
+                <span><strong>Precondición:</strong> el informe Word debe estar aprobado. Si fue rechazado, no generes la presentación.</span>
               </div>
-              <p>Construye con Copilot: análisis de impacto, escenarios, ventajas/desventajas, mitigación, preguntas a especialistas, mensaje a proveedor, comunicación a comunidad y resumen a dirección.</p>
-              <div class="table-wrap">
-                <table>
-                  <thead><tr><th>Dimensión</th><th>A. Mantener plan</th><th>B. Reprogramar parcialmente</th><th>C. Solución temporal</th></tr></thead>
-                  <tbody>
-                    <tr><td>Plazo</td><td>Riesgo alto de incumplimiento</td><td>Ajuste controlado</td><td>Cumple parcial, cierra gap</td></tr>
-                    <tr><td>Costo</td><td>Posibles sobrecostos por prisa</td><td>Costo de replanificación</td><td>Costo adicional temporal</td></tr>
-                    <tr><td>Comunidad</td><td>Conflicto de horarios</td><td>Negociación de ventanas</td><td>Menor impacto inmediato</td></tr>
-                    <tr><td>Operación</td><td>Presión sobre camino crítico</td><td>Redistribución de actividades</td><td>Dependencia de solución puente</td></tr>
-                    <tr><td>Decisión clave</td><td>Forzar recuperación</td><td>Rebaseline parcial</td><td>Aprobar bridge + plan B</td></tr>
-                  </tbody>
-                </table>
+              <div class="m365-box">
+                <h4><span class="app-badge">Word</span> + <span class="app-badge">PowerPoint</span> + <span class="app-badge">Copilot</span> Paso a paso</h4>
+                <ol>
+                  <li>Crea la presentación solo a partir de <code>MCP365_S2_Informe_Proyecto_Horizonte.docx</code> aprobado.</li>
+                  <li>Entre 8 y 10 diapositivas: portada, necesidad/oportunidad, objetivo y alcance, entregables, cronograma, presupuesto, riesgos prioritarios, decisiones pendientes, próximos pasos, cierre.</li>
+                  <li>Guarda como <code>MCP365_S2_Presentacion_Proyecto_Horizonte.pptx</code>.</li>
+                  <li>Copilot no agrega beneficios, cifras, fechas ni responsables que no aparezcan en el informe aprobado.</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem">
+                <button type="button" class="btn btn--sm btn--ghost" data-planilla="s2-resultado"><i data-lucide="eye" width="14" height="14"></i> Ver resultado esperado</button>
               </div>
               <div data-reto-enhance="fase-6"></div>
-            </div>
-          </article>
-
-          <article class="reto">
-            <button class="reto__header" aria-expanded="false">
-              <span class="reto__title-wrap"><span class="reto__num">F7</span><span><strong>Comité directivo</strong></span></span>
-              <span style="display:flex;gap:0.75rem;align-items:center">
-                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-7" /> Hecho</label>
-                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
-              </span>
-            </button>
-            <div class="reto__body">
-              <div class="m365-box">
-                <h4><span class="app-badge">PowerPoint</span> + <span class="app-badge">Word</span> Paso a paso</h4>
-                <ol>
-                  <li>Descarga la planilla de informe ejecutivo.</li>
-                  <li>En Word con Copilot, construye los 10 bloques del producto final.</li>
-                  <li>En PowerPoint, pide a Copilot un borrador de 8 diapositivas con lenguaje ejecutivo.</li>
-                  <li>Valida cifras, riesgos y recomendación antes de presentar.</li>
-                </ol>
-              </div>
-              <div class="btn-group" style="margin-bottom:1rem">
-                <button type="button" class="btn btn--sm btn--energy" data-planilla="informe-ejecutivo"><i data-lucide="download" width="14" height="14"></i> Descargar informe ejecutivo</button>
-              </div>
-              <ol>
-                <li>Resumen ejecutivo</li><li>Estado del proyecto</li><li>Desviaciones</li><li>Riesgos prioritarios</li>
-                <li>Escenarios evaluados</li><li>Recomendación argumentada</li><li>Decisiones requeridas</li>
-                <li>Próximos pasos</li><li>Información pendiente de validación</li><li>Registro de supuestos</li>
-              </ol>
-              <h4>Plantilla visual · 8 diapositivas</h4>
-              <div class="slides" aria-label="Plantilla de presentación">
-                <div class="slide"><span class="slide__num">01</span><h4>Portada y propósito</h4><p>Proyecto Horizonte · decisión solicitada</p></div>
-                <div class="slide"><span class="slide__num">02</span><h4>Estado actual</h4><p>Avance, presupuesto, hitos</p></div>
-                <div class="slide"><span class="slide__num">03</span><h4>Desviaciones</h4><p>Qué, cuánto, desde cuándo</p></div>
-                <div class="slide"><span class="slide__num">04</span><h4>Riesgos prioritarios</h4><p>Top 4 con señales de alerta</p></div>
-                <div class="slide"><span class="slide__num">05</span><h4>Escenarios A / B / C</h4><p>Impacto comparado</p></div>
-                <div class="slide"><span class="slide__num">06</span><h4>Recomendación</h4><p>Argumentos y supuestos</p></div>
-                <div class="slide"><span class="slide__num">07</span><h4>Decisiones pedidas</h4><p>Qué debe aprobar el comité</p></div>
-                <div class="slide"><span class="slide__num">08</span><h4>Próximos 14 días</h4><p>Dueños, fechas, validaciones</p></div>
-              </div>
-              <div data-reto-enhance="fase-7"></div>
-            </div>
-          </article>
-
-          <article class="reto">
-            <button class="reto__header" aria-expanded="false">
-              <span class="reto__title-wrap"><span class="reto__num">F8</span><span><strong>Lecciones aprendidas vs oferta de proyecto</strong></span></span>
-              <span style="display:flex;gap:0.75rem;align-items:center">
-                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-8" /> Hecho</label>
-                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
-              </span>
-            </button>
-            <div class="reto__body">
-              <div class="disclaimer disclaimer--danger">
-                <i data-lucide="bell-ring" width="18" height="18"></i>
-                <span><strong>Objetivo del caso:</strong> comparar una oferta de proyecto en evaluación con el histórico de lecciones aprendidas. Si Copilot detecta reincidencias, genera una <strong>alarma</strong> y un documento formal solicitando revisión de puntos críticos antes de aprobar.</span>
-              </div>
-
-              <div class="m365-box">
-                <h4><span class="app-badge">Excel</span> + <span class="app-badge">Word</span> Paso a paso con Copilot</h4>
-                <ol>
-                  <li>Descarga el histórico de <strong>20 lecciones aprendidas</strong> (misma estructura del formato corporativo).</li>
-                  <li>Descarga la <strong>oferta del proyecto en evaluación</strong>.</li>
-                  <li>Abre Excel → Copilot: pega o adjunta ambas fuentes y ejecuta el prompt de cruce.</li>
-                  <li>Identifica coincidencias: lección vs cláusula/supuesto de la oferta.</li>
-                  <li>Si hay reincidencia, abre Word → Copilot y genera el <strong>documento de alarma / solicitud de revisión</strong>.</li>
-                  <li>Valida hechos; no inventes lecciones ni cláusulas. Marca nivel de alarma (Alta/Media/Baja).</li>
-                </ol>
-              </div>
-
-              <div class="btn-group" style="margin-bottom:1rem">
-                <button type="button" class="btn btn--sm btn--energy" data-planilla="lecciones-aprendidas"><i data-lucide="download" width="14" height="14"></i> Descargar histórico (20 casos)</button>
-                <button type="button" class="btn btn--sm btn--energy" data-planilla="oferta-proyecto"><i data-lucide="download" width="14" height="14"></i> Descargar oferta en evaluación</button>
-                <button type="button" class="btn btn--sm btn--primary" data-planilla="alarma-revision"><i data-lucide="download" width="14" height="14"></i> Descargar plantilla de alarma</button>
-              </div>
-
-              <h4>Oferta en evaluación · Proyecto “Horizonte Extensión Sur”</h4>
-              <div class="doc-box" id="oferta-eval">
-                <p><strong>Código oferta:</strong> OF-HZ-SUR-2026-04 &nbsp;|&nbsp; <strong>Fecha:</strong> 28/03/2026 &nbsp;|&nbsp; <strong>Elaboró:</strong> Oficina de Propuestas</p>
-                <p><strong>Alcance propuesto:</strong> modernización de tableros y monitoreo en zona sur urbana; ventana tentativa de intervención nocturna (22:00–05:00) para reducir afectación diurna; equipo principal con único proveedor adjudicado; diagnóstico ambiental basado en inspección documental previa (sin muestreo en campo en esta fase); permiso de trabajo en altura se tramitará “durante la movilización”; comunicación a comunidad prevista 24 horas antes del inicio; contingencia presupuestal del 3%; no se contempla proveedor alterno de equipo crítico.</p>
-                <p><strong>Plazo comprometido:</strong> 16 semanas &nbsp;|&nbsp; <strong>Presupuesto base:</strong> 92 u.m. &nbsp;|&nbsp; <strong>Supuesto clave:</strong> “el proveedor confirmará fecha firme al iniciar compras”.</p>
-              </div>
-
-              <h4>Histórico de lecciones aprendidas (20 casos)</h4>
-              <p class="lead" style="margin-bottom:.75rem">Formato corporativo: FECHA · QUIEN REPORTA · SISTEMA · PY · CLIENTE · PROCESO · SITUACIÓN · LECCIÓN/RECOMENDACIÓN.</p>
-              <div class="table-wrap" id="leccionesTableWrap"></div>
-
-              <div data-reto-enhance="fase-8"></div>
-            
             </div>
           </article>
         </div>
@@ -4803,557 +4731,166 @@
   },
   "fase-1": {
     "id": "fase-1",
-    "apps": [
-      "Word"
-    ],
+    "title": "Recepción automatizada del proyecto",
+    "apps": ["Outlook", "Power Automate", "SharePoint"],
     "email": false,
-    "planilla": null,
-    "output": "MCP365_S2_F1_Brief_Horizonte_completado.docx",
+    "planilla": {"key": "s2-correo", "label": "Correo de inicio"},
+    "output": "MCP365_S2_F01_Recepcion_Proyecto_Horizonte",
     "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Analista de proyectos energéticos."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "Word."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "Documentos del caso Proyecto Horizonte (pestañas 1 a 10)."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Construir brief: objetivo, justificación, alcance, exclusiones, entregables, supuestos, restricciones, interesados y vacíos."
-      ],
-      [
-        "archivo",
-        "Archivo que se debe completar",
-        "Planilla de informe ejecutivo / brief (MCP365_P07)."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Validación humana.\nControl de calidad.\nFirmas."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_S2_F1_Brief_Horizonte_completado.docx."
-      ]
+      ["rol", "Rol de Copilot / diseño del flujo", "Asistente de automatización que describe un flujo de Power Automate para recepción de proyectos sin inventar credenciales ni endpoints."],
+      ["fuente", "Fuente de disparo", "Correo Outlook cuyo asunto contiene exactamente: NUEVO PROYECTO · HORIZONTE. Adjunto esperado: MCP365_S2_Ficha_Proyecto_Horizonte.docx."],
+      ["objetivo", "Objetivo del flujo", "Detectar el correo; capturar remitente, asunto y fecha; verificar la ficha Word; crear carpeta MCP365_S2_F01_Recepcion_Proyecto_Horizonte; guardar el adjunto; registrar la recepción; enviar confirmación."],
+      ["destino", "Destino documental", "SharePoint o OneDrive del participante (carpeta de práctica). No uses rutas de producción reales."],
+      ["prohibiciones", "Prohibiciones", "No inventar credenciales.\nNo inventar URLs de API.\nNo inventar cuentas de correo reales ajenas al ejercicio.\nNo marcar la recepción como validada sin revisión humana."],
+      ["vacio", "Respuesta cuando falte información", "No especificado."],
+      ["salida", "Nombre / identificador de salida", "MCP365_S2_F01_Recepcion_Proyecto_Horizonte"]
     ],
     "checklist": [
-      [
-        "f1-c1",
-        "Documentos del caso usados sin inventar"
-      ],
-      [
-        "f1-c2",
-        "Brief en planilla con hechos vs no especificado"
-      ],
-      [
-        "f1-c3",
-        "Validación humana y control de calidad vacíos para la persona"
-      ],
-      [
-        "f1-c4",
-        "Práctica propia: brief de un proyecto real anonimizado"
-      ]
+      ["s2f1-c1", "Descargué correo de inicio y ficha Word"],
+      ["s2f1-c2", "El flujo se dispara con el asunto NUEVO PROYECTO · HORIZONTE"],
+      ["s2f1-c3", "Se crea la carpeta y se guarda el adjunto"],
+      ["s2f1-c4", "Se registra la recepción y se envía confirmación"],
+      ["s2f1-c5", "No inventé credenciales ni endpoints"]
     ],
-    "practice_title": "Al terminar · Practica con un proyecto propio",
-    "practice": "Arma un brief de un proyecto real de tu área (anonimiza). Cambia fuente y salida. Conserva secciones del brief. Guarda como MCP365_S2_F1_Brief_[tu-proyecto]_completado.docx.",
-    "deliverable": "Entregable del caso: MCP365_S2_F1_Brief_Horizonte_completado.docx."
+    "practice_title": "Al terminar · Practica con tu propia solicitud",
+    "practice": "Adapta el disparador a un asunto anonimizado de tu trabajo. Elimina datos personales y credenciales antes de practicar.",
+    "deliverable": "Entregable: flujo de recepción + carpeta <code>MCP365_S2_F01_Recepcion_Proyecto_Horizonte</code> con la ficha Word guardada y registro de recepción."
   },
   "fase-2": {
     "id": "fase-2",
-    "apps": [
-      "Excel",
-      "Word"
-    ],
+    "title": "Extracción de información del Word",
+    "apps": ["Copilot", "Word", "Power Automate"],
+    "email": false,
+    "planilla": {"key": "s2-ficha", "label": "Ficha Word"},
+    "output": "MCP365_S2_Datos_Proyecto_Horizonte.json",
     "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Planificador de proyectos que propone EDT y RACI."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "Excel / Word."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "Brief del Proyecto Horizonte y documentos del caso."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Proponer EDT, hitos, dependencias, criterios de aceptación y matriz RACI."
-      ],
-      [
-        "archivo",
-        "Archivo que se debe completar",
-        "Matriz RACI MCP365_P09."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Fechas definitivas.\nValidación humana.\nControl de calidad."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_S2_F2_RACI_Horizonte_completado.xlsx."
-      ]
+      ["rol", "Rol de Copilot", "Analista de proyectos que extrae datos estructurados desde una ficha Word sin inventar información."],
+      ["fuente", "Fuente única", "MCP365_S2_Ficha_Proyecto_Horizonte.docx (guardada en la carpeta del Reto 1)."],
+      ["objetivo", "Objetivo", "Extraer código, nombre, objetivo, alcance, patrocinador, líder, fechas, presupuesto preliminar, entregables, dependencias, restricciones, riesgos y criterios de éxito en un objeto JSON."],
+      ["formato", "Formato de salida", "Único archivo JSON válido UTF-8 con claves en español o snake_case consistente."],
+      ["vacio", "Respuesta cuando falte información", "No especificado."],
+      ["prohibiciones", "Prohibiciones", "No inventar fechas.\nNo inventar cifras.\nNo inventar responsables.\nNo inventar decisiones.\nNo omitir campos: si faltan, usar No especificado."],
+      ["salida", "Nombre del archivo de salida", "MCP365_S2_Datos_Proyecto_Horizonte.json"]
     ],
     "checklist": [
-      [
-        "f2-c1",
-        "RACI/EDT propuestos a partir del brief"
-      ],
-      [
-        "f2-c2",
-        "Fechas y responsables marcados como pendientes de validación humana"
-      ],
-      [
-        "f2-c3",
-        "Planilla RACI diligenciada sin inventar datos críticos"
-      ],
-      [
-        "f2-c4",
-        "Práctica propia: RACI de un proyecto real anonimizado"
-      ]
+      ["s2f2-c1", "Analicé la ficha Word del Reto 1"],
+      ["s2f2-c2", "Obtuve un JSON con todos los campos pedidos"],
+      ["s2f2-c3", "Usé No especificado donde faltaba dato"],
+      ["s2f2-c4", "Comparé JSON vs Word (validación humana)"],
+      ["s2f2-c5", "Archivo nombrado MCP365_S2_Datos_Proyecto_Horizonte.json"]
     ],
-    "practice_title": "Al terminar · Arma un RACI propio",
-    "practice": "Usa un proyecto real (anonimizado). Cambia fuente y salida. Conserva EDT + RACI. Las fechas finales las valida tu equipo.",
-    "deliverable": "Entregable del caso: MCP365_S2_F2_RACI_Horizonte_completado.xlsx."
+    "practice_title": "Al terminar · Extrae datos de una ficha propia",
+    "practice": "Usa una ficha o solicitud anonimizada. Conserva No especificado. No inventes cifras ni fechas.",
+    "deliverable": "Entregable: <code>MCP365_S2_Datos_Proyecto_Horizonte.json</code> validado por la persona frente al Word."
   },
   "fase-3": {
     "id": "fase-3",
-    "apps": [
-      "Excel"
-    ],
+    "title": "Presupuesto del proyecto",
+    "apps": ["Power Automate", "Excel", "Copilot"],
+    "email": false,
+    "planilla": {"key": "s2-control", "label": "Control Excel"},
+    "output": "MCP365_S2_Control_Proyecto_Horizonte.xlsx",
     "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Analista de riesgos de proyecto."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "Excel."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "Documentos del caso + registro inicial de riesgos del Proyecto Horizonte."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Completar causa, consecuencia, probabilidad, impacto, respuesta, responsable y alerta."
-      ],
-      [
-        "archivo",
-        "Archivo que se debe completar",
-        "Registro de riesgos MCP365_P08."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Aprobación final de severidad.\nValidación humana.\nControl de calidad."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_S2_F3_Riesgos_Horizonte_completado.xlsx."
-      ]
+      ["rol", "Rol de Copilot", "Analista de costos que clasifica partidas y distingue cifras confirmadas, estimadas y no especificadas."],
+      ["fuente", "Fuentes", "MCP365_S2_Datos_Proyecto_Horizonte.json + hoja Presupuesto de MCP365_S2_Control_Proyecto_Horizonte.xlsx."],
+      ["objetivo", "Objetivo", "Registrar partidas con código, categoría, descripción, cantidad, costo unitario, costo total, responsable, fuente, tipo de cifra, estado de validación y observación; calcular subtotales, total, diferencia vs preliminar y % desviación."],
+      ["tipos", "Tipos de cifra", "Valor confirmado.\nValor estimado.\nValor no especificado."],
+      ["regla_pa", "Regla Power Automate", "Agregar o actualizar filas. No modificar una cifra confirmada sin aprobación humana."],
+      ["vacio", "Respuesta cuando falte información", "No especificado."],
+      ["salida", "Archivo de control", "MCP365_S2_Control_Proyecto_Horizonte.xlsx"]
     ],
     "checklist": [
-      [
-        "f3-c1",
-        "Registro de riesgos basado solo en el caso"
-      ],
-      [
-        "f3-c2",
-        "Niveles y respuestas sin inventar severidad no sustentada"
-      ],
-      [
-        "f3-c3",
-        "Validación humana pendiente en severidades críticas"
-      ],
-      [
-        "f3-c4",
-        "Práctica propia: registro de riesgos de un proyecto real anonimizado"
-      ]
+      ["s2f3-c1", "Usé el JSON del Reto 2 como entrada"],
+      ["s2f3-c2", "Hoja Presupuesto con columnas completas"],
+      ["s2f3-c3", "Tipos de cifra diferenciados"],
+      ["s2f3-c4", "Fórmulas de total y desviación visibles"],
+      ["s2f3-c5", "No alteré cifras confirmadas sin aprobación"]
     ],
-    "practice_title": "Al terminar · Registra riesgos de tu proyecto",
-    "practice": "Completa 5–8 riesgos reales anonimizados. Conserva la estructura del registro. Guarda como MCP365_S2_F3_Riesgos_[tu-proyecto]_completado.xlsx.",
-    "deliverable": "Entregable del caso: MCP365_S2_F3_Riesgos_Horizonte_completado.xlsx."
+    "practice_title": "Al terminar · Presupuesto de un caso propio",
+    "practice": "Adapta categorías a un proyecto anonimizado. Marca claramente estimado vs confirmado.",
+    "deliverable": "Entregable: hoja <strong>Presupuesto</strong> en <code>MCP365_S2_Control_Proyecto_Horizonte.xlsx</code> con totales y desviación."
   },
   "fase-4": {
     "id": "fase-4",
-    "apps": [
-      "Excel"
-    ],
+    "title": "Matriz de riesgos",
+    "apps": ["Copilot", "Excel", "Power Automate"],
+    "email": false,
+    "planilla": {"key": "s2-control", "label": "Control Excel"},
+    "output": "MCP365_S2_Control_Proyecto_Horizonte.xlsx",
     "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Analista de interesados y comunicaciones."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "Excel."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "Documentos del caso Horizonte (comunidad, acta, ficha)."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Completar mapa de interesados: interés, influencia, mensaje, canal, frecuencia y responsable."
-      ],
-      [
-        "archivo",
-        "Archivo que se debe completar",
-        "Mapa de interesados MCP365_P10."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Validación humana.\nControl de calidad."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_S2_F4_Interesados_Horizonte_completado.xlsx."
-      ]
+      ["rol", "Rol de Copilot", "Analista de riesgos que distingue riesgos explícitos, inferidos, supuestos e información ausente."],
+      ["fuente", "Fuentes", "Ficha / JSON del Proyecto Horizonte + hoja Riesgos de MCP365_S2_Control_Proyecto_Horizonte.xlsx."],
+      ["objetivo", "Objetivo", "Completar la matriz con identificador, riesgo, causa, consecuencia, probabilidad, impacto, nivel, control, tratamiento, responsable, fecha de revisión, estado y fuente."],
+      ["etiquetas", "Etiquetas obligatorias", "Riesgo explícito.\nRiesgo inferido → etiqueta Interpretación para validación.\nSupuesto.\nInformación ausente."],
+      ["prohibiciones", "Prohibiciones", "No marcar automáticamente como validado.\nNo inventar controles inexistentes.\nNo inventar fechas de revisión sin fuente."],
+      ["vacio", "Respuesta cuando falte información", "No especificado."],
+      ["salida", "Archivo de control", "MCP365_S2_Control_Proyecto_Horizonte.xlsx"]
     ],
     "checklist": [
-      [
-        "f4-c1",
-        "Mapa de interesados alineado al caso"
-      ],
-      [
-        "f4-c2",
-        "Mensajes y canales sin inventar compromisos no aprobados"
-      ],
-      [
-        "f4-c3",
-        "Validación humana pendiente"
-      ],
-      [
-        "f4-c4",
-        "Práctica propia: mapa de interesados de un proyecto real anonimizado"
-      ]
+      ["s2f4-c1", "Completé la hoja Riesgos del control Excel"],
+      ["s2f4-c2", "Distinguí explícito / inferido / supuesto / ausente"],
+      ["s2f4-c3", "Inferidos llevan Interpretación para validación"],
+      ["s2f4-c4", "Ningún riesgo quedó auto-validado"],
+      ["s2f4-c5", "Usé datos del Reto 2/3 sin inventar"]
     ],
-    "practice_title": "Al terminar · Mapea interesados de tu proyecto",
-    "practice": "Elabora un mapa para un proyecto propio (anonimizado). Conserva columnas del formato. Guarda como MCP365_S2_F4_Interesados_[tu-proyecto]_completado.xlsx.",
-    "deliverable": "Entregable del caso: MCP365_S2_F4_Interesados_Horizonte_completado.xlsx."
+    "practice_title": "Al terminar · Riesgos de un proyecto propio",
+    "practice": "Registra riesgos anonimizados. Todo lo inferido lleva Interpretación para validación.",
+    "deliverable": "Entregable: hoja <strong>Riesgos</strong> en <code>MCP365_S2_Control_Proyecto_Horizonte.xlsx</code> lista para validación humana."
   },
   "fase-5": {
     "id": "fase-5",
-    "apps": [
-      "Excel",
-      "Word"
-    ],
+    "title": "Informe y aprobación",
+    "apps": ["Power Automate", "Word", "Approvals", "Outlook"],
+    "email": false,
+    "planilla": {"key": "s2-informe-plantilla", "label": "Plantilla informe"},
+    "output": "MCP365_S2_Informe_Proyecto_Horizonte.docx",
     "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Analista de control de avance de proyecto."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "Excel / Word."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "KPI del Proyecto Horizonte: avance esperado 58%, real 46%, presupuesto 52%, 3 críticas retrasadas, 4 riesgos altos."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Responder: qué ocurre, qué se desvía, causas posibles, impacto, información faltante y decisiones para el comité."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Decisiones del comité.\nValidación humana.\nControl de calidad."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_S2_F5_Analisis_avance_Horizonte.docx."
-      ]
+      ["rol", "Rol de Copilot", "Redactor de informes de proyecto que completa solo secciones autorizadas de una plantilla Word y deja validación humana y CQ vacías."],
+      ["fuente", "Fuentes", "JSON del Reto 2 + hojas y riesgos del Excel de control + plantilla MCP365_S2_Plantilla_Informe_Proyecto.docx."],
+      ["objetivo", "Objetivo", "Generar MCP365_S2_Informe_Proyecto_Horizonte.docx y orquestar aprobación humana con Power Automate Approvals."],
+      ["secciones", "Secciones autorizadas", "Identificación.\nResumen ejecutivo.\nObjetivo.\nAlcance.\nEntregables.\nCronograma general.\nPresupuesto.\nDesviaciones.\nRiesgos prioritarios.\nDependencias.\nDecisiones pendientes.\nRecomendaciones.\nFuentes."],
+      ["restringidos", "Secciones que deben quedar vacías", "Validación humana.\nControl de calidad.\nFirmas.\nDecisión de aprobación (solo Approvals humano)."],
+      ["flujo_pa", "Pasos Power Automate", "1. Rellenar plantilla.\n2. Guardar informe.\n3. Enviar a aprobación.\n4. Esperar respuesta.\n5. Registrar decisión.\n6. Notificar resultado.\nSi rechazo: registrar observaciones, notificar y detener presentación."],
+      ["vacio", "Respuesta cuando falte información", "No especificado."],
+      ["salida", "Nombre del archivo de salida", "MCP365_S2_Informe_Proyecto_Horizonte.docx"]
     ],
     "checklist": [
-      [
-        "f5-c1",
-        "Análisis basado solo en KPI del caso"
-      ],
-      [
-        "f5-c2",
-        "Hechos separados de inferencias"
-      ],
-      [
-        "f5-c3",
-        "Campos de avance en la plataforma completados"
-      ],
-      [
-        "f5-c4",
-        "Práctica propia: lectura de avance de un proyecto real anonimizado"
-      ]
+      ["s2f5-c1", "Generé el informe desde la plantilla"],
+      ["s2f5-c2", "Incluí presupuesto y riesgos de retos previos"],
+      ["s2f5-c3", "Envié a aprobación humana (Approvals)"],
+      ["s2f5-c4", "Registré la decisión y notifiqué"],
+      ["s2f5-c5", "Validación humana y CQ vacíos para la persona"],
+      ["s2f5-c6", "Copilot no aprobó el informe"]
     ],
-    "practice_title": "Al terminar · Analiza el avance de tu proyecto",
-    "practice": "Usa indicadores reales anonimizados. Cambia fuente y salida. Separa hechos e inferencias. Guarda como MCP365_S2_F5_Analisis_avance_[tu-proyecto].docx.",
-    "deliverable": "Entregable del caso: MCP365_S2_F5_Analisis_avance_Horizonte.docx + respuestas en la plataforma."
+    "practice_title": "Al terminar · Informe de un caso propio",
+    "practice": "Usa plantilla + datos anonimizados. La aprobación debe ser humana. Si hay rechazo, no avances a presentación.",
+    "deliverable": "Entregable: <code>MCP365_S2_Informe_Proyecto_Horizonte.docx</code> + registro de aprobación (Approvals / Outlook)."
   },
   "fase-6": {
     "id": "fase-6",
-    "apps": [
-      "Word"
-    ],
+    "title": "Presentación ejecutiva",
+    "apps": ["Word", "PowerPoint", "Copilot"],
+    "email": false,
+    "planilla": {"key": "s2-resultado", "label": "Resultado esperado"},
+    "output": "MCP365_S2_Presentacion_Proyecto_Horizonte.pptx",
     "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Asesor de decisión ante eventos críticos de proyecto."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "Word."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "Evento crítico: retraso de 3 semanas del equipo principal + solicitud de cambio de horario de la comunidad. Escenarios A/B/C de la plataforma."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Impacto, escenarios, pros/contras, mitigación, mensajes a proveedor/comunidad y resumen a dirección."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Decisión final del comité.\nValidación humana.\nControl de calidad."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_S2_F6_Evento_critico_Horizonte.docx."
-      ]
+      ["rol", "Rol de Copilot", "Diseñador de presentaciones ejecutivas que resume únicamente un informe aprobado, sin agregar hechos nuevos."],
+      ["fuente", "Fuente única", "MCP365_S2_Informe_Proyecto_Horizonte.docx aprobado (precondición obligatoria)."],
+      ["objetivo", "Objetivo", "Crear presentación de 8 a 10 diapositivas: portada, necesidad/oportunidad, objetivo y alcance, entregables, cronograma, presupuesto, riesgos prioritarios, decisiones pendientes, próximos pasos, cierre."],
+      ["prohibiciones", "Prohibiciones", "No generar la presentación si el informe fue rechazado.\nNo agregar beneficios no citados.\nNo agregar cifras, fechas ni responsables ausentes en el informe.\nNo inventar próximos pasos no documentados."],
+      ["vacio", "Respuesta cuando falte información", "No especificado."],
+      ["salida", "Nombre del archivo de salida", "MCP365_S2_Presentacion_Proyecto_Horizonte.pptx"]
     ],
     "checklist": [
-      [
-        "f6-c1",
-        "Escenarios A/B/C analizados sin inventar costos no dados"
-      ],
-      [
-        "f6-c2",
-        "Mensajes a proveedor y comunidad redactados con hechos"
-      ],
-      [
-        "f6-c3",
-        "Validación humana pendiente sobre la recomendación"
-      ],
-      [
-        "f6-c4",
-        "Práctica propia: análisis de un evento crítico real anonimizado"
-      ]
+      ["s2f6-c1", "Confirmé que el informe está aprobado"],
+      ["s2f6-c2", "Presentación basada solo en el informe"],
+      ["s2f6-c3", "Entre 8 y 10 diapositivas con la estructura pedida"],
+      ["s2f6-c4", "Sin cifras ni responsables inventados"],
+      ["s2f6-c5", "Archivo MCP365_S2_Presentacion_Proyecto_Horizonte.pptx"]
     ],
-    "practice_title": "Al terminar · Analiza un evento crítico propio",
-    "practice": "Describe un imprevisto real anonimizado y arma 3 escenarios. Conserva la lógica de impacto y recomendación. Guarda como MCP365_S2_F6_Evento_critico_[tu-caso].docx.",
-    "deliverable": "Entregable del caso: MCP365_S2_F6_Evento_critico_Horizonte.docx."
-  },
-  "fase-7": {
-    "id": "fase-7",
-    "apps": [
-      "PowerPoint",
-      "Word"
-    ],
-    "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Asesor ejecutivo que prepara comité directivo."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "PowerPoint / Word."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "Expediente Horizonte: avance, riesgos, evento crítico y escenarios."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Construir informe de 10 bloques y borrador de 8 diapositivas con lenguaje ejecutivo."
-      ],
-      [
-        "archivo",
-        "Archivo que se debe completar",
-        "Informe ejecutivo MCP365_P07 + deck de 8 slides."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Aprobación del comité.\nValidación humana de cifras.\nControl de calidad."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "detalle",
-        "Nivel de detalle",
-        "Máximo 4 viñetas por diapositiva; tono ejecutivo."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_S2_F7_Comite_Horizonte.pptx."
-      ]
-    ],
-    "checklist": [
-      [
-        "f7-c1",
-        "Informe ejecutivo con los 10 bloques"
-      ],
-      [
-        "f7-c2",
-        "Deck de 8 diapositivas sin inventar cifras"
-      ],
-      [
-        "f7-c3",
-        "Validación humana de recomendación pendiente"
-      ],
-      [
-        "f7-c4",
-        "Práctica propia: deck ejecutivo de un proyecto real anonimizado"
-      ]
-    ],
-    "practice_title": "Al terminar · Prepara tu propio comité",
-    "practice": "Arma 8 slides de un proyecto propio anonimizado. Conserva la estructura de la plantilla visual. Guarda como MCP365_S2_F7_Comite_[tu-proyecto].pptx.",
-    "deliverable": "Entregable del caso: MCP365_S2_F7_Comite_Horizonte.pptx (+ informe Word si aplica)."
-  },
-  "fase-8": {
-    "id": "fase-8",
-    "apps": [
-      "Excel",
-      "Word"
-    ],
-    "fields": [
-      [
-        "rol",
-        "Rol de Copilot",
-        "Auditor de proyectos que cruza lecciones aprendidas con ofertas."
-      ],
-      [
-        "app",
-        "Aplicación de origen",
-        "Excel / Word."
-      ],
-      [
-        "fuente",
-        "Fuente que se debe analizar",
-        "Histórico de 20 lecciones + oferta OF-HZ-SUR-2026-04."
-      ],
-      [
-        "objetivo",
-        "Objetivo del análisis",
-        "Detectar reincidencias, nivel de alarma y generar memorando de solicitud de revisión."
-      ],
-      [
-        "archivo",
-        "Archivo que se debe completar",
-        "Plantilla de alarma MCP365_P14."
-      ],
-      [
-        "restringidos",
-        "Campos que deben quedar sin completar",
-        "Aprobación de la oferta.\nValidación humana.\nControl de calidad.\nFirmas."
-      ],
-      [
-        "vacio",
-        "Respuesta cuando no exista información",
-        "No especificado."
-      ],
-      [
-        "salida",
-        "Nombre del archivo de salida",
-        "MCP365_S2_F8_Alarma_reincidencia_Horizonte.docx."
-      ]
-    ],
-    "checklist": [
-      [
-        "f8-c1",
-        "Cruce lecciones vs oferta sin inventar cláusulas"
-      ],
-      [
-        "f8-c2",
-        "Alarma con puntos de revisión y plazo"
-      ],
-      [
-        "f8-c3",
-        "Validación humana y control de calidad vacíos para la persona"
-      ],
-      [
-        "f8-c4",
-        "Práctica propia: cruce de lecciones con una oferta real anonimizada"
-      ]
-    ],
-    "practice_title": "Al terminar · Cruza lecciones con una oferta propia",
-    "practice": "Usa un histórico interno anonimizado y una oferta de ejemplo. Conserva la lógica de alarma. Guarda como MCP365_S2_F8_Alarma_[tu-caso].docx.",
-    "deliverable": "Entregable del caso: MCP365_S2_F8_Alarma_reincidencia_Horizonte.docx."
+    "practice_title": "Al terminar · Presentación de un informe propio",
+    "practice": "Parte solo de un informe anonimizado ya revisado por una persona. No inventes contenido.",
+    "deliverable": "Entregable: <code>MCP365_S2_Presentacion_Proyecto_Horizonte.pptx</code> + correo final de notificación del ciclo."
   }
 };
 
@@ -5975,7 +5512,37 @@
       "MCP365_P06_Practica_personal_priorizacion.html"
     ),
 
-"informe-ejecutivo": () => downloadWord("MCP365_P07_Informe_ejecutivo_proyecto.doc", "Informe ejecutivo de proyecto · Comité", "MCP-365-P07", "Word + PowerPoint + Copilot", `
+    "s2-correo": () => downloadStaticFile(
+      "planillas/MCP365_S2_Correo_Inicio_Proyecto_Horizonte.html",
+      "MCP365_S2_Correo_Inicio_Proyecto_Horizonte.html"
+    ),
+
+    "s2-ficha": () => downloadStaticFile(
+      "planillas/MCP365_S2_Ficha_Proyecto_Horizonte.docx",
+      "MCP365_S2_Ficha_Proyecto_Horizonte.docx"
+    ),
+
+    "s2-control": () => downloadStaticFile(
+      "planillas/MCP365_S2_Control_Proyecto_Horizonte.xlsx",
+      "MCP365_S2_Control_Proyecto_Horizonte.xlsx"
+    ),
+
+    "s2-informe-plantilla": () => downloadStaticFile(
+      "planillas/MCP365_S2_Plantilla_Informe_Proyecto.docx",
+      "MCP365_S2_Plantilla_Informe_Proyecto.docx"
+    ),
+
+    "s2-guia-pa": () => downloadStaticFile(
+      "planillas/MCP365_S2_Guia_Power_Automate.pdf",
+      "MCP365_S2_Guia_Power_Automate.pdf"
+    ),
+
+    "s2-resultado": () => downloadStaticFile(
+      "planillas/MCP365_S2_Resultado_Esperado.html",
+      "MCP365_S2_Resultado_Esperado.html"
+    ),
+
+    "informe-ejecutivo": () => downloadWord("MCP365_P07_Informe_ejecutivo_proyecto.doc", "Informe ejecutivo de proyecto · Comité", "MCP-365-P07", "Word + PowerPoint + Copilot", `
       <h2>1. Portada del informe</h2>
       <table class="data">
         <tr><th>Campo</th><th>Contenido</th></tr>
@@ -6534,14 +6101,13 @@
     { name: "Base priorización P06", desc: "Excel · Diez tareas fuente (no completar)", key: "priorizacion", type: "Excel" },
     { name: "Priorización P06 (referencia HTML)", desc: "HTML · Referencia de calidad del informe", key: "priorizacion-ref", type: "HTML" },
     { name: "Práctica personal priorización", desc: "HTML · Lista local anonimizada (se borra al cerrar)", key: "priorizacion-practica", type: "HTML" },
-    { name: "Informe ejecutivo", desc: "Word/PowerPoint · 10 bloques para comité", key: "informe-ejecutivo", type: "Word" },
-    { name: "Registro de riesgos", desc: "Excel/Word · Matriz con IDs y escalamiento", key: "registro-riesgos", type: "Word" },
-    { name: "Matriz RACI", desc: "Excel/Word · Roles, aceptación y chequeos", key: "raci", type: "Word" },
-    { name: "Mapa de interesados", desc: "Excel/Word · Cuadrantes y plan de mensajes", key: "interesados", type: "Word" },
-    { name: "Bitácora de validación", desc: "Todas las apps · Control humano de Copilot", key: "bitacora-validacion", type: "Word" },
-    { name: "Lecciones aprendidas (20)", desc: "Excel/Word · Histórico para cruzar con ofertas", key: "lecciones-aprendidas", type: "Word" },
-    { name: "Oferta en evaluación", desc: "Word · Proyecto Horizonte Extensión Sur", key: "oferta-proyecto", type: "Word" },
-    { name: "Alarma de reincidencia", desc: "Word · Solicitud formal de revisión", key: "alarma-revision", type: "Word" }
+    { name: "S2 Correo inicio Horizonte", desc: "HTML · Asunto NUEVO PROYECTO · HORIZONTE", key: "s2-correo", type: "HTML" },
+    { name: "S2 Ficha Proyecto Horizonte", desc: "Word · Fuente principal de datos del proyecto", key: "s2-ficha", type: "Word" },
+    { name: "S2 Control Proyecto Horizonte", desc: "Excel · Registro, Presupuesto y Riesgos", key: "s2-control", type: "Excel" },
+    { name: "S2 Plantilla informe", desc: "Word · Informe + validación humana vacía", key: "s2-informe-plantilla", type: "Word" },
+    { name: "S2 Guía Power Automate", desc: "PDF · Cadena de 6 retos", key: "s2-guia-pa", type: "PDF" },
+    { name: "S2 Resultado esperado", desc: "HTML · Referencia de calidad del flujo", key: "s2-resultado", type: "HTML" },
+    { name: "Bitácora de validación", desc: "Todas las apps · Control humano de Copilot", key: "bitacora-validacion", type: "Word" }
   ];
 
   function renderTemplates() {

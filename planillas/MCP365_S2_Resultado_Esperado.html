@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCP365_S2 · Resultado esperado · Proyecto Horizonte</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Calibri, Segoe UI, Arial, sans-serif;
+    background: #E8E6F0;
+    color: #211D40;
+    line-height: 1.55;
+    padding: 24px 16px 40px;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  header {
+    background: #211D40;
+    color: #fff;
+    padding: 22px 26px;
+    border-bottom: 4px solid #FFEC00;
+  }
+  header .tag {
+    color: #FFEC00;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  header h1 { font-size: 22px; margin-bottom: 8px; }
+  header p { font-size: 13px; color: #C8C4D8; }
+  .banner {
+    background: #FFEC00;
+    color: #211D40;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 16px;
+    margin-bottom: 18px;
+  }
+  section {
+    background: #fff;
+    border: 1px solid #D0CCE0;
+    margin-bottom: 14px;
+    padding: 16px 18px;
+  }
+  section h2 {
+    color: #4B3FAA;
+    font-size: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #F4F3F9;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  .card {
+    background: #F4F3F9;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .card strong { display: block; color: #4B3FAA; margin-bottom: 4px; }
+  ul { margin: 6px 0 0 18px; font-size: 13px; }
+  li { margin-bottom: 4px; }
+  pre {
+    background: #211D40;
+    color: #E8E6F0;
+    padding: 12px 14px;
+    font-size: 12px;
+    overflow-x: auto;
+    line-height: 1.4;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 6px;
+  }
+  th {
+    background: #4B3FAA;
+    color: #fff;
+    text-align: left;
+    padding: 8px 10px;
+  }
+  td {
+    border: 1px solid #D0CCE0;
+    padding: 7px 10px;
+  }
+  tr:nth-child(even) td { background: #F4F3F9; }
+  .ok { color: #4B3FAA; font-weight: 700; }
+  footer {
+    text-align: center;
+    font-size: 11px;
+    color: #5A5A72;
+    margin-top: 10px;
+  }
+  code {
+    background: #F4F3F9;
+    padding: 1px 5px;
+    font-size: 12px;
+    color: #4B3FAA;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="tag">MCP-365-S2 · Referencia de calidad</div>
+      <h1>Resultado esperado · Proyecto Horizonte</h1>
+      <p>
+        Vista de referencia del resultado extremo a extremo de la sesión.
+        No es fuente de análisis: sirve para contrastar la calidad del entregable.
+        Caso ficticio · sin credenciales reales.
+      </p>
+    </header>
+    <div class="banner">
+      ⚠ Referencia de calidad · No usar como fuente de análisis ni para inventar datos faltantes
+    </div>
+
+    <section>
+      <h2>1. Carpeta del proyecto (estructura esperada)</h2>
+      <div class="grid">
+        <div class="card">
+          <strong>Entrada</strong>
+          Correo simulado + ficha Word guardada<br>
+          <code>…/Horizonte/Entrada/</code>
+        </div>
+        <div class="card">
+          <strong>Control</strong>
+          Excel presupuesto/riesgos + JSON extraído<br>
+          <code>…/Horizonte/Control/</code>
+        </div>
+        <div class="card">
+          <strong>Informes</strong>
+          Informe Word + evidencia de Approvals<br>
+          <code>…/Horizonte/Informes/</code>
+        </div>
+        <div class="card">
+          <strong>Presentaciones</strong>
+          PPT generado solo tras aprobación<br>
+          <code>…/Horizonte/Presentaciones/</code>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Muestra JSON (extracción)</h2>
+      <pre>{
+  "proyecto": "Proyecto Horizonte",
+  "codigo": "PRJ-HZ-2026-01",
+  "objetivo": "Habilitar flujo piloto de gobernanza documental y control presupuestario…",
+  "patrocinador": "Dirección de Operaciones",
+  "lider": "No especificado",
+  "fecha_inicio": "2026-08-10",
+  "fecha_fin": "2026-11-30",
+  "presupuesto_preliminar_um": 100,
+  "observaciones": "No especificado",
+  "riesgos_iniciales": ["R1", "R2", "R3"],
+  "fuente": "MCP365_S2_Ficha_Proyecto_Horizonte.docx"
+}</pre>
+    </section>
+
+    <section>
+      <h2>3. Resumen de presupuesto (referencia)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Concepto</th>
+            <th>Valor</th>
+            <th>Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Presupuesto preliminar (ficha)</td>
+            <td>100 u.m.</td>
+            <td>Celda de referencia en hoja Presupuesto</td>
+          </tr>
+          <tr>
+            <td>Partidas de ejemplo</td>
+            <td>8 (HZ-01 … HZ-08)</td>
+            <td>Mezcla Confirmado / Estimado / No especificado</td>
+          </tr>
+          <tr>
+            <td>Total partidas</td>
+            <td>Fórmula =SUM(…)</td>
+            <td>Calculado en Excel, no hardcodear en el informe</td>
+          </tr>
+          <tr>
+            <td>Desviación</td>
+            <td>Total − preliminar</td>
+            <td>Explicar causas; validación humana pendiente</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>4. Riesgos (referencia)</h2>
+      <ul>
+        <li><strong>R-HZ-01</strong> — Campos incompletos (líder No especificado) · Estado: No validado · Fuente: ficha</li>
+        <li><strong>R-HZ-02</strong> — Desviación por cifras estimadas · Estado: No validado · Fuente: ficha / presupuesto</li>
+        <li><strong>R-HZ-03</strong> — Confusión automatización vs aprobación humana · Estado: No validado · Fuente: ficha</li>
+        <li>Filas vacías reservadas para riesgos <em>inferidos</em> durante la sesión</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. Informe aprobado (criterio de aceptación)</h2>
+      <ul>
+        <li>Plantilla completada con evidencia; sin inventar campos faltantes</li>
+        <li>Secciones <strong>Validación humana</strong> y <strong>Control de calidad</strong> llenadas solo por persona autorizada</li>
+        <li>Approvals en estado <span class="ok">Aprobado</span> (humano, nunca Copilot)</li>
+        <li>Fuentes citadas: correo, ficha, Excel, JSON</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>6. Outline PPT (solo post-aprobación)</h2>
+      <ol style="margin-left:18px;font-size:13px;">
+        <li>Portada · Proyecto Horizonte · PRJ-HZ-2026-01</li>
+        <li>Objetivo y alcance</li>
+        <li>Presupuesto y desviación</li>
+        <li>Riesgos prioritarios</li>
+        <li>Decisiones y próximas acciones</li>
+        <li>Evidencia de aprobación humana</li>
+      </ol>
+    </section>
+
+    <footer>
+      MCP-365-S2 · Resultado esperado · Paleta #211D40 · #4B3FAA · #FFEC00<br>
+      Referencia de calidad · no fuente de análisis · caso ficticio
+    </footer>
+  </div>
+</body>
+</html>

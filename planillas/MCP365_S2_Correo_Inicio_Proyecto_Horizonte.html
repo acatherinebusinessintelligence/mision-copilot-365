@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUEVO PROYECTO · HORIZONTE</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Calibri, Segoe UI, Arial, sans-serif;
+    background: #E8E6F0;
+    color: #211D40;
+    padding: 24px 12px;
+    line-height: 1.5;
+  }
+  .shell {
+    max-width: 640px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #D0CCE0;
+    box-shadow: 0 4px 18px rgba(33, 29, 64, 0.12);
+  }
+  .bar {
+    background: #211D40;
+    height: 6px;
+  }
+  .header {
+    background: #4B3FAA;
+    color: #fff;
+    padding: 18px 24px;
+  }
+  .header .brand {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #FFEC00;
+    margin-bottom: 6px;
+  }
+  .header h1 {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .meta {
+    background: #F4F3F9;
+    padding: 14px 24px;
+    border-bottom: 1px solid #D0CCE0;
+    font-size: 13px;
+  }
+  .meta dt {
+    float: left;
+    width: 90px;
+    font-weight: 700;
+    color: #4B3FAA;
+    clear: left;
+  }
+  .meta dd {
+    margin-left: 100px;
+    margin-bottom: 6px;
+  }
+  .body {
+    padding: 22px 24px 28px;
+    font-size: 14px;
+  }
+  .body p { margin-bottom: 12px; }
+  .accent {
+    border-left: 4px solid #FFEC00;
+    background: #F4F3F9;
+    padding: 12px 14px;
+    margin: 16px 0;
+  }
+  .attach {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px dashed #4B3FAA;
+    padding: 10px 12px;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  .attach .icon {
+    width: 36px;
+    height: 36px;
+    background: #4B3FAA;
+    color: #FFEC00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .sign {
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px solid #D0CCE0;
+    font-size: 13px;
+    color: #5A5A72;
+  }
+  .footer {
+    background: #211D40;
+    color: #C8C4D8;
+    font-size: 11px;
+    padding: 12px 24px;
+    text-align: center;
+  }
+  .note {
+    margin-top: 18px;
+    font-size: 11px;
+    color: #5A5A72;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="bar"></div>
+    <div class="header">
+      <div class="brand">MCP-365 · Simulación de correo · Caso ficticio</div>
+      <h1>Autorización de inicio · Proyecto Horizonte</h1>
+    </div>
+    <dl class="meta">
+      <dt>De:</dt>
+      <dd>Dirección de Operaciones &lt;operaciones@ejemplo-corporativo.local&gt;</dd>
+      <dt>Para:</dt>
+      <dd>Oficina de PMO &lt;pmo@ejemplo-corporativo.local&gt;</dd>
+      <dt>Asunto:</dt>
+      <dd><strong>NUEVO PROYECTO · HORIZONTE</strong></dd>
+      <dt>Fecha:</dt>
+      <dd>3 de agosto de 2026 · 09:15 (hora local ficticia)</dd>
+    </dl>
+    <div class="body">
+      <p>Estimado equipo de la Oficina de PMO,</p>
+      <p>
+        Por medio del presente se <strong>autoriza el inicio formal</strong> del
+        <strong>Proyecto Horizonte</strong> (código preliminar
+        <strong>PRJ-HZ-2026-01</strong>), caso de práctica MCP-365-S2.
+      </p>
+      <div class="accent">
+        La Dirección de Operaciones solicita registrar el proyecto, validar la
+        ficha adjunta y activar la cadena de automatización de la sesión
+        (correo → adjunto → control Excel → informe → aprobación humana → PPT).
+      </div>
+      <p>
+        Adjunto encontrarán la ficha de proyecto
+        <strong>MCP365_S2_Ficha_Proyecto_Horizonte.docx</strong>, con objetivo,
+        alcance preliminar, fechas, presupuesto de referencia y riesgos iniciales.
+        Algunos campos figuran como <em>No especificado</em> a propósito, para
+        ejercitar la extracción y el contraste con la validación humana.
+      </p>
+      <div class="attach">
+        <div class="icon">DOC</div>
+        <div>
+          <strong>MCP365_S2_Ficha_Proyecto_Horizonte.docx</strong><br>
+          Ficha de inicio · Proyecto Horizonte (ficticio)
+        </div>
+      </div>
+      <p>
+        Quedan a disposición para aclaraciones. No se incluyen credenciales reales
+        ni datos de producción; todo el contenido es material didáctico.
+      </p>
+      <div class="sign">
+        Cordialmente,<br>
+        <strong style="color:#211D40">Dirección de Operaciones</strong><br>
+        Organización de práctica MCP-365<br>
+        Contacto: No especificado
+      </div>
+      <p class="note">
+        Simulación offline para sesión MCP-365-S2. No enviar a buzones reales.
+      </p>
+    </div>
+    <div class="footer">
+      Paleta: #211D40 · #4B3FAA · #FFEC00 &nbsp;|&nbsp; Proyecto Horizonte · Caso ficticio
+    </div>
+  </div>
+</body>
+</html>

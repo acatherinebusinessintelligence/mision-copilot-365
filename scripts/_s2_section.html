@@ -1,0 +1,272 @@
+    <!-- ========== 6. SESIÓN 2 ========== -->
+    <section id="sesion2" aria-labelledby="s2Title">
+      <div class="container">
+        <p class="section-kicker">Sesión 2</p>
+        <h2 class="section-title" id="s2Title">Copilot y Power Automate para la gestión inteligente de proyectos</h2>
+        <p class="lead">Automatiza el ciclo de un proyecto empresarial combinando Copilot, Power Automate, Outlook, Word, Excel, SharePoint, Teams y PowerPoint.</p>
+        <p class="lead">La sesión comienza con la recepción de un correo que contiene la solicitud y la ficha inicial de un proyecto. A partir de esta información, los participantes construirán un flujo que almacenará los documentos, extraerá y estructurará los datos, registrará el proyecto, consolidará el presupuesto, analizará los riesgos, generará un informe, solicitará aprobación humana y preparará una presentación ejecutiva.</p>
+        <p class="lead">Cada reto utilizará los resultados del reto anterior. El objetivo no es practicar aplicaciones por separado, sino comprender cómo se conectan para gestionar un proyecto de principio a fin.</p>
+
+        <div class="disclaimer disclaimer--info">
+          <i data-lucide="info" width="18" height="18"></i>
+          <span><strong>Caso transversal · Proyecto Horizonte.</strong> Power Automate es la columna vertebral. Copilot estructura y redacta; la aprobación humana nunca la completa Copilot.</span>
+        </div>
+
+        <label class="principle" style="margin:1rem 0;cursor:pointer">
+          <input type="checkbox" data-progress="s2-done" />
+          <span><strong>Marcar Sesión 2 como finalizada</strong> al completar los seis retos encadenados.</span>
+        </label>
+
+        <div class="card" style="margin:1.5rem 0">
+          <h3>Objetivo de aprendizaje</h3>
+          <p>Al terminar la sesión, el participante podrá:</p>
+          <ul>
+            <li>Crear un flujo automatizado a partir de un correo.</li>
+            <li>Guardar y organizar archivos adjuntos.</li>
+            <li>Extraer información estructurada de un documento Word.</li>
+            <li>Utilizar datos dinámicos dentro de Power Automate.</li>
+            <li>Registrar información de proyectos en Excel.</li>
+            <li>Construir un presupuesto.</li>
+            <li>Crear y priorizar una matriz de riesgos.</li>
+            <li>Generar un informe Word desde una plantilla.</li>
+            <li>Incorporar una aprobación humana.</li>
+            <li>Preparar una presentación ejecutiva con Copilot.</li>
+            <li>Mantener trazabilidad entre fuentes, análisis y entregables.</li>
+          </ul>
+        </div>
+
+        <div class="card" style="margin:1.5rem 0">
+          <h3>Caso transversal · Proyecto Horizonte</h3>
+          <p>La organización recibe por correo la solicitud de iniciar el <strong>Proyecto Horizonte</strong>.</p>
+          <p>El correo incluye una ficha Word con: nombre, código, objetivo, alcance, patrocinador, líder, fechas, presupuesto preliminar, entregables, dependencias, restricciones, riesgos iniciales y criterios de éxito.</p>
+          <p>Los datos y archivos producidos en cada reto deben utilizarse en el siguiente.</p>
+        </div>
+
+        <h3>Archivos oficiales de la sesión</h3>
+        <div class="btn-group" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-correo"><i data-lucide="mail" width="14" height="14"></i> Correo de inicio (.html)</button>
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-ficha"><i data-lucide="file-text" width="14" height="14"></i> Ficha Word</button>
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-control"><i data-lucide="sheet" width="14" height="14"></i> Control Excel</button>
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-informe-plantilla"><i data-lucide="file" width="14" height="14"></i> Plantilla informe</button>
+          <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2-guia-pa"><i data-lucide="book-open" width="14" height="14"></i> Guía Power Automate</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-planilla="s2-resultado"><i data-lucide="eye" width="14" height="14"></i> Resultado esperado</button>
+        </div>
+        <div class="doc-box">
+          <p><strong>Resultado de la sesión:</strong> al terminar, habrás construido el flujo completo de un proyecto: desde la recepción de la solicitud por correo hasta la generación del presupuesto, la matriz de riesgos, el informe aprobado y la presentación ejecutiva.</p>
+          <p style="margin:0.5rem 0 0"><strong>Entregables:</strong> flujo de recepción · carpeta documental · JSON · Excel de control · presupuesto · matriz de riesgos · informe Word · registro de aprobación · presentación PowerPoint · correo final de notificación.</p>
+        </div>
+
+        <div class="practice-invite" style="margin:1.5rem 0">
+          <h4><i data-lucide="sparkles" width="18" height="18"></i> Práctica propia</h4>
+          <p>Adapta el flujo a un proyecto real anonimizado de tu trabajo.</p>
+          <p>Puedes utilizar una solicitud de proyecto, una orden de servicio, un plan de capacitación, una propuesta interna o una solicitud de cambio.</p>
+          <p>Antes de usar información real: elimina datos personales y credenciales; sustituye nombres por roles; elimina información contractual reservada; cambia identificadores internos; conserva únicamente los datos necesarios para practicar.</p>
+        </div>
+
+        <div style="margin-top:2.5rem">
+          <!-- RETO 1 -->
+          <article class="reto is-open" data-reto="fase-1">
+            <button class="reto__header" aria-expanded="true">
+              <span class="reto__title-wrap">
+                <span class="reto__num">1</span>
+                <span>
+                  <strong>Recepción automatizada del proyecto</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Outlook + Power Automate + SharePoint / OneDrive</span>
+                </span>
+              </span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-1" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="m365-box">
+                <h4><span class="app-badge">Outlook</span> + <span class="app-badge">Power Automate</span> + <span class="app-badge">SharePoint</span> Paso a paso</h4>
+                <ol>
+                  <li>Descarga el correo de inicio y la ficha Word. Revisa la guía Power Automate.</li>
+                  <li>Construye un flujo que se active cuando el asunto contenga <code>NUEVO PROYECTO · HORIZONTE</code>.</li>
+                  <li>El flujo debe: detectar el correo; capturar remitente, asunto y fecha; verificar la ficha Word; crear carpeta <code>MCP365_S2_F01_Recepcion_Proyecto_Horizonte</code>; guardar el adjunto; registrar la recepción; enviar confirmación.</li>
+                  <li>No inventes endpoints, credenciales ni rutas reales de producción.</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-correo"><i data-lucide="download" width="14" height="14"></i> Correo de inicio</button>
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-ficha"><i data-lucide="download" width="14" height="14"></i> Ficha Word</button>
+                <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2-guia-pa"><i data-lucide="book-open" width="14" height="14"></i> Guía PA</button>
+              </div>
+              <div data-reto-enhance="fase-1"></div>
+            </div>
+          </article>
+
+          <!-- RETO 2 -->
+          <article class="reto" data-reto="fase-2">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap">
+                <span class="reto__num">2</span>
+                <span>
+                  <strong>Extracción de información del Word</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Copilot + Word + Power Automate</span>
+                </span>
+              </span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-2" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="m365-box">
+                <h4><span class="app-badge">Copilot</span> + <span class="app-badge">Word</span> + <span class="app-badge">Power Automate</span> Paso a paso</h4>
+                <ol>
+                  <li>Usa la ficha guardada en el Reto 1: <code>MCP365_S2_Ficha_Proyecto_Horizonte.docx</code>.</li>
+                  <li>Extrae código, nombre, objetivo, alcance, patrocinador, líder, fechas, presupuesto preliminar, entregables, dependencias, restricciones, riesgos y criterios de éxito.</li>
+                  <li>Copilot debe entregar un JSON estructurado. Si falta un dato: <code>No especificado</code>.</li>
+                  <li>No inventes fechas, cifras, responsables ni decisiones.</li>
+                  <li>Compara el JSON con el Word (validación humana) antes de continuar.</li>
+                  <li>Guarda: <code>MCP365_S2_Datos_Proyecto_Horizonte.json</code>.</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-ficha"><i data-lucide="download" width="14" height="14"></i> Ficha Word (fuente)</button>
+              </div>
+              <div data-reto-enhance="fase-2"></div>
+            </div>
+          </article>
+
+          <!-- RETO 3 -->
+          <article class="reto" data-reto="fase-3">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap">
+                <span class="reto__num">3</span>
+                <span>
+                  <strong>Presupuesto del proyecto</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Power Automate + Excel + Copilot</span>
+                </span>
+              </span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-3" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="m365-box">
+                <h4><span class="app-badge">Power Automate</span> + <span class="app-badge">Excel</span> + <span class="app-badge">Copilot</span> Paso a paso</h4>
+                <ol>
+                  <li>Registra los datos del JSON en <code>MCP365_S2_Control_Proyecto_Horizonte.xlsx</code>.</li>
+                  <li>Completa la hoja <strong>Presupuesto</strong> con: código de partida, categoría, descripción, cantidad, costo unitario, costo total, responsable, fuente, tipo de cifra, estado de validación y observación.</li>
+                  <li>Diferencia valor confirmado, estimado y no especificado.</li>
+                  <li>Excel calcula subtotales, total, diferencia frente al preliminar y % de desviación.</li>
+                  <li>Power Automate agrega o actualiza filas. No modifiques una cifra confirmada sin aprobación humana.</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-control"><i data-lucide="download" width="14" height="14"></i> Control Excel</button>
+              </div>
+              <div data-reto-enhance="fase-3"></div>
+            </div>
+          </article>
+
+          <!-- RETO 4 -->
+          <article class="reto" data-reto="fase-4">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap">
+                <span class="reto__num">4</span>
+                <span>
+                  <strong>Matriz de riesgos</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Copilot + Excel + Power Automate</span>
+                </span>
+              </span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-4" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="m365-box">
+                <h4><span class="app-badge">Copilot</span> + <span class="app-badge">Excel</span> + <span class="app-badge">Power Automate</span> Paso a paso</h4>
+                <ol>
+                  <li>Completa la hoja <strong>Riesgos</strong> del archivo de control (mismo Excel del Reto 3).</li>
+                  <li>Campos: identificador, riesgo, causa, consecuencia, probabilidad, impacto, nivel, control existente, tratamiento, responsable, fecha de revisión, estado, fuente.</li>
+                  <li>Distingue riesgo explícito, inferido, supuesto e información ausente.</li>
+                  <li>Todo riesgo inferido lleva la etiqueta <code>Interpretación para validación</code>.</li>
+                  <li>Ningún riesgo queda marcado automáticamente como validado.</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-control"><i data-lucide="download" width="14" height="14"></i> Control Excel</button>
+              </div>
+              <div data-reto-enhance="fase-4"></div>
+            </div>
+          </article>
+
+          <!-- RETO 5 -->
+          <article class="reto" data-reto="fase-5">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap">
+                <span class="reto__num">5</span>
+                <span>
+                  <strong>Informe y aprobación</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Power Automate + Word + Approvals + Outlook</span>
+                </span>
+              </span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-5" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="m365-box">
+                <h4><span class="app-badge">Power Automate</span> + <span class="app-badge">Word</span> + <span class="app-badge">Approvals</span> Paso a paso</h4>
+                <ol>
+                  <li>Usa la plantilla para crear <code>MCP365_S2_Informe_Proyecto_Horizonte.docx</code> con datos del JSON, presupuesto y riesgos.</li>
+                  <li>El informe incluye: identificación, resumen ejecutivo, objetivo, alcance, entregables, cronograma, presupuesto, desviaciones, riesgos prioritarios, dependencias, decisiones pendientes, recomendaciones, fuentes, validación humana y control de calidad.</li>
+                  <li>Power Automate: rellena plantilla → guarda → envía a aprobación → espera respuesta → registra decisión → notifica.</li>
+                  <li>Si es rechazado: registra observaciones, notifica y detén la presentación final.</li>
+                  <li>La aprobación nunca la completa Copilot. Validación humana y CQ quedan vacíos para la persona.</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem">
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-informe-plantilla"><i data-lucide="download" width="14" height="14"></i> Plantilla informe</button>
+                <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2-control"><i data-lucide="sheet" width="14" height="14"></i> Control Excel</button>
+              </div>
+              <div data-reto-enhance="fase-5"></div>
+            </div>
+          </article>
+
+          <!-- RETO 6 -->
+          <article class="reto" data-reto="fase-6">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap">
+                <span class="reto__num">6</span>
+                <span>
+                  <strong>Presentación ejecutiva</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Word + PowerPoint + Copilot · Solo si el informe está aprobado</span>
+                </span>
+              </span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="fase-6" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="disclaimer disclaimer--danger">
+                <i data-lucide="shield-alert" width="18" height="18"></i>
+                <span><strong>Precondición:</strong> el informe Word debe estar aprobado. Si fue rechazado, no generes la presentación.</span>
+              </div>
+              <div class="m365-box">
+                <h4><span class="app-badge">Word</span> + <span class="app-badge">PowerPoint</span> + <span class="app-badge">Copilot</span> Paso a paso</h4>
+                <ol>
+                  <li>Crea la presentación solo a partir de <code>MCP365_S2_Informe_Proyecto_Horizonte.docx</code> aprobado.</li>
+                  <li>Entre 8 y 10 diapositivas: portada, necesidad/oportunidad, objetivo y alcance, entregables, cronograma, presupuesto, riesgos prioritarios, decisiones pendientes, próximos pasos, cierre.</li>
+                  <li>Guarda como <code>MCP365_S2_Presentacion_Proyecto_Horizonte.pptx</code>.</li>
+                  <li>Copilot no agrega beneficios, cifras, fechas ni responsables que no aparezcan en el informe aprobado.</li>
+                </ol>
+              </div>
+              <div class="btn-group" style="margin-bottom:1rem">
+                <button type="button" class="btn btn--sm btn--ghost" data-planilla="s2-resultado"><i data-lucide="eye" width="14" height="14"></i> Ver resultado esperado</button>
+              </div>
+              <div data-reto-enhance="fase-6"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
