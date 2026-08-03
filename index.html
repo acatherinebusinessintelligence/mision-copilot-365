@@ -3551,17 +3551,36 @@
         const prev = btn.innerHTML;
         btn.innerHTML = "Enviando…";
         try {
-          const res = await fetch("/api/reto/send-email", {
+          let res = await fetch("/api/reto/send-email", {
             method: "POST",
             credentials: "same-origin",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ reto_id: retoId }),
           });
+          // Compatibilidad: si el servidor aún no tiene la ruta nueva, intentar R1 legacy
+          if (res.status === 404 && (retoId === "r1" || retoId === "reto1")) {
+            res = await fetch("/api/reto1/send-email", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: { "Content-Type": "application/json" },
+            });
+          }
           const raw = await res.text();
           let data = {};
           try { data = JSON.parse(raw); } catch (_) {}
           if (!res.ok || !data.ok) {
-            const msg = data.error || ("Error HTTP " + res.status);
+            let msg = data.error || "";
+            if (!msg) {
+              if (res.status === 404) {
+                msg = "Endpoint no encontrado (404). En PythonAnywhere ejecuta: cd ~/Clases_Enel && git pull y luego Web → Reload.";
+              } else if (res.status === 401) {
+                msg = "Sesión requerida. Vuelve a iniciar sesión.";
+              } else if (res.status === 502) {
+                msg = "El servidor no pudo enviar el correo (revisa EMAIL_WEBHOOK_URL o SMTP en .env).";
+              } else {
+                msg = "Error HTTP " + res.status + ". " + raw.slice(0, 160);
+              }
+            }
             toast(msg, "alert-triangle");
             if (status) status.textContent = msg;
             return;
@@ -3570,6 +3589,7 @@
           if (status) status.innerHTML = "Enviado a <strong>" + esc(data.to) + "</strong>. Asunto: <em>" + esc(data.subject || "") + "</em>. Revisa también spam.";
         } catch (e) {
           toast("Error de red al enviar el correo", "alert-triangle");
+          if (status) status.textContent = "Error de red al enviar el correo.";
         } finally {
           btn.disabled = false;
           btn.innerHTML = prev;
@@ -4414,7 +4434,7 @@
         if (!res.ok || !data.ok) {
           let msg = data.error || "";
           if (!msg) {
-            if (res.status === 404) msg = "Endpoint no encontrado (404). En el servidor falta git pull + Reload.";
+            if (res.status === 404) msg = "Endpoint no encontrado (404). En PythonAnywhere: cd ~/Clases_Enel && git pull y luego Web → Reload.";
             else if (res.status === 401) msg = "Sesión requerida. Vuelve a iniciar sesión.";
             else if (res.status === 502) msg = "El servidor no pudo enviar el correo (SMTP/webhook).";
             else msg = `Error HTTP ${res.status}. ${raw.slice(0, 160)}`;
