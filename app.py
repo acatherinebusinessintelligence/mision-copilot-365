@@ -408,13 +408,13 @@ def get_reto_r2_parts() -> list[dict]:
 
 def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: str) -> tuple[str, str, str]:
     """Contenido centralizado. Retorna (subject, body, from_display_name)."""
-    reto_id = (reto_id or "r1").strip().lower()
+    reto_id = (reto_id or "r1").strip().lower().replace("_", "-")
     if reto_id in ("r1", "reto1", "reto-1"):
         subject, body = _reto1_email_content(to_email, name, smtp_email)
         return subject, body, "Laura Méndez · Coordinación de Campo"
 
     # Cadena completa (compatibilidad)
-    if reto_id in ("r2", "reto2", "reto-2", "r2-all"):
+    if reto_id in ("r2", "reto2", "reto-2", "r2-all", "r2all"):
         parts = get_reto_r2_parts()
         subject = "Cadena ST-Urb-03 · 4 correos del Reto 2 (resumen)"
         chunks = [
@@ -433,6 +433,13 @@ def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: s
         chunks.append("La planilla se descarga en la plataforma (no va adjunta).")
         return subject, "\n".join(chunks), "Misión Copilot 365 · Cadena ST-Urb-03"
 
+    # Alias numéricos: r21 -> r2-1, etc.
+    aliases = {
+        "r21": "r2-1", "r22": "r2-2", "r23": "r2-3", "r24": "r2-4",
+        "reto2-1": "r2-1", "reto2-2": "r2-2", "reto2-3": "r2-3", "reto2-4": "r2-4",
+    }
+    reto_id = aliases.get(reto_id, reto_id)
+
     for p in get_reto_r2_parts():
         if reto_id == p["id"]:
             footer = (
@@ -446,11 +453,20 @@ def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: s
     return "", "", ""
 
 
+def list_reto_email_ids() -> list[str]:
+    return ["r1", "r2", "r2-all"] + [p["id"] for p in get_reto_r2_parts()]
+
+
 def send_reto_email(reto_id: str, to_email: str, name: str) -> tuple[bool, str]:
     smtp_email, smtp_password, _, _ = _smtp_config()
     subject, body, from_name = get_reto_email_content(reto_id, to_email, name, smtp_email)
     if not subject or not body:
-        return False, f"No hay correo simulado configurado para el reto '{reto_id}'."
+        disponibles = ", ".join(list_reto_email_ids())
+        return False, (
+            f"No hay correo simulado configurado para el reto '{reto_id}'. "
+            f"IDs válidos en este servidor: {disponibles}. "
+            "Si esperabas r2-1/r2-all, ejecuta git pull + Web Reload en PythonAnywhere."
+        )
 
     from_display = f"{from_name} <{smtp_email}>"
 
@@ -1160,9 +1176,17 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
+APP_CODE_VERSION = "2026-08-03-r2-parts-v2"
+
+
 @app.get("/health")
 def health():
-    return jsonify({"ok": True, "service": "mision-copilot-365"})
+    return jsonify({
+        "ok": True,
+        "service": "mision-copilot-365",
+        "version": APP_CODE_VERSION,
+        "reto_emails": list_reto_email_ids(),
+    })
 
 
 if __name__ == "__main__":
