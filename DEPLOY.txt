@@ -85,15 +85,24 @@ Salud:       https://acatherinem.pythonanywhere.com/health
 8) Si el correo falla (plan free)
 --------------------------------
 El plan gratuito a menudo bloquea SMTP (puerto 587).
-Para el Reto 1 (enviar correo a la bandeja del estudiante):
+Para Reto 1 / Reto 2 (enviar correo a la bandeja del estudiante):
 
 1. Abre https://script.google.com con analizamostunegocio@gmail.com
 2. Crea un proyecto y pega scripts/gmail_reto1_webhook.gs
-3. Implementar → Aplicación web (Ejecutar como: Yo / Acceso: Cualquiera)
-4. En el .env de PythonAnywhere:
+3. Pon el mismo WEBHOOK_SECRET que usarás en .env
+4. Implementar → Aplicación web (Ejecutar como: Yo / Acceso: Cualquiera)
+5. Autoriza Gmail; copia la URL que termina en /exec (no /dev)
+6. En el .env de PythonAnywhere:
      EMAIL_WEBHOOK_URL=https://script.google.com/macros/s/.../exec
      EMAIL_WEBHOOK_SECRET=el-mismo-secreto-del-script
-5. Web → Reload
+7. Web → Reload
+8. Verifica https://acatherinem.pythonanywhere.com/health
+   → mail.webhook_configured=true y mail.webhook_is_exec=true
+
+Si la UI dice "Enviado" pero no llega:
+- No uses la misma cuenta Gmail de salida como estudiante (self-send).
+- Revisa spam / Todos / Enviados en Gmail.
+- Si el secreto no coincide, ahora el API devolverá error (no falso éxito).
 
 Las claves de acceso siguen pudiendo copiarse desde el panel admin
 si el envío SMTP de claves también falla.

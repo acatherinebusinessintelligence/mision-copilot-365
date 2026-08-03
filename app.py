@@ -276,8 +276,18 @@ def _send_email_smtp(to_email: str, subject: str, body: str, from_display: str) 
         return False, f"Error SMTP: {exc}"
 
 
-def _send_email_webhook(to_email: str, name: str, subject: str, body: str) -> tuple[bool, str]:
-    """Envío por HTTPS (funciona en PythonAnywhere free). Espera un Google Apps Script u otro webhook."""
+def _send_email_webhook(
+    to_email: str,
+    name: str,
+    subject: str,
+    body: str,
+    from_name: str = "Laura Méndez · Coordinación de Campo",
+) -> tuple[bool, str]:
+    """Envío por HTTPS (funciona en PythonAnywhere free). Google Apps Script u otro webhook.
+
+    Apps Script suele responder 302 en POST; urllib convierte el redirect en GET y
+    doPost nunca corre. Aquí re-POSTeamos al Location y exigimos JSON ok:true.
+    """
     import json
     import urllib.error
     import urllib.request
@@ -285,6 +295,8 @@ def _send_email_webhook(to_email: str, name: str, subject: str, body: str) -> tu
     url = (os.getenv("EMAIL_WEBHOOK_URL") or "").strip()
     if not url:
         return False, "EMAIL_WEBHOOK_URL no configurada"
+    if "/dev" in url:
+        return False, "EMAIL_WEBHOOK_URL usa /dev (solo dueño). Despliega e usa la URL /exec."
 
     payload = json.dumps(
         {
@@ -292,27 +304,74 @@ def _send_email_webhook(to_email: str, name: str, subject: str, body: str) -> tu
             "name": name,
             "subject": subject,
             "body": body,
-            "fromName": "Laura Méndez · Coordinación de Campo",
+            "fromName": from_name,
             "secret": (os.getenv("EMAIL_WEBHOOK_SECRET") or "").strip(),
         },
         ensure_ascii=False,
     ).encode("utf-8")
 
-    req = urllib.request.Request(
-        url,
-        data=payload,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
+    class _NoRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: ANN001
+            return None
+
+    opener = urllib.request.build_opener(_NoRedirect)
+
+    def _post_once(target: str):
+        req = urllib.request.Request(
+            target,
+            data=payload,
+            headers={"Content-Type": "application/json", "User-Agent": "mision-copilot-365"},
+            method="POST",
+        )
+        return opener.open(req, timeout=25)
+
     try:
-        with urllib.request.urlopen(req, timeout=25) as resp:
-            raw = resp.read().decode("utf-8", errors="replace")
-            if resp.status >= 400:
-                return False, f"Webhook HTTP {resp.status}: {raw[:200]}"
-            return True, f"Enviado por webhook HTTPS a {to_email}"
-    except urllib.error.HTTPError as exc:
-        detail = exc.read().decode("utf-8", errors="replace")[:200]
-        return False, f"Webhook HTTP {exc.code}: {detail}"
+        current = url
+        raw = ""
+        status = 0
+        for _ in range(5):
+            try:
+                with _post_once(current) as resp:
+                    status = getattr(resp, "status", 200) or 200
+                    raw = resp.read().decode("utf-8", errors="replace")
+                    break
+            except urllib.error.HTTPError as exc:
+                if exc.code in (301, 302, 303, 307, 308):
+                    loc = exc.headers.get("Location") or ""
+                    if not loc:
+                        return False, f"Webhook redirect {exc.code} sin Location"
+                    if loc.startswith("/"):
+                        from urllib.parse import urljoin
+
+                        loc = urljoin(current, loc)
+                    current = loc
+                    continue
+                detail = exc.read().decode("utf-8", errors="replace")[:240]
+                return False, f"Webhook HTTP {exc.code}: {detail}"
+        else:
+            return False, "Webhook: demasiados redirects"
+
+        if status >= 400:
+            return False, f"Webhook HTTP {status}: {raw[:200]}"
+
+        text = (raw or "").strip()
+        if not text:
+            return False, (
+                "Webhook respondió vacío. Revisa: app web publicada como "
+                "'Cualquier persona', URL /exec, y secreto igual en .env y el .gs"
+            )
+        try:
+            data = json.loads(text)
+        except json.JSONDecodeError:
+            snippet = text[:180].replace("\n", " ")
+            return False, (
+                f"Webhook no devolvió JSON (¿página de permiso?). Respuesta: {snippet}. "
+                "Vuelve a Implementar la app web en script.google.com (acceso: Cualquiera)."
+            )
+        if not data.get("ok"):
+            err = data.get("error") or data.get("message") or text[:160]
+            return False, f"Webhook rechazó el envío: {err}"
+        return True, f"Enviado por webhook HTTPS a {to_email}"
     except Exception as exc:  # noqa: BLE001
         return False, f"Webhook falló: {exc}"
 
@@ -472,7 +531,7 @@ def send_reto_email(reto_id: str, to_email: str, name: str) -> tuple[bool, str]:
 
     errors: list[str] = []
     if (os.getenv("EMAIL_WEBHOOK_URL") or "").strip():
-        ok, detail = _send_email_webhook(to_email, name, subject, body)
+        ok, detail = _send_email_webhook(to_email, name, subject, body, from_name)
         if ok:
             return True, detail
         errors.append(detail)
@@ -1176,16 +1235,25 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-03-r2-parts-v2"
+APP_CODE_VERSION = "2026-08-03-webhook-fix-v3"
 
 
 @app.get("/health")
 def health():
+    _, smtp_password, _, _ = _smtp_config()
+    webhook_url = (os.getenv("EMAIL_WEBHOOK_URL") or "").strip()
     return jsonify({
         "ok": True,
         "service": "mision-copilot-365",
         "version": APP_CODE_VERSION,
         "reto_emails": list_reto_email_ids(),
+        "mail": {
+            "webhook_configured": bool(webhook_url),
+            "webhook_is_exec": ("/exec" in webhook_url) if webhook_url else False,
+            "smtp_configured": bool(smtp_password),
+            "resend_configured": bool((os.getenv("RESEND_API_KEY") or "").strip()),
+            "smtp_email": os.getenv("SMTP_EMAIL", "analizamostunegocio@gmail.com"),
+        },
     })
 
 
