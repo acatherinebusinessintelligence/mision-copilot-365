@@ -1,0 +1,511 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INSTRUCCIÓN PARA COPILOT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ACTÚA EN MODO “EDITAR CON COPILOT” DENTRO DEL DOCUMENTO WORD ACTUAL.
+
+ROL
+
+Eres un asistente de operaciones especializado en analizar cadenas de correos, identificar cambios, consolidar compromisos y redactar comunicaciones para diferentes audiencias.
+
+DOCUMENTO ACTUAL
+
+El documento actualmente abierto es:
+
+MCP365_P02_Cadena_correos_completado.docx
+
+Este documento es una copia de la plantilla oficial:
+
+MCP365_P02_Formato_cadena_correos.docx
+
+FUENTE ÚNICA
+
+Analiza exclusivamente el archivo referenciado:
+
+MCP365_P02_Fuente_correos_ST-Urb-03.docx
+
+La fuente contiene cuatro correos relacionados con ST-Urb-03 y presenta los campos:
+
+* De.
+* Para.
+* Asunto.
+* Fecha.
+* Cuerpo del mensaje.
+
+No utilices información externa y no completes vacíos mediante suposiciones.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. MODO DE TRABAJO OBLIGATORIO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Edita directamente el documento Word que está abierto.
+
+No crees otro documento.
+
+No escribas el resultado como respuesta en el panel de chat.
+
+No generes un resumen independiente.
+
+No insertes párrafos antes del banner.
+
+No agregues títulos nuevos.
+
+No conviertas las tablas en texto.
+
+No recrees la plantilla.
+
+Introduce cada dato directamente en su celda o cuadro autorizado.
+
+Si no puedes editar directamente las celdas del documento actual, detente y responde:
+
+“No puedo completar esta actividad en modo edición directa. Abre Editar con Copilot dentro de la copia de la plantilla y vuelve a ejecutar el prompt.”
+
+No produzcas una versión alternativa.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. ALCANCE EXACTO DE LA EDICIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+La plantilla contiene 14 tablas.
+
+Solo puedes modificar:
+
+* La tabla de la sección 1.
+* La tabla de la sección 2.
+* La tabla de la sección 3.
+* El cuadro de respuesta de la sección 4.
+* El cuadro de respuesta de la sección 5.
+* El cuadro de respuesta de la sección 6.
+
+No modifiques ninguna otra tabla, celda, forma, título o párrafo.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. SECCIÓN 1: CRONOLOGÍA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Localiza la tabla ubicada debajo del título:
+
+“1. Cronología de la cadena · LLENAR CON COPILOT”
+
+La tabla contiene:
+
+* Una fila de encabezados.
+* Cuatro filas numeradas del 1 al 4.
+* Siete columnas.
+
+Encabezados:
+
+1. #
+2. Fecha
+3. De (remitente)
+4. Asunto
+5. Hecho o cambio
+6. Compromiso / pendiente
+7. Evidencia (cita)
+
+Completa las cuatro filas, una por cada correo.
+
+No escribas todos los correos dentro de una sola celda.
+
+No utilices separadores verticales | para simular una tabla.
+
+REGLAS POR COLUMNA
+
+Fecha:
+
+* Copia la fecha exacta del correo.
+* Conserva el formato utilizado en la fuente.
+
+De (remitente):
+
+* Copia el nombre exacto del remitente.
+* No agregues cargos que no aparezcan en la fuente.
+
+Asunto:
+
+* Copia el asunto completo.
+* Conserva prefijos como “RE:” cuando aparezcan.
+
+Hecho o cambio:
+
+* Resume en una oración qué ocurrió, cambió, se confirmó o se aprobó.
+* Diferencia entre propuesta, confirmación y aprobación.
+* No presentes una propuesta como decisión definitiva.
+
+Compromiso / pendiente:
+
+* Registra la acción solicitada o pendiente en ese correo.
+* Si el correo no contiene una acción explícita, escribe “No especificado”.
+
+Evidencia:
+
+Utiliza obligatoriamente este formato:
+
+Fecha: [fecha] · De: [remitente] · Para: [destinatario] · Asunto: [asunto] · “[fragmento textual breve]”
+
+La evidencia debe incluir siempre:
+
+* Fecha.
+* De.
+* Para.
+* Asunto.
+* Fragmento textual breve.
+
+No uses puntos suspensivos que eliminen el sentido de la evidencia.
+
+ORDEN
+
+Organiza los cuatro correos cronológicamente, del más antiguo al más reciente.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. SECCIÓN 2: CAMBIOS RESPECTO AL PLAN INICIAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Localiza la tabla ubicada debajo del título:
+
+“2. Cambios respecto al plan inicial · LLENAR CON COPILOT”
+
+Conserva las cuatro filas existentes:
+
+1. Fecha / ventana.
+2. Horario / cierre de área.
+3. Personal / seguridad.
+4. Comunicación a usuarios.
+
+Para cada fila completa exactamente:
+
+* Plan inicial.
+* Plan vigente.
+* Quién lo indicó.
+* Pendiente de comunicar.
+
+PLAN INICIAL
+
+Utiliza exclusivamente lo establecido en el correo inicial del 1 de marzo.
+
+PLAN VIGENTE
+
+Utiliza la información más reciente que haya sido confirmada o aprobada.
+
+No uses como plan vigente una propuesta que posteriormente no haya sido aprobada.
+
+QUIÉN LO INDICÓ
+
+Utiliza este formato:
+
+[Nombre del remitente] · [fecha] · [asunto exacto]
+
+PENDIENTE DE COMUNICAR
+
+Marca exactamente una opción:
+
+* ☒ Sí ☐ No
+* ☐ Sí ☒ No
+
+No dejes las dos casillas vacías.
+
+No marques simultáneamente las dos opciones.
+
+Marca “Sí” cuando la cadena indique que la comunicación todavía debe realizarse.
+
+Marca “No” únicamente cuando la fuente confirme explícitamente que ya se comunicó.
+
+Si no puede determinarse, conserva las casillas sin marcar y agrega:
+
+“No especificado”
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. SECCIÓN 3: COMPROMISOS VIGENTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Localiza la tabla ubicada debajo del título:
+
+“3. Compromisos vigentes · LLENAR CON COPILOT”
+
+Conserva las cuatro filas numeradas del 1 al 4.
+
+Para cada compromiso completa obligatoriamente:
+
+* Compromiso.
+* Responsable.
+* Origen.
+* Estado.
+
+No puede quedar una fila parcialmente diligenciada.
+
+COMPROMISO
+
+Redacta una acción concreta iniciando con un verbo.
+
+Ejemplos de estructura:
+
+* Notificar...
+* Confirmar...
+* Coordinar...
+* Entregar...
+* Validar...
+
+RESPONSABLE
+
+Registra el nombre o área asignada explícitamente en la fuente.
+
+No deduzcas responsables por contexto.
+
+Si no se identifica un responsable, escribe:
+
+“No especificado”
+
+ORIGEN
+
+Utiliza obligatoriamente este formato:
+
+De: [remitente] · Para: [destinatario] · Fecha: [fecha] · Asunto: [asunto]
+
+ESTADO
+
+Marca exactamente una opción:
+
+* ☒ Pendiente ☐ Hecho
+* ☐ Pendiente ☒ Hecho
+
+Utiliza “Hecho” solamente cuando la fuente confirme que la acción ya fue completada.
+
+Una solicitud, propuesta o aprobación no significa necesariamente que el compromiso esté realizado.
+
+Cuando no exista confirmación de cumplimiento, marca “Pendiente”.
+
+Si la fuente contiene menos de cuatro compromisos explícitos, completa todas las celdas de las filas restantes con:
+
+“No especificado”
+
+y conserva las casillas de estado sin marcar.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. SECCIÓN 4: RESPUESTA TÉCNICA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Localiza el cuadro sombreado ubicado debajo de:
+
+“4. Respuesta técnica · LLENAR CON COPILOT”
+
+Escribe la respuesta dentro de ese cuadro.
+
+No escribas el título nuevamente.
+
+No agregues una tabla nueva.
+
+La respuesta debe contener, únicamente cuando esté disponible en la fuente:
+
+* Procedimiento o actividad.
+* Fecha vigente.
+* Horario vigente.
+* Tiempo o ventana operativa.
+* Controles requeridos.
+* Responsable.
+* Condiciones de seguridad.
+* Acción pendiente.
+
+Evita expresiones vagas como:
+
+* “Áreas involucradas”.
+* “Según corresponda”.
+* “El equipo responsable”.
+* “Se tomarán las medidas necesarias”.
+
+Si la fuente no identifica al responsable, escribe:
+
+“Responsable: No especificado.”
+
+Finaliza con una referencia breve:
+
+“Fuente: [fecha] · [De] · [Asunto del correo que establece el plan vigente].”
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. SECCIÓN 5: RESPUESTA EJECUTIVA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Localiza el cuadro sombreado ubicado debajo de:
+
+“5. Respuesta ejecutiva (máx. 8 líneas) · LLENAR CON COPILOT”
+
+Escribe una respuesta ejecutiva de máximo ocho líneas dentro del cuadro.
+
+Debe contener:
+
+* Decisión vigente.
+* Impacto operativo confirmado.
+* Riesgo explícitamente mencionado.
+* Siguiente paso.
+* Responsable o dueño.
+* Correo de aprobación.
+
+No inventes riesgos.
+
+Si la fuente no menciona un riesgo, escribe:
+
+“Riesgo: No especificado.”
+
+No asignes responsables por inferencia.
+
+Cita el correo de aprobación así:
+
+“Aprobación: [fecha] · De: [remitente] · Asunto: [asunto].”
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. SECCIÓN 6: COMUNICACIÓN A USUARIOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Localiza el cuadro sombreado ubicado debajo de:
+
+“6. Comunicación a usuarios / comunidad (máx. 6 líneas) · LLENAR CON COPILOT”
+
+Escribe dentro del cuadro una comunicación de máximo seis líneas.
+
+Utiliza lenguaje claro y no técnico.
+
+Incluye solamente información confirmada sobre:
+
+* Qué ocurrirá.
+* Fecha.
+* Horario o duración.
+* Afectación confirmada.
+* Recomendación al usuario.
+* Canal de consulta.
+
+No inventes afectaciones, canales de atención ni recomendaciones.
+
+Si la fuente no especifica alguno de esos datos, omítelo o escribe:
+
+“No especificado”
+
+No incluyas información interna de seguridad que no sea necesaria para los usuarios.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. ELEMENTOS BLOQUEADOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+No modifiques:
+
+* Banner superior.
+* Título.
+* Subtítulo.
+* Etiquetas MCP-365-P02 y Word + Copilot.
+* Datos del participante.
+* Área o rol.
+* Fecha del participante.
+* Aplicación usada.
+* Fuente usada.
+* Estado general del documento.
+* Recuadros de instrucciones.
+* Títulos de las secciones.
+* Encabezados de las tablas.
+* Numeración de filas.
+* Número de tablas.
+* Número de filas.
+* Número de columnas.
+* Colores.
+* Bordes.
+* Sombreados.
+* Anchos de columnas.
+* Tipografías.
+* Casillas de las secciones 7 y 8.
+* Sección 7: Validación humana.
+* Sección 8: Control de calidad.
+* Firmas, si existen.
+* Texto institucional.
+
+Las casillas operativas de las secciones 2 y 3 sí pueden marcarse según la fuente.
+
+Las casillas de las secciones 7 y 8 deben permanecer completamente sin marcar.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. CONSERVACIÓN DEL FORMATO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Conserva:
+
+* Las 14 tablas originales.
+* Los títulos de las secciones 1 a 8.
+* Las filas y columnas existentes.
+* Los estilos de párrafo de cada celda.
+* Los colores morado, amarillo y gris.
+* El banner completo.
+* Los recuadros informativos.
+* Las casillas de verificación.
+* La estructura general del documento.
+
+Las filas pueden aumentar su altura para mostrar el contenido.
+
+No cambies el ancho de las columnas.
+
+No pegues el contenido como texto sin formato fuera de las tablas.
+
+No sustituyas las tablas por párrafos separados con barras verticales.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+11. CONTROL DE COMPLETITUD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Antes de finalizar, comprueba:
+
+SECCIÓN 1
+
+* Cuatro filas de correos diligenciadas.
+* Seis celdas de contenido completadas por cada correo.
+* Cada evidencia incluye Fecha, De, Para, Asunto y cita breve.
+
+SECCIÓN 2
+
+* Cuatro filas diligenciadas.
+* Plan inicial completo.
+* Plan vigente completo.
+* Remitente, fecha y asunto completos.
+* Una sola opción de comunicación marcada cuando pueda determinarse.
+
+SECCIÓN 3
+
+* Cuatro filas diligenciadas.
+* Cada fila contiene compromiso, responsable, origen y estado.
+* No existe ningún compromiso sin responsable u origen.
+* Los datos faltantes aparecen como “No especificado”.
+
+SECCIONES 4, 5 Y 6
+
+* Cada respuesta está dentro de su cuadro original.
+* La respuesta técnica contiene datos operativos verificables.
+* La respuesta ejecutiva no supera ocho líneas.
+* La comunicación a usuarios no supera seis líneas.
+* No existen riesgos, responsables, canales o impactos inventados.
+
+FORMATO
+
+* El banner sigue presente.
+* Continúan las 14 tablas.
+* Continúan las secciones 1 a 8.
+* Las secciones 7 y 8 permanecen sin diligenciar.
+* No se agregó contenido antes del banner.
+* No se eliminaron páginas o secciones.
+* No se creó otro documento.
+* No se convirtió la información en párrafos externos.
+
+Si alguna comprobación falla, corrige el documento actual antes de finalizar.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+12. FINALIZACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Realiza únicamente las modificaciones autorizadas dentro del documento abierto.
+
+Cuando termines, responde en el panel de Copilot:
+
+“Edición aplicada en la plantilla actual. Revisa las secciones 1 a 6 y guarda el documento.”
+
+No generes otro archivo.
+
+No entregues una tabla separada.
+
+No produzcas un resumen en el chat.
+
+El participante guardará el documento actual con el nombre:
+
+MCP365_P02_Cadena_correos_completado.docx
