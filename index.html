@@ -1135,7 +1135,7 @@
               <span class="reto__num">2</span>
               <span>
                 <strong>Cadena de correos</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Outlook · Cronología y respuestas por audiencia</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Word · Fuente De/Para/Asunto en el .docx + cronología y audiencias</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -1147,26 +1147,28 @@
           </button>
           <div class="reto__body">
             <div class="m365-box">
-              <h4><span class="app-badge">Outlook</span> + <span class="app-badge">Word</span> Paso a paso con Copilot</h4>
+              <h4><span class="app-badge">Word</span> + <span class="app-badge">Copilot</span> Paso a paso (fuente en el .docx)</h4>
               <ol>
-                <li>Envía los <strong>4 correos</strong> de la cadena (botones 01 / 04 / 06 / 07 mar, o «Enviar los 4») a tu bandeja. Llegan como mensajes operativos independientes (nombres de área distintos).</li>
-                <li>Abre <strong>Outlook</strong> y busca los asuntos ST-Urb-03 (también puedes usar las pestañas de esta página).</li>
-                <li>Descarga la <strong>planilla oficial</strong> y ábrela en <strong>Word</strong>.</li>
-                <li>Ajusta el prompt configurable y cópialo.</li>
-                <li>Con Copilot: cronología, cambios, compromisos y tres borradores (técnico, ejecutivo, usuarios).</li>
-                <li>No inventes datos. Validación humana y control de calidad los completa la persona.</li>
+                <li><strong>Descarga la planilla oficial .docx</strong>. Incluye en la <em>sección 1</em> los 4 correos del caso con <strong>De</strong>, <strong>Para</strong>, <strong>Asunto</strong>, <strong>Fecha</strong> y cuerpo. Word Copilot <strong>no ve Outlook</strong>: sin esa sección no puede completar el análisis.</li>
+                <li>Ábrela en <strong>Word</strong> y activa Copilot <strong>sobre ese archivo</strong> (no sobre un documento vacío).</li>
+                <li>Copia el prompt del reto (pide citar siempre fecha + De + Asunto).</li>
+                <li>Completa solo secciones 2–7: cronología, cambios, compromisos y tres borradores. <strong>No reescribas</strong> la sección 1.</li>
+                <li>No inventes datos. Validación humana y control de calidad (secciones 8–9) los completa la persona.</li>
                 <li>Guarda como <code>MCP365_P02_Cadena_correos_completado.docx</code>.</li>
-                <li>Después: practica con una cadena real de tu bandeja adaptando el prompt.</li>
+                <li><em>Opcional:</em> envía los 4 correos a tu bandeja para contrastar en Outlook (misma cadena), pero el análisis del entregable usa la sección 1 del .docx.</li>
               </ol>
             </div>
-            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>Enviar a mi bandeja</strong> (un botón por correo de la cadena):</p>
+            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>1) Planilla con correos fuente</strong> (obligatorio para Copilot):</p>
+            <div class="btn-group" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
+              <button type="button" class="btn btn--sm btn--energy" data-planilla="cadena-correos"><i data-lucide="download" width="14" height="14"></i> Descargar planilla oficial (.docx) con cadena ST-Urb-03</button>
+            </div>
+            <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>2) Opcional · copia a mi bandeja</strong> (mismo contenido; para práctica en Outlook):</p>
             <div class="btn-group" style="margin-bottom:0.5rem;flex-wrap:wrap;gap:0.5rem">
               <button type="button" class="btn btn--sm btn--primary" data-reto-email="r2-1"><i data-lucide="mail" width="14" height="14"></i> 01 mar</button>
               <button type="button" class="btn btn--sm btn--primary" data-reto-email="r2-2"><i data-lucide="mail" width="14" height="14"></i> 04 mar</button>
               <button type="button" class="btn btn--sm btn--primary" data-reto-email="r2-3"><i data-lucide="mail" width="14" height="14"></i> 06 mar</button>
               <button type="button" class="btn btn--sm btn--primary" data-reto-email="r2-4"><i data-lucide="mail" width="14" height="14"></i> 07 mar</button>
               <button type="button" class="btn btn--sm btn--secondary" data-reto-email="r2-all"><i data-lucide="mails" width="14" height="14"></i> Enviar los 4</button>
-              <button type="button" class="btn btn--sm btn--energy" data-planilla="cadena-correos"><i data-lucide="download" width="14" height="14"></i> Descargar planilla oficial (Word)</button>
             </div>
             <p id="retoEmailStatus-r2" data-reto-email-hint style="margin:0 0 1rem;font-size:0.88rem;color:var(--text-muted)">Cada botón envía a tu bandeja una copia del correo del caso (revisa De / Para / Asunto en las pestañas). «Enviar los 4» manda los cuatro por separado.</p>
             <div class="tabs" role="tablist" aria-label="Cadena de correos">
@@ -1181,6 +1183,7 @@
                   <div><strong>De:</strong> Martha Ríos · Planeación de Mantenimiento</div>
                   <div><strong>Para:</strong> Comunicaciones Zona; Logística de Materiales; Seguridad Industrial</div>
                   <div><strong>Asunto:</strong> Programación transformador auxiliar ST-Urb-03</div>
+                  <div><strong>Fecha:</strong> 01/03/2026</div>
                 </div>
                 <p>Buenos días,</p>
                 <p>Se confirma el mantenimiento del transformador auxiliar de la subestación ST-Urb-03 para el <strong>12/03/2026, 08:00–14:00</strong>.</p>
@@ -1194,6 +1197,7 @@
                   <div><strong>De:</strong> Julián Pardo · Logística de Materiales</div>
                   <div><strong>Para:</strong> Planeación de Mantenimiento; Comunicaciones Zona; Seguridad Industrial</div>
                   <div><strong>Asunto:</strong> RE: adelanto de repuestos · ST-Urb-03</div>
+                  <div><strong>Fecha:</strong> 04/03/2026</div>
                 </div>
                 <p>Buenos días,</p>
                 <p>El proveedor confirma entrega anticipada de los repuestos del transformador auxiliar. Con ese adelanto, proponemos mover la ventana al <strong>10/03/2026</strong> (misma franja preliminar 08:00–14:00).</p>
@@ -1207,6 +1211,7 @@
                   <div><strong>De:</strong> Carolina Vélez · Seguridad Industrial</div>
                   <div><strong>Para:</strong> Logística de Materiales; Planeación de Mantenimiento; Comunicaciones Zona</div>
                   <div><strong>Asunto:</strong> RE: personal 10/03 · ST-Urb-03</div>
+                  <div><strong>Fecha:</strong> 06/03/2026</div>
                 </div>
                 <p>Buenos días,</p>
                 <p>Confirmamos personal de seguridad industrial para el 10/03/2026. Solicitamos ampliar el cierre de área hasta las <strong>16:00</strong>.</p>
@@ -1220,6 +1225,7 @@
                   <div><strong>De:</strong> Diego Castaño · Gerencia de Zona Norte</div>
                   <div><strong>Para:</strong> Comunicaciones Zona; Planeación de Mantenimiento; Seguridad Industrial; Logística de Materiales</div>
                   <div><strong>Asunto:</strong> Aprobación ventana 10/03 · ST-Urb-03</div>
+                  <div><strong>Fecha:</strong> 07/03/2026</div>
                 </div>
                 <p>Equipo,</p>
                 <p>Se aprueba la intervención del transformador auxiliar ST-Urb-03 el <strong>10/03/2026</strong> con cierre de área hasta las <strong>16:00</strong>.</p>
@@ -3980,40 +3986,10 @@
       "MCP365_P01_Formato_analisis_correo.docx"
     ),
 
-    "cadena-correos": () => downloadWord("MCP365_P02_Cadena_correos_audiencias.doc", "Cadena de correos · Cronología y respuestas", "MCP-365-P02", "Outlook + Copilot", `
-      <h2>1. Cronología de la cadena</h2>
-      <table class="data">
-        <tr><th>#</th><th>Fecha</th><th>Remitente / área</th><th>Hecho o cambio</th><th>Compromiso resultante</th><th>Impacto</th></tr>
-        <tr><td>1</td><td></td><td></td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
-        <tr><td>2</td><td></td><td></td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
-        <tr><td>3</td><td></td><td></td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
-        <tr><td>4</td><td></td><td></td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
-        <tr><td>5</td><td></td><td></td><td></td><td></td><td>☐ Bajo ☐ Medio ☐ Alto</td></tr>
-      </table>
-      <h2>2. Cambios respecto al plan inicial</h2>
-      <table class="data">
-        <tr><th>Tema</th><th>Plan inicial</th><th>Plan vigente</th><th>Quién decidió</th><th>Pendiente de comunicar</th></tr>
-        <tr><td>Fecha / ventana</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
-        <tr><td>Horario / cierre de área</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
-        <tr><td>Personal / seguridad</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
-        <tr><td>Otros</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
-      </table>
-      <h2>3. Respuesta técnica (precisión operativa)</h2>
-      <div class="hint">Incluye: procedimiento, tiempos, controles, responsable técnico. Extensión media-alta.</div>
-      <div class="box"></div>
-      <h2>4. Respuesta ejecutiva (máx. 8 líneas)</h2>
-      <div class="hint">Incluye: decisión, impacto, riesgo, siguiente paso y dueño.</div>
-      <div class="box"></div>
-      <h2>5. Comunicación a usuarios / comunidad (máx. 6 líneas)</h2>
-      <div class="hint">Lenguaje simple: qué ocurre, cuándo, cómo afecta, canal de contacto. Sin jerga técnica.</div>
-      <div class="box"></div>
-      <h2>6. Comparación de audiencias</h2>
-      <table class="data">
-        <tr><th>Versión</th><th>Nivel de detalle</th><th>Tono</th><th>Extensión</th><th>¿Lista para envío?</th></tr>
-        <tr><td>Técnica</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
-        <tr><td>Ejecutiva</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
-        <tr><td>Usuarios</td><td></td><td></td><td></td><td>☐ Sí ☐ No</td></tr>
-      </table>`),
+    "cadena-correos": () => downloadStaticFile(
+      "planillas/MCP365_P02_Formato_cadena_correos.docx",
+      "MCP365_P02_Formato_cadena_correos.docx"
+    ),
 
     "matriz-compromisos": () => downloadWord("MCP365_P03_Matriz_compromisos_reunion.doc", "Matriz de compromisos post-reunión", "MCP-365-P03", "Teams + Word + Copilot", `
       <h2>1. Datos de la reunión</h2>
@@ -4694,7 +4670,7 @@
   /* ========== TEMPLATES ========== */
   const TEMPLATES = [
     { name: "Formato análisis de correo", desc: "Plantilla oficial .docx · solo 14 celdas de análisis", key: "analisis-correo", type: "Word" },
-    { name: "Cadena de correos", desc: "Outlook · Cronología, cambios y 3 borradores por audiencia", key: "cadena-correos", type: "Word" },
+    { name: "Cadena de correos ST-Urb-03", desc: "Word .docx · sección 1 con De/Para/Asunto + tablas a llenar", key: "cadena-correos", type: "Word" },
     { name: "Matriz de compromisos", desc: "Teams/Word · Decisiones, tareas y próxima agenda", key: "matriz-compromisos", type: "Word" },
     { name: "Tres audiencias", desc: "Word · Técnico, gerencia, comunidad + control de hechos", key: "tres-audiencias", type: "Word" },
     { name: "Comparación documental", desc: "Word · Cambios, impactos y validaciones", key: "comparacion-docs", type: "Word" },

@@ -257,6 +257,7 @@ def get_reto_r2_parts() -> list[dict]:
         {
             "id": "r2-1",
             "label": "01 mar",
+            "date": "01/03/2026",
             "from_name": "Martha Ríos · Planeación de Mantenimiento",
             "to_line": "Comunicaciones Zona; Logística de Materiales; Seguridad Industrial",
             "subject": "Programación transformador auxiliar ST-Urb-03",
@@ -274,6 +275,7 @@ def get_reto_r2_parts() -> list[dict]:
         {
             "id": "r2-2",
             "label": "04 mar",
+            "date": "04/03/2026",
             "from_name": "Julián Pardo · Logística de Materiales",
             "to_line": "Planeación de Mantenimiento; Comunicaciones Zona; Seguridad Industrial",
             "subject": "RE: adelanto de repuestos · ST-Urb-03",
@@ -292,6 +294,7 @@ def get_reto_r2_parts() -> list[dict]:
         {
             "id": "r2-3",
             "label": "06 mar",
+            "date": "06/03/2026",
             "from_name": "Carolina Vélez · Seguridad Industrial",
             "to_line": "Logística de Materiales; Planeación de Mantenimiento; Comunicaciones Zona",
             "subject": "RE: personal 10/03 · ST-Urb-03",
@@ -310,6 +313,7 @@ def get_reto_r2_parts() -> list[dict]:
         {
             "id": "r2-4",
             "label": "07 mar",
+            "date": "07/03/2026",
             "from_name": "Diego Castaño · Gerencia de Zona Norte",
             "to_line": "Comunicaciones Zona; Planeación de Mantenimiento; Seguridad Industrial; Logística de Materiales",
             "subject": "Aprobación ventana 10/03 · ST-Urb-03",
@@ -1289,7 +1293,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-03-no-digest-v6"
+APP_CODE_VERSION = "2026-08-03-r2-fuente-docx-v7"
 
 
 @app.get("/health")
