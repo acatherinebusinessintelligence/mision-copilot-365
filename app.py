@@ -1293,7 +1293,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-03-s2-horizonte-pa-v1"
+APP_CODE_VERSION = "2026-08-03-s1-prompts-boot-fix-v2"
 
 
 @app.get("/health")

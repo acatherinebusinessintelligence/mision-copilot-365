@@ -5007,18 +5007,23 @@
       const caseId = host.getAttribute("data-reto-enhance");
       if (!RETO_CASES[caseId] || host.dataset.mounted) return;
       host.dataset.mounted = "1";
-      host.innerHTML =
-        renderDeliverableHtml(caseId) +
-        renderPromptConfigHtml(caseId) +
-        renderChecklistHtml(caseId) +
-        renderPracticeHtml(caseId);
-      const box = document.getElementById("promptConfig-" + caseId);
-      if (box) {
-        box.querySelectorAll("[data-reto-field]").forEach(el => {
-          el.addEventListener("input", () => refreshPromptCase(caseId));
-        });
+      try {
+        host.innerHTML =
+          renderDeliverableHtml(caseId) +
+          renderPromptConfigHtml(caseId) +
+          renderChecklistHtml(caseId) +
+          renderPracticeHtml(caseId);
+        const box = document.getElementById("promptConfig-" + caseId);
+        if (box) {
+          box.querySelectorAll("[data-reto-field]").forEach(el => {
+            el.addEventListener("input", () => refreshPromptCase(caseId));
+          });
+        }
+        refreshPromptCase(caseId);
+      } catch (err) {
+        console.error("Error montando reto", caseId, err);
+        host.innerHTML = "<p class=\"text-muted\">No se pudo cargar el prompt de este caso. Recarga la página.</p>";
       }
-      refreshPromptCase(caseId);
     });
     document.querySelectorAll("[data-rebuild-prompt]").forEach(btn => {
       if (btn.dataset.bound) return;
@@ -5923,8 +5928,11 @@
   function renderRisks() {
     if (!state.risks) state.risks = DEFAULT_RISKS.map(r => ({ ...r }));
     const body = document.getElementById("riskBody");
-    const cat = document.getElementById("riskFilterCat").value;
-    const nivel = document.getElementById("riskFilterNivel").value;
+    const catEl = document.getElementById("riskFilterCat");
+    const nivelEl = document.getElementById("riskFilterNivel");
+    if (!body || !catEl || !nivelEl) return;
+    const cat = catEl.value;
+    const nivel = nivelEl.value;
     body.innerHTML = "";
     state.risks.forEach((r, idx) => {
       if (cat !== "all" && r.categoria !== cat) return;
@@ -5964,6 +5972,7 @@
   /* ========== STAKEHOLDER MAP ========== */
   function renderStakeMap() {
     const map = document.getElementById("stakeMap");
+    if (!map) return;
     const points = [
       { name: "Comité", x: 78, y: 82 },
       { name: "Proveedor", x: 62, y: 78 },
@@ -6231,15 +6240,25 @@
     initOportunidad();
     initProyecto();
     initAvanceFields();
+    // Montar prompts de Sesión 1/2 antes de widgets opcionales (evita que un null rompa el boot)
+    initReto1EmailSend();
+    initPromptR1Editor();
+    initRetoEngine();
     renderRisks();
-    document.getElementById("riskFilterCat").addEventListener("change", renderRisks);
-    document.getElementById("riskFilterNivel").addEventListener("change", renderRisks);
-    document.getElementById("addRiskRow").addEventListener("click", () => {
-      state.risks.push({ riesgo: "", categoria: "Técnico", causa: "", consecuencia: "", prob: "Media", impacto: "Medio", nivel: "Medio", respuesta: "", responsable: "", alerta: "" });
-      saveState();
-      renderRisks();
-      toast("Fila de riesgo agregada", "plus");
-    });
+    const riskFilterCat = document.getElementById("riskFilterCat");
+    const riskFilterNivel = document.getElementById("riskFilterNivel");
+    const addRiskRow = document.getElementById("addRiskRow");
+    if (riskFilterCat) riskFilterCat.addEventListener("change", renderRisks);
+    if (riskFilterNivel) riskFilterNivel.addEventListener("change", renderRisks);
+    if (addRiskRow) {
+      addRiskRow.addEventListener("click", () => {
+        state.risks = state.risks || [];
+        state.risks.push({ riesgo: "", categoria: "Técnico", causa: "", consecuencia: "", prob: "Media", impacto: "Medio", nivel: "Medio", respuesta: "", responsable: "", alerta: "" });
+        saveState();
+        renderRisks();
+        toast("Fila de riesgo agregada", "plus");
+      });
+    }
     renderStakeMap();
     initChart();
     renderPromptFilters();
@@ -6247,9 +6266,6 @@
     initPromptBuilder();
     renderTemplates();
     initPlanillaDownloads();
-    initReto1EmailSend();
-    initPromptR1Editor();
-    initRetoEngine();
     renderLeccionesTable();
     initBackTop();
     initEvalActions();
