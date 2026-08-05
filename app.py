@@ -227,6 +227,42 @@ def _smtp_config() -> tuple[str, str, str, int]:
     return email, password, host, port
 
 
+
+def _s2_horizonte_email_content() -> tuple[str, str]:
+    subject = "SOLICITUD DE ANÁLISIS | Proyecto Horizonte"
+    body = """Buenos días,
+
+Solicitamos realizar la revisión inicial del Proyecto Horizonte, iniciativa orientada a la modernización de infraestructura energética urbana.
+
+Para este análisis se adjuntan los siguientes documentos:
+
+- Documento preliminar de alcance.
+- Presupuesto y cronograma.
+- Transcripción de la reunión inicial.
+- Registro preliminar de riesgos.
+- Comentarios de los interesados.
+
+El comité requiere recibir:
+
+1. Resumen ejecutivo.
+2. Alcance consolidado.
+3. Hallazgos presupuestales.
+4. Riesgos prioritarios.
+5. Compromisos identificados.
+6. Información faltante.
+7. Decisiones requeridas.
+8. Presentación ejecutiva.
+
+Por favor, no asuma que la iniciativa está aprobada. Diferencie claramente la información confirmada, las propuestas y los elementos pendientes de validación.
+
+Cordialmente,
+
+Laura Méndez
+Dirección de Infraestructura
+"""
+    return subject, body
+
+
 def _reto1_email_content(to_email: str, name: str, smtp_email: str) -> tuple[str, str]:
     subject = "URGENTE · Reprogramación intervención preventivo Circuito N-14"
     body = """Buenos días, equipo:
@@ -342,6 +378,10 @@ def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: s
         subject, body = _reto1_email_content(to_email, name, smtp_email)
         return subject, body, "Laura Méndez · Coordinación de Campo"
 
+    if reto_id in ("s2", "s2-horizonte", "horizonte", "sesion2"):
+        subject, body = _s2_horizonte_email_content()
+        return subject, body, "Laura Méndez · Dirección de Infraestructura"
+
     # r2-all se resuelve en send_reto_email (4 envíos independientes)
     if reto_id in ("r2", "reto2", "reto-2", "r2-all", "r2all"):
         return "", "", ""
@@ -361,7 +401,7 @@ def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: s
 
 
 def list_reto_email_ids() -> list[str]:
-    return ["r1", "r2", "r2-all"] + [p["id"] for p in get_reto_r2_parts()]
+    return ["r1", "r2", "r2-all", "s2"] + [p["id"] for p in get_reto_r2_parts()]
 
 
 def _send_email_smtp(to_email: str, subject: str, body: str, from_display: str) -> tuple[bool, str]:
@@ -1293,7 +1333,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-04-s2-caso1-copilot-pa-v1"
+APP_CODE_VERSION = "2026-08-04-s2-prism-prompt-lab-v1"
 
 
 @app.get("/health")
