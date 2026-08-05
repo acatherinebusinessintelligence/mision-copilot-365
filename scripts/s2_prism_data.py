@@ -261,6 +261,9 @@ S2_PRISM = {
                     informacion=(
                         "Fuente única autorizada: el correo seleccionado "
                         "(01_Correo_Solicitud_Proyecto_Horizonte / mensaje en Outlook).\n"
+                        "Antes de analizar, verifica que el asunto sea "
+                        "«SOLICITUD DE ANÁLISIS | Proyecto Horizonte» y NO el correo de la Sesión 1 "
+                        "«URGENTE · Reprogramación intervención preventivo Circuito N-14».\n"
                         "Los adjuntos se mencionan en el correo; no analices todavía el contenido de:\n"
                         "02_Alcance_Proyecto_Horizonte.docx, "
                         "03_Presupuesto_y_Cronograma_Horizonte.xlsx, "
@@ -269,10 +272,12 @@ S2_PRISM = {
                         "06_Comentarios_Interesados_Horizonte.docx, "
                         "07_Plantilla_Comite_Horizonte.pptx "
                         "salvo lo que el propio correo diga explícitamente sobre ellos.\n"
-                        "No uses información externa."
+                        "No uses información externa. Si la fuente no corresponde, detente y decláralo."
                     ),
                     solicitud=(
-                        "Identifica y entrega:\n"
+                        "Primero confirma el asunto del correo seleccionado. "
+                        "Si no es Proyecto Horizonte, detén el análisis y reporta fuente incorrecta.\n"
+                        "Si corresponde, identifica y entrega:\n"
                         "- Objetivo de la solicitud\n"
                         "- Proyecto mencionado\n"
                         "- Área / remitente solicitante\n"
@@ -298,50 +303,86 @@ S2_PRISM = {
                 "label": "Experto",
                 "text": _prism_prompt(
                     persona=(
-                        "Actúa como socio consultor de PMO que prepara el briefing de arranque "
-                        "para la gerencia de proyectos antes de abrir los adjuntos."
+                        "Actúa como socio consultor de PMO responsable de intake documental. "
+                        "Tu primera obligación es validar que la fuente seleccionada corresponde al caso "
+                        "antes de producir cualquier briefing."
                     ),
                     realidad=(
-                        "La Dirección de Infraestructura solicitó la revisión inicial del Proyecto Horizonte. "
-                        "Gerencia necesita un briefing de intake listo para comité: qué se pidió, qué se entregará, "
-                        "qué queda fuera y qué riesgos de malinterpretación existen si se empieza a analizar sin orden."
+                        "El caso de la Sesión 2 es el Proyecto Horizonte. El correo correcto tiene asunto "
+                        "«SOLICITUD DE ANÁLISIS | Proyecto Horizonte». "
+                        "Existe riesgo de confusión con el correo de la Sesión 1 "
+                        "«URGENTE · Reprogramación intervención preventivo Circuito N-14», "
+                        "que NO pertenece a este ejercicio. "
+                        "Gerencia necesita únicamente un briefing de intake del correo correcto, "
+                        "antes de abrir adjuntos."
                     ),
                     informacion=(
-                        "Solo el correo 01_Correo_Solicitud_Proyecto_Horizonte. "
-                        "Referencia los nombres de adjuntos exactamente como aparecen o se listan en el mensaje; "
-                        "no extraigas cifras de otros archivos en esta fase."
+                        "Fuente única autorizada en esta fase: el correo seleccionado en Outlook "
+                        "correspondiente a 01_Correo_Solicitud_Proyecto_Horizonte.\n"
+                        "Criterios de correspondencia (todos deben cumplirse para continuar):\n"
+                        "1) El asunto menciona Proyecto Horizonte.\n"
+                        "2) El cuerpo solicita análisis de proyecto.\n"
+                        "3) El correo enumera archivos adjuntos.\n"
+                        "4) El mensaje indica entregables para comité.\n"
+                        "5) El correo aclara que el proyecto no está aprobado.\n"
+                        "Si el correo es Circuito N-14 u otro distinto: DETENTE. "
+                        "No inventes datos de Horizonte a partir de otra fuente.\n"
+                        "No analices presupuesto, cronograma, alcance, transcripción ni riesgos en esta fase. "
+                        "No construyas una matriz RACI definitiva."
                     ),
                     solicitud=(
-                        "Produce un Briefing de Intake Ejecutivo (1–2 páginas equivalentes) que incluya: "
-                        "mapa de entregables vs. adjuntos, matriz RACI preliminar solo con roles explícitos en el correo "
-                        "(si no hay responsables, PENDIENTE DE VALIDACIÓN), riesgos de interpretación, "
-                        "plan de lectura de archivos en orden, y decisiones que el equipo NO puede tomar aún."
+                        "PASO 0 · VALIDACIÓN DE FUENTE (obligatorio):\n"
+                        "- Confirma el asunto exacto del correo seleccionado.\n"
+                        "- Indica si corresponde a Proyecto Horizonte o a otra fuente (p. ej. Circuito N-14).\n"
+                        "- Si la fuente es incorrecta: detén el análisis, declara «FUENTE INCORRECTA», "
+                        "explica por qué no corresponde y indica qué correo debe seleccionarse. "
+                        "No generes briefing de Horizonte.\n"
+                        "- Si la fuente es correcta: continúa.\n\n"
+                        "PASO 1 · Solo si la fuente es correcta, produce un Briefing de Intake "
+                        "(no un análisis de adjuntos) con:\n"
+                        "- Objetivo de la solicitud y proyecto mencionado\n"
+                        "- Área / remitente solicitante\n"
+                        "- Lista de adjuntos referidos (solo nombres, sin analizar su contenido)\n"
+                        "- Entregables requeridos por el comité\n"
+                        "- Restricciones expresas (incluye: no asumir aprobación)\n"
+                        "- Acciones solicitadas e información faltante en el correo\n"
+                        "- Decisiones que el equipo NO puede tomar aún\n"
+                        "- Riesgos de interpretación del mensaje\n"
+                        "- Orden sugerido para leer adjuntos en fases posteriores\n"
+                        "- Cinco preguntas de aclaración para Laura Méndez\n"
+                        "No solicites ni inventes presupuesto, cronograma, responsables RACI ni cifras "
+                        "que no estén en el correo."
                     ),
                     metodo=(
-                        "Informe ejecutivo completo con portada «Briefing de Intake – Proyecto Horizonte», "
-                        "tablero de claridad de la solicitud, matriz entregable–fuente, "
-                        "recomendaciones de gobernanza del análisis y preguntas para Laura Méndez."
+                        "Si FUENTE INCORRECTA: informe breve con portada «Validación de fuente – Detenido», "
+                        "tabla Asunto observado | Asunto esperado | Resultado | Acción correctiva.\n"
+                        "Si FUENTE CORRECTA: informe ejecutivo «Briefing de Intake – Proyecto Horizonte» "
+                        "con tablero de claridad de la solicitud, matriz entregable–adjunto referido "
+                        "(sin analizar archivos), clasificaciones Hecho/Inferencia/Pendiente, "
+                        "y validación humana. Sin matriz RACI definitiva."
                     ),
                     expert_extra=(
-                        "ENTREGABLE PARA GERENCIA/COMITÉ: tono formal, sin jerga técnica innecesaria, "
-                        "sin afirmar aprobación del proyecto, listo para reenviarse como pre-read."
+                        "ENTREGABLE PARA GERENCIA: solo briefing de intake del correo correcto. "
+                        "Tono formal. Sin afirmar aprobación. Sin mezclar Sesión 1 (Circuito N-14) "
+                        "con Sesión 2 (Proyecto Horizonte)."
                     ),
                 ),
             },
         },
         "explain": {
-            "persona": "Analista senior / consultor PMO orientado a intake ejecutivo.",
-            "realidad": "Solicitud de Laura Méndez; revisión inicial; proyecto no aprobado.",
-            "informacion": "Solo el correo; adjuntos se listan pero no se profundizan aún.",
-            "solicitud": "Objetivo, adjuntos, entregables, restricciones, tareas y preguntas.",
-            "metodo": "Tablas, clasificación explícito/inferencia/no especificado, resumen acotado.",
-            "restricciones": "No inventar ni usar fuentes externas; no asumir aprobación.",
-            "formato": "Informe ejecutivo con tablero y matrices Markdown.",
-            "validacion": "Contrastar cada hallazgo línea por línea con el correo original.",
+            "persona": "Socio PMO que valida la fuente antes de redactar el intake.",
+            "realidad": "Proyecto Horizonte; riesgo de mezclar el correo N-14 de la Sesión 1.",
+            "informacion": "Solo el correo Horizonte; criterios de correspondencia; sin adjuntos aún.",
+            "solicitud": "Validar fuente; si es correcta, briefing de intake (sin RACI ni presupuesto).",
+            "metodo": "Detenerse ante fuente incorrecta; si es correcta, informe de intake con tablas.",
+            "restricciones": "No inventar; no mezclar sesiones; no analizar adjuntos en esta fase.",
+            "formato": "Informe de validación o briefing de intake, según el resultado del Paso 0.",
+            "validacion": "Comprobar asunto Horizonte y checklist de correspondencia antes de continuar.",
         },
         "compare": (
-            "El nivel 1 («Resume este correo») produce texto vago; el profesional PRISM obliga a separar "
-            "hechos, inferencias y faltantes, y fija entregables, lo que reduce ambigüedad y alucinaciones."
+            "El nivel 1 resume cualquier correo sin comprobar si es el correcto; el experto PRISM "
+            "obliga a validar la fuente (Horizonte vs Circuito N-14), detenerse si no corresponde "
+            "y limitar el entregable a un briefing de intake sin inventar adjuntos."
         ),
         "improveHints": list(_MEJORA_HINTS),
     },
