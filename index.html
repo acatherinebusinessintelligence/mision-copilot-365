@@ -592,6 +592,115 @@
     }
     .m365-box ol { margin: 0; padding-left: 1.2rem; }
     .m365-box li { margin: 0.35rem 0; font-size: 0.92rem; color: var(--text); }
+
+    /* ========== POWER AUTOMATE FLOW (S2) ========== */
+    .pa-flow {
+      display: flex;
+      gap: 0.55rem;
+      overflow-x: auto;
+      padding: 0.75rem 0.25rem 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .pa-flow__step {
+      flex: 0 0 auto;
+      width: min(148px, 42vw);
+      scroll-snap-align: start;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.7rem;
+      position: relative;
+      box-shadow: 0 1px 4px rgba(34, 30, 64, 0.06);
+    }
+    .pa-flow__step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -0.45rem;
+      width: 0.45rem;
+      height: 2px;
+      background: var(--brand-primary);
+      transform: translateY(-50%);
+    }
+    .pa-flow__num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 999px;
+      background: var(--brand-dark);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+    }
+    .pa-flow__step p {
+      margin: 0;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .dyn-chip {
+      display: inline-block;
+      margin: 0.15rem 0.2rem 0.15rem 0;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--brand-primary) 14%, transparent);
+      color: var(--brand-dark);
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid color-mix(in srgb, var(--brand-primary) 28%, var(--border));
+    }
+    .pa-error-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin: 1rem 0;
+    }
+    .pa-error-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-left: 4px solid #c0392b;
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 0.9rem;
+    }
+    .pa-error-card h5 { margin: 0 0 0.45rem; font-size: 0.9rem; }
+    .pa-error-card ul { margin: 0; padding-left: 1.1rem; font-size: 0.86rem; }
+    .mail-tag {
+      display: inline-block;
+      margin-bottom: 0.65rem;
+      padding: 0.25rem 0.65rem;
+      background: var(--brand-accent);
+      color: var(--brand-dark);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      border-radius: 6px;
+    }
+    @media (max-width: 900px) {
+      .pa-flow {
+        flex-direction: column;
+        overflow-x: visible;
+        scroll-snap-type: none;
+      }
+      .pa-flow__step {
+        width: 100%;
+      }
+      .pa-flow__step:not(:last-child)::after {
+        top: auto;
+        bottom: -0.45rem;
+        left: 1.1rem;
+        right: auto;
+        width: 2px;
+        height: 0.45rem;
+        transform: none;
+      }
+      .pa-error-grid { grid-template-columns: 1fr; }
+    }
+
     .entregable {
       background: var(--surface); border-left: 4px solid var(--brand-accent);
       padding: 0.75rem 1rem; margin: 0.85rem 0; border-radius: 0 10px 10px 0; font-size: 0.9rem;
@@ -1496,7 +1605,7 @@
         <p class="section-kicker">Sesión 2</p>
         <h2 class="section-title" id="s2Title">Copilot y Power Automate para la gestión inteligente de proyectos</h2>
         <p class="lead">Automatiza el ciclo de un proyecto empresarial combinando Copilot, Power Automate, Outlook, Word, Excel, SharePoint, Teams y PowerPoint.</p>
-        <p class="lead">La sesión comienza con la recepción de un correo que contiene la solicitud y la ficha inicial de un proyecto. A partir de esta información, los participantes construirán un flujo que almacenará los documentos, extraerá y estructurará los datos, registrará el proyecto, consolidará el presupuesto, analizará los riesgos, generará un informe, solicitará aprobación humana y preparará una presentación ejecutiva.</p>
+        <p class="lead">La sesión comienza con un correo recibido directamente en Microsoft Outlook. A partir de ese mensaje, los participantes construirán un flujo en Power Automate que almacenará los documentos, extraerá y estructurará los datos, registrará el proyecto, consolidará el presupuesto, analizará los riesgos, generará un informe, solicitará aprobación humana y preparará una presentación ejecutiva.</p>
         <p class="lead">Cada reto utilizará los resultados del reto anterior. El objetivo no es practicar aplicaciones por separado, sino comprender cómo se conectan para gestionar un proyecto de principio a fin.</p>
 
         <div class="disclaimer disclaimer--info">
@@ -1529,23 +1638,23 @@
 
         <div class="card" style="margin:1.5rem 0">
           <h3>Caso transversal · Proyecto Horizonte</h3>
-          <p>La organización recibe por correo la solicitud de iniciar el <strong>Proyecto Horizonte</strong>.</p>
-          <p>El correo incluye una ficha Word con: nombre, código, objetivo, alcance, patrocinador, líder, fechas, presupuesto preliminar, entregables, dependencias, restricciones, riesgos iniciales y criterios de éxito.</p>
-          <p>Los datos y archivos producidos en cada reto deben utilizarse en el siguiente.</p>
+          <p>La organización recibe por <strong>Outlook</strong> la solicitud de iniciar el <strong>Proyecto Horizonte</strong> (Modernización Subestación Horizonte).</p>
+          <p>El correo incluye un documento Word de alcance con: nombre, código, objetivo, alcance, patrocinador, líder, fechas, presupuesto preliminar, entregables, dependencias, restricciones, riesgos iniciales y criterios de éxito.</p>
+          <p>Los datos y archivos producidos en cada reto deben utilizarse en el siguiente. Power Automate es el disparador; esta plataforma solo guía.</p>
         </div>
 
-        <h3>Archivos oficiales de la sesión</h3>
+        <h3>Recursos descargables de la sesión</h3>
+        <p class="text-muted" style="font-size:0.9rem;margin:0 0 0.5rem">El correo de la actividad llega por Outlook (no se descarga como HTML). Estos archivos son plantillas y guías de apoyo.</p>
         <div class="btn-group" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
-          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-correo"><i data-lucide="mail" width="14" height="14"></i> Correo de inicio (.html)</button>
-          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-ficha"><i data-lucide="file-text" width="14" height="14"></i> Ficha Word</button>
-          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-control"><i data-lucide="sheet" width="14" height="14"></i> Control Excel</button>
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-ficha"><i data-lucide="file-text" width="14" height="14"></i> Documento de alcance (Word)</button>
+          <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-control"><i data-lucide="sheet" width="14" height="14"></i> Control Excel (proyectos / presupuesto / riesgos)</button>
           <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-informe-plantilla"><i data-lucide="file" width="14" height="14"></i> Plantilla informe</button>
-          <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2-guia-pa"><i data-lucide="book-open" width="14" height="14"></i> Guía Power Automate</button>
+          <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2-guia-pa"><i data-lucide="book-open" width="14" height="14"></i> Guía Power Automate (PDF)</button>
           <button type="button" class="btn btn--sm btn--ghost" data-planilla="s2-resultado"><i data-lucide="eye" width="14" height="14"></i> Resultado esperado</button>
         </div>
         <div class="doc-box">
-          <p><strong>Resultado de la sesión:</strong> al terminar, habrás construido el flujo completo de un proyecto: desde la recepción de la solicitud por correo hasta la generación del presupuesto, la matriz de riesgos, el informe aprobado y la presentación ejecutiva.</p>
-          <p style="margin:0.5rem 0 0"><strong>Entregables:</strong> flujo de recepción · carpeta documental · JSON · Excel de control · presupuesto · matriz de riesgos · informe Word · registro de aprobación · presentación PowerPoint · correo final de notificación.</p>
+          <p><strong>Resultado de la sesión:</strong> al terminar, habrás construido el flujo completo de un proyecto: desde la recepción de la solicitud por correo en Outlook hasta la generación del presupuesto, la matriz de riesgos, el informe aprobado y la presentación ejecutiva.</p>
+          <p style="margin:0.5rem 0 0"><strong>Entregables:</strong> flujo Power Automate · carpeta documental · JSON · Excel de control · presupuesto · matriz de riesgos · informe Word · registro de aprobación · presentación PowerPoint · correo final de notificación.</p>
         </div>
 
         <div class="practice-invite" style="margin:1.5rem 0">
@@ -1562,8 +1671,8 @@
               <span class="reto__title-wrap">
                 <span class="reto__num">1</span>
                 <span>
-                  <strong>Recepción automatizada del proyecto</strong>
-                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Outlook + Power Automate + SharePoint / OneDrive</span>
+                  <strong>Proyecto integrador: del correo recibido al informe ejecutivo</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Outlook (correo real) + Power Automate + OneDrive / SharePoint + Excel</span>
                 </span>
               </span>
               <span style="display:flex;gap:0.75rem;align-items:center">
@@ -1572,19 +1681,157 @@
               </span>
             </button>
             <div class="reto__body">
+              <p class="lead" style="margin-top:0">Una solicitud de proyecto llega directamente a Outlook. Power Automate detecta el mensaje, registra la información, guarda los documentos adjuntos, actualiza las matrices del proyecto y prepara los entregables para revisión humana.</p>
+              <div class="disclaimer disclaimer--info">
+                <i data-lucide="info" width="18" height="18"></i>
+                <span>Esta página es <strong>guía de capacitación</strong> y centro de recursos. La automatización real se ejecuta en Power Automate con los conectores autorizados de Microsoft 365. No se descarga un correo HTML ni se simula Outlook con un archivo local.</span>
+              </div>
+
+              <h4 style="margin:1.25rem 0 0.5rem">Flujo del proceso</h4>
+              <div class="pa-flow" aria-label="Flujo del correo al informe ejecutivo">
+                <div class="pa-flow__step"><span class="pa-flow__num">1</span><p>Correo recibido en Outlook</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">2</span><p>Activación automática del flujo</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">3</span><p>Lectura de datos del correo</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">4</span><p>Obtención de archivos adjuntos</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">5</span><p>Almacenamiento en OneDrive o SharePoint</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">6</span><p>Consulta del documento de alcance</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">7</span><p>Registro del proyecto en Excel</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">8</span><p>Análisis preliminar de presupuesto</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">9</span><p>Registro de riesgos</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">10</span><p>Preparación de resumen ejecutivo</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">11</span><p>Generación del contenido de la presentación</p></div>
+                <div class="pa-flow__step"><span class="pa-flow__num">12</span><p>Envío de confirmación y notificación</p></div>
+              </div>
+
+              <h4 style="margin:1.25rem 0 0.5rem">Vista previa del correo <span class="text-muted" style="font-weight:500;font-size:0.88rem">(solo referencia visual)</span></h4>
+              <div class="email-box">
+                <span class="mail-tag">Correo ficticio para fines académicos</span>
+                <div class="email-meta">
+                  <div><strong>Remitente:</strong> gestion.proyectos@energiafutura.com</div>
+                  <div><strong>Asunto:</strong> SOLICITUD NUEVO PROYECTO | Modernización Subestación Horizonte</div>
+                </div>
+                <p>Buenos días,</p>
+                <p>Solicitamos iniciar la estructuración del proyecto <strong>Modernización Subestación Horizonte</strong>, cuyo propósito es mejorar la confiabilidad del servicio en una zona urbana de crecimiento acelerado.</p>
+                <p>La iniciativa debe contemplar diagnóstico técnico, actualización de equipos, gestión de contratistas, control presupuestal, análisis de riesgos, gestión ambiental y comunicación con la comunidad.</p>
+                <p><strong>Información inicial:</strong></p>
+                <ul>
+                  <li>Prioridad: alta.</li>
+                  <li>Presupuesto preliminar: $2.850.000.000.</li>
+                  <li>Duración esperada: ocho meses.</li>
+                  <li>Fecha requerida para presentar el plan inicial: 18 de agosto de 2026.</li>
+                  <li>Responsable de la solicitud: Laura Méndez, Dirección de Infraestructura.</li>
+                </ul>
+                <p>Se adjunta el documento de alcance preliminar. Por favor, registrar la iniciativa, preparar el análisis inicial y confirmar la recepción.</p>
+                <p>Cordialmente,<br>Laura Méndez<br>Dirección de Infraestructura</p>
+              </div>
+
+              <div class="card" style="margin:1.25rem 0;padding:1rem 1.1rem">
+                <h4 style="margin-top:0">Preparación previa del ejercicio <span class="text-muted" style="font-weight:500;font-size:0.85rem">(instructor)</span></h4>
+                <p>El instructor deberá enviar el correo ficticio a los participantes <strong>antes o durante</strong> la actividad, hacia <code>[CORREO DEL PARTICIPANTE]</code> o <code>[BUZÓN DE PRÁCTICA]</code>.</p>
+                <p>No uses direcciones reales de producción en la documentación del curso.</p>
+                <p class="text-muted" style="font-size:0.88rem;margin-bottom:0"><strong>Alternativa:</strong> cuando no sea posible enviar correos reales, el instructor puede proyectar el mensaje y los participantes pueden crear manualmente un correo de prueba desde otra cuenta autorizada. Esta página <strong>no envía</strong> el correo automáticamente (no tiene acceso a Outlook).</p>
+              </div>
+
               <div class="m365-box">
-                <h4><span class="app-badge">Outlook</span> + <span class="app-badge">Power Automate</span> + <span class="app-badge">SharePoint</span> Paso a paso</h4>
+                <h4><span class="app-badge">Power Automate</span> Construcción del flujo en Power Automate</h4>
                 <ol>
-                  <li>Descarga el correo de inicio y la ficha Word. Revisa la guía Power Automate.</li>
-                  <li>Construye un flujo que se active cuando el asunto contenga <code>NUEVO PROYECTO · HORIZONTE</code>.</li>
-                  <li>El flujo debe: detectar el correo; capturar remitente, asunto y fecha; verificar la ficha Word; crear carpeta <code>MCP365_S2_F01_Recepcion_Proyecto_Horizonte</code>; guardar el adjunto; registrar la recepción; enviar confirmación.</li>
-                  <li>No inventes endpoints, credenciales ni rutas reales de producción.</li>
+                  <li>
+                    <strong>Crear un flujo automatizado en la nube.</strong>
+                    <div><span class="dyn-chip">Flujo en la nube</span></div>
+                  </li>
+                  <li>
+                    <strong>Seleccionar el disparador:</strong> Microsoft Outlook 365 — Cuando llega un correo electrónico nuevo (V3).
+                    <div><span class="dyn-chip">Outlook 365</span><span class="dyn-chip">Cuando llega un correo (V3)</span></div>
+                  </li>
+                  <li>
+                    <strong>Configurar el disparador:</strong> Carpeta = Bandeja de entrada · Asunto contiene = <code>SOLICITUD NUEVO PROYECTO</code> · Incluir archivos adjuntos = Sí · Solo con archivos adjuntos = Sí.
+                    <div><span class="dyn-chip">Asunto</span><span class="dyn-chip">Carpeta</span><span class="dyn-chip">Incluir adjuntos</span></div>
+                  </li>
+                  <li>
+                    <strong>Capturar datos del mensaje.</strong>
+                    <div>
+                      <span class="dyn-chip">Identificador del mensaje</span>
+                      <span class="dyn-chip">Asunto</span>
+                      <span class="dyn-chip">De</span>
+                      <span class="dyn-chip">Fecha y hora de recepción</span>
+                      <span class="dyn-chip">Cuerpo</span>
+                      <span class="dyn-chip">Nombre del archivo adjunto</span>
+                      <span class="dyn-chip">Contenido del archivo adjunto</span>
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Guardar el adjunto</strong> en OneDrive para la Empresa o SharePoint.
+                    <div><span class="dyn-chip">Nombre del archivo adjunto</span><span class="dyn-chip">Contenido del archivo adjunto</span></div>
+                  </li>
+                  <li>
+                    <strong>Registrar la solicitud</strong> en una tabla de Excel (hoja Registro / Proyectos).
+                    <div><span class="dyn-chip">Asunto</span><span class="dyn-chip">De</span><span class="dyn-chip">Fecha y hora de recepción</span><span class="dyn-chip">Identificador del mensaje</span></div>
+                  </li>
+                  <li>
+                    <strong>Consultar el documento de alcance</strong> ya almacenado (Word adjunto).
+                    <div><span class="dyn-chip">Ruta del archivo</span><span class="dyn-chip">Nombre del archivo adjunto</span></div>
+                  </li>
+                  <li>
+                    <strong>Actualizar matrices</strong> de presupuesto, riesgos y compromisos en el Excel de control.
+                    <div><span class="dyn-chip">Cuerpo</span><span class="dyn-chip">Datos del alcance</span></div>
+                  </li>
+                  <li>
+                    <strong>Preparar un resumen ejecutivo</strong> (borrador para revisión humana).
+                    <div><span class="dyn-chip">Asunto</span><span class="dyn-chip">Cuerpo</span><span class="dyn-chip">De</span></div>
+                  </li>
+                  <li>
+                    <strong>Enviar una confirmación</strong> al solicitante.
+                    <div><span class="dyn-chip">De</span><span class="dyn-chip">Asunto</span><span class="dyn-chip">Identificador del mensaje</span></div>
+                  </li>
                 </ol>
               </div>
+
+              <div class="card" style="margin:1.25rem 0;padding:1rem 1.1rem">
+                <h4 style="margin-top:0">Controles antes de continuar</h4>
+                <ul class="check-list" style="margin:0">
+                  <li><input type="checkbox" data-progress="s2f1-v1" /> El asunto contiene el identificador esperado (<code>SOLICITUD NUEVO PROYECTO</code>).</li>
+                  <li><input type="checkbox" data-progress="s2f1-v2" /> El correo incluye un archivo adjunto.</li>
+                  <li><input type="checkbox" data-progress="s2f1-v3" /> El archivo corresponde al formato permitido (p. ej. Word .docx).</li>
+                  <li><input type="checkbox" data-progress="s2f1-v4" /> El proyecto no está previamente registrado.</li>
+                  <li><input type="checkbox" data-progress="s2f1-v5" /> El presupuesto se encuentra informado.</li>
+                  <li><input type="checkbox" data-progress="s2f1-v6" /> La fecha requerida es válida.</li>
+                  <li><input type="checkbox" data-progress="s2f1-v7" /> Los campos críticos no están vacíos.</li>
+                  <li><input type="checkbox" data-progress="s2f1-v8" /> La información generada por IA será revisada por una persona.</li>
+                </ul>
+              </div>
+
+              <h4 style="margin:1.25rem 0 0.35rem">Rutas alternativas (manejo de errores)</h4>
+              <div class="pa-error-grid">
+                <div class="pa-error-card">
+                  <h5>Si el correo no tiene adjunto</h5>
+                  <ul>
+                    <li>Marcar el registro como «Información incompleta».</li>
+                    <li>Enviar solicitud automática de documento.</li>
+                    <li>No continuar con la generación de entregables.</li>
+                  </ul>
+                </div>
+                <div class="pa-error-card">
+                  <h5>Si el proyecto ya existe</h5>
+                  <ul>
+                    <li>No crear un registro duplicado.</li>
+                    <li>Notificar al responsable.</li>
+                    <li>Registrar el intento en la bitácora.</li>
+                  </ul>
+                </div>
+                <div class="pa-error-card">
+                  <h5>Si falta información</h5>
+                  <ul>
+                    <li>Identificar los campos pendientes.</li>
+                    <li>Preparar un correo de aclaración.</li>
+                    <li>Esperar respuesta antes de continuar.</li>
+                  </ul>
+                </div>
+              </div>
+
               <div class="btn-group" style="margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem">
-                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-correo"><i data-lucide="download" width="14" height="14"></i> Correo de inicio</button>
-                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-ficha"><i data-lucide="download" width="14" height="14"></i> Ficha Word</button>
-                <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2-guia-pa"><i data-lucide="book-open" width="14" height="14"></i> Guía PA</button>
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-ficha"><i data-lucide="download" width="14" height="14"></i> Documento de alcance (Word)</button>
+                <button type="button" class="btn btn--sm btn--energy" data-planilla="s2-control"><i data-lucide="sheet" width="14" height="14"></i> Plantilla Excel de control</button>
+                <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2-guia-pa"><i data-lucide="book-open" width="14" height="14"></i> Guía Power Automate</button>
               </div>
               <div data-reto-enhance="fase-1"></div>
             </div>
@@ -4731,30 +4978,33 @@
   },
   "fase-1": {
     "id": "fase-1",
-    "title": "Recepción automatizada del proyecto",
-    "apps": ["Outlook", "Power Automate", "SharePoint"],
+    "title": "Proyecto integrador: del correo recibido al informe ejecutivo",
+    "apps": ["Outlook", "Power Automate", "SharePoint", "OneDrive", "Excel"],
     "email": false,
-    "planilla": {"key": "s2-correo", "label": "Correo de inicio"},
-    "output": "MCP365_S2_F01_Recepcion_Proyecto_Horizonte",
+    "planilla": {"key": "s2-ficha", "label": "Documento de alcance (Word)"},
+    "output": "Flujo Power Automate + registro en Excel + adjunto en OneDrive/SharePoint",
     "fields": [
-      ["rol", "Rol de Copilot / diseño del flujo", "Asistente de automatización que describe un flujo de Power Automate para recepción de proyectos sin inventar credenciales ni endpoints."],
-      ["fuente", "Fuente de disparo", "Correo Outlook cuyo asunto contiene exactamente: NUEVO PROYECTO · HORIZONTE. Adjunto esperado: MCP365_S2_Ficha_Proyecto_Horizonte.docx."],
-      ["objetivo", "Objetivo del flujo", "Detectar el correo; capturar remitente, asunto y fecha; verificar la ficha Word; crear carpeta MCP365_S2_F01_Recepcion_Proyecto_Horizonte; guardar el adjunto; registrar la recepción; enviar confirmación."],
-      ["destino", "Destino documental", "SharePoint o OneDrive del participante (carpeta de práctica). No uses rutas de producción reales."],
-      ["prohibiciones", "Prohibiciones", "No inventar credenciales.\nNo inventar URLs de API.\nNo inventar cuentas de correo reales ajenas al ejercicio.\nNo marcar la recepción como validada sin revisión humana."],
+      ["rol", "Rol de apoyo (diseño del flujo)", "Asistente de automatización que describe un flujo de Power Automate disparado por un correo real de Outlook, sin inventar credenciales ni endpoints."],
+      ["fuente", "Fuente de disparo", "Correo recibido en Microsoft Outlook 365. Asunto contiene: SOLICITUD NUEVO PROYECTO. Debe incluir archivo adjunto (documento de alcance). La página web solo muestra una vista previa académica; no sustituye el correo real."],
+      ["disparador", "Disparador Power Automate", "Outlook 365 — Cuando llega un correo electrónico nuevo (V3). Carpeta: Bandeja de entrada. Incluir archivos adjuntos: Sí. Solo con archivos adjuntos: Sí."],
+      ["dinamicos", "Campos dinámicos a capturar", "Identificador del mensaje.\nAsunto.\nDe.\nFecha y hora de recepción.\nCuerpo.\nNombre del archivo adjunto.\nContenido del archivo adjunto."],
+      ["objetivo", "Objetivo del flujo", "Detectar el correo en Outlook; capturar datos dinámicos; guardar el adjunto en OneDrive o SharePoint; registrar la solicitud en Excel; consultar el alcance; actualizar presupuesto/riesgos; preparar resumen; enviar confirmación. Toda salida de IA queda para revisión humana."],
+      ["errores", "Rutas de error", "Sin adjunto: marcar Información incompleta, solicitar documento y no generar entregables.\nProyecto existente: no duplicar, notificar y bitácora.\nFalta información: listar pendientes, correo de aclaración y esperar respuesta."],
+      ["prohibiciones", "Prohibiciones", "No descargar ni usar un correo HTML como si fuera Outlook.\nNo inventar credenciales ni endpoints.\nNo afirmar que la página web envía el correo.\nNo marcar validación humana como completada por Copilot."],
       ["vacio", "Respuesta cuando falte información", "No especificado."],
-      ["salida", "Nombre / identificador de salida", "MCP365_S2_F01_Recepcion_Proyecto_Horizonte"]
+      ["salida", "Salida del reto", "Flujo publicado en Power Automate + registro en Excel + adjunto almacenado + confirmación al solicitante."]
     ],
     "checklist": [
-      ["s2f1-c1", "Descargué correo de inicio y ficha Word"],
-      ["s2f1-c2", "El flujo se dispara con el asunto NUEVO PROYECTO · HORIZONTE"],
-      ["s2f1-c3", "Se crea la carpeta y se guarda el adjunto"],
-      ["s2f1-c4", "Se registra la recepción y se envía confirmación"],
-      ["s2f1-c5", "No inventé credenciales ni endpoints"]
+      ["s2f1-c1", "Recibí el correo en Outlook (no como archivo HTML)"],
+      ["s2f1-c2", "El disparador usa asunto que contiene SOLICITUD NUEVO PROYECTO"],
+      ["s2f1-c3", "Capturé los campos dinámicos del mensaje y del adjunto"],
+      ["s2f1-c4", "Guardé el adjunto en OneDrive o SharePoint y registré en Excel"],
+      ["s2f1-c5", "Definí rutas de error (sin adjunto / duplicado / datos faltantes)"],
+      ["s2f1-c6", "No usé descarga de correo HTML ni envío automático desde la web"]
     ],
     "practice_title": "Al terminar · Practica con tu propia solicitud",
-    "practice": "Adapta el disparador a un asunto anonimizado de tu trabajo. Elimina datos personales y credenciales antes de practicar.",
-    "deliverable": "Entregable: flujo de recepción + carpeta <code>MCP365_S2_F01_Recepcion_Proyecto_Horizonte</code> con la ficha Word guardada y registro de recepción."
+    "practice": "Adapta el disparador a un asunto anonimizado de tu trabajo. Usa un correo real de prueba en Outlook. Elimina datos personales y credenciales antes de practicar.",
+    "deliverable": "Entregable: flujo Power Automate disparado por Outlook + adjunto en OneDrive/SharePoint + fila de registro en Excel + confirmación. La vista previa del correo en la plataforma es solo referencia académica."
   },
   "fase-2": {
     "id": "fase-2",
@@ -5517,11 +5767,6 @@
       "MCP365_P06_Practica_personal_priorizacion.html"
     ),
 
-    "s2-correo": () => downloadStaticFile(
-      "planillas/MCP365_S2_Correo_Inicio_Proyecto_Horizonte.html",
-      "MCP365_S2_Correo_Inicio_Proyecto_Horizonte.html"
-    ),
-
     "s2-ficha": () => downloadStaticFile(
       "planillas/MCP365_S2_Ficha_Proyecto_Horizonte.docx",
       "MCP365_S2_Ficha_Proyecto_Horizonte.docx"
@@ -6110,8 +6355,7 @@
     { name: "Base priorización P06", desc: "Excel · Diez tareas fuente (no completar)", key: "priorizacion", type: "Excel" },
     { name: "Priorización P06 (referencia HTML)", desc: "HTML · Referencia de calidad del informe", key: "priorizacion-ref", type: "HTML" },
     { name: "Práctica personal priorización", desc: "HTML · Lista local anonimizada (se borra al cerrar)", key: "priorizacion-practica", type: "HTML" },
-    { name: "S2 Correo inicio Horizonte", desc: "HTML · Asunto NUEVO PROYECTO · HORIZONTE", key: "s2-correo", type: "HTML" },
-    { name: "S2 Ficha Proyecto Horizonte", desc: "Word · Fuente principal de datos del proyecto", key: "s2-ficha", type: "Word" },
+    { name: "S2 Ficha / alcance Proyecto Horizonte", desc: "Word · Documento de alcance (adjunto del correo real)", key: "s2-ficha", type: "Word" },
     { name: "S2 Control Proyecto Horizonte", desc: "Excel · Registro, Presupuesto y Riesgos", key: "s2-control", type: "Excel" },
     { name: "S2 Plantilla informe", desc: "Word · Informe + validación humana vacía", key: "s2-informe-plantilla", type: "Word" },
     { name: "S2 Guía Power Automate", desc: "PDF · Cadena de 6 retos", key: "s2-guia-pa", type: "PDF" },
