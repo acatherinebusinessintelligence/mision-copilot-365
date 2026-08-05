@@ -593,6 +593,98 @@
     .m365-box ol { margin: 0; padding-left: 1.2rem; }
     .m365-box li { margin: 0.35rem 0; font-size: 0.92rem; color: var(--text); }
 
+
+    /* ========== S2 CASO 1 COPILOT FLOW ========== */
+    .pa-vflow {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.35rem;
+      margin: 0.75rem 0 1rem;
+      max-width: 720px;
+    }
+    .pa-vflow__node {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.7rem 0.85rem;
+      font-size: 0.88rem;
+      box-shadow: 0 1px 4px rgba(34, 30, 64, 0.06);
+    }
+    .pa-vflow__node strong { display: block; margin-bottom: 0.15rem; }
+    .pa-vflow__node span { color: var(--text-muted); font-size: 0.82rem; }
+    .pa-vflow__arrow {
+      text-align: center;
+      color: var(--brand-primary);
+      font-weight: 700;
+      line-height: 1;
+    }
+    .pa-vflow__label {
+      margin: 0.35rem 0;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+    .pa-vflow__cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .pa-vflow__node--ask {
+      border-left: 4px solid var(--brand-primary);
+      background: color-mix(in srgb, var(--brand-primary) 10%, var(--bg-elevated));
+    }
+    .pa-vflow__node--warn {
+      border-left: 4px solid #c0392b;
+      background: color-mix(in srgb, #c0392b 8%, var(--bg-elevated));
+    }
+    .pa-vflow__node--ok {
+      border-left: 4px solid #2f9e6a;
+      background: color-mix(in srgb, #2f9e6a 10%, var(--bg-elevated));
+    }
+    .improve-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      margin: 0.75rem 0;
+    }
+    .improve-card h5 { margin: 0 0 0.45rem; font-size: 0.95rem; }
+    .improve-card .prompt-box { margin: 0.45rem 0; font-size: 0.86rem; white-space: pre-wrap; }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    .audit-grid .improve-card { margin: 0; }
+    .prompt-lab {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin: 0.75rem 0 1rem;
+    }
+    .prompt-lab__item {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+    }
+    .prompt-lab__item--weak { border-left: 4px solid #c0392b; }
+    .prompt-lab__item--pro { border-left: 4px solid #2f9e6a; }
+    .s2c1-q { margin: 0.85rem 0; padding-bottom: 0.65rem; border-bottom: 1px dashed var(--border); }
+    .s2c1-q .quiz-option { display: flex; gap: 0.5rem; align-items: flex-start; margin: 0.35rem 0; font-size: 0.9rem; cursor: pointer; }
+    @media (max-width: 900px) {
+      .pa-vflow__cols { grid-template-columns: 1fr; }
+      .audit-grid { grid-template-columns: 1fr; }
+      .prompt-lab { grid-template-columns: 1fr; }
+    }
+    @media print {
+      .improve-card, .pa-vflow__node, .prompt-lab__item { break-inside: avoid; }
+    }
+
     /* ========== POWER AUTOMATE FLOW (S2) ========== */
     .pa-flow {
       display: flex;
@@ -1605,8 +1697,8 @@
         <p class="section-kicker">Sesión 2</p>
         <h2 class="section-title" id="s2Title">Copilot y Power Automate para la gestión inteligente de proyectos</h2>
         <p class="lead">Automatiza el ciclo de un proyecto empresarial combinando Copilot, Power Automate, Outlook, Word, Excel, SharePoint, Teams y PowerPoint.</p>
-        <p class="lead">La sesión comienza con un correo recibido directamente en Microsoft Outlook. A partir de ese mensaje, los participantes construirán un flujo en Power Automate que almacenará los documentos, extraerá y estructurará los datos, registrará el proyecto, consolidará el presupuesto, analizará los riesgos, generará un informe, solicitará aprobación humana y preparará una presentación ejecutiva.</p>
-        <p class="lead">Cada reto utilizará los resultados del reto anterior. El objetivo no es practicar aplicaciones por separado, sino comprender cómo se conectan para gestionar un proyecto de principio a fin.</p>
+        <p class="lead">La sesión inicia con un caso introductorio: crear y mejorar una automatización con Copilot a partir de una lista de SharePoint. A continuación, el proyecto integrador parte de un correo recibido en Microsoft Outlook: los participantes construirán un flujo en Power Automate que almacenará los documentos, extraerá y estructurará los datos, registrará el proyecto, consolidará el presupuesto, analizará los riesgos, generará un informe, solicitará aprobación humana y preparará una presentación ejecutiva.</p>
+        <p class="lead">Cada caso utilizará los resultados del anterior cuando aplique. El objetivo no es practicar aplicaciones por separado, sino comprender cómo se conectan para gestionar un proyecto de principio a fin.</p>
 
         <div class="disclaimer disclaimer--info">
           <i data-lucide="info" width="18" height="18"></i>
@@ -1665,13 +1757,419 @@
         </div>
 
         <div style="margin-top:2.5rem">
-          <!-- RETO 1 -->
-          <article class="reto is-open" data-reto="fase-1">
+          <!-- CASO 1 · COPILOT + POWER AUTOMATE + SHAREPOINT -->
+          <article class="reto is-open" data-reto="s2-caso1">
             <button class="reto__header" aria-expanded="true">
               <span class="reto__title-wrap">
                 <span class="reto__num">1</span>
                 <span>
-                  <strong>Proyecto integrador: del correo recibido al informe ejecutivo</strong>
+                  <strong>Caso 1 · Crear y mejorar una automatización con Copilot</strong>
+                  <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">De una sugerencia inicial de Copilot a un flujo inteligente de gestión de solicitudes</span>
+                </span>
+              </span>
+              <span style="display:flex;gap:0.75rem;align-items:center">
+                <label onclick="event.stopPropagation()" style="font-size:0.82rem;display:flex;gap:0.4rem;cursor:pointer"><input type="checkbox" data-progress="s2-caso1" /> Hecho</label>
+                <i data-lucide="chevron-down" class="reto__chevron" width="20" height="20"></i>
+              </span>
+            </button>
+            <div class="reto__body">
+              <div class="disclaimer disclaimer--info">
+                <i data-lucide="sparkles" width="18" height="18"></i>
+                <span><strong>Copilot propone y modifica el flujo. La persona configura, prueba y valida.</strong></span>
+              </div>
+
+              <div class="card" style="margin:1rem 0;padding:1rem 1.1rem">
+                <h4 style="margin-top:0">Objetivo del caso</h4>
+                <p>El participante utilizará Copilot en Power Automate para:</p>
+                <ul>
+                  <li>Seleccionar una automatización sugerida.</li>
+                  <li>Comprender la estructura del flujo.</li>
+                  <li>Configurar las conexiones.</li>
+                  <li>Probar el funcionamiento.</li>
+                  <li>Mejorar el flujo mediante instrucciones progresivas.</li>
+                  <li>Agregar condiciones.</li>
+                  <li>Incorporar controles de prioridad y presupuesto.</li>
+                  <li>Actualizar el estado de la solicitud.</li>
+                  <li>Revisar la automatización con Copilot.</li>
+                </ul>
+              </div>
+
+              <div class="doc-box">
+                <p><strong>Contexto (ficticio · solo fines académicos):</strong> una organización del sector energético registra solicitudes de proyectos en una lista de SharePoint. Cada vez que se crea una nueva solicitud, se envía una notificación automática al responsable. Después, el flujo se mejora con Copilot para identificar solicitudes prioritarias, revisar presupuestos altos y actualizar el estado del proyecto.</p>
+                <p style="margin:0.5rem 0 0">Todos los nombres, cifras y datos son ficticios. No es una operación real. Copilot no configura automáticamente todas las conexiones ni inserta siempre el contenido dinámico de forma correcta: la persona debe revisar.</p>
+              </div>
+
+              <!-- FASE 1 -->
+              <h4 style="margin:1.5rem 0 0.5rem">Fase 1 · Seleccionar el flujo sugerido</h4>
+              <div class="m365-box">
+                <h4><span class="app-badge">Power Automate</span> + <span class="app-badge">Copilot</span></h4>
+                <ol>
+                  <li>Abre Power Automate.</li>
+                  <li>Selecciona <strong>Crear su automatización con Copilot</strong>.</li>
+                  <li>Entre las sugerencias, elige: <em>«Cuando se cree un nuevo elemento en SharePoint, enviarme un correo electrónico»</em>.</li>
+                </ol>
+                <p style="margin:0.75rem 0 0"><strong>Selecciona «Mantener y continuar»</strong> para aceptar la propuesta generada por Copilot. No construyas el flujo manualmente desde cero en este paso.</p>
+              </div>
+              <p class="text-muted" style="font-size:0.88rem">Flujo sugerido por Copilot:</p>
+              <div class="pa-vflow" aria-label="Flujo sugerido SharePoint">
+                <div class="pa-vflow__node"><strong>SharePoint</strong><span>Cuando se crea un elemento</span></div>
+                <div class="pa-vflow__arrow" aria-hidden="true">↓</div>
+                <div class="pa-vflow__node"><strong>Usuarios de Office 365</strong><span>Obtener mi perfil</span></div>
+                <div class="pa-vflow__arrow" aria-hidden="true">↓</div>
+                <div class="pa-vflow__node"><strong>Office 365 Outlook</strong><span>Enviar correo electrónico</span></div>
+              </div>
+              <ul>
+                <li><strong>Cuando se crea un elemento:</strong> activa el flujo cuando aparece un nuevo registro en SharePoint.</li>
+                <li><strong>Obtener mi perfil:</strong> recupera información de la cuenta conectada.</li>
+                <li><strong>Enviar correo electrónico:</strong> envía la notificación automática.</li>
+              </ul>
+
+              <!-- FASE 2 -->
+              <h4 style="margin:1.5rem 0 0.5rem">Fase 2 · Preparar la lista de SharePoint</h4>
+              <div class="card" style="padding:1rem 1.1rem">
+                <h4 style="margin-top:0">Datos necesarios para la práctica</h4>
+                <p>Crea (o usa) una lista llamada <strong>Solicitudes de proyectos</strong> con estas columnas:</p>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>Columna</th><th>Tipo sugerido</th><th>Valores</th></tr></thead>
+                    <tbody>
+                      <tr><td>Título</td><td>Texto</td><td>—</td></tr>
+                      <tr><td>Solicitante</td><td>Texto</td><td>—</td></tr>
+                      <tr><td>Prioridad</td><td>Elección</td><td>Alta · Media · Baja</td></tr>
+                      <tr><td>Fecha requerida</td><td>Fecha</td><td>—</td></tr>
+                      <tr><td>Presupuesto preliminar</td><td>Moneda o número</td><td>—</td></tr>
+                      <tr><td>Estado</td><td>Elección</td><td>Recibido · En análisis · Información incompleta · Pendiente de revisión · Cerrado</td></tr>
+                      <tr><td>Responsable</td><td>Persona o texto</td><td>—</td></tr>
+                      <tr><td>Observaciones</td><td>Texto multilínea</td><td>—</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- FASE 3 -->
+              <h4 style="margin:1.5rem 0 0.5rem">Fase 3 · Configurar el flujo inicial</h4>
+              <div class="m365-box">
+                <h4>Desencadenador SharePoint</h4>
+                <ul>
+                  <li>Dirección del sitio (tu sitio de práctica).</li>
+                  <li>Nombre de la lista: <code>Solicitudes de proyectos</code>.</li>
+                </ul>
+                <h4 style="margin-top:1rem">Acción Obtener mi perfil</h4>
+                <p>Recupera los datos del usuario conectado. Revisa la conexión de «Usuarios de Office 365»; Copilot no garantiza que la conexión quede lista sola.</p>
+                <h4 style="margin-top:1rem">Acción Enviar correo electrónico</h4>
+                <ul>
+                  <li><strong>Para:</strong> correo obtenido desde «Obtener mi perfil» o correo institucional autorizado de práctica.</li>
+                  <li><strong>Asunto:</strong> <code>Nueva solicitud registrada: </code> + contenido dinámico <em>Título</em>.</li>
+                </ul>
+                <p><strong>Cuerpo sugerido</strong> (los corchetes son contenido dinámico, no texto fijo):</p>
+                <div class="prompt-box" id="s2c1-mail-body" style="white-space:pre-wrap;font-size:0.88rem">Se ha registrado una nueva solicitud de proyecto.
+
+Proyecto: [Título]
+Solicitante: [Solicitante]
+Prioridad: [Prioridad]
+Fecha requerida: [Fecha requerida]
+Presupuesto preliminar: [Presupuesto preliminar]
+Estado: [Estado]
+Responsable: [Responsable]
+
+Por favor, revise la información registrada en SharePoint.</div>
+                <p class="text-muted" style="font-size:0.86rem;margin:0.5rem 0 0">Inserta cada campo desde <strong>contenido dinámico</strong>. No escribas los corchetes como texto fijo.</p>
+              </div>
+
+              <!-- FASE 4 -->
+              <h4 style="margin:1.5rem 0 0.5rem">Fase 4 · Probar el flujo base</h4>
+              <div class="card" style="padding:1rem 1.1rem">
+                <h4 style="margin-top:0">Primera prueba</h4>
+                <p>Datos ficticios para el elemento de SharePoint:</p>
+                <ul>
+                  <li><strong>Título:</strong> Modernización de infraestructura Horizonte</li>
+                  <li><strong>Solicitante:</strong> Laura Méndez</li>
+                  <li><strong>Prioridad:</strong> Alta</li>
+                  <li><strong>Fecha requerida:</strong> 18 de agosto de 2026</li>
+                  <li><strong>Presupuesto preliminar:</strong> 2850000000</li>
+                  <li><strong>Estado:</strong> Recibido</li>
+                  <li><strong>Responsable:</strong> Carlos Ramírez</li>
+                  <li><strong>Observaciones:</strong> Se requiere revisión inicial del alcance y del presupuesto.</li>
+                </ul>
+                <ol>
+                  <li>Guardar el flujo.</li>
+                  <li>Crear un nuevo elemento en SharePoint.</li>
+                  <li>Esperar la ejecución.</li>
+                  <li>Revisar el historial del flujo.</li>
+                  <li>Confirmar que llegó el correo.</li>
+                  <li>Comparar el correo recibido con la información registrada.</li>
+                </ol>
+                <ul class="check-list">
+                  <li><input type="checkbox" data-progress="s2c1-t1" /> El flujo se ejecutó.</li>
+                  <li><input type="checkbox" data-progress="s2c1-t2" /> El correo llegó.</li>
+                  <li><input type="checkbox" data-progress="s2c1-t3" /> El asunto contiene el título.</li>
+                  <li><input type="checkbox" data-progress="s2c1-t4" /> Los campos dinámicos muestran datos reales.</li>
+                  <li><input type="checkbox" data-progress="s2c1-t5" /> No aparecen valores vacíos inesperados.</li>
+                  <li><input type="checkbox" data-progress="s2c1-t6" /> La conexión de Outlook funciona.</li>
+                  <li><input type="checkbox" data-progress="s2c1-t7" /> La conexión de SharePoint funciona.</li>
+                </ul>
+              </div>
+
+              <!-- FASE 5 -->
+              <h4 style="margin:1.5rem 0 0.5rem">Fase 5 · Mejorar el flujo con Copilot</h4>
+              <div class="disclaimer disclaimer--info">
+                <i data-lucide="message-square" width="18" height="18"></i>
+                <span><strong>Ahora conversa con Copilot.</strong> No intentes agregar todas las mejoras en una sola instrucción. Utiliza un prompt por cada modificación.</span>
+              </div>
+
+              <div class="improve-card" id="s2c1-m1">
+                <h5>Mejora 1 · Enriquecer el correo</h5>
+                <p><strong>Objetivo:</strong> incluir todos los datos principales de la solicitud.</p>
+                <div class="prompt-box" id="s2c1-p1">Modifica la acción de envío de correo para que incluya el título del proyecto, el solicitante, la prioridad, la fecha requerida, el presupuesto preliminar, el estado, el responsable y las observaciones del elemento creado en SharePoint.</div>
+                <div class="btn-group" style="margin:0.5rem 0"><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-p1"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <p><strong>Resultado esperado:</strong> el correo incluye todos los datos principales de la solicitud.</p>
+                <p><strong>Validación humana:</strong> revisar contenido dinámico (no texto fijo); verificar que las columnas coincidan con la lista.</p>
+              </div>
+
+              <div class="improve-card" id="s2c1-m2">
+                <h5>Mejora 2 · Validar prioridad</h5>
+                <p><strong>Objetivo:</strong> crear una condición Prioridad = Alta.</p>
+                <div class="prompt-box" id="s2c1-p2">Agrega una condición después de obtener los datos del elemento para comprobar si la columna Prioridad es igual a Alta.</div>
+                <div class="btn-group" style="margin:0.5rem 0"><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-p2"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <p><strong>Resultado esperado:</strong> condición con ramas Sí / No.</p>
+                <p><strong>Validación humana:</strong> campo Prioridad, valor Alta, mayúsculas/espacios alineados a la lista.</p>
+              </div>
+
+              <div class="improve-card" id="s2c1-m3">
+                <h5>Mejora 3 · Correos diferenciados</h5>
+                <p><strong>Objetivo:</strong> asunto distinto según prioridad.</p>
+                <div class="prompt-box" id="s2c1-p3">Si la prioridad es Alta, envía un correo con el asunto “Alerta: nueva solicitud prioritaria”.
+
+Si la prioridad no es Alta, envía un correo con el asunto “Nueva solicitud registrada”.</div>
+                <div class="btn-group" style="margin:0.5rem 0"><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-p3"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <p><strong>Resultado esperado:</strong> cada rama envía una notificación distinta.</p>
+                <p><strong>Validación humana:</strong> un solo correo por solicitud; destinatarios correctos; cada correo en su rama.</p>
+              </div>
+
+              <div class="improve-card" id="s2c1-m4">
+                <h5>Mejora 4 · Control presupuestal</h5>
+                <p><strong>Objetivo:</strong> alerta si presupuesto &gt; 500000000.</p>
+                <div class="prompt-box" id="s2c1-p4">Agrega una condición para identificar si el presupuesto preliminar es superior a 500000000.
+
+Cuando sea superior, envía una notificación adicional con el asunto “Solicitud requiere revisión presupuestal”.</div>
+                <div class="btn-group" style="margin:0.5rem 0"><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-p4"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <p><strong>Resultado esperado:</strong> presupuestos altos generan alerta adicional.</p>
+                <p><strong>Validación humana:</strong> campo numérico; comparación sin puntos ni símbolos; sin alertas duplicadas.</p>
+              </div>
+
+              <div class="improve-card" id="s2c1-m5">
+                <h5>Mejora 5 · Actualizar estado</h5>
+                <p><strong>Objetivo:</strong> pasar Estado a «En análisis» tras notificar.</p>
+                <div class="prompt-box" id="s2c1-p5">Después de enviar las notificaciones, agrega una acción de SharePoint para actualizar el elemento y cambiar la columna Estado a “En análisis”.</div>
+                <div class="btn-group" style="margin:0.5rem 0"><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-p5"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <p><strong>Resultado esperado:</strong> el registro cambia de Recibido a En análisis.</p>
+                <p><strong>Validación humana:</strong> mismo sitio/lista; ID del elemento; no borrar otros datos; actualizar solo después del correo.</p>
+              </div>
+
+              <div class="improve-card" id="s2c1-m6">
+                <h5>Mejora 6 · Información incompleta</h5>
+                <p><strong>Objetivo:</strong> detectar Responsable o Fecha requerida vacíos.</p>
+                <div class="prompt-box" id="s2c1-p6">Agrega una condición para comprobar si el campo Responsable o la Fecha requerida están vacíos.
+
+Si falta alguno de estos datos, cambia el Estado a “Información incompleta” y envía un correo indicando qué campo debe completarse.</div>
+                <div class="btn-group" style="margin:0.5rem 0"><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-p6"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <p><strong>Resultado esperado:</strong> el flujo detecta registros incompletos.</p>
+                <p><strong>Validación humana:</strong> interpretación de vacíos; mensaje preciso; no pasar a En análisis si falta información.</p>
+              </div>
+
+              <!-- FASE 6 -->
+              <h4 style="margin:1.5rem 0 0.5rem">Fase 6 · Flujo final esperado</h4>
+              <div class="pa-vflow pa-vflow--final" aria-label="Flujo final esperado">
+                <div class="pa-vflow__node"><strong>Nuevo elemento en SharePoint</strong></div>
+                <div class="pa-vflow__arrow">↓</div>
+                <div class="pa-vflow__node">Obtener mi perfil</div>
+                <div class="pa-vflow__arrow">↓</div>
+                <div class="pa-vflow__node">Validar información obligatoria</div>
+                <div class="pa-vflow__arrow">↓</div>
+                <div class="pa-vflow__branch">
+                  <div class="pa-vflow__node pa-vflow__node--ask">¿Información completa?</div>
+                  <div class="pa-vflow__cols">
+                    <div>
+                      <p class="pa-vflow__label">No</p>
+                      <div class="pa-vflow__node pa-vflow__node--warn">Estado → Información incompleta</div>
+                      <div class="pa-vflow__arrow">↓</div>
+                      <div class="pa-vflow__node pa-vflow__node--warn">Enviar solicitud de corrección</div>
+                    </div>
+                    <div>
+                      <p class="pa-vflow__label">Sí</p>
+                      <div class="pa-vflow__node">Validar prioridad</div>
+                      <div class="pa-vflow__arrow">↓</div>
+                      <div class="pa-vflow__node pa-vflow__node--ask">¿Prioridad alta?</div>
+                      <div class="pa-vflow__cols">
+                        <div>
+                          <p class="pa-vflow__label">Sí</p>
+                          <div class="pa-vflow__node">Enviar alerta prioritaria</div>
+                        </div>
+                        <div>
+                          <p class="pa-vflow__label">No</p>
+                          <div class="pa-vflow__node">Enviar notificación estándar</div>
+                        </div>
+                      </div>
+                      <div class="pa-vflow__arrow">↓</div>
+                      <div class="pa-vflow__node">Validar presupuesto</div>
+                      <div class="pa-vflow__arrow">↓</div>
+                      <div class="pa-vflow__node pa-vflow__node--ask">¿Presupuesto &gt; 500000000?</div>
+                      <div class="pa-vflow__cols">
+                        <div>
+                          <p class="pa-vflow__label">Sí</p>
+                          <div class="pa-vflow__node">Enviar alerta presupuestal</div>
+                        </div>
+                        <div>
+                          <p class="pa-vflow__label">No</p>
+                          <div class="pa-vflow__node">Continuar</div>
+                        </div>
+                      </div>
+                      <div class="pa-vflow__arrow">↓</div>
+                      <div class="pa-vflow__node pa-vflow__node--ok">Actualizar estado a En análisis</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FASE 7 -->
+              <h4 style="margin:1.5rem 0 0.5rem">Fase 7 · Copilot como revisor</h4>
+              <p>Pídele a Copilot que audite el flujo. Copia un prompt a la vez:</p>
+              <div class="audit-grid" id="s2c1-audit">
+                <div class="improve-card"><div class="prompt-box" id="s2c1-a1">Explícame este flujo paso a paso en lenguaje sencillo.</div><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-a1"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <div class="improve-card"><div class="prompt-box" id="s2c1-a2">Identifica qué conexiones y campos debo revisar manualmente.</div><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-a2"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <div class="improve-card"><div class="prompt-box" id="s2c1-a3">Revisa si existe riesgo de enviar correos duplicados.</div><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-a3"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <div class="improve-card"><div class="prompt-box" id="s2c1-a4">¿Qué ocurrirá si la prioridad está vacía?</div><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-a4"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <div class="improve-card"><div class="prompt-box" id="s2c1-a5">¿Qué ocurrirá si el presupuesto contiene texto o está vacío?</div><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-a5"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <div class="improve-card"><div class="prompt-box" id="s2c1-a6">Revisa si el estado del elemento puede actualizarse antes de tiempo.</div><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-a6"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <div class="improve-card"><div class="prompt-box" id="s2c1-a7">Sugiere una forma de registrar errores del flujo.</div><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-a7"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <div class="improve-card"><div class="prompt-box" id="s2c1-a8">Indica qué partes de esta automatización requieren validación humana.</div><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-a8"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <div class="improve-card"><div class="prompt-box" id="s2c1-a9">Propón tres casos de prueba para comprobar que el flujo funciona correctamente.</div><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-a9"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+                <div class="improve-card"><div class="prompt-box" id="s2c1-a10">Identifica posibles problemas de permisos entre SharePoint, Outlook y Usuarios de Office 365.</div><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-a10"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+              </div>
+
+              <!-- LABORATORIO -->
+              <h4 style="margin:1.5rem 0 0.5rem">Laboratorio de prompts</h4>
+              <div class="prompt-lab">
+                <div class="prompt-lab__item prompt-lab__item--weak">
+                  <span class="dyn-chip">Débil</span>
+                  <div class="prompt-box" id="s2c1-lab-w">Mejora el flujo.</div>
+                  <button type="button" class="btn btn--sm btn--ghost" data-copy="#s2c1-lab-w">Copiar</button>
+                </div>
+                <div class="prompt-lab__item">
+                  <span class="dyn-chip">Mejorado</span>
+                  <div class="prompt-box" id="s2c1-lab-m">Agrega una condición para saber si la prioridad es alta.</div>
+                  <button type="button" class="btn btn--sm btn--ghost" data-copy="#s2c1-lab-m">Copiar</button>
+                </div>
+                <div class="prompt-lab__item prompt-lab__item--pro">
+                  <span class="dyn-chip">Profesional</span>
+                  <div class="prompt-box" id="s2c1-lab-p">Agrega una condición después del desencadenador para comprobar si el valor de la columna Prioridad del elemento creado en SharePoint es igual a Alta.
+
+Si se cumple, envía un correo con el asunto “Alerta: nueva solicitud prioritaria”.
+
+Si no se cumple, envía un correo con el asunto “Nueva solicitud registrada”.
+
+No modifiques las conexiones existentes.
+
+No elimines las acciones actuales.
+
+Indica qué campos debo configurar manualmente.</div>
+                  <button type="button" class="btn btn--sm btn--secondary" data-copy="#s2c1-lab-p">Copiar</button>
+                </div>
+              </div>
+              <p>El prompt profesional funciona mejor porque: define dónde agregar la condición; identifica el campo y el valor; define ambas ramas; protege las acciones existentes; y pide transparencia sobre la configuración manual.</p>
+
+              <!-- AUTOEVAL -->
+              <h4 style="margin:1.5rem 0 0.5rem">Evaluación del caso</h4>
+              <div class="card" style="padding:1rem 1.1rem" id="s2c1Quiz">
+                <div class="s2c1-q" data-qi="0">
+                  <p><strong>1.</strong> ¿Qué evento inicia el flujo?</p>
+                  <label class="quiz-option"><input type="radio" name="s2c1q0" value="0" /> Un correo HTML descargado</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q0" value="1" /> La creación de un nuevo elemento en SharePoint</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q0" value="2" /> Abrir PowerPoint</label>
+                  <div class="quiz-feedback" id="s2c1f0"></div>
+                </div>
+                <div class="s2c1-q" data-qi="1">
+                  <p><strong>2.</strong> ¿Para qué se utiliza Obtener mi perfil?</p>
+                  <label class="quiz-option"><input type="radio" name="s2c1q1" value="0" /> Para borrar la lista</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q1" value="1" /> Para recuperar datos de la cuenta conectada</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q1" value="2" /> Para crear columnas en SharePoint</label>
+                  <div class="quiz-feedback" id="s2c1f1"></div>
+                </div>
+                <div class="s2c1-q" data-qi="2">
+                  <p><strong>3.</strong> ¿Qué diferencia hay entre texto fijo y contenido dinámico?</p>
+                  <label class="quiz-option"><input type="radio" name="s2c1q2" value="0" /> Ninguna</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q2" value="1" /> El dinámico toma el valor del elemento; el fijo no cambia</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q2" value="2" /> El dinámico solo funciona en Word</label>
+                  <div class="quiz-feedback" id="s2c1f2"></div>
+                </div>
+                <div class="s2c1-q" data-qi="3">
+                  <p><strong>4.</strong> ¿Qué debe validar la persona después de una modificación hecha por Copilot?</p>
+                  <label class="quiz-option"><input type="radio" name="s2c1q3" value="0" /> Nada; Copilot siempre acierta</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q3" value="1" /> Campos, ramas, conexiones y que no se hayan perdido acciones</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q3" value="2" /> Solo el color del diseño</label>
+                  <div class="quiz-feedback" id="s2c1f3"></div>
+                </div>
+                <div class="s2c1-q" data-qi="4">
+                  <p><strong>5.</strong> ¿Por qué conviene agregar mejoras una por una?</p>
+                  <label class="quiz-option"><input type="radio" name="s2c1q4" value="0" /> Para gastar más tokens</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q4" value="1" /> Para aislar errores y validar cada cambio</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q4" value="2" /> Porque Copilot no acepta varios prompts</label>
+                  <div class="quiz-feedback" id="s2c1f4"></div>
+                </div>
+                <div class="s2c1-q" data-qi="5">
+                  <p><strong>6.</strong> ¿Qué riesgo existe al actualizar un elemento de SharePoint?</p>
+                  <label class="quiz-option"><input type="radio" name="s2c1q5" value="0" /> Ninguno</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q5" value="1" /> Sobrescribir o borrar datos si se configura mal el ID o los campos</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q5" value="2" /> Que Outlook se cierre</label>
+                  <div class="quiz-feedback" id="s2c1f5"></div>
+                </div>
+                <div class="s2c1-q" data-qi="6">
+                  <p><strong>7.</strong> ¿Qué se debe revisar antes de comparar un presupuesto?</p>
+                  <label class="quiz-option"><input type="radio" name="s2c1q6" value="0" /> Que el campo sea numérico y el umbral no lleve puntos ni símbolos</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q6" value="1" /> Solo el asunto del correo</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q6" value="2" /> El tipado del logo</label>
+                  <div class="quiz-feedback" id="s2c1f6"></div>
+                </div>
+                <div class="s2c1-q" data-qi="7">
+                  <p><strong>8.</strong> ¿Copilot reemplaza la prueba del flujo?</p>
+                  <label class="quiz-option"><input type="radio" name="s2c1q7" value="0" /> Sí, siempre</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q7" value="1" /> No; la persona debe probar y validar</label>
+                  <label class="quiz-option"><input type="radio" name="s2c1q7" value="2" /> Solo si la prioridad es Baja</label>
+                  <div class="quiz-feedback" id="s2c1f7"></div>
+                </div>
+                <p style="margin:0.75rem 0 0"><strong>Puntaje:</strong> <span id="s2c1QuizScore">0</span>/8</p>
+              </div>
+
+              <!-- ENTREGABLE -->
+              <h4 style="margin:1.5rem 0 0.5rem">Entregable del participante</h4>
+              <p>El caso se considera completado cuando tengas:</p>
+              <ul class="check-list">
+                <li><input type="checkbox" data-progress="s2c1-e1" /> Flujo base funcionando.</li>
+                <li><input type="checkbox" data-progress="s2c1-e2" /> Correo automático recibido.</li>
+                <li><input type="checkbox" data-progress="s2c1-e3" /> Condición de prioridad.</li>
+                <li><input type="checkbox" data-progress="s2c1-e4" /> Notificaciones diferenciadas.</li>
+                <li><input type="checkbox" data-progress="s2c1-e5" /> Control presupuestal.</li>
+                <li><input type="checkbox" data-progress="s2c1-e6" /> Actualización del estado.</li>
+                <li><input type="checkbox" data-progress="s2c1-e7" /> Validación de información incompleta.</li>
+                <li><input type="checkbox" data-progress="s2c1-e8" /> Evidencia del historial de ejecución.</li>
+                <li><input type="checkbox" data-progress="s2c1-e9" /> Registro de los prompts utilizados.</li>
+                <li><input type="checkbox" data-progress="s2c1-e10" /> Lista de ajustes manuales realizados.</li>
+              </ul>
+
+              <div class="entregable">
+                <strong>Cierre del caso</strong>
+                En este primer caso, Copilot no reemplazó el diseño del proceso. Ayudó a crear una versión inicial, agregar reglas y revisar la automatización. El participante conservó el control sobre los datos, las conexiones, las condiciones y la prueba final.
+              </div>
+            </div>
+          </article>
+
+          <!-- RETO 1 -->
+          <article class="reto" data-reto="fase-1">
+            <button class="reto__header" aria-expanded="false">
+              <span class="reto__title-wrap">
+                <span class="reto__num">2</span>
+                <span>
+                  <strong>Caso 2 · Proyecto integrador: del correo recibido al informe ejecutivo</strong>
                   <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Outlook (correo real) + Power Automate + OneDrive / SharePoint + Excel</span>
                 </span>
               </span>
@@ -1841,9 +2339,9 @@
           <article class="reto" data-reto="fase-2">
             <button class="reto__header" aria-expanded="false">
               <span class="reto__title-wrap">
-                <span class="reto__num">2</span>
+                <span class="reto__num">3</span>
                 <span>
-                  <strong>Extracción de información del Word</strong>
+                  <strong>Caso 3 · Extracción de información del Word</strong>
                   <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Copilot + Word + Power Automate</span>
                 </span>
               </span>
@@ -1856,7 +2354,7 @@
               <div class="m365-box">
                 <h4><span class="app-badge">Copilot</span> + <span class="app-badge">Word</span> + <span class="app-badge">Power Automate</span> Paso a paso</h4>
                 <ol>
-                  <li>Usa la ficha guardada en el Reto 1: <code>MCP365_S2_Ficha_Proyecto_Horizonte.docx</code>.</li>
+                  <li>Usa la ficha guardada en el Caso 2: <code>MCP365_S2_Ficha_Proyecto_Horizonte.docx</code>.</li>
                   <li>Extrae código, nombre, objetivo, alcance, patrocinador, líder, fechas, presupuesto preliminar, entregables, dependencias, restricciones, riesgos y criterios de éxito.</li>
                   <li>Copilot debe entregar un JSON estructurado. Si falta un dato: <code>No especificado</code>.</li>
                   <li>No inventes fechas, cifras, responsables ni decisiones.</li>
@@ -1875,9 +2373,9 @@
           <article class="reto" data-reto="fase-3">
             <button class="reto__header" aria-expanded="false">
               <span class="reto__title-wrap">
-                <span class="reto__num">3</span>
+                <span class="reto__num">4</span>
                 <span>
-                  <strong>Presupuesto del proyecto</strong>
+                  <strong>Caso 4 · Presupuesto del proyecto</strong>
                   <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Power Automate + Excel + Copilot</span>
                 </span>
               </span>
@@ -1908,9 +2406,9 @@
           <article class="reto" data-reto="fase-4">
             <button class="reto__header" aria-expanded="false">
               <span class="reto__title-wrap">
-                <span class="reto__num">4</span>
+                <span class="reto__num">5</span>
                 <span>
-                  <strong>Matriz de riesgos</strong>
+                  <strong>Caso 5 · Matriz de riesgos</strong>
                   <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Copilot + Excel + Power Automate</span>
                 </span>
               </span>
@@ -1923,7 +2421,7 @@
               <div class="m365-box">
                 <h4><span class="app-badge">Copilot</span> + <span class="app-badge">Excel</span> + <span class="app-badge">Power Automate</span> Paso a paso</h4>
                 <ol>
-                  <li>Completa la hoja <strong>Riesgos</strong> del archivo de control (mismo Excel del Reto 3).</li>
+                  <li>Completa la hoja <strong>Riesgos</strong> del archivo de control (mismo Excel del Caso 4).</li>
                   <li>Campos: identificador, riesgo, causa, consecuencia, probabilidad, impacto, nivel, control existente, tratamiento, responsable, fecha de revisión, estado, fuente.</li>
                   <li>Distingue riesgo explícito, inferido, supuesto e información ausente.</li>
                   <li>Todo riesgo inferido lleva la etiqueta <code>Interpretación para validación</code>.</li>
@@ -1941,9 +2439,9 @@
           <article class="reto" data-reto="fase-5">
             <button class="reto__header" aria-expanded="false">
               <span class="reto__title-wrap">
-                <span class="reto__num">5</span>
+                <span class="reto__num">6</span>
                 <span>
-                  <strong>Informe y aprobación</strong>
+                  <strong>Caso 6 · Informe y aprobación</strong>
                   <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Power Automate + Word + Approvals + Outlook</span>
                 </span>
               </span>
@@ -1975,9 +2473,9 @@
           <article class="reto" data-reto="fase-6">
             <button class="reto__header" aria-expanded="false">
               <span class="reto__title-wrap">
-                <span class="reto__num">6</span>
+                <span class="reto__num">7</span>
                 <span>
-                  <strong>Presentación ejecutiva</strong>
+                  <strong>Caso 7 · Presentación ejecutiva</strong>
                   <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Word + PowerPoint + Copilot · Solo si el informe está aprobado</span>
                 </span>
               </span>
@@ -2319,7 +2817,7 @@
   const PROGRESS_KEYS = [
     "reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6",
     "s1-done","s2-done","proyecto-final",
-    "fase-1","fase-2","fase-3","fase-4","fase-5","fase-6","fase-7","fase-8"
+    "s2-caso1","fase-1","fase-2","fase-3","fase-4","fase-5","fase-6","fase-7","fase-8"
   ];
 
   function calcPercent() {
@@ -5015,7 +5513,7 @@
     "output": "MCP365_S2_Datos_Proyecto_Horizonte.json",
     "fields": [
       ["rol", "Rol de Copilot", "Analista de proyectos que extrae datos estructurados desde una ficha Word sin inventar información."],
-      ["fuente", "Fuente única", "MCP365_S2_Ficha_Proyecto_Horizonte.docx (guardada en la carpeta del Reto 1)."],
+      ["fuente", "Fuente única", "MCP365_S2_Ficha_Proyecto_Horizonte.docx (guardada en la carpeta del Caso 2)."],
       ["objetivo", "Objetivo", "Extraer código, nombre, objetivo, alcance, patrocinador, líder, fechas, presupuesto preliminar, entregables, dependencias, restricciones, riesgos y criterios de éxito en un objeto JSON."],
       ["formato", "Formato de salida", "Único archivo JSON válido UTF-8 con claves en español o snake_case consistente."],
       ["vacio", "Respuesta cuando falte información", "No especificado."],
@@ -5023,7 +5521,7 @@
       ["salida", "Nombre del archivo de salida", "MCP365_S2_Datos_Proyecto_Horizonte.json"]
     ],
     "checklist": [
-      ["s2f2-c1", "Analicé la ficha Word del Reto 1"],
+      ["s2f2-c1", "Analicé la ficha Word del Caso 2"],
       ["s2f2-c2", "Obtuve un JSON con todos los campos pedidos"],
       ["s2f2-c3", "Usé No especificado donde faltaba dato"],
       ["s2f2-c4", "Comparé JSON vs Word (validación humana)"],
@@ -5050,7 +5548,7 @@
       ["salida", "Archivo de control", "MCP365_S2_Control_Proyecto_Horizonte.xlsx"]
     ],
     "checklist": [
-      ["s2f3-c1", "Usé el JSON del Reto 2 como entrada"],
+      ["s2f3-c1", "Usé el JSON del Caso 3 como entrada"],
       ["s2f3-c2", "Hoja Presupuesto con columnas completas"],
       ["s2f3-c3", "Tipos de cifra diferenciados"],
       ["s2f3-c4", "Fórmulas de total y desviación visibles"],
@@ -5081,7 +5579,7 @@
       ["s2f4-c2", "Distinguí explícito / inferido / supuesto / ausente"],
       ["s2f4-c3", "Inferidos llevan Interpretación para validación"],
       ["s2f4-c4", "Ningún riesgo quedó auto-validado"],
-      ["s2f4-c5", "Usé datos del Reto 2/3 sin inventar"]
+      ["s2f4-c5", "Usé datos del Caso 3/4 sin inventar"]
     ],
     "practice_title": "Al terminar · Riesgos de un proyecto propio",
     "practice": "Registra riesgos anonimizados. Todo lo inferido lleva Interpretación para validación.",
@@ -5096,7 +5594,7 @@
     "output": "MCP365_S2_Informe_Proyecto_Horizonte.docx",
     "fields": [
       ["rol", "Rol de Copilot", "Redactor de informes de proyecto que completa solo secciones autorizadas de una plantilla Word y deja validación humana y CQ vacías."],
-      ["fuente", "Fuentes", "JSON del Reto 2 + hojas y riesgos del Excel de control + plantilla MCP365_S2_Plantilla_Informe_Proyecto.docx."],
+      ["fuente", "Fuentes", "JSON del Caso 3 + hojas y riesgos del Excel de control + plantilla MCP365_S2_Plantilla_Informe_Proyecto.docx."],
       ["objetivo", "Objetivo", "Generar MCP365_S2_Informe_Proyecto_Horizonte.docx y orquestar aprobación humana con Power Automate Approvals."],
       ["secciones", "Secciones autorizadas", "Identificación.\nResumen ejecutivo.\nObjetivo.\nAlcance.\nEntregables.\nCronograma general.\nPresupuesto.\nDesviaciones.\nRiesgos prioritarios.\nDependencias.\nDecisiones pendientes.\nRecomendaciones.\nFuentes."],
       ["restringidos", "Secciones que deben quedar vacías", "Validación humana.\nControl de calidad.\nFirmas.\nDecisión de aprobación (solo Approvals humano)."],
@@ -6470,6 +6968,69 @@
     });
   }
 
+
+  /* ========== S2 CASO 1 QUIZ ========== */
+  const S2C1_QUIZ = [
+    { answer: 1, ok: "Correcto. El desencadenador es la creación de un elemento en SharePoint.", bad: "Revisa la Fase 1: el evento inicial es un nuevo elemento en SharePoint." },
+    { answer: 1, ok: "Correcto. Obtener mi perfil recupera datos de la cuenta conectada.", bad: "Esa acción no borra listas ni crea columnas." },
+    { answer: 1, ok: "Correcto. El contenido dinámico toma valores del elemento; el texto fijo no cambia.", bad: "Los corchetes deben resolverse con contenido dinámico, no como texto literal." },
+    { answer: 1, ok: "Correcto. Tras cada cambio de Copilot hay que validar campos, ramas y conexiones.", bad: "Copilot no garantiza una configuración perfecta." },
+    { answer: 1, ok: "Correcto. Un cambio a la vez facilita aislar errores y validar.", bad: "Conviene no mezclar todas las mejoras en un solo prompt." },
+    { answer: 1, ok: "Correcto. Un Update mal configurado puede sobrescribir datos.", bad: "Siempre verifica sitio, lista, ID y campos obligatorios." },
+    { answer: 0, ok: "Correcto. El campo debe ser numérico y el umbral sin puntos ni símbolos.", bad: "Antes de comparar, revisa el tipo de dato y el formato del umbral." },
+    { answer: 1, ok: "Correcto. Copilot no reemplaza la prueba humana del flujo.", bad: "Siempre debes ejecutar y validar el flujo." }
+  ];
+
+  function initS2Caso1Quiz() {
+    const root = document.getElementById("s2c1Quiz");
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = "1";
+    const scoreEl = document.getElementById("s2c1QuizScore");
+    const applyAnswer = (inp, persist) => {
+      const qi = +inp.name.replace("s2c1q", "");
+      const q = S2C1_QUIZ[qi];
+      if (!q) return;
+      const fb = document.getElementById("s2c1f" + qi);
+      const ok = +inp.value === q.answer;
+      if (fb) {
+        fb.textContent = ok ? q.ok : q.bad;
+        fb.style.color = ok ? "#2f9e6a" : "#c0392b";
+        fb.style.fontSize = "0.86rem";
+        fb.style.marginTop = "0.35rem";
+      }
+      let n = 0;
+      S2C1_QUIZ.forEach((item, i) => {
+        const sel = root.querySelector('input[name="s2c1q' + i + '"]:checked');
+        if (sel && +sel.value === item.answer) n++;
+      });
+      if (scoreEl) scoreEl.textContent = String(n);
+      if (persist) {
+        state.s2c1Quiz = state.s2c1Quiz || {};
+        state.s2c1Quiz.score = n;
+        state.s2c1Quiz.answers = state.s2c1Quiz.answers || {};
+        state.s2c1Quiz.answers[String(qi)] = inp.value;
+        saveState();
+      }
+    };
+    root.querySelectorAll("input[type=radio]").forEach(inp => {
+      inp.addEventListener("change", () => applyAnswer(inp, true));
+    });
+    const saved = (state.s2c1Quiz && state.s2c1Quiz.answers) || {};
+    Object.keys(saved).forEach(k => {
+      const el = root.querySelector('input[name="s2c1q' + k + '"][value="' + saved[k] + '"]');
+      if (el) {
+        el.checked = true;
+        applyAnswer(el, false);
+      }
+    });
+    let n = 0;
+    S2C1_QUIZ.forEach((item, i) => {
+      const sel = root.querySelector('input[name="s2c1q' + i + '"]:checked');
+      if (sel && +sel.value === item.answer) n++;
+    });
+    if (scoreEl) scoreEl.textContent = String(n);
+  }
+
   /* ========== BOOT ========== */
   document.addEventListener("DOMContentLoaded", async () => {
     await initServerSession();
@@ -6488,6 +7049,7 @@
     initReto1EmailSend();
     initPromptR1Editor();
     initRetoEngine();
+    initS2Caso1Quiz();
     renderRisks();
     const riskFilterCat = document.getElementById("riskFilterCat");
     const riskFilterNivel = document.getElementById("riskFilterNivel");

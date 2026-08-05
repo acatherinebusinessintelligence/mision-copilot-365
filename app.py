@@ -1293,7 +1293,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-04-s2-outlook-pa-flow-v1"
+APP_CODE_VERSION = "2026-08-04-s2-caso1-copilot-pa-v1"
 
 
 @app.get("/health")
