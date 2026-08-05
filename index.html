@@ -1959,15 +1959,15 @@ Acción correctiva: seleccionar en Outlook el correo «SOLICITUD DE ANÁLISIS | 
                 </div>
               </details>
 
-              <!-- PASO 0 · INVENTARIO DE ARCHIVOS -->
+              <!-- PASO 0 · INVENTARIO DE FUENTES -->
               <div class="card" id="s2f1Paso0" style="margin:1.25rem 0;padding:1rem 1.1rem;border-left:4px solid var(--brand-primary)">
-                <h4 style="margin-top:0" id="s2f1Paso0Anchor">Paso 0 · Verificar que Copilot reconoce los archivos</h4>
-                <p>Antes del análisis documental, carga o selecciona en <strong>Microsoft 365 Copilot Chat</strong> el correo correcto y los anexos del kit. Ejecuta el inventario de fuentes.</p>
+                <h4 style="margin-top:0" id="s2f1Paso0Anchor">Paso 0 · Verifica que Copilot reconoce los archivos</h4>
+                <p>Confirma qué archivos están realmente seleccionados, cargados y accesibles antes de iniciar el análisis integral. Carga el correo y los anexos del kit en <strong>Microsoft 365 Copilot Chat</strong> y ejecuta primero el inventario.</p>
                 <div class="disclaimer disclaimer--danger" style="margin:0.75rem 0">
                   <i data-lucide="alert-triangle" width="18" height="18"></i>
                   <span>Copilot puede reconocer el nombre de un archivo sin haber accedido a su contenido. Verifica que pueda describir sus hojas, secciones o información principal antes de iniciar el análisis.</span>
                 </div>
-                <p class="text-muted" style="font-size:0.88rem;margin:0.5rem 0">Prompt corto de inventario (cópialo a Copilot Chat):</p>
+                <p class="text-muted" style="font-size:0.88rem;margin:0.5rem 0">Prompt corto de inventario:</p>
                 <div class="prompt-box" id="s2paso0-inv" style="white-space:pre-wrap;font-size:0.86rem">Actúa como auditor de fuentes documentales del Proyecto Horizonte.
 
 Antes de cualquier análisis de contenido, elabora un inventario de las fuentes disponibles en esta conversación.
@@ -1989,24 +1989,27 @@ Reglas:
 - Si solo conoces el nombre, marca Accesible = No y Estado = NOMBRE RECONOCIDO SIN CONTENIDO.
 - No inventes hojas, secciones, cifras, fechas ni responsables.
 - No uses el correo Circuito N-14 de la Sesión 1.</div>
-                <div class="btn-group" style="margin:0.65rem 0 1rem"><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2paso0-inv"><i data-lucide="copy" width="14" height="14"></i> Copiar inventario de fuentes</button></div>
+                <div class="btn-group" style="margin:0.65rem 0 1rem"><button type="button" class="btn btn--sm btn--secondary" data-copy="#s2paso0-inv"><i data-lucide="copy" width="14" height="14"></i> Copiar prompt de inventario</button></div>
 
-                <h5 style="margin:0.5rem 0">Marca solo cuando Copilot demuestre acceso al contenido</h5>
+                <h5 style="margin:0.5rem 0">Lista de comprobación manual</h5>
                 <ul class="check-list" id="s2f1RecChecks">
-                  <li><input type="checkbox" data-progress="s2f1-rec1" data-s2f1-rec /> Copilot reconoce el correo.</li>
-                  <li><input type="checkbox" data-progress="s2f1-rec2" data-s2f1-rec /> Copilot reconoce el Word de alcance.</li>
-                  <li><input type="checkbox" data-progress="s2f1-rec3" data-s2f1-rec /> Copilot reconoce el Excel.</li>
-                  <li><input type="checkbox" data-progress="s2f1-rec4" data-s2f1-rec /> Copilot reconoce la transcripción.</li>
-                  <li><input type="checkbox" data-progress="s2f1-rec5" data-s2f1-rec /> Copilot reconoce el registro de riesgos.</li>
-                  <li><input type="checkbox" data-progress="s2f1-rec6" data-s2f1-rec /> Copilot reconoce los comentarios de interesados.</li>
+                  <li><input type="checkbox" data-progress="s2f1-rec1" /> Copilot reconoce el correo correcto.</li>
+                  <li><input type="checkbox" data-progress="s2f1-rec2" /> Copilot puede leer el documento de alcance.</li>
+                  <li><input type="checkbox" data-progress="s2f1-rec3" /> Copilot puede describir hojas o columnas del Excel.</li>
+                  <li><input type="checkbox" data-progress="s2f1-rec4" /> Copilot puede leer la transcripción.</li>
+                  <li><input type="checkbox" data-progress="s2f1-rec5" /> Copilot puede consultar el registro de riesgos.</li>
+                  <li><input type="checkbox" data-progress="s2f1-rec6" /> Copilot puede leer los comentarios de interesados.</li>
                 </ul>
-                <p id="s2f1RecHint" class="text-muted" style="font-size:0.86rem;margin:0.5rem 0 0.75rem">El botón «Continuar con el análisis» solo aparece cuando marques los seis reconocimientos.</p>
-                <button type="button" class="btn btn--sm btn--primary" id="s2f1ContinueAnalysis" hidden disabled aria-disabled="true"><i data-lucide="file-search" width="14" height="14"></i> Continuar con el análisis</button>
+                <div class="field" style="margin-top:0.85rem">
+                  <label for="s2f1-missing-files">Archivos faltantes / no accesibles</label>
+                  <textarea id="s2f1-missing-files" data-s2-note="s2f1-missing" rows="3" placeholder="Registra aquí los archivos que Copilot no pudo leer o que faltan en la conversación."></textarea>
+                </div>
               </div>
 
-              <div id="s2f1AnalysisBlock" hidden>
-                <h4 style="margin:1.25rem 0 0.5rem" id="s2f1PromptsAnchor"><span class="app-badge">Copilot Chat</span> Análisis documental multiarchivo</h4>
-                <p class="text-muted" style="font-size:0.9rem">Usa el Prompt Lab (niveles profesional/experto). El entregable debe ser un <strong>documento ejecutivo</strong> listo para Microsoft Word y PDF, con análisis individual por archivo, comparación de fuentes y trazabilidad. No aceptes respuestas que analicen solo el correo.</p>
+              <!-- PASO 1 · ANÁLISIS DOCUMENTAL INTEGRAL (siempre visible) -->
+              <div class="card" id="s2f1Paso1" style="margin:1.25rem 0;padding:1rem 1.1rem;border-left:4px solid var(--brand-primary)">
+                <h4 style="margin-top:0" id="s2f1PromptsAnchor">Paso 1 · Ejecuta el análisis integral</h4>
+                <p><strong>Ejecuta este prompt únicamente después de confirmar que Copilot puede acceder al contenido de los archivos requeridos.</strong></p>
                 <div class="btn-group" style="margin:0.5rem 0 1rem;flex-wrap:wrap;gap:0.5rem">
                   <button type="button" class="btn btn--sm btn--energy" data-planilla="s2v2-alcance"><i data-lucide="download" width="14" height="14"></i> Alcance</button>
                   <button type="button" class="btn btn--sm btn--energy" data-planilla="s2v2-presupuesto"><i data-lucide="download" width="14" height="14"></i> Presupuesto</button>
@@ -2015,14 +2018,320 @@ Reglas:
                   <button type="button" class="btn btn--sm btn--energy" data-planilla="s2v2-comentarios"><i data-lucide="download" width="14" height="14"></i> Comentarios</button>
                   <button type="button" class="btn btn--sm btn--primary" data-planilla="s2v2-kit"><i data-lucide="package" width="14" height="14"></i> Kit completo</button>
                 </div>
-                <div data-prism-mount="f1"></div>
+                <div class="prompt-box" id="s2paso1-analysis" style="white-space:pre-wrap;font-size:0.86rem">Actúa como socio consultor senior de una Oficina de Gestión de Proyectos —PMO—, responsable de realizar el análisis documental integral del Proyecto Horizonte y preparar un informe ejecutivo para el comité directivo.
+
+CONTEXTO
+
+La Dirección de Infraestructura solicitó la revisión inicial del Proyecto Horizonte, una iniciativa de modernización de infraestructura energética urbana.
+
+La información del caso se encuentra distribuida en un correo y varios documentos. El análisis no puede basarse únicamente en el correo.
+
+El resultado debe integrar, contrastar y consolidar la información de todas las fuentes disponibles, sin asumir que el proyecto está aprobado.
+
+FUENTES AUTORIZADAS
+
+Analiza exclusivamente las fuentes seleccionadas y realmente accesibles en esta conversación:
+
+1. Correo:
+   SOLICITUD DE ANÁLISIS | Proyecto Horizonte
+
+2. Documento de alcance:
+   02_Alcance_Proyecto_Horizonte.docx
+
+3. Presupuesto y cronograma:
+   03_Presupuesto_y_Cronograma_Horizonte.xlsx
+
+4. Transcripción de reunión:
+   04_Transcripcion_Reunion_Horizonte.docx
+
+5. Registro inicial de riesgos:
+   05_Registro_Inicial_Riesgos_Horizonte.xlsx
+
+6. Comentarios de interesados:
+   06_Comentarios_Interesados_Horizonte.docx
+
+REGLA CRÍTICA
+
+No consideres un archivo analizado únicamente porque su nombre aparece en el correo.
+
+Trabaja únicamente con archivos cuyo contenido puedas leer realmente.
+
+Si un archivo no es accesible:
+
+- Márcalo como “NO DISPONIBLE PARA ANÁLISIS”.
+- Explica qué parte del informe queda limitada.
+- Continúa con las fuentes disponibles.
+- No inventes contenido.
+
+TAREAS
+
+FASE 1 · ANÁLISIS DEL CORREO
+
+Identifica:
+
+- Objetivo de la solicitud.
+- Área solicitante.
+- Remitente.
+- Entregables requeridos.
+- Restricciones expresas.
+- Archivos mencionados.
+- Información faltante.
+- Decisiones que no deben asumirse.
+
+FASE 2 · ANÁLISIS DEL DOCUMENTO DE ALCANCE
+
+Analiza:
+
+- Necesidad del negocio.
+- Objetivo general.
+- Objetivos específicos.
+- Alcance incluido.
+- Exclusiones.
+- Entregables.
+- Hitos.
+- Restricciones.
+- Supuestos.
+- Dependencias.
+- Interesados.
+- Requisitos técnicos.
+- Requisitos de seguridad.
+- Consideraciones ambientales.
+- Criterios de aceptación.
+- Información faltante.
+
+FASE 3 · ANÁLISIS DEL PRESUPUESTO Y CRONOGRAMA
+
+Antes de calcular:
+
+- Identifica las hojas disponibles.
+- Describe las columnas.
+- Explica qué datos pueden analizarse.
+- Señala limitaciones estructurales.
+
+Después analiza:
+
+- Presupuesto total.
+- Participación porcentual por categoría.
+- Tres partidas de mayor valor.
+- Valores vacíos.
+- Duplicados.
+- Valores atípicos.
+- Actividades.
+- Fechas.
+- Dependencias.
+- Hitos.
+- Actividades críticas.
+- Riesgos presupuestales.
+- Riesgos de cronograma.
+- Posibles desviaciones.
+
+Diferencia claramente:
+
+- Datos originales.
+- Cálculos.
+- Interpretaciones.
+- Recomendaciones.
+
+FASE 4 · ANÁLISIS DE LA TRANSCRIPCIÓN
+
+Diferencia rigurosamente entre:
+
+- Decisiones confirmadas.
+- Propuestas.
+- Opiniones.
+- Preguntas.
+- Preocupaciones.
+- Tareas asignadas.
+- Fechas confirmadas.
+- Fechas tentativas.
+- Responsables confirmados.
+- Responsables sugeridos.
+
+No conviertas propuestas en decisiones.
+
+Si falta responsable o fecha, escribe:
+
+“PENDIENTE DE VALIDACIÓN”.
+
+FASE 5 · ANÁLISIS DEL REGISTRO DE RIESGOS
+
+Revisa:
+
+- Riesgos existentes.
+- Categorías.
+- Causas.
+- Consecuencias.
+- Probabilidad.
+- Impacto.
+- Nivel de riesgo.
+- Controles existentes.
+- Respuestas propuestas.
+- Responsables.
+- Riesgos duplicados.
+- Riesgos incompletos.
+- Riesgos que requieren reevaluación.
+
+FASE 6 · ANÁLISIS DE INTERESADOS
+
+Identifica:
+
+- Interesado.
+- Rol.
+- Interés.
+- Influencia.
+- Necesidad de información.
+- Preocupaciones.
+- Riesgos asociados.
+- Canal recomendado.
+- Frecuencia sugerida.
+- Información pendiente.
+
+No inventes posiciones ni niveles de influencia que no estén sustentados.
+
+FASE 7 · COMPARACIÓN ENTRE FUENTES
+
+Compara todos los documentos accesibles e identifica:
+
+- Datos coincidentes.
+- Contradicciones.
+- Fechas diferentes.
+- Montos diferentes.
+- Responsables inconsistentes.
+- Entregables sin presupuesto.
+- Actividades sin responsable.
+- Compromisos que no aparecen en el alcance.
+- Riesgos mencionados en una sola fuente.
+- Información faltante para decidir.
+- Posibles problemas de versión documental.
+
+Para cada hallazgo indica:
+
+- Tema.
+- Archivo o archivos de origen.
+- Evidencia.
+- Tipo de hallazgo.
+- Impacto.
+- Criticidad.
+- Acción requerida.
+
+No decidas cuál documento es correcto si no existe evidencia suficiente.
+
+ENTREGABLE FINAL
+
+La respuesta debe ser un documento ejecutivo completo, listo para copiar a Microsoft Word y exportar posteriormente a PDF.
+
+No debe ser una respuesta conversacional.
+
+ESTRUCTURA OBLIGATORIA
+
+1. Portada.
+2. Tabla de contenido.
+3. Validación de fuentes.
+4. Resumen ejecutivo.
+5. Tablero ejecutivo.
+6. Alcance consolidado.
+7. Presupuesto y cronograma.
+8. Compromisos y decisiones.
+9. Matriz consolidada de riesgos.
+10. Matriz de interesados.
+11. Inconsistencias documentales.
+12. Información pendiente de validación.
+13. Decisiones que todavía no pueden tomarse.
+14. Recomendaciones.
+15. Próximos pasos.
+16. Conclusiones.
+17. Validación humana obligatoria.
+
+TRAZABILIDAD OBLIGATORIA
+
+Cada hallazgo relevante debe indicar:
+
+- Nombre exacto del archivo.
+- Sección, hoja o parte del documento cuando sea posible.
+- Evidencia.
+- Clasificación:
+  - Hecho confirmado.
+  - Cálculo.
+  - Inferencia.
+  - Información pendiente.
+  - Recomendación.
+
+FORMATO
+
+Utiliza:
+
+- Encabezados jerárquicos.
+- Tablas Markdown.
+- Listas numeradas.
+- Semáforos:
+  - 🔴 Alto.
+  - 🟡 Medio.
+  - 🟢 Bajo.
+- Párrafos breves.
+- Lenguaje ejecutivo.
+
+No uses bloques extensos de texto.
+
+RESTRICCIONES
+
+- No uses información externa.
+- No inventes cifras.
+- No inventes fechas.
+- No inventes responsables.
+- No inventes decisiones.
+- No asumas que el proyecto está aprobado.
+- No mezcles información de la Sesión 1.
+- No utilices el correo Circuito N-14.
+- No afirmes que analizaste un archivo que no puedes leer.
+- No presentes recomendaciones como decisiones aprobadas.
+
+TRATAMIENTO DE FALTANTES
+
+Cuando falte información, escribe:
+
+“PENDIENTE DE VALIDACIÓN”.
+
+Cuando un archivo no sea accesible, escribe:
+
+“NO DISPONIBLE PARA ANÁLISIS”.
+
+VALIDACIÓN FINAL
+
+Antes de responder, comprueba:
+
+1. Que analizaste el contenido de los archivos y no solo sus nombres.
+2. Que cada hallazgo importante tiene una fuente.
+3. Que las cifras coinciden con el Excel.
+4. Que las decisiones y compromisos coinciden con la transcripción.
+5. Que los riesgos tienen respaldo documental.
+6. Que las inconsistencias indican los archivos comparados.
+7. Que separaste hechos, cálculos, inferencias y recomendaciones.
+8. Que el documento puede copiarse a Word y exportarse a PDF.</div>
+                <div class="btn-group" style="margin:0.65rem 0 0"><button type="button" class="btn btn--sm btn--primary" data-copy="#s2paso1-analysis"><i data-lucide="copy" width="14" height="14"></i> Copiar prompt de análisis integral</button></div>
               </div>
+
+              <div class="card" style="margin:1.25rem 0;padding:1rem 1.1rem">
+                <h4 style="margin-top:0">Resultado esperado</h4>
+                <p style="margin:0">Un <strong>documento ejecutivo consolidado</strong> que integra correo, alcance, presupuesto/cronograma, transcripción, riesgos y comentarios de interesados; con trazabilidad por archivo, inconsistencias documentadas y sin inventar contenido de fuentes no leídas.</p>
+              </div>
+
+              <div class="card" style="margin:1.25rem 0;padding:1rem 1.1rem">
+                <h4 style="margin-top:0">Entregable final Word / PDF</h4>
+                <p style="margin:0 0 0.75rem">Copia la respuesta de Copilot a Microsoft Word, aplica estilos de título/tabla y exporta a PDF. El entregable no debe ser un chat conversacional.</p>
+                <div class="btn-group" style="flex-wrap:wrap;gap:0.5rem">
+                  <button type="button" class="btn btn--sm btn--ghost" data-planilla="s2v2-kit"><i data-lucide="package" width="14" height="14"></i> Descargar kit de fuentes</button>
+                </div>
+              </div>
+
+              <h4 style="margin:1.25rem 0 0.5rem">Prompt Lab PRISM · práctica por niveles</h4>
+              <p class="text-muted" style="font-size:0.9rem;margin:0 0 0.75rem">Complemento opcional: compara niveles básico → experto. El prompt oficial del Caso 1 es el del <strong>Paso 1</strong> (arriba).</p>
+              <div data-prism-mount="f1"></div>
 
               <h4 style="margin:1.25rem 0 0.5rem">Lista de validación</h4>
               <ul class="check-list">
                 <li><input type="checkbox" data-progress="s2f1-v1" /> Completé el Paso 0 (inventario y reconocimiento de archivos).</li>
                 <li><input type="checkbox" data-progress="s2f1-v2" /> Diferencié mencionado / seleccionado / analizado.</li>
-                <li><input type="checkbox" data-progress="s2f1-v3" /> Analicé alcance, presupuesto, transcripción, riesgos y comentarios (cuando accesibles).</li>
+                <li><input type="checkbox" data-progress="s2f1-v3" /> Ejecuté el Paso 1 (análisis integral) sobre el contenido de los archivos.</li>
                 <li><input type="checkbox" data-progress="s2f1-v4" /> Comparé fuentes con trazabilidad por archivo.</li>
                 <li><input type="checkbox" data-progress="s2f1-v5" /> Marqué archivos no accesibles sin inventar su contenido.</li>
                 <li><input type="checkbox" data-progress="s2f1-v6" /> Generé documento ejecutivo listo para Word/PDF.</li>
@@ -7268,28 +7577,11 @@ Tono: ejecutivo, claro y prudente.</div>
     const contBtn = document.getElementById("s2f1ContinueCorrect");
     const details = document.getElementById("s2f1WrongSourceExample");
     const paso0 = document.getElementById("s2f1Paso0Anchor") || document.getElementById("s2f1Paso0");
-    const analysisBtn = document.getElementById("s2f1ContinueAnalysis");
-    const analysisBlock = document.getElementById("s2f1AnalysisBlock");
-    const recChecks = [...document.querySelectorAll("[data-s2f1-rec]")];
-    const recHint = document.getElementById("s2f1RecHint");
+    const paso1 = document.getElementById("s2f1PromptsAnchor") || document.getElementById("s2f1Paso1");
 
-    const syncRecGate = () => {
-      const all = recChecks.length > 0 && recChecks.every(c => c.checked);
-      if (analysisBtn) {
-        analysisBtn.hidden = !all;
-        analysisBtn.disabled = !all;
-        analysisBtn.setAttribute("aria-disabled", all ? "false" : "true");
-      }
-      if (recHint) {
-        recHint.textContent = all
-          ? "Reconocimientos completos. Puedes continuar con el análisis documental."
-          : "El botón «Continuar con el análisis» solo aparece cuando marques los seis reconocimientos.";
-      }
-      if (analysisBlock && !analysisBlock.hidden) {
-        state.s2f1AnalysisUnlocked = true;
-      }
-      saveState();
-    };
+    // Ensure Paso 1 stays visible (never gate/hide analysis prompt)
+    const paso1Card = document.getElementById("s2f1Paso1");
+    if (paso1Card) paso1Card.hidden = false;
 
     if (showBtn && details && !showBtn.dataset.bound) {
       showBtn.dataset.bound = "1";
@@ -7306,41 +7598,10 @@ Tono: ejecutivo, claro y prudente.</div>
         if (details) details.open = false;
         if (showBtn) showBtn.setAttribute("aria-expanded", "false");
         if (paso0) paso0.scrollIntoView({ behavior: "smooth", block: "start" });
-        toast("Paso 0: verifica que Copilot reconoce cada archivo", "file-search");
+        else if (paso1) paso1.scrollIntoView({ behavior: "smooth", block: "start" });
+        toast("Paso 0: inventario de fuentes, luego Paso 1 análisis integral", "file-search");
       });
     }
-
-    recChecks.forEach(c => {
-      if (c.dataset.boundRec) return;
-      c.dataset.boundRec = "1";
-      c.addEventListener("change", syncRecGate);
-    });
-
-    if (analysisBtn && !analysisBtn.dataset.bound) {
-      analysisBtn.dataset.bound = "1";
-      analysisBtn.addEventListener("click", () => {
-        if (analysisBtn.disabled) {
-          toast("Marca los seis reconocimientos antes de continuar", "alert-triangle");
-          return;
-        }
-        if (analysisBlock) {
-          analysisBlock.hidden = false;
-          state.s2f1AnalysisUnlocked = true;
-          saveState();
-          const anchor = document.getElementById("s2f1PromptsAnchor") || analysisBlock;
-          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
-          if (window.lucide) lucide.createIcons({ nodes: [analysisBlock] });
-          initCopyButtons();
-        }
-        toast("Análisis documental desbloqueado", "check-circle");
-      });
-    }
-
-    // Restore unlocked analysis block
-    if (state.s2f1AnalysisUnlocked && analysisBlock) {
-      analysisBlock.hidden = false;
-    }
-    syncRecGate();
   }
 
   function initS2PrismEngine() {
@@ -7358,9 +7619,14 @@ Tono: ejecutivo, claro y prudente.</div>
       body.querySelectorAll(".improve-card").forEach(el => {
         if (el.querySelector(".prompt-box")) el.remove();
       });
-      // Quitar prompts antiguos de la fase (ids s2f*), sin tocar Paso 0
-      body.querySelectorAll('.prompt-box[id^="s2f"]').forEach(box => {
-        if (box.closest("#s2f1Paso0") || box.id === "s2paso0-inv") return;
+      // Quitar prompts antiguos de la fase (ids s2f*), sin tocar Paso 0 / Paso 1 oficiales
+      body.querySelectorAll('.prompt-box[id^="s2f"], .prompt-box[id^="s2paso"]').forEach(box => {
+        if (
+          box.closest("#s2f1Paso0") ||
+          box.closest("#s2f1Paso1") ||
+          box.id === "s2paso0-inv" ||
+          box.id === "s2paso1-analysis"
+        ) return;
         const wrap = box.closest(".improve-card, .prompt-lab__item, .m365-box");
         if (wrap) {
           const hasSteps = wrap.querySelector("ol, ul.check-list, table, .email-box");
