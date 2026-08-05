@@ -363,75 +363,80 @@ S2_PRISM = {
         "improveHints": list(_MEJORA_HINTS),
     },
     "f1": {
-        "title": "Comprender el correo",
-        "file": "Correo Outlook / 01_Correo_Solicitud_Proyecto_Horizonte",
-        "persona": "Analista senior de proyectos / consultor de PMO",
+        "title": "Análisis documental · Proyecto Horizonte",
+        "file": (
+            "Correo Horizonte + 02_Alcance_Proyecto_Horizonte.docx + "
+            "03_Presupuesto_y_Cronograma_Horizonte.xlsx + "
+            "04_Transcripcion_Reunion_Horizonte.docx + "
+            "05_Registro_Inicial_Riesgos_Horizonte.xlsx + "
+            "06_Comentarios_Interesados_Horizonte.docx"
+        ),
+        "persona": "Auditor documental / consultor PMO senior",
         "levels": {
             "1": {
                 "label": "Básico",
-                "text": "Resume este correo.",
+                "text": "Analiza los documentos del Proyecto Horizonte.",
             },
             "2": {
                 "label": "Mejorado",
                 "text": (
-                    "Resume este correo del Proyecto Horizonte e identifica los archivos recibidos, "
-                    "los entregables solicitados por el comité y las restricciones explícitas "
-                    "(por ejemplo, no asumir que el proyecto está aprobado)."
+                    "Con los archivos del Proyecto Horizonte que puedas consultar, resume el alcance, "
+                    "el presupuesto, la transcripción, los riesgos y los comentarios de interesados. "
+                    "Indica qué archivos no pudiste abrir."
                 ),
             },
             "3": {
                 "label": "Profesional (PRISM)",
                 "text": _prism_prompt(
                     persona=(
-                        "Actúa como analista senior de proyectos y consultor de PMO con experiencia "
-                        "en intake de solicitudes ejecutivas y preparación de paquetes para comité."
+                        "Actúa como auditor documental y consultor senior de PMO especializado en "
+                        "análisis multiarchivo con trazabilidad por fuente para comités directivos."
                     ),
                     realidad=(
-                        "Has recibido un correo de Laura Méndez (Dirección de Infraestructura) con asunto "
-                        "«SOLICITUD DE ANÁLISIS | Proyecto Horizonte». Se trata de una revisión inicial "
-                        "de modernización de infraestructura energética urbana. El comité aún no ha aprobado "
-                        "la iniciativa. Debes comprender la solicitud sin ampliar el alcance ni inventar contexto."
+                        "El caso académico es el Proyecto Horizonte (modernización de infraestructura "
+                        "energética urbana, datos ficticios). El correo «SOLICITUD DE ANÁLISIS | Proyecto Horizonte» "
+                        "enumera adjuntos y pide entregables para comité. El proyecto NO está aprobado. "
+                        "Debes analizar el contenido real de los archivos accesibles, no solo los nombres "
+                        "mencionados en el correo. No uses el correo Circuito N-14 de la Sesión 1."
                     ),
                     informacion=(
-                        "Fuente única autorizada: el correo seleccionado "
-                        "(01_Correo_Solicitud_Proyecto_Horizonte / mensaje en Outlook).\n"
-                        "Antes de analizar, verifica que el asunto sea "
-                        "«SOLICITUD DE ANÁLISIS | Proyecto Horizonte» y NO el correo de la Sesión 1 "
-                        "«URGENTE · Reprogramación intervención preventivo Circuito N-14».\n"
-                        "Los adjuntos se mencionan en el correo; no analices todavía el contenido de:\n"
-                        "02_Alcance_Proyecto_Horizonte.docx, "
-                        "03_Presupuesto_y_Cronograma_Horizonte.xlsx, "
-                        "04_Transcripcion_Reunion_Horizonte.docx, "
-                        "05_Registro_Inicial_Riesgos_Horizonte.xlsx, "
-                        "06_Comentarios_Interesados_Horizonte.docx, "
-                        "07_Plantilla_Comite_Horizonte.pptx "
-                        "salvo lo que el propio correo diga explícitamente sobre ellos.\n"
-                        "No uses información externa. Si la fuente no corresponde, detente y decláralo."
+                        "Fuentes autorizadas (nombres exactos):\n"
+                        "- Correo: SOLICITUD DE ANÁLISIS | Proyecto Horizonte / 01_Correo_Solicitud_Proyecto_Horizonte\n"
+                        "- 02_Alcance_Proyecto_Horizonte.docx\n"
+                        "- 03_Presupuesto_y_Cronograma_Horizonte.xlsx\n"
+                        "- 04_Transcripcion_Reunion_Horizonte.docx\n"
+                        "- 05_Registro_Inicial_Riesgos_Horizonte.xlsx\n"
+                        "- 06_Comentarios_Interesados_Horizonte.docx\n\n"
+                        "Diferencia obligatoriamente tres estados por archivo:\n"
+                        "1) Mencionado (aparece en el correo u otra fuente).\n"
+                        "2) Seleccionado/cargado en esta conversación.\n"
+                        "3) Analizado (accediste a su contenido: secciones, hojas o datos concretos).\n\n"
+                        "Prohibido afirmar que analizaste un archivo solo porque su nombre aparece en el correo.\n"
+                        "Si no puedes leer el contenido, márcalo como NO ACCESIBLE / PENDIENTE DE VALIDACIÓN "
+                        "y no inventes cifras, fechas, responsables ni decisiones."
                     ),
                     solicitud=(
-                        "Primero confirma el asunto del correo seleccionado. "
-                        "Si no es Proyecto Horizonte, detén el análisis y reporta fuente incorrecta.\n"
-                        "Si corresponde, identifica y entrega:\n"
-                        "- Objetivo de la solicitud\n"
-                        "- Proyecto mencionado\n"
-                        "- Área / remitente solicitante\n"
-                        "- Documentos adjuntos o referidos\n"
-                        "- Entregables requeridos por el comité\n"
-                        "- Restricciones expresas\n"
-                        "- Acciones solicitadas\n"
-                        "- Información faltante en el correo\n"
-                        "- Decisiones que NO deben asumirse\n"
-                        "- Riesgos de interpretación del mensaje\n"
-                        "- Lista de tareas para el equipo de análisis\n"
-                        "- Cinco preguntas de aclaración para la solicitante"
+                        "1) Inventario inicial: tabla Archivo | Mencionado | Seleccionado | Analizado | "
+                        "Evidencia de acceso | Estado.\n"
+                        "2) Análisis individual (solo archivos Analizados = Sí):\n"
+                        "   a) Alcance (02)\n"
+                        "   b) Presupuesto y cronograma (03)\n"
+                        "   c) Transcripción (04)\n"
+                        "   d) Registro de riesgos (05)\n"
+                        "   e) Comentarios de interesados (06)\n"
+                        "   f) Correo (entregables solicitados y restricciones)\n"
+                        "3) Comparación entre fuentes: coincidencias, contradicciones, montos/fechas/responsables "
+                        "inconsistentes, entregables sin respaldo, información solo en una fuente.\n"
+                        "4) Trazabilidad: cada hallazgo debe citar archivo + sección/hoja/fragmento.\n"
+                        "5) Marcar explícitamente archivos no accesibles y el impacto de esa limitación.\n"
+                        "6) No completes vacíos con conocimiento externo."
                     ),
                     metodo=(
-                        "Diferencia rigurosamente: Información explícita | Inferencia | No especificado.\n"
-                        "La salida debe ser un DOCUMENTO EJECUTIVO completo (no un chat ni un resumen conversacional), "
-                        "listo para pegar en Microsoft Word y exportar a PDF.\n"
-                        "Incluye: (1) portada y tabla de contenido, (2) resumen ejecutivo 200–300 palabras, "
-                        "(3) tablas/matrices del correo, (4) hallazgos, riesgos de interpretación, pendientes, "
-                        "(5) recomendaciones, próximos pasos, conclusiones (máx. 5) y validación humana."
+                        "Documento ejecutivo listo para Word/PDF (no chat). "
+                        "Secciones por archivo con tablas; luego matriz comparativa multi-fuente; "
+                        "hallazgos con evidencia; riesgos; pendientes; recomendaciones; "
+                        "conclusiones (máx. 5); validación humana. "
+                        "Clasifica cada afirmación: Hecho confirmado | Inferencia | Información pendiente | Recomendación."
                     ),
                 ),
             },
@@ -439,88 +444,61 @@ S2_PRISM = {
                 "label": "Experto",
                 "text": _prism_prompt(
                     persona=(
-                        "Actúa como socio consultor de PMO responsable de intake documental. "
-                        "Tu primera obligación es validar que la fuente seleccionada corresponde al caso "
-                        "antes de producir cualquier briefing."
+                        "Actúa como socio de una firma internacional de consultoría encargado de preparar "
+                        "el paquete documental del Proyecto Horizonte para el Comité Directivo."
                     ),
                     realidad=(
-                        "El caso de la Sesión 2 es el Proyecto Horizonte. El correo correcto tiene asunto "
-                        "«SOLICITUD DE ANÁLISIS | Proyecto Horizonte». "
-                        "Existe riesgo de confusión con el correo de la Sesión 1 "
-                        "«URGENTE · Reprogramación intervención preventivo Circuito N-14», "
-                        "que NO pertenece a este ejercicio. "
-                        "Gerencia necesita únicamente un briefing de intake del correo correcto, "
-                        "antes de abrir adjuntos. El entregable debe poder presentarse al Comité Directivo."
+                        "El comité requiere un documento ejecutivo consolidado a partir del correo y de los "
+                        "anexos realmente consultables. Existe el riesgo de que Copilot confunda «archivo "
+                        "mencionado» con «archivo analizado». Debes demostrar trazabilidad y declarar "
+                        "limitaciones. El proyecto no está aprobado."
                     ),
                     informacion=(
-                        "Fuente única autorizada en esta fase: el correo seleccionado en Outlook "
-                        "correspondiente a 01_Correo_Solicitud_Proyecto_Horizonte.\n"
-                        "Criterios de correspondencia (todos deben cumplirse para continuar):\n"
-                        "1) El asunto menciona Proyecto Horizonte.\n"
-                        "2) El cuerpo solicita análisis de proyecto.\n"
-                        "3) El correo enumera archivos adjuntos.\n"
-                        "4) El mensaje indica entregables para comité.\n"
-                        "5) El correo aclara que el proyecto no está aprobado.\n"
-                        "Si el correo es Circuito N-14 u otro distinto: DETENTE. "
-                        "No inventes datos de Horizonte a partir de otra fuente.\n"
-                        "No analices presupuesto, cronograma, alcance, transcripción ni riesgos en esta fase. "
-                        "No construyas una matriz RACI definitiva."
+                        "Analiza únicamente el contenido al que tengas acceso real entre: correo Horizonte, "
+                        "02_Alcance_Proyecto_Horizonte.docx, 03_Presupuesto_y_Cronograma_Horizonte.xlsx, "
+                        "04_Transcripcion_Reunion_Horizonte.docx, 05_Registro_Inicial_Riesgos_Horizonte.xlsx, "
+                        "06_Comentarios_Interesados_Horizonte.docx.\n"
+                        "Si un archivo solo está nombrado en el correo: estado = MENCIONADO SIN ACCESO A CONTENIDO; "
+                        "no lo trates como analizado."
                     ),
                     solicitud=(
-                        "PASO 0 · VALIDACIÓN DE FUENTE (obligatorio):\n"
-                        "- Confirma el asunto exacto del correo seleccionado.\n"
-                        "- Indica si corresponde a Proyecto Horizonte o a otra fuente (p. ej. Circuito N-14).\n"
-                        "- Si la fuente es incorrecta: detén el análisis, declara «FUENTE INCORRECTA», "
-                        "explica por qué no corresponde y indica qué correo debe seleccionarse. "
-                        "No generes briefing de Horizonte.\n"
-                        "- Si la fuente es correcta: continúa.\n\n"
-                        "PASO 1 · Solo si la fuente es correcta, produce un DOCUMENTO EJECUTIVO de Briefing de Intake "
-                        "(no un análisis de adjuntos y NO un mensaje conversacional) con:\n"
-                        "- Objetivo de la solicitud y proyecto mencionado\n"
-                        "- Área / remitente solicitante\n"
-                        "- Lista de adjuntos referidos (solo nombres, sin analizar su contenido)\n"
-                        "- Entregables requeridos por el comité\n"
-                        "- Restricciones expresas (incluye: no asumir aprobación)\n"
-                        "- Acciones solicitadas e información faltante en el correo\n"
-                        "- Decisiones que el equipo NO puede tomar aún\n"
-                        "- Riesgos de interpretación del mensaje\n"
-                        "- Orden sugerido para leer adjuntos en fases posteriores\n"
-                        "- Cinco preguntas de aclaración para Laura Méndez\n"
-                        "No solicites ni inventes presupuesto, cronograma, responsables RACI ni cifras "
-                        "que no estén en el correo."
+                        "Produce el documento ejecutivo definitivo del Caso 1 con este orden:\n"
+                        "A) Portada e inventario de fuentes (mencionado / seleccionado / analizado / no accesible).\n"
+                        "B) Análisis individual de cada fuente accesible (alcance; presupuesto y cronograma; "
+                        "transcripción; riesgos; comentarios; correo como marco de entregables).\n"
+                        "C) Comparación multi-fuente con matriz de consistencias e inconsistencias.\n"
+                        "D) Hallazgos, riesgos, información pendiente, recomendaciones, próximos pasos, "
+                        "conclusiones y validación humana.\n"
+                        "E) Anexo de limitaciones: archivos no leídos y por qué no pueden usarse para decidir."
                     ),
                     metodo=(
-                        "Si FUENTE INCORRECTA: documento breve con portada «Validación de fuente – Detenido», "
-                        "tabla Asunto observado | Asunto esperado | Resultado | Acción correctiva.\n"
-                        "Si FUENTE CORRECTA: documento ejecutivo «Briefing de Intake – Proyecto Horizonte» "
-                        "con la estructura obligatoria de entregable final (portada, TOC, resumen 200–300 palabras, "
-                        "objetivo, alcance, desarrollo en tablas, hallazgos, riesgos, pendientes, recomendaciones, "
-                        "próximos pasos, conclusiones, validación humana). Sin matriz RACI definitiva. "
-                        "Sin tono de chat."
+                        "Formato Word-ready / PDF-ready con encabezados, tablas Markdown y semáforos. "
+                        "Sin lenguaje conversacional. Cada fila de hallazgo incluye columna «Fuente "
+                        "(archivo + evidencia)». Si falta un archivo crítico, eleva el semáforo de "
+                        "confiabilidad del informe."
                     ),
                     expert_extra=(
-                        "ENTREGABLE PARA GERENCIA: documento listo para Word/PDF. "
-                        "Tono formal de consultoría. Sin afirmar aprobación. "
-                        "Sin mezclar Sesión 1 (Circuito N-14) con Sesión 2 (Proyecto Horizonte). "
-                        "Prohibido responder en estilo conversacional."
+                        "ENTREGABLE PARA COMITÉ: documento completo listo para pegar en Microsoft Word "
+                        "y exportar a PDF. Calidad de firma de consultoría. "
+                        "Prohibido inventar contenido de anexos no abiertos."
                     ),
                 ),
             },
         },
         "explain": {
-            "persona": "Socio PMO que valida la fuente antes de redactar el intake.",
-            "realidad": "Proyecto Horizonte; riesgo de mezclar el correo N-14 de la Sesión 1.",
-            "informacion": "Solo el correo Horizonte; criterios de correspondencia; sin adjuntos aún.",
-            "solicitud": "Validar fuente; si es correcta, documento ejecutivo de intake (sin RACI ni presupuesto).",
-            "metodo": "Detenerse ante fuente incorrecta; si es correcta, documento Word-ready con tablas.",
-            "restricciones": "No inventar; no mezclar sesiones; no analizar adjuntos; no tono conversacional.",
-            "formato": "Documento ejecutivo completo listo para Word/PDF (no resumen de chat).",
-            "validacion": "Comprobar asunto Horizonte y checklist de correspondencia antes de continuar.",
+            "persona": "Auditor/consultor PMO que exige trazabilidad por archivo.",
+            "realidad": "Horizonte; correo + anexos; riesgo de confundir nombre con contenido.",
+            "informacion": "Solo fuentes del kit; estados Mencionado/Seleccionado/Analizado.",
+            "solicitud": "Inventario, análisis individual, comparación, hallazgos y documento ejecutivo.",
+            "metodo": "Tablas por fuente, matriz comparativa, Word/PDF-ready, sin chat.",
+            "restricciones": "No analizar por nombre; marcar no accesibles; no inventar; no N-14.",
+            "formato": "Documento ejecutivo completo para Word y PDF.",
+            "validacion": "Verificar evidencia de acceso (sección/hoja) antes de aceptar cada análisis.",
         },
         "compare": (
-            "El nivel 1 resume cualquier correo sin comprobar si es el correcto; el experto PRISM "
-            "obliga a validar la fuente (Horizonte vs Circuito N-14), detenerse si no corresponde "
-            "y entregar un documento ejecutivo listo para Word/PDF, no un texto conversacional."
+            "El nivel 1 pide «analiza los documentos» sin exigir acceso real; el profesional/experto "
+            "obliga a inventario Mencionado/Seleccionado/Analizado, análisis por archivo, comparación "
+            "y documento Word/PDF, impidiendo fingir que se leyó un anexo solo porque aparece en el correo."
         ),
         "improveHints": list(_MEJORA_HINTS),
     },

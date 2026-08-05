@@ -32,70 +32,48 @@ if b < 0:
     raise SystemExit("end of S2_PRISM not found")
 t = t[:a] + "  const S2_PRISM = " + prism_json + t[b:]
 
-# Button handlers near initS2PrismEngine or S2 prompt lab
-BTN_JS = r'''
-  function initS2F1SourceGuard() {
-    const showBtn = document.getElementById("s2f1ShowWrongSource");
-    const contBtn = document.getElementById("s2f1ContinueCorrect");
-    const details = document.getElementById("s2f1WrongSourceExample");
-    const anchor = document.getElementById("s2f1PromptsAnchor");
-    if (showBtn && details && !showBtn.dataset.bound) {
-      showBtn.dataset.bound = "1";
-      showBtn.addEventListener("click", () => {
-        details.open = true;
-        showBtn.setAttribute("aria-expanded", "true");
-        details.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        if (window.lucide) lucide.createIcons({ nodes: [details] });
-      });
-    }
-    if (contBtn && !contBtn.dataset.bound) {
-      contBtn.dataset.bound = "1";
-      contBtn.addEventListener("click", () => {
-        if (details) details.open = false;
-        if (showBtn) showBtn.setAttribute("aria-expanded", "false");
-        const target = anchor || document.querySelector('[data-reto="s2-f1"] .prism-host');
-        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-        toast("Selecciona en Outlook: SOLICITUD DE ANÁLISIS | Proyecto Horizonte", "mail-check");
-      });
-    }
-  }
-
-'''
-
+# Do NOT overwrite initS2F1SourceGuard if already present (gate + Paso 0 live in index.html).
 if "initS2F1SourceGuard" not in t:
-    t = t.replace(
-        "  function initS2PrismEngine()",
-        BTN_JS + "  function initS2PrismEngine()",
-        1,
-    )
+    raise SystemExit("initS2F1SourceGuard missing in index.html — abort")
+
+if "initS2F1SourceGuard();" not in t:
     t = t.replace(
         "    initS2PrismEngine();\n",
         "    initS2PrismEngine();\n    initS2F1SourceGuard();\n",
         1,
     )
 
+VERSION = "2026-08-05-s2-f1-multifile-v1"
 app = (ROOT / "app.py").read_text(encoding="utf-8")
 app = re.sub(
     r'APP_CODE_VERSION = "[^"]+"',
-    'APP_CODE_VERSION = "2026-08-05-s2-word-ready-doc-v1"',
+    f'APP_CODE_VERSION = "{VERSION}"',
     app,
     count=1,
 )
 (ROOT / "app.py").write_text(app, encoding="utf-8")
 INDEX.write_text(t, encoding="utf-8")
 
-# Verify expert prompt content
+# Verify expert prompt content (documentary multi-file analysis)
 expert = S2_PRISM["f1"]["levels"]["4"]["text"]
+pro = S2_PRISM["f1"]["levels"]["3"]["text"]
+html = INDEX.read_text(encoding="utf-8")
+s1 = html[html.find('id="sesion1"'): html.find('id="desafio"')]
 checks = {
-    "FUENTE INCORRECTA": "FUENTE INCORRECTA" in expert,
-    "no RACI definitiva": "RACI definitiva" in expert or "matriz RACI definitiva" in expert,
-    "N-14 mentioned": "Circuito N-14" in expert,
-    "intake": "Briefing de Intake" in expert or "briefing de intake" in expert.lower(),
-    "html warn": "Verifica que seleccionaste el correo" in INDEX.read_text(encoding="utf-8"),
-    "checklist": "s2f1-src1" in INDEX.read_text(encoding="utf-8"),
-    "example": "Ejemplo: Copilot detecta una fuente incorrecta" in INDEX.read_text(encoding="utf-8"),
-    "buttons": "s2f1ShowWrongSource" in INDEX.read_text(encoding="utf-8"),
-    "S1 intact": "Circuito N-14" in INDEX.read_text(encoding="utf-8")[INDEX.read_text(encoding="utf-8").find('id="sesion1"'): INDEX.read_text(encoding="utf-8").find('id="desafio"')],
+    "f1 title": S2_PRISM["f1"]["title"].startswith("Análisis documental"),
+    "Mencionado/Seleccionado/Analizado": "Mencionado" in pro and "Seleccionado" in pro and "Analizado" in pro,
+    "per-file analysis": "02_Alcance" in pro and "Transcripción" in pro and "riesgos" in pro.lower(),
+    "no fake from email name": "solo porque su nombre aparece" in pro or "MENCIONADO SIN ACCESO" in expert,
+    "Word/PDF": "Word" in expert and "PDF" in expert,
+    "html paso0": "Paso 0 · Verificar que Copilot reconoce los archivos" in html,
+    "html warn content": "reconocer el nombre de un archivo sin haber accedido" in html,
+    "continue analysis": "s2f1ContinueAnalysis" in html,
+    "rec checks": "data-s2f1-rec" in html,
+    "prism mount": 'data-prism-mount="f1"' in html,
+    "html warn correo": "Verifica que seleccionaste el correo" in html,
+    "checklist src": "s2f1-src1" in html,
+    "S1 intact": "Circuito N-14" in s1,
+    "version": VERSION in (ROOT / "app.py").read_text(encoding="utf-8"),
 }
 for k, v in checks.items():
     print(("OK" if v else "FAIL"), k)
