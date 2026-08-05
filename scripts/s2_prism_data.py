@@ -218,6 +218,8 @@ def _prism_prompt(
     solicitud: str,
     metodo: str,
     expert_extra: str = "",
+    include_format: bool = True,
+    include_validation: bool = True,
 ) -> str:
     """Construye un prompt PRISM completo (nivel 3 o 4)."""
     parts = [
@@ -238,15 +240,525 @@ def _prism_prompt(
     ]
     if expert_extra.strip():
         parts.extend(["", expert_extra.strip()])
-    parts.extend(
-        [
-            "",
-            COMMON_VALIDATION_BLOCK,
-            "",
-            COMMON_FORMAT_BLOCK,
-        ]
-    )
+    if include_validation:
+        parts.extend(["", COMMON_VALIDATION_BLOCK])
+    if include_format:
+        parts.extend(["", COMMON_FORMAT_BLOCK])
     return "\n".join(parts)
+
+
+# Prompt oficial Caso 7 · Comité (PowerPoint con plantilla; sin Word/PDF)
+F7_PPTX_PROMPT = """\
+P → PERSONA
+
+Actúa como socio senior de comunicación ejecutiva, dirección de proyectos y diseño de presentaciones corporativas para comités directivos.
+
+Combina las capacidades de:
+
+- Director de PMO.
+- Consultor estratégico.
+- Analista de información.
+- Storyteller ejecutivo.
+- Diseñador senior de presentaciones corporativas.
+
+Tu responsabilidad es transformar la información validada del Proyecto Horizonte en una presentación ejecutiva clara, visual, elegante y lista para exponer ante la alta dirección.
+
+R → REALIDAD
+
+La Gerencia presentará el Proyecto Horizonte en un espacio corto de comité.
+
+La audiencia necesita comprender rápidamente:
+
+- Por qué existe la iniciativa.
+- Qué se propone.
+- Cuál es su alcance.
+- Cuál es el estado actual.
+- Qué muestran el presupuesto y el cronograma.
+- Cuáles son los riesgos prioritarios.
+- Qué información continúa pendiente.
+- Qué decisiones debe tomar el comité.
+- Cuáles son los siguientes pasos.
+
+La presentación debe permitir tomar decisiones sin revisar previamente todos los documentos fuente.
+
+No debe presentar la iniciativa como aprobada.
+
+I → INFORMACIÓN Y FUENTES AUTORIZADAS
+
+Utiliza exclusivamente los siguientes archivos seleccionados o cargados en esta conversación:
+
+1. 02_Alcance_Proyecto_Horizonte.docx
+2. 03_Presupuesto_y_Cronograma_Horizonte.xlsx
+3. 04_Transcripcion_Reunion_Horizonte.docx
+4. 05_Registro_Inicial_Riesgos_Horizonte.xlsx
+5. 06_Comentarios_Interesados_Horizonte.docx
+6. 07_Plantilla_Comite_Horizonte.pptx
+
+REGLA CRÍTICA DE FUENTES
+
+Antes de crear la presentación:
+
+1. Confirma que puedes acceder al contenido de los archivos 02 al 06.
+2. Confirma que puedes abrir y utilizar visualmente la plantilla:
+   07_Plantilla_Comite_Horizonte.pptx.
+3. No consideres analizado un archivo únicamente porque reconoces su nombre.
+4. No utilices información externa.
+5. No mezcles información de otros casos o sesiones.
+6. No utilices el correo del Circuito N-14.
+7. Si un archivo no está disponible, indícalo como:
+   “NO DISPONIBLE PARA ANÁLISIS”.
+8. Si falta un dato, utiliza:
+   “PENDIENTE DE VALIDACIÓN”.
+
+USO OBLIGATORIO DE LA PLANTILLA
+
+Debes crear la presentación utilizando como base visual el archivo:
+
+07_Plantilla_Comite_Horizonte.pptx
+
+No diseñes una presentación genérica desde cero.
+
+Conserva de la plantilla:
+
+- Logotipos.
+- Colores corporativos.
+- Tipografías.
+- Fondos.
+- Formas.
+- Encabezados.
+- Pies de página.
+- Márgenes.
+- Jerarquía visual.
+- Estilo de títulos.
+- Numeración.
+- Distribución general.
+
+No alteres, deformes, recortes ni recolorees los logotipos.
+
+No elimines elementos institucionales de la plantilla.
+
+Puedes reorganizar cajas de texto, gráficos y elementos internos cuando sea necesario para mejorar la comunicación, pero debes conservar la identidad visual original.
+
+S → SOLICITUD
+
+Genera directamente un archivo de Microsoft PowerPoint editable denominado:
+
+Presentacion_Comite_Proyecto_Horizonte.pptx
+
+No entregues únicamente:
+
+- Un guion.
+- Una lista de diapositivas.
+- Un documento Word.
+- Un PDF.
+- Un resumen conversacional.
+- Instrucciones para que el usuario arme la presentación.
+
+Debes crear el archivo `.pptx` completo y listo para descarga.
+
+La presentación debe contener exactamente ocho diapositivas principales y, únicamente si es necesario, un máximo de tres diapositivas adicionales de anexo.
+
+OBJETIVO DE COMUNICACIÓN
+
+La presentación debe responder de forma visual y ejecutiva:
+
+1. ¿Qué problema o necesidad origina el proyecto?
+2. ¿Qué se propone realizar?
+3. ¿Qué está incluido y qué está excluido?
+4. ¿Cuál es el estado del presupuesto y del cronograma?
+5. ¿Cuáles son los riesgos prioritarios?
+6. ¿Qué inconsistencias o vacíos existen?
+7. ¿Qué decisiones necesita tomar el comité?
+8. ¿Qué debe ocurrir después?
+
+M → MÉTODO
+
+FASE 1 · VALIDACIÓN PREVIA
+
+Antes de generar el archivo:
+
+- Verifica las fuentes.
+- Identifica cifras, fechas, hitos y riesgos respaldados.
+- Separa hechos, cálculos, inferencias y recomendaciones.
+- Comprueba que la plantilla esté disponible.
+- No generes la presentación hasta confirmar estas condiciones.
+
+FASE 2 · STORYLINE EJECUTIVO
+
+Construye una narrativa progresiva:
+
+Necesidad
+→ Propuesta
+→ Alcance
+→ Situación actual
+→ Presupuesto y cronograma
+→ Riesgos
+→ Decisiones
+→ Próximos pasos
+
+Cada diapositiva debe desarrollar una sola idea principal.
+
+No conviertas las diapositivas en páginas de informe.
+
+ESTRUCTURA OBLIGATORIA DE LAS 8 DIAPOSITIVAS
+
+DIAPOSITIVA 1 · PORTADA
+
+Título:
+
+Proyecto Horizonte
+
+Subtítulo:
+
+Revisión inicial para Comité Directivo
+
+Incluye:
+
+- Propósito de la presentación.
+- Fecha del análisis, solo si aparece en las fuentes.
+- Estado:
+  “Iniciativa en evaluación”.
+- Nota discreta:
+  “Caso académico ficticio”.
+
+Utiliza la portada oficial de la plantilla.
+
+DIAPOSITIVA 2 · CONTEXTO Y NECESIDAD
+
+Objetivo:
+
+Explicar por qué surge la iniciativa.
+
+Incluye:
+
+- Necesidad identificada.
+- Problema que se busca resolver.
+- Impacto esperado.
+- Área solicitante.
+- Restricciones relevantes.
+
+Diseño recomendado:
+
+- Un mensaje central destacado.
+- Máximo tres bloques visuales.
+- Íconos discretos.
+- No más de 45 palabras visibles.
+
+DIAPOSITIVA 3 · OBJETIVO, ALCANCE Y EXCLUSIONES
+
+Incluye:
+
+- Objetivo general.
+- Alcance incluido.
+- Exclusiones.
+- Entregables principales.
+- Supuestos o dependencias críticas.
+
+Diseño recomendado:
+
+- Dos columnas:
+  “Incluye” y “No incluye”.
+- Una franja inferior para entregables.
+- Diferenciar hechos de elementos pendientes.
+
+DIAPOSITIVA 4 · HITOS Y CRONOGRAMA
+
+Incluye:
+
+- Principales fases.
+- Hitos.
+- Fechas relevantes.
+- Dependencias.
+- Actividades críticas.
+- Desviaciones o vacíos.
+
+Diseño recomendado:
+
+- Línea de tiempo.
+- No usar una tabla extensa.
+- Marcar fechas pendientes como:
+  “PENDIENTE DE VALIDACIÓN”.
+- Resaltar hitos críticos.
+
+DIAPOSITIVA 5 · PRESUPUESTO Y DISTRIBUCIÓN
+
+Incluye únicamente cifras verificadas del archivo Excel:
+
+- Presupuesto total.
+- Principales categorías.
+- Tres partidas de mayor valor.
+- Participación porcentual.
+- Hallazgos financieros.
+- Vacíos o anomalías.
+
+Diseño recomendado:
+
+- Gráfico de barras o dona.
+- Tarjeta de cifra principal.
+- Máximo tres hallazgos.
+- Indicar la fuente debajo del gráfico.
+
+No inventes cálculos.
+
+No generes cifras si no están disponibles.
+
+DIAPOSITIVA 6 · RIESGOS PRIORITARIOS
+
+Selecciona máximo cinco riesgos relevantes.
+
+Para cada uno muestra:
+
+- Riesgo.
+- Categoría.
+- Probabilidad.
+- Impacto.
+- Nivel.
+- Acción sugerida.
+- Fuente.
+
+Usa semáforos:
+
+- 🔴 Alto.
+- 🟡 Medio.
+- 🟢 Bajo.
+
+Diseño recomendado:
+
+- Matriz de calor o tarjetas.
+- No presentar una tabla de texto saturada.
+- Aclarar:
+  “Valoración preliminar sujeta a validación”.
+
+DIAPOSITIVA 7 · HALLAZGOS Y DECISIONES REQUERIDAS
+
+Divide la diapositiva en dos secciones:
+
+A. Hallazgos relevantes
+
+- Inconsistencias entre fuentes.
+- Información faltante.
+- Decisiones o compromisos no confirmados.
+- Restricciones.
+
+B. Decisiones requeridas del comité
+
+Incluye únicamente decisiones realmente necesarias, por ejemplo:
+
+- Validar el avance a la siguiente fase.
+- Solicitar información adicional.
+- Confirmar patrocinio.
+- Definir responsables.
+- Validar criterios de alcance.
+
+No conviertas recomendaciones en decisiones aprobadas.
+
+DIAPOSITIVA 8 · PRÓXIMOS PASOS
+
+Incluye:
+
+- Acciones inmediatas.
+- Responsable sugerido por rol.
+- Prioridad.
+- Resultado esperado.
+- Validaciones antes de continuar.
+
+Cierra con un mensaje ejecutivo:
+
+“Copilot organiza y acelera el análisis; la organización valida y decide.”
+
+Diseño recomendado:
+
+- Hoja de ruta de 3 a 5 pasos.
+- Cierre visual limpio.
+- Una sola llamada a la acción.
+
+ANEXOS OPCIONALES
+
+Utiliza anexos únicamente cuando aporten valor.
+
+Máximo tres:
+
+- Anexo 1: Fuentes utilizadas por diapositiva.
+- Anexo 2: Matriz ampliada de riesgos.
+- Anexo 3: Información pendiente de validación.
+
+No dupliques el contenido de las diapositivas principales.
+
+REQUISITOS DE DISEÑO
+
+La presentación debe verse como un producto de comunicación ejecutiva de alta calidad.
+
+Debe ser:
+
+- Elegante.
+- Moderna.
+- Corporativa.
+- Limpia.
+- Visual.
+- Consistente.
+- Sobria.
+- Fácil de leer en una pantalla grande.
+
+Aplica estas reglas:
+
+- Una idea principal por diapositiva.
+- Máximo 35 a 50 palabras visibles por diapositiva, salvo tablas breves.
+- Máximo cuatro mensajes secundarios.
+- Títulos con conclusión, no títulos genéricos.
+- Evitar párrafos extensos.
+- Evitar diapositivas saturadas.
+- Evitar tablas con demasiadas filas.
+- Utilizar espacio en blanco.
+- Respetar alineación y márgenes.
+- Mantener tamaños de fuente legibles.
+- Utilizar gráficos únicamente cuando comuniquen mejor que el texto.
+- No usar imágenes decorativas sin propósito.
+- No usar fotografías genéricas de bancos de imágenes.
+- No utilizar emojis como elemento central.
+- No agregar animaciones excesivas.
+- No crear estilos diferentes entre diapositivas.
+
+TÍTULOS CON MENSAJE
+
+Evita títulos como:
+
+- Presupuesto.
+- Riesgos.
+- Cronograma.
+- Conclusiones.
+
+Utiliza títulos que expresen un hallazgo, por ejemplo:
+
+- “La inversión se concentra en tres componentes principales”.
+- “Cinco riesgos requieren validación antes de avanzar”.
+- “El cronograma depende de información aún no confirmada”.
+- “El comité debe resolver tres decisiones para habilitar la siguiente fase”.
+
+Solo utiliza estas conclusiones cuando estén respaldadas por las fuentes.
+
+GRÁFICOS Y ELEMENTOS VISUALES
+
+Cuando los datos lo permitan:
+
+- Utiliza barras para comparar partidas.
+- Utiliza dona para distribución porcentual.
+- Utiliza línea de tiempo para cronograma.
+- Utiliza matriz de calor para riesgos.
+- Utiliza tarjetas KPI para cifras principales.
+- Utiliza diagramas de flujo simples para próximos pasos.
+
+Todos los gráficos deben:
+
+- Ser editables.
+- Tener título.
+- Tener etiquetas legibles.
+- Mostrar unidad.
+- Indicar la fuente.
+- Coincidir con el Excel.
+- Respetar la paleta de la plantilla.
+
+No conviertas tablas o gráficos en imágenes.
+
+NOTAS DEL PRESENTADOR
+
+Incluye notas completas en cada diapositiva.
+
+Las notas deben contener:
+
+- Propósito de la diapositiva.
+- Mensaje que debe comunicar el presentador.
+- Explicación de cifras.
+- Fuente utilizada.
+- Advertencias.
+- Preguntas probables del comité.
+- Tiempo sugerido de exposición.
+
+Extensión por diapositiva:
+
+Entre 80 y 150 palabras.
+
+No copies literalmente el texto visible de la diapositiva.
+
+TRAZABILIDAD
+
+Cada diapositiva debe identificar discretamente su fuente, por ejemplo:
+
+Fuente: 03_Presupuesto_y_Cronograma_Horizonte.xlsx · Hoja Presupuesto
+
+En las notas del presentador incluye la trazabilidad completa:
+
+- Archivo.
+- Hoja o sección.
+- Dato utilizado.
+- Clasificación:
+  - Hecho confirmado.
+  - Cálculo.
+  - Inferencia.
+  - Recomendación.
+  - Información pendiente.
+
+CHECKLIST DE CALIDAD
+
+Antes de generar el archivo, verifica:
+
+1. Todas las cifras coinciden con el Excel.
+2. Todas las fechas tienen fuente.
+3. Los riesgos tienen respaldo documental.
+4. Las decisiones se diferencian de las propuestas.
+5. Los responsables no fueron inventados.
+6. Los datos faltantes están marcados.
+7. La presentación no afirma aprobación.
+8. La plantilla fue utilizada realmente.
+9. Los logotipos no fueron alterados.
+10. Los colores coinciden con la plantilla.
+11. Los gráficos son editables.
+12. Las notas están incluidas.
+13. La presentación puede entenderse sin leer los documentos fuente.
+14. El archivo no contiene textos provisionales.
+15. No existen diapositivas vacías.
+16. No existen elementos desalineados.
+17. No hay texto cortado o fuera de los márgenes.
+18. La presentación está lista para exposición.
+
+RESTRICCIONES
+
+- No generar un documento Word.
+- No generar un PDF como producto principal.
+- No entregar solo el guion.
+- No entregar únicamente recomendaciones.
+- No explicar cómo construir la presentación.
+- No crear una presentación genérica.
+- No ignorar la plantilla.
+- No sustituir la plantilla por otro diseño.
+- No inventar cifras.
+- No inventar fechas.
+- No inventar responsables.
+- No inventar decisiones.
+- No analizar información externa.
+- No presentar el proyecto como aprobado.
+- No reducir todo el contenido a texto.
+- No copiar el informe completo dentro de las diapositivas.
+
+ENTREGABLE FINAL
+
+Genera directamente el archivo editable:
+
+Presentacion_Comite_Proyecto_Horizonte.pptx
+
+El archivo debe contener:
+
+- Las ocho diapositivas principales.
+- Los anexos que sean estrictamente necesarios.
+- Notas del presentador.
+- Gráficos editables.
+- Fuentes por diapositiva.
+- Diseño basado en la plantilla suministrada.
+
+No respondas únicamente que el archivo fue creado.
+
+Adjunta el archivo `.pptx` generado para descarga.
+
+Antes de finalizar, abre y revisa visualmente todas las diapositivas para confirmar que el contenido está completo, legible, alineado y correctamente aplicado a la plantilla."""
 
 
 S2_PRISM = {
@@ -1016,116 +1528,94 @@ S2_PRISM = {
         "improveHints": list(_MEJORA_HINTS),
     },
     "f7": {
-        "title": "Presentación ejecutiva (comité)",
-        "file": "07_Plantilla_Comite_Horizonte.pptx (+ análisis validados)",
-        "persona": "Responsable de una oficina de gestión de proyectos (PMO)",
+        "title": "Comité directivo · PowerPoint",
+        "file": "02–06 + 07_Plantilla_Comite_Horizonte.pptx → Presentacion_Comite_Proyecto_Horizonte.pptx",
+        "persona": "Socio senior de comunicación ejecutiva y diseño de presentaciones corporativas",
         "levels": {
             "1": {
                 "label": "Básico",
-                "text": "Hazme una presentación del proyecto.",
+                "text": (
+                    "Crea un archivo PowerPoint del Proyecto Horizonte usando la plantilla "
+                    "07_Plantilla_Comite_Horizonte.pptx."
+                ),
             },
             "2": {
                 "label": "Mejorado",
                 "text": (
-                    "Prepara el contenido de una presentación ejecutiva de máximo 8 diapositivas "
-                    "para el comité del Proyecto Horizonte, usando solo información validada de los archivos del caso "
-                    "y la estructura de 07_Plantilla_Comite_Horizonte.pptx. Marca pendientes de validación."
+                    "Con los archivos 02 al 07 cargados, genera el archivo editable "
+                    "Presentacion_Comite_Proyecto_Horizonte.pptx (8 diapositivas) usando "
+                    "obligatoriamente la plantilla 07_Plantilla_Comite_Horizonte.pptx. "
+                    "No entregues Word, PDF ni solo un guion. Marca pendientes de validación."
                 ),
             },
             "3": {
                 "label": "Profesional (PRISM)",
                 "text": _prism_prompt(
                     persona=(
-                        "Actúa como responsable de una oficina de gestión de proyectos (PMO) "
-                        "que diseña narrativas ejecutivas para comités directivos."
+                        "Actúa como socio senior de comunicación ejecutiva, dirección de proyectos "
+                        "y diseño de presentaciones corporativas para comités directivos "
+                        "(PMO + consultor estratégico + storyteller + diseñador senior)."
                     ),
                     realidad=(
-                        "Debes preparar el contenido de una presentación ejecutiva de exactamente ocho diapositivas "
-                        "sobre la revisión inicial del Proyecto Horizonte. "
-                        "No se garantiza que Copilot genere el archivo PowerPoint automáticamente: "
-                        "si no puede crear el .pptx, entrega la estructura completa para pegarla en "
-                        "07_Plantilla_Comite_Horizonte.pptx. "
-                        "No presentes propuestas como decisiones aprobadas."
+                        "La Gerencia presentará Horizonte en un espacio corto de comité. "
+                        "La audiencia debe decidir sin leer todos los documentos fuente. "
+                        "La iniciativa NO está aprobada. "
+                        "Debes generar el archivo .pptx, no un documento Word/PDF ni un guion."
                     ),
                     informacion=(
-                        "Usa exclusivamente los archivos y análisis validados del caso, referenciando cuando cites:\n"
+                        "Fuentes autorizadas (deben estar cargadas): "
                         "02_Alcance_Proyecto_Horizonte.docx, "
                         "03_Presupuesto_y_Cronograma_Horizonte.xlsx, "
                         "04_Transcripcion_Reunion_Horizonte.docx, "
                         "05_Registro_Inicial_Riesgos_Horizonte.xlsx, "
                         "06_Comentarios_Interesados_Horizonte.docx, "
-                        "y la plantilla 07_Plantilla_Comite_Horizonte.pptx.\n"
-                        "No inventes datos. Cuando falte información, escribe «Pendiente de validación».\n"
-                        "No indiques botones de Copilot dentro de PowerPoint."
+                        "07_Plantilla_Comite_Horizonte.pptx.\n"
+                        "Confirma acceso real al contenido 02–06 y uso visual de la plantilla 07. "
+                        "No analices por nombre. No uses Circuito N-14 ni información externa. "
+                        "Faltantes: PENDIENTE DE VALIDACIÓN / NO DISPONIBLE PARA ANÁLISIS."
                     ),
                     solicitud=(
-                        "Estructura exactamente 8 diapositivas:\n"
-                        "1. Contexto y necesidad\n"
-                        "2. Objetivo y alcance\n"
-                        "3. Entregables e hitos\n"
-                        "4. Presupuesto\n"
-                        "5. Cronograma\n"
-                        "6. Riesgos prioritarios\n"
-                        "7. Decisiones requeridas\n"
-                        "8. Próximos pasos\n"
-                        "Para cada diapositiva: Título | Mensaje principal | Máximo 4 puntos | "
-                        "Dato o evidencia de soporte | Recomendación visual | Información pendiente | Notas del presentador."
+                        "Genera directamente Presentacion_Comite_Proyecto_Horizonte.pptx "
+                        "usando 07_Plantilla_Comite_Horizonte.pptx como base visual "
+                        "(conserva logos, colores, tipografías, fondos, pies, márgenes).\n"
+                        "Exactamente 8 diapositivas: Portada; Contexto y necesidad; "
+                        "Objetivo/alcance/exclusiones; Hitos y cronograma; Presupuesto; "
+                        "Riesgos prioritarios (máx. 5); Hallazgos y decisiones; Próximos pasos. "
+                        "Máximo 3 anexos opcionales. Notas del presentador (80–150 palabras). "
+                        "Gráficos editables. Títulos con mensaje. Adjunta el .pptx para descarga."
                     ),
                     metodo=(
-                        "Lenguaje ejecutivo, preciso y orientado a decisiones.\n"
-                        "Incluye tablero de semáforos en la diapositiva de riesgos.\n"
-                        "Entrega además un resumen de storyline (arco narrativo) de ≤150 palabras.\n"
-                        "Si generas archivo, indícalo; si no, entrega guion listo para la plantilla 07."
+                        "Validación previa → storyline Necesidad→…→Próximos pasos → "
+                        "diseño ejecutivo limpio (35–50 palabras visibles/slide). "
+                        "Prohibido: Word, PDF como producto principal, guion solo, "
+                        "presentación genérica, ignorar plantilla, inventar datos, "
+                        "afirmar aprobación. Checklist de calidad antes de entregar."
                     ),
+                    expert_extra=(
+                        "ENTREGABLE ÚNICO: archivo Presentacion_Comite_Proyecto_Horizonte.pptx. "
+                        "No entregues documento ejecutivo Word/PDF ni tabla de contenido."
+                    ),
+                    include_format=False,
                 ),
             },
             "4": {
                 "label": "Experto",
-                "text": _prism_prompt(
-                    persona=(
-                        "Actúa como socio de comunicación ejecutiva + PMO que entrega el paquete "
-                        "«listo para comité» (contenido + notas + checklist de calidad)."
-                    ),
-                    realidad=(
-                        "Gerencia presentará Horizonte en un slot corto. Necesitan guion impecable, "
-                        "cifras trazables, decisiones explícitas y pendientes visibles, "
-                        "alineado a 07_Plantilla_Comite_Horizonte.pptx."
-                    ),
-                    informacion=(
-                        "Fuentes del caso con nombres exactos (02–07). "
-                        "Solo datos previamente contrastables; todo lo demás PENDIENTE DE VALIDACIÓN."
-                    ),
-                    solicitud=(
-                        "Entrega el Paquete de Comité Horizonte: "
-                        "guion de 8 diapositivas, storyline, tablero KPI sugerido, "
-                        "anexo de fuentes por diapositiva, checklist de calidad "
-                        "(cifras, fechas, riesgos con fuente, decisiones diferenciadas, faltantes marcados, "
-                        "plantilla respetada, revisión humana) y versión «speaking notes» para el presentador."
-                    ),
-                    metodo=(
-                        "Informe ejecutivo que contiene el guion slide-by-slide; "
-                        "sin afirmar aprobación del proyecto; recomendaciones solo como decisiones requeridas."
-                    ),
-                    expert_extra=(
-                        "ENTREGABLE PARA GERENCIA/COMITÉ: listo para transferir a "
-                        "07_Plantilla_Comite_Horizonte.pptx sin reescritura conceptual."
-                    ),
-                ),
+                "text": F7_PPTX_PROMPT,
             },
         },
         "explain": {
-            "persona": "PMO / comunicación ejecutiva para comité.",
-            "realidad": "Ocho diapositivas; posible ruta estructura→plantilla 07.",
-            "informacion": "Archivos 02–07; solo datos validados; sin botones Copilot-in-PPT.",
-            "solicitud": "Guion completo por diapositiva + evidencias + pendientes.",
-            "metodo": "Storyline, semáforos, notas del presentador, checklist de calidad.",
-            "restricciones": "No inventar; no vender el proyecto como aprobado.",
-            "formato": "Informe ejecutivo + guion de presentación.",
-            "validacion": "Verificar cifras/fechas/riesgos contra fuentes antes de proyectar.",
+            "persona": "Comunicación ejecutiva + PMO + diseño de presentaciones.",
+            "realidad": "Comité corto; decisión sin leer fuentes; iniciativa no aprobada.",
+            "informacion": "Archivos 02–07; plantilla 07 obligatoria; sin N-14.",
+            "solicitud": "Archivo .pptx de 8 diapositivas + notas + anexos opcionales.",
+            "metodo": "Storyline visual; plantilla corporativa; gráficos editables; checklist.",
+            "restricciones": "No Word/PDF/guion; no ignorar plantilla; no inventar; no aprobar.",
+            "formato": "Presentacion_Comite_Proyecto_Horizonte.pptx descargable.",
+            "validacion": "Cifras=Excel; plantilla usada; logos intactos; notas incluidas.",
         },
         "compare": (
-            "El básico pide «una presentación» sin estructura; el PRISM fija 8 slides, evidencia por slide "
-            "y plantilla 07, reduciendo contenido genérico o inventado."
+            "El básico pide un PPT genérico; el profesional/experto exige el .pptx editable "
+            "basado en 07_Plantilla_Comite_Horizonte.pptx y prohíbe Word, PDF o solo guion."
         ),
         "improveHints": list(_MEJORA_HINTS),
     },
