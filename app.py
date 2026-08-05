@@ -1333,7 +1333,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-08-05-s2-f1-fuente-guard-v1"
+APP_CODE_VERSION = "2026-08-05-s2-word-ready-doc-v1"
 
 
 @app.get("/health")

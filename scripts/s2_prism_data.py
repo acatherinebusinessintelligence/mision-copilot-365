@@ -4,54 +4,188 @@
 from __future__ import annotations
 
 COMMON_FORMAT_BLOCK = """\
-PRESENTA LA RESPUESTA COMO UN INFORME EJECUTIVO
+======================================================================
+ENTREGABLE FINAL
+======================================================================
 
-Incluye, cuando sea pertinente:
+Tu respuesta NO debe ser un resumen conversacional.
 
-1. PORTADA
-   - Título del informe
-   - Objetivo
-   - Fecha (solo si aparece en las fuentes; si no, escribe PENDIENTE DE VALIDACIÓN)
-   - Archivos analizados (nombres exactos)
+Debes elaborar un documento ejecutivo completo, listo para copiar directamente a Microsoft Word y posteriormente exportar a PDF sin necesidad de reorganizar el contenido.
 
-2. RESUMEN EJECUTIVO
-   - Máximo 250 palabras
-   - Lenguaje para gerencia / comité
+Imagina que este documento será entregado al Comité Directivo como insumo para la toma de decisiones.
 
-3. TABLERO EJECUTIVO
-   - KPIs o indicadores clave
-   - Semáforos de criticidad (🔴 Alto / 🟡 Medio / 🟢 Bajo)
-   - Estado general del análisis
+Debe tener calidad equivalente a un informe elaborado por una firma internacional de consultoría.
 
-4. MATRICES Y TABLAS (Markdown)
-   - Matrices de hallazgos, riesgos, dependencias, comparación o información pendiente según aplique
-   - Preferir tablas Markdown; evitar párrafos largos sin estructura
+======================================================================
+ESTRUCTURA OBLIGATORIA DEL DOCUMENTO
+======================================================================
 
-5. CLASIFICACIONES
-   Cada afirmación relevante debe etiquetarse como una de:
-   - Hecho confirmado
-   - Inferencia
-   - Información pendiente
-   - Recomendación
+# Portada
 
-6. RIESGOS (si aplica)
-   - Semáforo 🔴 / 🟡 / 🟢
-   - Evidencia y fuente
+Incluye:
 
-7. RECOMENDACIONES
-   Tabla con: Acción | Responsable sugerido (solo si aparece en fuentes; si no, rol sugerido + PENDIENTE DE VALIDACIÓN) | Prioridad | Justificación
+• Título del documento.
+• Nombre del proyecto.
+• Objetivo del informe.
+• Fecha del análisis (si no aparece en las fuentes escribe "PENDIENTE DE VALIDACIÓN").
+• Documentos analizados.
+• Estado del documento.
 
-8. CONCLUSIONES
-   - Máximo 5
+======================================================================
 
-9. PRÓXIMOS PASOS
-   - Ordenados y accionables
+# Tabla de Contenido
 
-10. PREGUNTAS PARA EL CLIENTE
-    - Preguntas abiertas de aclaración
+Genera automáticamente el índice de las secciones principales.
 
-11. VALIDACIÓN HUMANA
-    - Qué debe verificar una persona antes de usar este resultado en un comité"""
+======================================================================
+
+# Resumen Ejecutivo
+
+Entre 200 y 300 palabras.
+
+Debe permitir que un directivo comprenda el resultado sin leer el resto del documento.
+
+======================================================================
+
+# Objetivo del análisis
+
+Explica qué se evaluó.
+
+Qué documentos fueron utilizados.
+
+Qué limitaciones existen.
+
+======================================================================
+
+# Alcance del análisis
+
+Indica claramente:
+
+Qué se analizó.
+
+Qué NO se analizó.
+
+Qué información quedó fuera del alcance.
+
+======================================================================
+
+# Desarrollo del análisis
+
+Organiza toda la información mediante:
+
+• Tablas profesionales.
+• Matrices.
+• Cuadros comparativos.
+• Listas jerarquizadas.
+• Semáforos de criticidad.
+• Cuadros de observaciones.
+
+Evita bloques largos de texto.
+
+Cada afirmación relevante debe etiquetarse como: Hecho confirmado | Inferencia | Información pendiente | Recomendación.
+
+======================================================================
+
+# Hallazgos principales
+
+Presenta únicamente los hallazgos relevantes.
+
+Para cada uno indica:
+
+• Hallazgo.
+• Evidencia.
+• Impacto.
+• Nivel de criticidad.
+• Acción recomendada.
+
+======================================================================
+
+# Riesgos
+
+Construye una tabla con:
+
+• Riesgo.
+• Evidencia.
+• Probabilidad.
+• Impacto.
+• Criticidad.
+• Recomendación.
+
+Usa semáforos 🔴 Alto / 🟡 Medio / 🟢 Bajo cuando aplique.
+
+======================================================================
+
+# Información pendiente de validación
+
+Genera una tabla específica indicando:
+
+• Información faltante.
+• Impacto.
+• Fuente esperada.
+• Prioridad.
+
+======================================================================
+
+# Recomendaciones
+
+Presenta una tabla con:
+
+• Acción.
+• Responsable sugerido (solo si aparece en las fuentes; de lo contrario indicar el rol y marcar "PENDIENTE DE VALIDACIÓN").
+• Prioridad.
+• Justificación.
+
+======================================================================
+
+# Próximos pasos
+
+Lista ordenada de actividades sugeridas.
+
+======================================================================
+
+# Conclusiones
+
+Máximo cinco conclusiones.
+
+Deben ser claras, ejecutivas y sustentadas.
+
+======================================================================
+
+# Validación Humana
+
+Finaliza con una lista de verificación indicando qué aspectos deben revisarse antes de presentar el documento al Comité Directivo.
+
+======================================================================
+FORMATO DEL DOCUMENTO
+======================================================================
+
+El documento debe poder copiarse directamente a Microsoft Word conservando una estructura profesional.
+
+Utiliza:
+
+• Encabezados jerárquicos (# ## ###).
+• Tablas Markdown.
+• Listas numeradas.
+• Listas con viñetas.
+• Separadores entre secciones.
+• Iconos discretos únicamente cuando aporten claridad.
+
+No utilices lenguaje conversacional.
+No escribas párrafos excesivamente largos.
+No abras con frases del tipo «Claro», «Por supuesto», «Aquí tienes un resumen» o similares.
+
+======================================================================
+CRITERIOS DE CALIDAD
+======================================================================
+
+Antes de finalizar verifica que:
+
+✓ Toda afirmación tenga evidencia.
+✓ No existan datos inventados.
+✓ Hechos, inferencias y recomendaciones estén claramente diferenciados.
+✓ Toda información faltante esté marcada como "PENDIENTE DE VALIDACIÓN".
+✓ El documento pueda convertirse directamente en un informe PDF para presentación ejecutiva."""
+
 
 COMMON_VALIDATION_BLOCK = """\
 Antes de responder:
@@ -293,9 +427,11 @@ S2_PRISM = {
                     ),
                     metodo=(
                         "Diferencia rigurosamente: Información explícita | Inferencia | No especificado.\n"
-                        "Incluye: (1) tabla de análisis del correo, (2) lista de tareas priorizada, "
-                        "(3) cinco preguntas de aclaración, (4) resumen ejecutivo ≤120 palabras dentro del bloque de 250 del informe, "
-                        "(5) tablero con semáforo de claridad de la solicitud."
+                        "La salida debe ser un DOCUMENTO EJECUTIVO completo (no un chat ni un resumen conversacional), "
+                        "listo para pegar en Microsoft Word y exportar a PDF.\n"
+                        "Incluye: (1) portada y tabla de contenido, (2) resumen ejecutivo 200–300 palabras, "
+                        "(3) tablas/matrices del correo, (4) hallazgos, riesgos de interpretación, pendientes, "
+                        "(5) recomendaciones, próximos pasos, conclusiones (máx. 5) y validación humana."
                     ),
                 ),
             },
@@ -314,7 +450,7 @@ S2_PRISM = {
                         "«URGENTE · Reprogramación intervención preventivo Circuito N-14», "
                         "que NO pertenece a este ejercicio. "
                         "Gerencia necesita únicamente un briefing de intake del correo correcto, "
-                        "antes de abrir adjuntos."
+                        "antes de abrir adjuntos. El entregable debe poder presentarse al Comité Directivo."
                     ),
                     informacion=(
                         "Fuente única autorizada en esta fase: el correo seleccionado en Outlook "
@@ -338,8 +474,8 @@ S2_PRISM = {
                         "explica por qué no corresponde y indica qué correo debe seleccionarse. "
                         "No generes briefing de Horizonte.\n"
                         "- Si la fuente es correcta: continúa.\n\n"
-                        "PASO 1 · Solo si la fuente es correcta, produce un Briefing de Intake "
-                        "(no un análisis de adjuntos) con:\n"
+                        "PASO 1 · Solo si la fuente es correcta, produce un DOCUMENTO EJECUTIVO de Briefing de Intake "
+                        "(no un análisis de adjuntos y NO un mensaje conversacional) con:\n"
                         "- Objetivo de la solicitud y proyecto mencionado\n"
                         "- Área / remitente solicitante\n"
                         "- Lista de adjuntos referidos (solo nombres, sin analizar su contenido)\n"
@@ -354,17 +490,19 @@ S2_PRISM = {
                         "que no estén en el correo."
                     ),
                     metodo=(
-                        "Si FUENTE INCORRECTA: informe breve con portada «Validación de fuente – Detenido», "
+                        "Si FUENTE INCORRECTA: documento breve con portada «Validación de fuente – Detenido», "
                         "tabla Asunto observado | Asunto esperado | Resultado | Acción correctiva.\n"
-                        "Si FUENTE CORRECTA: informe ejecutivo «Briefing de Intake – Proyecto Horizonte» "
-                        "con tablero de claridad de la solicitud, matriz entregable–adjunto referido "
-                        "(sin analizar archivos), clasificaciones Hecho/Inferencia/Pendiente, "
-                        "y validación humana. Sin matriz RACI definitiva."
+                        "Si FUENTE CORRECTA: documento ejecutivo «Briefing de Intake – Proyecto Horizonte» "
+                        "con la estructura obligatoria de entregable final (portada, TOC, resumen 200–300 palabras, "
+                        "objetivo, alcance, desarrollo en tablas, hallazgos, riesgos, pendientes, recomendaciones, "
+                        "próximos pasos, conclusiones, validación humana). Sin matriz RACI definitiva. "
+                        "Sin tono de chat."
                     ),
                     expert_extra=(
-                        "ENTREGABLE PARA GERENCIA: solo briefing de intake del correo correcto. "
-                        "Tono formal. Sin afirmar aprobación. Sin mezclar Sesión 1 (Circuito N-14) "
-                        "con Sesión 2 (Proyecto Horizonte)."
+                        "ENTREGABLE PARA GERENCIA: documento listo para Word/PDF. "
+                        "Tono formal de consultoría. Sin afirmar aprobación. "
+                        "Sin mezclar Sesión 1 (Circuito N-14) con Sesión 2 (Proyecto Horizonte). "
+                        "Prohibido responder en estilo conversacional."
                     ),
                 ),
             },
@@ -373,16 +511,16 @@ S2_PRISM = {
             "persona": "Socio PMO que valida la fuente antes de redactar el intake.",
             "realidad": "Proyecto Horizonte; riesgo de mezclar el correo N-14 de la Sesión 1.",
             "informacion": "Solo el correo Horizonte; criterios de correspondencia; sin adjuntos aún.",
-            "solicitud": "Validar fuente; si es correcta, briefing de intake (sin RACI ni presupuesto).",
-            "metodo": "Detenerse ante fuente incorrecta; si es correcta, informe de intake con tablas.",
-            "restricciones": "No inventar; no mezclar sesiones; no analizar adjuntos en esta fase.",
-            "formato": "Informe de validación o briefing de intake, según el resultado del Paso 0.",
+            "solicitud": "Validar fuente; si es correcta, documento ejecutivo de intake (sin RACI ni presupuesto).",
+            "metodo": "Detenerse ante fuente incorrecta; si es correcta, documento Word-ready con tablas.",
+            "restricciones": "No inventar; no mezclar sesiones; no analizar adjuntos; no tono conversacional.",
+            "formato": "Documento ejecutivo completo listo para Word/PDF (no resumen de chat).",
             "validacion": "Comprobar asunto Horizonte y checklist de correspondencia antes de continuar.",
         },
         "compare": (
             "El nivel 1 resume cualquier correo sin comprobar si es el correcto; el experto PRISM "
             "obliga a validar la fuente (Horizonte vs Circuito N-14), detenerse si no corresponde "
-            "y limitar el entregable a un briefing de intake sin inventar adjuntos."
+            "y entregar un documento ejecutivo listo para Word/PDF, no un texto conversacional."
         ),
         "improveHints": list(_MEJORA_HINTS),
     },
