@@ -2603,6 +2603,435 @@ Entrega:
                 <div class="field"><label for="s2f3-fi">Fecha inicial</label><input id="s2f3-fi" data-s2-note="s2f3-fi" type="text" /></div>
                 <div class="field"><label for="s2f3-ff">Fecha final</label><input id="s2f3-ff" data-s2-note="s2f3-ff" type="text" /></div>
               </div>
+
+              <!-- APARTADO OPCIONAL · HTML INTERACTIVO -->
+              <div class="card" id="s2f3HtmlOptional" style="margin:1.5rem 0 0;padding:1rem 1.1rem;border-left:4px solid var(--brand-primary)">
+                <p class="text-muted" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.04em;margin:0 0 0.35rem;font-weight:700">Apartado opcional · Si quisiera tener un HTML</p>
+                <h4 style="margin-top:0">Si quisiera tener un HTML para editar, descargar y enviar</h4>
+                <p style="margin:0 0 0.75rem">Convierte el resultado generado por Copilot en un informe web interactivo, editable y listo para compartir.</p>
+
+                <div class="disclaimer disclaimer--info" style="margin:0.75rem 0">
+                  <i data-lucide="info" width="18" height="18"></i>
+                  <span><strong>Propósito.</strong> Este apartado es opcional. Muestra cómo transformar el análisis ya generado en la conversación en un archivo HTML autónomo que pueda abrirse en un navegador, editarse, guardar cambios localmente, descargarse, imprimirse o guardarse como PDF, enviarse como adjunto y usarse como informe ejecutivo interactivo.</span>
+                </div>
+
+                <div class="disclaimer" style="margin:0.75rem 0">
+                  <i data-lucide="file-text" width="18" height="18"></i>
+                  <span><strong>Aclaración.</strong> El HTML no reemplaza el documento Word o PDF oficial. Se usa como versión interactiva para revisar resultados, navegar por secciones, completar listas de chequeo, registrar observaciones, filtrar hallazgos y riesgos, y compartir un informe dinámico. El entregable formal continúa siendo Word o PDF cuando el informe deba circular como documento oficial.</span>
+                </div>
+
+                <h5 style="margin:1rem 0 0.4rem">Ruta de trabajo</h5>
+                <ol style="margin:0 0 1rem;padding-left:1.25rem;font-size:0.92rem">
+                  <li>Completa primero el análisis en Microsoft 365 Copilot Chat.</li>
+                  <li>Revisa y valida el contenido.</li>
+                  <li>Ejecuta el prompt para generar el HTML.</li>
+                  <li>Descarga el archivo.</li>
+                  <li>Ábrelo en Microsoft Edge, Chrome o Firefox.</li>
+                  <li>Edita los campos habilitados.</li>
+                  <li>Completa la lista de chequeo.</li>
+                  <li>Descarga una copia actualizada.</li>
+                  <li>Imprime o guarda como PDF cuando necesites una versión formal.</li>
+                  <li>Envía el archivo HTML o PDF por el canal autorizado.</li>
+                </ol>
+
+                <h5 style="margin:0.5rem 0">Prompt para generar el HTML</h5>
+                <div class="prompt-box" id="s2f3-html-prompt" style="white-space:pre-wrap;font-size:0.86rem">Actúa como desarrollador frontend senior, diseñador de información ejecutiva y especialista en documentación corporativa.
+
+OBJETIVO
+
+Convierte íntegramente el análisis completo que acabas de generar en tu respuesta inmediatamente anterior en un archivo HTML ejecutivo, interactivo, editable, autónomo y listo para descargar.
+
+No vuelvas a analizar las fuentes.
+
+No consultes nuevamente los archivos.
+
+No generes nuevos hallazgos.
+
+No resumas el contenido.
+
+No elimines información sustantiva.
+
+No reemplaces ninguna sección por marcadores de posición.
+
+Utiliza exclusivamente el contenido real de tu respuesta anterior.
+
+NOMBRE DEL ARCHIVO
+
+Genera un archivo llamado:
+
+Informe_Interactivo_[NOMBRE_DEL_CASO].html
+
+Sustituye [NOMBRE_DEL_CASO] por el nombre del caso analizado.
+
+Ejemplo:
+
+Informe_Interactivo_Proyecto_Horizonte.html
+
+REGLA DE CONSERVACIÓN
+
+Conserva todo el contenido sustantivo del análisis anterior, incluyendo:
+
+- Portada.
+- Resumen ejecutivo.
+- Objetivo.
+- Alcance.
+- Fuentes analizadas.
+- Limitaciones.
+- KPIs.
+- Tablas.
+- Matrices.
+- Hallazgos.
+- Riesgos.
+- Información pendiente.
+- Recomendaciones.
+- Próximos pasos.
+- Conclusiones.
+- Validación humana.
+- Limitaciones metodológicas.
+- Notas de assurance.
+
+No reemplaces contenido por expresiones como:
+
+- Contenido preservado.
+- Información generada previamente.
+- Insertar contenido aquí.
+- Consultar análisis anterior.
+- Sección pendiente.
+- Ver respuesta previa.
+
+ENTREGA TÉCNICA
+
+Genera un único archivo HTML autónomo.
+
+Debe incluir internamente:
+
+- HTML5.
+- CSS3.
+- JavaScript puro.
+
+No utilices:
+
+- Backend.
+- Bases de datos.
+- React.
+- Vue.
+- Angular.
+- Herramientas que requieran compilación.
+- Rutas locales inexistentes.
+- Botones sin funcionalidad.
+
+El archivo debe abrirse directamente en:
+
+- Microsoft Edge.
+- Google Chrome.
+- Mozilla Firefox.
+
+DISEÑO
+
+El informe debe verse como un portal ejecutivo profesional.
+
+Incluye:
+
+- Portada ejecutiva.
+- Encabezado con el nombre del informe.
+- Menú de navegación.
+- Tarjetas de indicadores.
+- Tablas profesionales.
+- Semáforos.
+- Etiquetas de clasificación.
+- Secciones plegables.
+- Diseño responsive.
+- Buen contraste.
+- Modo claro y oscuro.
+- Estilos optimizados para impresión.
+
+SECCIONES
+
+Organiza el contenido existente, cuando aplique, en:
+
+1. Portada.
+2. Resumen ejecutivo.
+3. Objetivo.
+4. Alcance.
+5. Fuentes y limitaciones.
+6. Tablero ejecutivo.
+7. Desarrollo del análisis.
+8. Hallazgos.
+9. Riesgos.
+10. Información pendiente.
+11. Recomendaciones.
+12. Próximos pasos.
+13. Conclusiones.
+14. Validación humana.
+15. Limitaciones metodológicas.
+16. Anexos.
+
+No crees secciones vacías.
+
+EDICIÓN EN EL NAVEGADOR
+
+Incluye un modo llamado:
+
+“Editar informe”
+
+Al activarlo, permite editar únicamente:
+
+- Título del informe.
+- Fecha de revisión.
+- Estado del documento.
+- Observaciones.
+- Responsable de validación.
+- Comentarios sobre hallazgos.
+- Estado de la lista de chequeo.
+- Notas finales.
+
+No permitas modificar silenciosamente:
+
+- Cifras originales.
+- Riesgos.
+- Criticidades.
+- Datos de fuentes.
+- Cálculos.
+- Hallazgos confirmados.
+
+Cuando el usuario active el modo edición, muestra la advertencia:
+
+“Los cambios realizados en este informe deben ser revisados antes de su distribución.”
+
+GUARDADO LOCAL
+
+Utiliza LocalStorage para guardar:
+
+- Campos editables.
+- Observaciones.
+- Responsable.
+- Estado de validación.
+- Lista de chequeo.
+- Fecha de última edición.
+
+Al volver a abrir el archivo, recupera la información guardada.
+
+Incluye un botón:
+
+“Restaurar versión original”
+
+Antes de borrar cambios, solicita confirmación.
+
+LISTA DE CHEQUEO
+
+Convierte la validación humana en una lista interactiva.
+
+Cada control debe incluir:
+
+- Casilla.
+- Descripción.
+- Estado.
+- Responsable.
+- Fecha.
+- Observación.
+
+Incluye:
+
+- Porcentaje completado.
+- Número de controles completos.
+- Número de controles pendientes.
+- Estado general.
+
+Estados:
+
+- 0 % a 49 %: 🔴 Validación insuficiente.
+- 50 % a 79 %: 🟡 Validación parcial.
+- 80 % a 99 %: 🟡 Revisión final pendiente.
+- 100 %: 🟢 Lista completada.
+
+Incluye la aclaración:
+
+“Completar esta lista no equivale a aprobación técnica, financiera, jurídica, contractual o regulatoria.”
+
+INTERACTIVIDAD
+
+Incluye:
+
+- Navegación interna.
+- Desplazamiento suave.
+- Botón volver arriba.
+- Acordeones.
+- Modo claro y oscuro.
+- Expandir todo.
+- Contraer todo.
+- Filtros de hallazgos.
+- Filtros de riesgos.
+- Búsqueda por texto.
+- Barra de progreso de lectura.
+- Lista de chequeo.
+- Panel de validación.
+- Campos de observaciones.
+- Fecha de última modificación.
+
+BOTONES OBLIGATORIOS
+
+1. Editar informe.
+2. Guardar cambios.
+3. Restaurar versión original.
+4. Descargar HTML actualizado.
+5. Imprimir / Guardar como PDF.
+6. Expandir todo.
+7. Contraer todo.
+8. Activar modo oscuro.
+9. Reiniciar lista de chequeo.
+10. Copiar resumen ejecutivo.
+
+DESCARGAR HTML ACTUALIZADO
+
+El botón:
+
+“Descargar HTML actualizado”
+
+debe:
+
+1. Capturar el documento completo mediante:
+   document.documentElement.outerHTML
+2. Crear un Blob con tipo:
+   text/html
+3. Descargar una copia funcional.
+4. Mantener HTML, CSS y JavaScript.
+5. Utilizar el nombre:
+   Informe_Interactivo_[NOMBRE_DEL_CASO]_Actualizado.html
+
+Antes de descargar, incorpora en el HTML los valores editados visibles.
+
+No muestres una confirmación falsa.
+
+IMPRIMIR O GUARDAR COMO PDF
+
+Incluye el botón:
+
+“Imprimir / Guardar como PDF”
+
+Debe ejecutar:
+
+window.print();
+
+Agrega estilos @media print para:
+
+- Ocultar menú.
+- Ocultar botones.
+- Ocultar controles de edición.
+- Expandir todas las secciones.
+- Conservar tablas.
+- Conservar semáforos.
+- Mostrar observaciones.
+- Mostrar el estado actual de la lista de chequeo.
+- Evitar cortes de títulos y filas.
+- Insertar saltos de página donde sea necesario.
+
+COMPARTIR Y ENVIAR
+
+Incluye una tarjeta titulada:
+
+“Preparar para enviar”
+
+Debe indicar:
+
+1. Guarda los cambios.
+2. Descarga el HTML actualizado.
+3. Genera el PDF cuando sea necesario.
+4. Revisa que no contenga información no autorizada.
+5. Adjunta el HTML o PDF al correo corporativo.
+6. No envíes el archivo desde la página sin autenticación autorizada.
+
+No implementes envío directo por correo.
+
+No solicites credenciales.
+
+No simules que un correo fue enviado.
+
+Agrega un botón:
+
+“Copiar texto de remisión”
+
+Texto sugerido:
+
+Asunto:
+Entrega de informe ejecutivo – [NOMBRE_DEL_CASO]
+
+Cuerpo:
+
+Buenos días,
+
+Adjunto remitimos el informe ejecutivo correspondiente a [NOMBRE_DEL_CASO].
+
+El documento presenta los principales hallazgos, riesgos, información pendiente, recomendaciones y validaciones requeridas.
+
+Agradecemos revisar especialmente los elementos marcados como “PENDIENTE DE VALIDACIÓN” antes de utilizar el contenido para decisiones formales.
+
+Cordialmente,
+
+[NOMBRE DEL RESPONSABLE]
+
+AVISO DE SEGURIDAD
+
+Mostrar:
+
+“Antes de enviar, verifica que el archivo no contenga datos personales, información confidencial, credenciales, datos técnicos restringidos o información no autorizada.”
+
+TRAZABILIDAD
+
+Incluye un bloque con:
+
+- Fecha de generación.
+- Fecha de última edición.
+- Responsable de validación.
+- Estado de revisión.
+- Porcentaje de chequeo.
+- Versión del informe.
+- Tipo de documento: informe interactivo.
+
+No inventes el responsable.
+
+Permite diligenciarlo manualmente.
+
+CONTROL DE CALIDAD
+
+Antes de generar el archivo, verifica:
+
+1. Que todo el análisis anterior esté incluido.
+2. Que no existan marcadores de posición.
+3. Que las cifras no hayan cambiado.
+4. Que todas las tablas estén completas.
+5. Que los riesgos mantengan su criticidad.
+6. Que los filtros funcionen.
+7. Que el modo edición funcione.
+8. Que LocalStorage funcione.
+9. Que la lista de chequeo funcione.
+10. Que la descarga de HTML funcione.
+11. Que la impresión funcione.
+12. Que el modo oscuro funcione.
+13. Que el diseño sea responsive.
+14. Que no existan errores en consola.
+15. Que el archivo pueda abrirse sin herramientas adicionales.
+
+ACCIÓN FINAL
+
+Genera el archivo HTML completo.
+
+Entrégalo como archivo descargable.
+
+No muestres únicamente el código.
+
+No produzcas una plantilla vacía.
+
+No reemplaces el análisis por un resumen.
+
+No expliques el proceso.
+
+Entrega únicamente:
+
+Informe_Interactivo_[NOMBRE_DEL_CASO].html</div>
+                <div class="btn-group" style="margin:0.65rem 0 0">
+                  <button type="button" class="btn btn--sm btn--secondary" data-copy="#s2f3-html-prompt"><i data-lucide="copy" width="14" height="14"></i> Copiar prompt para generar HTML</button>
+                </div>
+              </div>
             </div>
           </article>
 
@@ -7617,15 +8046,18 @@ Tono: ejecutivo, claro y prudente.</div>
       // Quitar labs/prompt cards antiguos (se reemplazan por PRISM)
       body.querySelectorAll(".prompt-lab").forEach(el => el.remove());
       body.querySelectorAll(".improve-card").forEach(el => {
+        if (el.closest("#s2f3HtmlOptional") || el.closest("#s2f1Paso0") || el.closest("#s2f1Paso1")) return;
         if (el.querySelector(".prompt-box")) el.remove();
       });
-      // Quitar prompts antiguos de la fase (ids s2f*), sin tocar Paso 0 / Paso 1 oficiales
+      // Quitar prompts antiguos de la fase (ids s2f*), sin tocar Paso 0 / Paso 1 / HTML opcional f3
       body.querySelectorAll('.prompt-box[id^="s2f"], .prompt-box[id^="s2paso"]').forEach(box => {
         if (
           box.closest("#s2f1Paso0") ||
           box.closest("#s2f1Paso1") ||
+          box.closest("#s2f3HtmlOptional") ||
           box.id === "s2paso0-inv" ||
-          box.id === "s2paso1-analysis"
+          box.id === "s2paso1-analysis" ||
+          box.id === "s2f3-html-prompt"
         ) return;
         const wrap = box.closest(".improve-card, .prompt-lab__item, .m365-box");
         if (wrap) {
