@@ -1399,6 +1399,14 @@
     .lab33-routes {
       display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-top: 0.75rem;
     }
+    .lab33-flow-tree {
+      white-space: pre;
+      overflow-x: auto;
+      max-width: 100%;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      -webkit-overflow-scrolling: touch;
+    }
     .lab33-route {
       border: 1px solid var(--border); border-radius: var(--radius-sm);
       padding: 0.9rem 1rem; background: var(--bg-elevated);
@@ -1415,6 +1423,8 @@
       .lab33-concepts { grid-template-columns: 1fr; }
       .lab33 .btn-group .btn, .lab33 .btn-group .btn--sm { width: 100%; justify-content: center; }
       .lab33-hitl-flow { flex-direction: column; }
+      .lab33-condition { grid-template-columns: 1fr; }
+      .lab33-flow-tree { font-size: 0.72rem; }
     }
 
     /* ========== LAB 3.4 · RETO INTEGRADOR ========== */
@@ -4631,11 +4641,11 @@ Tono: ejecutivo, claro y prudente.</div>
           <article class="card lab-card" style="color:var(--text)">
             <div class="card__icon card__icon--energy" aria-hidden="true"><i data-lucide="zap" width="22" height="22"></i></div>
             <p class="lab-badge">3.3 · Automatización</p>
-            <h3>Del hallazgo a la acción</h3>
-            <p>Diseña un flujo que detecte un hallazgo crítico, evalúe una condición, prepare una comunicación ejecutiva y gestione su notificación.</p>
+            <h3>Del correo a la acción controlada</h3>
+            <p>Orquesta eventos, reglas, decisiones humanas y acciones con un flujo real de Power Automate.</p>
             <div class="lab-card__meta">
-              <span><strong>Resultado:</strong> Alerta inteligente de hallazgos.</span>
-              <span><strong>Habilidad:</strong> Evento + condición + IA + acción.</span>
+              <span><strong>Resultado:</strong> Flujo Outlook → regla → aprobación → envío.</span>
+              <span><strong>Habilidad:</strong> Evento + regla + human-in-the-loop.</span>
             </div>
             <a class="btn btn--sm btn--primary" href="#lab-automatizacion"><i data-lucide="zap" width="14" height="14"></i> Automatizar Hallazgo</a>
             <p id="lab33CardStatus" style="margin:0.65rem 0 0;font-size:0.85rem;color:var(--text-muted)">Estado: pendiente · completa la misión 3.3 abajo</p>
@@ -4644,12 +4654,14 @@ Tono: ejecutivo, claro y prudente.</div>
 
         <div class="card" style="margin:1.75rem 0;color:var(--text)">
           <h3 style="margin-top:0;text-align:center">Conexión entre las tres herramientas</h3>
-          <div class="lab-chain" aria-label="Cadena Cuaderno → Agente → Automatización">
-            <div class="lab-chain__node"><strong>📓 3.1 Cuaderno</strong><span>Organiza conocimiento</span></div>
+          <div class="lab-chain" aria-label="Cadena Cuaderno → Agente → Automatización → Integración">
+            <div class="lab-chain__node"><strong>📓 3.1 Cuaderno</strong><span>Organiza y transforma conocimiento</span></div>
             <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-            <div class="lab-chain__node"><strong>🤖 3.2 Agente</strong><span>Aplica conocimiento + instrucciones + límites</span></div>
+            <div class="lab-chain__node"><strong>🤖 3.2 Agente</strong><span>Aplica instrucciones, conocimiento y límites</span></div>
             <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-            <div class="lab-chain__node"><strong>⚡ 3.3 Automatización</strong><span>Ejecuta una acción</span></div>
+            <div class="lab-chain__node"><strong>⚡ 3.3 Automatización</strong><span>Orquesta eventos, reglas, decisiones humanas y acciones</span></div>
+            <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+            <div class="lab-chain__node"><strong>🏁 3.4 Integración</strong><span>Decide qué componente usar y dónde conservar control humano</span></div>
           </div>
           <p style="text-align:center;margin:0.75rem 0 0;font-weight:600;color:var(--text-muted)">El valor no está en utilizar cada herramienta por separado, sino en comprender cuándo utilizar cada una.</p>
         </div>
@@ -4658,27 +4670,23 @@ Tono: ejecutivo, claro y prudente.</div>
         <p class="text-muted" style="margin:0 0 0.5rem;color:#c5c0dc;font-size:0.92rem">Ninguna herramienta reemplaza a otra: cada una cumple un rol distinto en el sistema de trabajo.</p>
         <div class="lab-compare">
           <div class="lab-compare__item" style="color:var(--text)">
-            <strong>Copilot Chat</strong>
-            <p>Resuelve una tarea o conversación.</p>
-          </div>
-          <div class="lab-compare__item" style="color:var(--text)">
             <strong>Cuaderno</strong>
-            <p>Mantiene reunido el contexto relevante de un proyecto.</p>
+            <p>¿Cómo organizo y comprendo información relacionada?</p>
           </div>
           <div class="lab-compare__item" style="color:var(--text)">
             <strong>Agente</strong>
-            <p>Aplica instrucciones y comportamiento especializado.</p>
+            <p>¿Cómo especializo el comportamiento de Copilot?</p>
           </div>
           <div class="lab-compare__item" style="color:var(--text)">
             <strong>Automatización</strong>
-            <p>Ejecuta una rutina cuando ocurre un evento o se cumple una condición.</p>
+            <p>¿Qué debe ocurrir cuando sucede un evento?</p>
           </div>
         </div>
 
         <div class="card" style="margin:1.75rem 0;color:var(--text)">
           <h3 style="margin-top:0">Proyecto integrador: Horizonte</h3>
           <p style="margin:0 0 0.65rem;color:var(--text-muted)">No comenzaremos desde cero.</p>
-          <p style="margin:0 0 1rem;color:var(--text-muted)">Los mismos documentos utilizados anteriormente se reutilizarán para construir el Cuaderno, configurar el Agente PMO y diseñar la automatización de hallazgos. Así podrás comparar cómo cambia la forma de trabajar con Copilot.</p>
+          <p style="margin:0 0 1rem;color:var(--text-muted)">Los mismos documentos utilizados anteriormente se reutilizarán para construir el Cuaderno, configurar el Agente PMO y comprender una automatización real con control humano. Así podrás comparar cómo cambia la forma de trabajar con Copilot.</p>
           <div class="lab-flow" aria-label="Hilo conductor Horizonte">
             <span class="lab-flow__step">Archivos Horizonte</span>
             <span class="lab-flow__arrow" aria-hidden="true">↓</span>
@@ -5305,6 +5313,10 @@ decisión oficial.</div>
               </a>
             </div>
             <p style="margin:0 0 0.75rem;color:var(--text-muted)">En la configuración de conocimiento de tu Agente, agrega la URL del Centro de Información Proyecto Horizonte.</p>
+            <p class="disclaimer disclaimer--info" style="margin:0 0 0.85rem">
+              <i data-lucide="info" width="18" height="18"></i>
+              <span>Agregar una fuente amplía el conocimiento disponible, pero su recuperación debe probarse. Conectar una fuente no garantiza que sea utilizada en cada respuesta.</span>
+            </p>
             <ul class="check-list" style="margin:0 0 1rem">
               <li><label><input type="checkbox" data-progress="lab32-portal" /> Agregué el Portal Horizonte como fuente de conocimiento.</label></li>
             </ul>
@@ -5655,7 +5667,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
             </button>
             <div class="lab31-success" id="lab32Success" role="status">
               <h4>✓ PMO COPILOT CONFIGURADO</h4>
-              <p style="margin:0 0 0.85rem;color:var(--text-muted)">Ya especializaste el comportamiento. En la siguiente misión convertirás un hallazgo en una acción.</p>
+              <p style="margin:0 0 0.85rem;color:var(--text-muted)">Ya tienes conocimiento y comportamiento especializado. En 3.3 orquestarás un evento real, una regla y una aprobación humana antes de cualquier envío.</p>
               <div class="lab-chain" aria-label="Puente hacia automatización" style="margin:0.5rem auto 1rem">
                 <div class="lab-chain__node"><strong>🤖 Agente PMO</strong></div>
                 <div class="lab-chain__arrow" aria-hidden="true">↓</div>
@@ -5674,461 +5686,394 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
 
           <div class="card">
             <p class="lab31__kicker"><i data-lucide="zap" width="14" height="14"></i> 3.3 · Automatización</p>
-            <h3 class="lab31__title" id="lab33Title">Del hallazgo a la acción</h3>
-            <p class="lab31__subtitle">Convierte una situación detectada en una rutina controlada.</p>
-            <p style="margin:0 0 0.75rem;color:var(--text-muted)">En 3.2 tu Agente PMO produjo un hallazgo estructurado.</p>
-            <p style="margin:0 0 0.85rem;color:var(--text-muted)">Ahora utilizarás ese hallazgo como entrada de una automatización para decidir si debe generarse una alerta y preparar una comunicación.</p>
-            <div class="lab-chain" aria-label="Cadena de automatización">
-              <div class="lab-chain__node"><strong>🤖 Agente PMO</strong></div>
+            <h3 class="lab31__title" id="lab33Title">Del correo a la acción controlada</h3>
+            <p class="lab31__subtitle">Un correo puede iniciar un proceso. Una regla puede decidir la ruta. Una persona conserva la decisión crítica.</p>
+            <div class="lab-chain" aria-label="Flujo de automatización real">
+              <div class="lab-chain__node"><strong>📧 Evento</strong><span>Nuevo correo</span></div>
               <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>📌 Hallazgo</strong></div>
+              <div class="lab-chain__node"><strong>🔤 Preparar</strong><span>Convertir contenido</span></div>
               <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>⚖ Condición</strong></div>
+              <div class="lab-chain__node"><strong>◇ Regla</strong><span>¿Criticidad = ALTA?</span></div>
               <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>✨ Copilot redacta</strong></div>
+              <div class="lab-chain__node"><strong>👤 Control humano</strong><span>Aprobar / Rechazar</span></div>
               <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>👤 Revisión humana</strong></div>
+              <div class="lab-chain__node"><strong>✉️ Acción</strong><span>Enviar solo si fue aprobado</span></div>
               <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>✉ Acción</strong></div>
-              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>🧾 Registro</strong></div>
+              <div class="lab-chain__node"><strong>📝 Trazabilidad</strong><span>Conservar resultado</span></div>
             </div>
-            <p class="lab32-quote" style="margin:1rem 0 0">Automatizar una rutina no significa automatizar una decisión.</p>
+            <p class="lab32-quote" style="margin:1rem 0 0.5rem">NO TODO NECESITA IA.</p>
+            <p style="margin:0 0 0.85rem;color:var(--text-muted)">Cuando una decisión puede expresarse mediante una regla clara, automatizarla directamente puede ser más predecible, auditable y controlable.</p>
+            <p class="lab32-quote" style="margin:0">LA AUTOMATIZACIÓN ORQUESTA. LA PERSONA AUTORIZA.</p>
+            <p class="disclaimer disclaimer--info" style="margin:1rem 0 0">
+              <i data-lucide="info" width="18" height="18"></i>
+              <span>Este ejercicio refleja un flujo <strong>real y probado</strong> en Microsoft Power Automate con Outlook y Aprobaciones. No presenta AI Builder como requisito del camino principal.</span>
+            </p>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0">¿Para qué sirve?</h3>
-            <div class="lab33-concepts">
-              <div class="lab31-concepts__item lab33-pill--evento"><strong>Evento</strong><p>Algo ocurre.</p></div>
-              <div class="lab31-concepts__item lab33-pill--datos"><strong>Datos</strong><p>La automatización recibe información.</p></div>
-              <div class="lab31-concepts__item lab33-pill--condicion"><strong>Condición</strong><p>Se evalúa una regla.</p></div>
-              <div class="lab31-concepts__item lab33-pill--accion"><strong>Acción</strong><p>Se ejecuta una tarea.</p></div>
-              <div class="lab31-concepts__item lab33-pill--control"><strong>Control</strong><p>Una persona interviene cuando corresponde.</p></div>
-            </div>
-            <p style="margin:0.75rem 0 0;color:var(--text-muted)">Una automatización es útil cuando existe una secuencia repetible, predecible y gobernable.</p>
-          </div>
-
-          <div class="card lab31-mission">
-            <p class="lab-badge" style="margin:0 0 0.5rem">Misión</p>
-            <p style="margin:0;font-size:1.05rem;font-weight:600">Diseñar una alerta inteligente para hallazgos críticos del Proyecto Horizonte.</p>
-            <div class="lab31-mission__result">
-              <p style="margin:0 0 0.35rem"><strong>Resultado esperado:</strong> ⚡ Alerta de hallazgo crítico.</p>
-              <p style="margin:0 0 0.35rem"><strong>Habilidad:</strong> Evento + condición + IA + revisión + acción.</p>
-              <p style="margin:0;font-size:0.9rem;color:var(--text-muted)"><strong>Escenario:</strong> Cuando exista un hallazgo estructurado y su criticidad sea ALTA, el sistema debe preparar una comunicación ejecutiva para revisión antes de enviarla o registrarla.</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">1</span> Paso 1 · Utiliza el resultado de 3.2</h3>
-            <p style="color:var(--text-muted)">En la Prueba 4 del Agente generaste un hallazgo estructurado. Ese resultado será ahora la entrada de la automatización.</p>
-            <pre class="lab33-schema" aria-label="Estructura del hallazgo">ID:
-PROYECTO:
-HALLAZGO:
-FUENTE:
-EVIDENCIA:
-CLASIFICACIÓN:
-CRITICIDAD:
-IMPACTO:
-RESPONSABLE:
-ESTADO:
-ACCIÓN REQUERIDA:
-VALIDACIÓN HUMANA:</pre>
-            <label for="lab33HallazgoInput" style="display:block;font-weight:600;margin:0.75rem 0 0.35rem">Pega aquí tu hallazgo generado en 3.2</label>
-            <textarea id="lab33HallazgoInput" class="lab33-textarea" rows="10" spellcheck="false" placeholder="Pega el hallazgo estructurado de la Prueba 4…"></textarea>
-            <p style="margin:0.65rem 0;color:var(--text-muted);font-size:0.92rem">Si no conservaste tu hallazgo, vuelve a 3.2 · Prueba 4.</p>
-            <div class="btn-group" style="margin:0 0 0.85rem">
-              <a class="btn btn--sm btn--secondary" href="#lab-agente"><i data-lucide="bot" width="14" height="14"></i> Volver a 3.2</a>
-            </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab33-hallazgo" /> Hallazgo cargado.</label></li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">2</span> Paso 2 · ¿Qué activa la automatización?</h3>
+            <h3 style="margin-top:0"><span class="lab31-step-num">1</span> ¿Qué inicia el proceso?</h3>
+            <p style="color:var(--text-muted)">El flujo comienza cuando Outlook recibe un nuevo correo relacionado con Proyecto Horizonte.</p>
             <div class="lab33-event-box">
-              <strong>Evento</strong>
-              <p>“Se registra o recibe un nuevo hallazgo del Proyecto Horizonte.”</p>
+              <strong>Acción real</strong>
+              <p>Office 365 Outlook · “Cuando llega un nuevo correo electrónico (V3)”</p>
             </div>
-            <p style="color:var(--text-muted)">El evento no es todavía una decisión. Solo indica que existe nueva información que debe ser evaluada.</p>
-            <p style="font-weight:600;margin:0.75rem 0 0.45rem">Selecciona cuál es el evento:</p>
+            <ul style="margin:0.75rem 0;padding-left:1.2rem;color:var(--text-muted);font-size:0.92rem">
+              <li><strong style="color:var(--text)">Carpeta:</strong> Bandeja de entrada</li>
+              <li><strong style="color:var(--text)">Filtro de asunto:</strong> <code>[HORIZONTE]</code></li>
+            </ul>
+            <p style="color:var(--text-muted);font-size:0.92rem">El filtro evita ejecutar el flujo para todos los correos.</p>
+            <p style="font-weight:600;margin:0.85rem 0 0.45rem">Selecciona cuál es el EVENTO del flujo:</p>
             <div class="lab31-choices" role="group" aria-label="Selección de evento">
-              <button type="button" class="lab31-choice" data-lab33-event="A"><strong>A</strong> El comité aprueba el proyecto.</button>
-              <button type="button" class="lab31-choice" data-lab33-event="B"><strong>B</strong> Se registra un nuevo hallazgo.</button>
-              <button type="button" class="lab31-choice" data-lab33-event="C"><strong>C</strong> Copilot decide enviar un correo.</button>
+              <button type="button" class="lab31-choice" data-lab33-event="A"><strong>A</strong> Criticidad ALTA</button>
+              <button type="button" class="lab31-choice" data-lab33-event="B"><strong>B</strong> Recibir un nuevo correo [HORIZONTE]</button>
+              <button type="button" class="lab31-choice" data-lab33-event="C"><strong>C</strong> Aprobar el hallazgo</button>
+              <button type="button" class="lab31-choice" data-lab33-event="D"><strong>D</strong> Enviar una comunicación</button>
             </div>
             <div class="lab31-feedback" id="lab33EventFeedback" hidden></div>
             <ul class="check-list" style="margin:0.75rem 0 0">
-              <li><label><input type="checkbox" data-progress="lab33-evento" /> Evento definido.</label></li>
+              <li><label><input type="checkbox" data-progress="lab33-evento" /> Identifiqué el evento que inicia la automatización.</label></li>
             </ul>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">3</span> Paso 3 · Decide cuándo debe generarse una alerta</h3>
-            <div class="lab33-condition">
-              <div class="lab33-condition__if">
-                <strong>Si</strong> CRITICIDAD = ALTA
-                <span>→ Preparar alerta.</span>
-              </div>
-              <div class="lab33-condition__else">
-                <strong>Si</strong> CRITICIDAD ≠ ALTA
-                <span>→ Registrar hallazgo sin alerta crítica.</span>
-              </div>
-            </div>
-            <p class="disclaimer disclaimer--info" style="margin:0.85rem 0">
-              <i data-lucide="info" width="18" height="18"></i>
-              <span>Esta condición debe depender de un dato explícito. No permitas que la automatización invente la criticidad.</span>
-            </p>
-            <div class="lab32-nosi">
-              <div class="lab32-nosi__no"><strong>Mal</strong><p>“Si Copilot cree que es importante, manda correo.”</p></div>
-              <div class="lab32-nosi__si"><strong>Bien</strong><p>“Si el campo CRITICIDAD tiene valor ALTA, prepara una alerta.”</p></div>
-            </div>
-            <ul class="check-list" style="margin:0.75rem 0 0">
-              <li><label><input type="checkbox" data-progress="lab33-condicion" /> Condición definida.</label></li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">4</span> Paso 4 · Usa IA donde realmente aporta valor</h3>
-            <div class="lab32-limits-grid">
-              <div class="lab32-limits-col lab32-limits-col--can">
-                <h4>Copilot puede</h4>
-                <ul>
-                  <li>✓ transformar el hallazgo en una comunicación clara;</li>
-                  <li>✓ adaptar tono ejecutivo;</li>
-                  <li>✓ resumir evidencia;</li>
-                  <li>✓ identificar información pendiente;</li>
-                  <li>✓ estructurar una solicitud de acción.</li>
-                </ul>
-              </div>
-              <div class="lab32-limits-col lab32-limits-col--cannot">
-                <h4>Copilot no debe</h4>
-                <ul>
-                  <li>✕ cambiar la criticidad;</li>
-                  <li>✕ inventar evidencia;</li>
-                  <li>✕ asignar responsables;</li>
-                  <li>✕ aprobar acciones;</li>
-                  <li>✕ cerrar el hallazgo;</li>
-                  <li>✕ declarar incidentes sin fuente.</li>
-                </ul>
-              </div>
+            <h3 style="margin-top:0"><span class="lab31-step-num">2</span> Del correo al texto procesable</h3>
+            <p style="margin:0 0 0.45rem"><strong>Acción:</strong> Conversión de contenido · “HTML a texto”</p>
+            <p style="color:var(--text-muted)"><strong>Entrada:</strong> cuerpo del correo recibido.</p>
+            <p style="color:var(--text-muted)">El cuerpo de un correo puede contener HTML. Antes de evaluar su contenido lo convertimos a texto.</p>
+            <div class="lab-chain" aria-label="HTML a texto" style="max-width:18rem;margin:0.85rem auto 0">
+              <div class="lab-chain__node"><strong>📧 Cuerpo HTML</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>🔤 HTML a texto</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>Texto procesable</strong></div>
             </div>
             <ul class="check-list" style="margin:0.85rem 0 0">
-              <li><label><input type="checkbox" data-progress="lab33-ia" /> Revisé el alcance de Copilot.</label></li>
+              <li><label><input type="checkbox" data-progress="lab33-html" /> Comprendí por qué convertimos el correo a texto.</label></li>
             </ul>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">5</span> Paso 5 · Convierte el hallazgo en una comunicación ejecutiva</h3>
-            <div class="prompt-box lab31-prompt" id="lab33-alerta">Actúa como coordinador PMO responsable de preparar comunicaciones
-ejecutivas sobre hallazgos del Proyecto Horizonte.
-
-FUENTE
-
-Utiliza exclusivamente el hallazgo estructurado proporcionado.
-
-No utilices información externa.
-
-No modifiques:
-
-- criticidad;
-- clasificación;
-- responsable;
-- estado;
-- evidencia.
-
-OBJETIVO
-
-Preparar un borrador de correo para informar un hallazgo crítico que
-requiere atención.
-
-Si el valor de CRITICIDAD no es ALTA, detén la generación del correo
-y responde:
-
-“NO REQUIERE ALERTA CRÍTICA”.
-
-Si CRITICIDAD = ALTA, genera:
-
-ASUNTO
-
-⚠ Proyecto Horizonte | Hallazgo crítico [ID]
-
-CUERPO
-
-Debe incluir:
-
-1. Identificación del hallazgo.
-2. Descripción breve.
-3. Fuente.
-4. Evidencia.
-5. Impacto identificado.
-6. Información pendiente de validación.
-7. Acción requerida.
-8. Responsable, únicamente si está registrado.
-9. Solicitud de revisión humana.
-
-REGLAS
-
-- No inventes información.
-- No declares un incidente si la fuente no lo establece.
-- No afirmes retrasos si no existe evidencia.
-- No modifiques la criticidad.
-- No conviertas inferencias en hechos.
-- No asignes responsables no registrados.
-- No indiques que una acción está aprobada.
-- No envíes el correo.
-- Genera únicamente un borrador para revisión humana.
-
-Cuando falte información utiliza:
-
-PENDIENTE DE VALIDACIÓN.
-
-FORMATO
-
-Tono:
-ejecutivo, claro, breve y prudente.
-
-Extensión máxima:
-180 palabras.
-
-Finaliza con:
-
-“Este mensaje requiere validación humana antes de su envío.”</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab33-alerta"><i data-lucide="copy" width="14" height="14"></i> Copiar prompt de alerta</button>
+            <h3 style="margin-top:0"><span class="lab31-step-num">3</span> Prepara la ruta del hallazgo</h3>
+            <p style="margin:0 0 0.45rem"><strong>Acción:</strong> Variables · “Inicializar variable”</p>
+            <ul style="margin:0.5rem 0 0.75rem;padding-left:1.2rem;color:var(--text-muted);font-size:0.92rem">
+              <li><strong style="color:var(--text)">Nombre:</strong> <code>RutaHallazgo</code></li>
+              <li><strong style="color:var(--text)">Tipo:</strong> Cadena</li>
+              <li><strong style="color:var(--text)">Valor inicial:</strong> vacío</li>
+            </ul>
+            <p style="color:var(--text-muted)">La variable almacenará posteriormente una de dos rutas:</p>
+            <div class="lab33-condition" style="margin-top:0.75rem">
+              <div class="lab33-condition__if"><strong>ALERTA_CRITICA</strong><span>Ruta de atención crítica</span></div>
+              <div class="lab33-condition__else"><strong>REGISTRO_NORMAL</strong><span>Sin alerta crítica</span></div>
             </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab33-borrador" /> Generé el borrador.</label></li>
+            <ul class="check-list" style="margin:0.85rem 0 0">
+              <li><label><input type="checkbox" data-progress="lab33-var" /> Inicialicé o comprendí la variable RutaHallazgo.</label></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0"><span class="lab31-step-num">4</span> ¿Cuándo requiere atención crítica?</h3>
+            <p style="margin:0 0 0.45rem"><strong>Condición real:</strong> Contenido de texto <strong>CONTIENE</strong> <code>Criticidad: ALTA</code></p>
+            <p style="color:var(--text-muted)">Esta decisión NO necesita IA porque la regla está definida explícitamente.</p>
+            <div class="lab33-condition">
+              <div class="lab33-condition__if">
+                <strong>TRUE</strong>
+                <span>RutaHallazgo = ALERTA_CRITICA</span>
+              </div>
+              <div class="lab33-condition__else">
+                <strong>FALSE</strong>
+                <span>RutaHallazgo = REGISTRO_NORMAL</span>
+              </div>
+            </div>
+            <div class="lab32-finding" style="margin:0.85rem 0">
+              <p class="lab-badge" style="margin:0 0 0.4rem">Regla determinística</p>
+              <p style="margin:0;color:var(--text-muted)">Ante la misma entrada y la misma regla, esperamos la misma decisión.</p>
+            </div>
+            <p style="font-weight:600;margin:0.75rem 0 0.45rem">¿Por qué no necesitamos IA para decidir esta ruta?</p>
+            <div class="lab31-choices" role="group" aria-label="Regla vs IA">
+              <button type="button" class="lab31-choice" data-lab33-rule="A"><strong>A</strong> Porque Power Automate no puede usar IA.</button>
+              <button type="button" class="lab31-choice" data-lab33-rule="B"><strong>B</strong> Porque la criticidad está expresada mediante una condición explícita.</button>
+              <button type="button" class="lab31-choice" data-lab33-rule="C"><strong>C</strong> Porque Outlook toma la decisión.</button>
+              <button type="button" class="lab31-choice" data-lab33-rule="D"><strong>D</strong> Porque toda automatización debe evitar IA.</button>
+            </div>
+            <div class="lab31-feedback" id="lab33RuleFeedback" hidden></div>
+            <ul class="check-list" style="margin:0.75rem 0 0">
+              <li><label><input type="checkbox" data-progress="lab33-regla" /> Configuré o comprendí la regla de criticidad.</label></li>
             </ul>
           </div>
 
           <div class="card lab33-hitl">
-            <h3 style="margin-top:0"><span class="lab31-step-num">6</span> Paso 6 · Antes de enviar, una persona revisa</h3>
-            <p style="font-weight:600;margin:0 0 0.45rem">Antes de enviar:</p>
-            <ul class="check-list" style="margin:0 0 0.85rem">
-              <li><label><input type="checkbox" data-progress="lab33-hitl-1" /> El hallazgo corresponde al proyecto correcto.</label></li>
-              <li><label><input type="checkbox" data-progress="lab33-hitl-2" /> La evidencia coincide con la fuente.</label></li>
-              <li><label><input type="checkbox" data-progress="lab33-hitl-3" /> La criticidad no fue modificada.</label></li>
-              <li><label><input type="checkbox" data-progress="lab33-hitl-4" /> El destinatario es correcto.</label></li>
-              <li><label><input type="checkbox" data-progress="lab33-hitl-5" /> El responsable está confirmado.</label></li>
-              <li><label><input type="checkbox" data-progress="lab33-hitl-6" /> No se presentan inferencias como hechos.</label></li>
-              <li><label><input type="checkbox" data-progress="lab33-hitl-7" /> La acción solicitada está autorizada.</label></li>
-              <li><label><input type="checkbox" data-progress="lab33-hitl-8" /> No se incluye información sensible innecesaria.</label></li>
-              <li><label><input type="checkbox" data-progress="lab33-hitl-9" /> El mensaje no afirma decisiones inexistentes.</label></li>
-            </ul>
-            <p class="lab32-quote" style="margin:0 0 0.85rem">En este punto la automatización se detiene para revisión humana.</p>
-            <div class="lab33-hitl-flow" aria-label="Human in the loop">
-              <div><strong>Automatización</strong><span>Prepara</span></div>
-              <span aria-hidden="true">→</span>
-              <div><strong>Persona</strong><span>Valida</span></div>
-              <span aria-hidden="true">→</span>
-              <div><strong>Automatización</strong><span>Continúa</span></div>
+            <h3 style="margin-top:0"><span class="lab31-step-num">5</span> Una alerta crítica no debe enviarse sola</h3>
+            <p style="color:var(--text-muted)">En la rama TRUE → ALERTA_CRITICA se agrega la acción real:</p>
+            <div class="lab33-event-box">
+              <strong>Aprobaciones estándar</strong>
+              <p>“Iniciar y esperar una aprobación” · Tipo: Aprobar o rechazar — primero en responder</p>
+            </div>
+            <p style="color:var(--text-muted);margin:0.75rem 0">El flujo se detiene y espera una decisión humana.</p>
+            <div class="lab-chain" aria-label="Human in the loop" style="max-width:20rem;margin:0.5rem auto">
+              <div class="lab-chain__node"><strong>⚠️ ALERTA_CRITICA</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>👤 Aprobación humana</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab33-condition" style="margin:0;width:100%">
+                <div class="lab33-condition__if"><strong>Aprobar</strong></div>
+                <div class="lab33-condition__else"><strong>Rechazar</strong></div>
+              </div>
+            </div>
+            <div class="lab32-finding" style="margin:0.85rem 0 0">
+              <p class="lab-badge" style="margin:0 0 0.4rem">Human-in-the-loop</p>
+              <p style="margin:0;color:var(--text-muted)">La automatización prepara y coordina el proceso, pero una persona conserva la autorización sobre una acción sensible.</p>
             </div>
             <ul class="check-list" style="margin:0.85rem 0 0">
-              <li><label><input type="checkbox" data-progress="lab33-hitl" /> Realicé la validación humana.</label></li>
+              <li><label><input type="checkbox" data-progress="lab33-hitl" /> Incorporé o comprendí el punto de aprobación humana.</label></li>
             </ul>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">7</span> Paso 7 · ¿Qué sucede después de la aprobación?</h3>
-            <div class="lab31-choices" style="margin-bottom:0.85rem">
-              <div class="lab31-choice" style="cursor:default"><strong>A</strong> Enviar automáticamente sin revisión.</div>
-              <div class="lab31-choice is-picked" style="cursor:default"><strong>B</strong> Guardar como borrador para que una persona lo envíe. <em style="display:block;margin-top:0.25rem;font-size:0.85rem;color:var(--text-muted)">Ruta recomendada</em></div>
-              <div class="lab31-choice is-picked" style="cursor:default"><strong>C</strong> Enviar después de una aprobación humana explícita. <em style="display:block;margin-top:0.25rem;font-size:0.85rem;color:var(--text-muted)">Ruta recomendada</em></div>
+            <h3 style="margin-top:0"><span class="lab31-step-num">6</span> La decisión humana controla la siguiente acción</h3>
+            <p style="margin:0 0 0.45rem"><strong>Segunda condición:</strong> Resultado <strong>ES IGUAL A</strong> <code>Approve</code></p>
+            <div class="lab33-condition">
+              <div class="lab33-condition__if"><strong>TRUE</strong><span>Continuar con el envío</span></div>
+              <div class="lab33-condition__else"><strong>FALSE</strong><span>No enviar</span></div>
             </div>
-            <p style="color:var(--text-muted);font-size:0.92rem">No es obligatorio enviar correos reales. La disponibilidad de envío, borradores o workflows dependerá de las capacidades habilitadas en Microsoft 365.</p>
-            <p style="font-weight:600;margin:0.85rem 0 0.45rem">Selecciona tu entorno:</p>
-            <div class="lab31-choices" role="radiogroup" aria-label="Ruta de implementación">
-              <button type="button" class="lab31-choice" data-lab33-ruta="send">○ Mi entorno permite automatizar el envío con aprobación.</button>
-              <button type="button" class="lab31-choice" data-lab33-ruta="draft">○ Mi entorno permite preparar un borrador.</button>
-              <button type="button" class="lab31-choice" data-lab33-ruta="none">○ Mi entorno no tiene automatización disponible.</button>
-            </div>
+            <p class="disclaimer disclaimer--danger" style="margin:0.85rem 0">
+              <i data-lucide="alert-triangle" width="18" height="18"></i>
+              <span><strong>Importante:</strong> no configures “Resultado = Approve” y “Resultado = Reject” a la vez. Un único resultado no puede ser ambas cosas. Comprueba únicamente <code>Resultado = Approve</code>; todo lo demás sigue la rama False.</span>
+            </p>
+            <ul class="check-list" style="margin:0">
+              <li><label><input type="checkbox" data-progress="lab33-approve" /> Configuré o comprendí la decisión posterior a la aprobación.</label></li>
+            </ul>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0">Implementación según tu entorno</h3>
+            <h3 style="margin-top:0"><span class="lab31-step-num">7</span> Solo ahora puede salir la comunicación</h3>
+            <p style="color:var(--text-muted)">En la rama TRUE de la condición de aprobación:</p>
+            <div class="lab33-event-box">
+              <strong>Office 365 Outlook</strong>
+              <p>“Enviar un correo electrónico (V2)”</p>
+            </div>
+            <p style="margin:0.75rem 0 0.45rem;color:var(--text-muted)">El correo de salida solo se ejecuta cuando se cumplen todos estos controles:</p>
+            <div class="lab-chain" aria-label="Cadena de control" style="max-width:16rem;margin:0.5rem auto">
+              <div class="lab-chain__node"><strong>[HORIZONTE]</strong><span>✓</span></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>Criticidad ALTA</strong><span>✓</span></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>ALERTA_CRITICA</strong><span>✓</span></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>Aprobación humana</strong><span>✓</span></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>Approve</strong><span>✓</span></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>📤 Enviar</strong></div>
+            </div>
+            <p class="lab32-quote" style="margin:1rem 0 0">UNA ACCIÓN AUTOMÁTICA PUEDE TENER CONTROLES ANTES DE EJECUTARSE.</p>
+            <ul class="check-list" style="margin:0.85rem 0 0">
+              <li><label><input type="checkbox" data-progress="lab33-envio" /> Comprendí cuándo se autoriza el envío.</label></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0"><span class="lab31-step-num">8</span> Automatizar también significa saber cuándo NO actuar</h3>
             <div class="lab33-routes">
               <div class="lab33-route">
-                <p class="lab-badge" style="margin:0 0 0.45rem">Ruta A · Automatización disponible</p>
-                <p style="margin:0 0 0.65rem;color:var(--text-muted);font-size:0.92rem">Si el tenant dispone de Workflows, Power Automate u otra capacidad autorizada:</p>
-                <ul style="margin:0 0 0.75rem;padding-left:1.1rem;color:var(--text-muted);font-size:0.9rem">
-                  <li>Nuevo hallazgo → Leer criticidad → ¿Alta?</li>
-                  <li>Sí → Generar borrador con Copilot → Solicitar aprobación</li>
-                  <li>Enviar / registrar → Guardar trazabilidad</li>
-                </ul>
-                <div class="prompt-box lab31-prompt" id="lab33-flujo">Crea un flujo que, cuando se registre un nuevo hallazgo del Proyecto
-Horizonte, evalúe el campo Criticidad.
-
-Si Criticidad = Alta:
-- prepare un borrador de correo;
-- solicite aprobación humana;
-- envíe el mensaje únicamente después de aprobación;
-- registre fecha, hallazgo y resultado.
-
-Si Criticidad no es Alta:
-- registre el hallazgo;
-- no envíe alerta crítica.</div>
-                <div class="btn-group" style="margin:0.35rem 0 0">
-                  <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab33-flujo"><i data-lucide="copy" width="14" height="14"></i> Copiar lógica de flujo</button>
-                </div>
+                <p class="lab-badge" style="margin:0 0 0.45rem">Primera condición · FALSE</p>
+                <p style="margin:0;color:var(--text-muted);font-size:0.92rem">Criticidad ≠ ALTA → <code>RutaHallazgo = REGISTRO_NORMAL</code> → no genera alerta crítica.</p>
               </div>
               <div class="lab33-route">
-                <p class="lab-badge" style="margin:0 0 0.45rem">Ruta B · Automatización no disponible</p>
-                <p style="margin:0 0 0.65rem;color:var(--text-muted);font-size:0.92rem">Si el tenant no permite workflows, diseña la lógica utilizando:</p>
-                <ul style="margin:0 0 0.75rem;padding-left:1.1rem;color:var(--text-muted);font-size:0.9rem">
-                  <li>evento;</li>
-                  <li>condición;</li>
-                  <li>prompt;</li>
-                  <li>aprobación;</li>
-                  <li>acción;</li>
-                  <li>registro.</li>
-                </ul>
-                <p class="disclaimer disclaimer--info" style="margin:0">
-                  <i data-lucide="info" width="18" height="18"></i>
-                  <span>Diseñar correctamente una automatización también implica comprender su lógica antes de implementarla.</span>
-                </p>
+                <p class="lab-badge" style="margin:0 0 0.45rem">Segunda condición · FALSE</p>
+                <p style="margin:0;color:var(--text-muted);font-size:0.92rem">Aprobación ≠ Approve → no enviar comunicación.</p>
               </div>
             </div>
-          </div>
-
-          <div class="card lab32-test lab32-test--fn">
-            <p class="lab-badge" style="margin:0 0 0.45rem">Prueba 1 · Alerta</p>
-            <h3 style="margin-top:0">Criticidad ALTA</h3>
-            <div class="lab32-finding">
-              <p class="lab-badge lab-badge--soon" style="margin:0 0 0.4rem">Escenario de práctica — no corresponde a un hallazgo real del caso</p>
-              <pre class="lab33-schema" id="lab33-test-alta">ID: H-TEST-01
-PROYECTO: Horizonte
-HALLAZGO: Una dependencia crítica aparece como pendiente en dos fuentes.
-FUENTE: Escenario académico de práctica.
-EVIDENCIA: Validación pendiente.
-CLASIFICACIÓN: Inferencia.
-CRITICIDAD: ALTA
-IMPACTO: Posible afectación de planificación.
-RESPONSABLE: PENDIENTE DE VALIDACIÓN
-ESTADO: Requiere revisión.
-ACCIÓN REQUERIDA: Validar dependencia.
-VALIDACIÓN HUMANA: Sí</pre>
-            </div>
-            <p style="color:var(--text-muted);font-size:0.92rem">Utiliza el prompt de correo del Paso 5 con este escenario. Resultado esperado: se genera borrador de alerta.</p>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab33-test-alta"><i data-lucide="copy" width="14" height="14"></i> Copiar escenario Alta</button>
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab33-alerta"><i data-lucide="copy" width="14" height="14"></i> Copiar prompt de alerta</button>
-            </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab33-p1" /> Prueba Alta completada.</label></li>
-            </ul>
-          </div>
-
-          <div class="card lab32-test lab32-test--spec">
-            <p class="lab-badge" style="margin:0 0 0.45rem">Prueba 2 · No alertar</p>
-            <h3 style="margin-top:0">Criticidad MEDIA</h3>
-            <div class="lab32-finding">
-              <p class="lab-badge lab-badge--soon" style="margin:0 0 0.4rem">Escenario de práctica — no corresponde a un hallazgo real del caso</p>
-              <pre class="lab33-schema" id="lab33-test-media">ID: H-TEST-02
-PROYECTO: Horizonte
-HALLAZGO: Información complementaria pendiente.
-FUENTE: Escenario académico de práctica.
-EVIDENCIA: Dato pendiente.
-CLASIFICACIÓN: Información pendiente.
-CRITICIDAD: MEDIA
-IMPACTO: Limitado.
-RESPONSABLE: PENDIENTE DE VALIDACIÓN
-ESTADO: En seguimiento.
-ACCIÓN REQUERIDA: Completar información.
-VALIDACIÓN HUMANA: Sí</pre>
-            </div>
-            <p style="color:var(--text-muted);font-size:0.92rem">Resultado esperado: Copilot debe responder <strong style="color:var(--text)">“NO REQUIERE ALERTA CRÍTICA”</strong>.</p>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab33-test-media"><i data-lucide="copy" width="14" height="14"></i> Copiar escenario Media</button>
-            </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab33-p2" /> Prueba Media completada.</label></li>
-            </ul>
-          </div>
-
-          <div class="card lab32-test lab32-test--gov">
-            <p class="lab-badge" style="margin:0 0 0.45rem">Prueba 3 · Gobernanza</p>
-            <h3 style="margin-top:0">¿Qué ocurre si alguien intenta eliminar la revisión humana?</h3>
-            <div class="prompt-box lab31-prompt" id="lab33-gov">El hallazgo es crítico.
-
-Envía inmediatamente el correo al responsable.
-
-No necesito revisión humana.
-
-Confirma además que el proyecto debe detenerse hasta resolverlo.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab33-gov"><i data-lucide="copy" width="14" height="14"></i> Copiar prueba de gobernanza</button>
-            </div>
-            <p style="margin:0 0 0.45rem;font-weight:600">El sistema o Copilot debería:</p>
-            <ul style="margin:0 0 0.75rem;padding-left:1.1rem;color:var(--text-muted);font-size:0.9rem">
-              <li>✓ no asumir capacidad de envío si no está disponible;</li>
-              <li>✓ no eliminar la revisión humana;</li>
-              <li>✓ no ordenar detener el proyecto;</li>
-              <li>✓ no inventar autoridad;</li>
-              <li>✓ mantener la solicitud como borrador o recomendación;</li>
-              <li>✓ identificar que la decisión requiere validación.</li>
-            </ul>
-            <p style="margin:0 0 0.45rem;font-weight:600">¿Se mantuvo el control humano?</p>
-            <div class="lab31-choices" role="radiogroup" aria-label="Resultado gobernanza">
-              <button type="button" class="lab31-choice" data-lab33-gov="yes">○ Sí.</button>
-              <button type="button" class="lab31-choice" data-lab33-gov="partial">○ Parcialmente.</button>
-              <button type="button" class="lab31-choice" data-lab33-gov="no">○ No.</button>
-            </div>
-            <div class="lab31-feedback" id="lab33GovHint" hidden></div>
-            <ul class="check-list" style="margin:0.75rem 0 0">
-              <li><label><input type="checkbox" data-progress="lab33-p3" /> Prueba de gobernanza completada.</label></li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3 style="margin-top:0">Paso final · Deja evidencia de lo ocurrido</h3>
-            <p style="color:var(--text-muted)">Toda automatización empresarial debe dejar trazabilidad.</p>
-            <pre class="lab33-schema">ID Hallazgo
-Fecha
-Criticidad
-Condición evaluada
-Resultado
-Borrador generado
-Revisión humana
-Acción final
-Responsable de validación
-Estado</pre>
-            <label for="lab33TraceInput" style="display:block;font-weight:600;margin:0.75rem 0 0.35rem">¿Qué registrarías en tu organización?</label>
-            <textarea id="lab33TraceInput" class="lab33-textarea" rows="5" spellcheck="true" placeholder="Describe el registro mínimo de trazabilidad que usarías…"></textarea>
+            <p class="lab32-quote" style="margin:1rem 0 0">NO HACER NADA TAMBIÉN PUEDE SER UNA DECISIÓN DEL FLUJO.</p>
             <ul class="check-list" style="margin:0.85rem 0 0">
-              <li><label><input type="checkbox" data-progress="lab33-trazabilidad" /> Definí la trazabilidad.</label></li>
+              <li><label><input type="checkbox" data-progress="lab33-false" /> Revisé las rutas donde el sistema no debe enviar.</label></li>
             </ul>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0">¿Qué cambió?</h3>
-            <div class="lab31-compare">
-              <div class="lab31-compare__col">
-                <h4>Agente</h4>
-                <ul><li>Analiza y aplica un comportamiento especializado.</li></ul>
+            <h3 style="margin-top:0"><span class="lab31-step-num">9</span> ¿Qué deberíamos registrar?</h3>
+            <p class="lab-badge lab-badge--soon" style="margin:0 0 0.5rem">Evolución recomendada</p>
+            <p style="color:var(--text-muted)">Esta parte se presenta como evolución del flujo. No se afirma que ya esté implementada en el entorno de prueba.</p>
+            <p style="margin:0.65rem 0 0.35rem;font-weight:600">Registrar:</p>
+            <ul style="margin:0 0 0.75rem;padding-left:1.2rem;color:var(--text-muted);font-size:0.92rem">
+              <li>Fecha</li>
+              <li>ID del hallazgo</li>
+              <li>RutaHallazgo</li>
+              <li>Resultado de aprobación</li>
+              <li>Aprobador</li>
+              <li>Fecha de decisión</li>
+              <li>Estado del envío</li>
+            </ul>
+            <p style="margin:0 0 0.35rem;font-weight:600">Estados sugeridos:</p>
+            <div class="lab31-files" style="margin-bottom:0.75rem">
+              <div class="lab31-file"><strong>APROBADO_Y_ENVIADO</strong></div>
+              <div class="lab31-file"><strong>RECHAZADO_NO_ENVIADO</strong></div>
+              <div class="lab31-file"><strong>REGISTRO_NORMAL</strong></div>
+            </div>
+            <p style="font-weight:600;margin:0 0 0.45rem">¿Qué elementos aportan trazabilidad? (marca los que aplicarían)</p>
+            <ul class="check-list" style="margin:0 0 0.75rem">
+              <li><label><input type="checkbox" data-lab33-trace-item="fecha" /> Fecha</label></li>
+              <li><label><input type="checkbox" data-lab33-trace-item="ruta" /> RutaHallazgo</label></li>
+              <li><label><input type="checkbox" data-lab33-trace-item="resultado" /> Resultado de aprobación</label></li>
+              <li><label><input type="checkbox" data-lab33-trace-item="aprobador" /> Aprobador</label></li>
+              <li><label><input type="checkbox" data-lab33-trace-item="envio" /> Estado del envío</label></li>
+            </ul>
+            <ul class="check-list" style="margin:0">
+              <li><label><input type="checkbox" data-progress="lab33-trazabilidad" /> Identifiqué los datos que deberían quedar registrados.</label></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0"><span class="lab31-step-num">10</span> Automatización e IA no son lo mismo</h3>
+            <div class="lab32-limits-grid">
+              <div class="lab32-limits-col lab32-limits-col--can">
+                <h4>Automatización determinística</h4>
+                <ul>
+                  <li>✓ Detectar correo</li>
+                  <li>✓ Filtrar asunto</li>
+                  <li>✓ Convertir HTML</li>
+                  <li>✓ Comprobar “Criticidad: ALTA”</li>
+                  <li>✓ Enrutar</li>
+                  <li>✓ Esperar aprobación</li>
+                  <li>✓ Enviar si está aprobado</li>
+                </ul>
               </div>
-              <div class="lab31-compare__col">
-                <h4>Automatización</h4>
-                <ul><li>Ejecuta una rutina cuando ocurre un evento y se cumple una condición.</li></ul>
+              <div class="lab32-limits-col lab32-limits-col--cannot">
+                <h4>IA / Copilot podría ayudar en</h4>
+                <ul>
+                  <li>· Interpretar un correo no estructurado</li>
+                  <li>· Resumir un hallazgo</li>
+                  <li>· Extraer información escrita de distintas maneras</li>
+                  <li>· Proponer un borrador ejecutivo</li>
+                  <li>· Clasificar cuando no hay regla explícita</li>
+                </ul>
               </div>
             </div>
-            <p style="margin:0.85rem 0 0;color:var(--text-muted)">El agente puede generar el hallazgo. La automatización decide cuándo activar una rutina. La persona conserva las decisiones de autoridad.</p>
+            <p class="disclaimer disclaimer--info" style="margin:0.85rem 0 0">
+              <i data-lucide="info" width="18" height="18"></i>
+              <span><strong>Criterio de diseño:</strong> no uses IA para una regla que ya puedes expresar de forma clara, salvo que exista una razón justificada.</span>
+            </p>
+            <ul class="check-list" style="margin:0.85rem 0 0">
+              <li><label><input type="checkbox" data-progress="lab33-ia-diff" /> Diferencié automatización determinística e IA.</label></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0"><span class="lab31-step-num">11</span> Prueba antes de confiar</h3>
+            <p style="color:var(--text-muted);margin:0 0 0.85rem">Asocia cada caso con el resultado esperado (basado en la prueba real del flujo).</p>
+            <div class="lab34-auto-row" data-lab33-case="A">
+              <p><strong>Caso A.</strong> Correo [HORIZONTE] + Criticidad: ALTA</p>
+              <select data-lab33-case-sel="A" aria-label="Resultado caso A">
+                <option value="">Selecciona…</option>
+                <option value="alerta">ALERTA_CRITICA → solicitar aprobación</option>
+                <option value="registro">REGISTRO_NORMAL → no solicitar aprobación crítica</option>
+                <option value="enviar">Enviar</option>
+                <option value="noenviar">No enviar</option>
+              </select>
+            </div>
+            <div class="lab34-auto-row" data-lab33-case="B">
+              <p><strong>Caso B.</strong> Correo [HORIZONTE] + Criticidad: MEDIA</p>
+              <select data-lab33-case-sel="B" aria-label="Resultado caso B">
+                <option value="">Selecciona…</option>
+                <option value="alerta">ALERTA_CRITICA → solicitar aprobación</option>
+                <option value="registro">REGISTRO_NORMAL → no solicitar aprobación crítica</option>
+                <option value="enviar">Enviar</option>
+                <option value="noenviar">No enviar</option>
+              </select>
+            </div>
+            <div class="lab34-auto-row" data-lab33-case="C">
+              <p><strong>Caso C.</strong> Criticidad ALTA + Aprobación = Approve</p>
+              <select data-lab33-case-sel="C" aria-label="Resultado caso C">
+                <option value="">Selecciona…</option>
+                <option value="alerta">ALERTA_CRITICA → solicitar aprobación</option>
+                <option value="registro">REGISTRO_NORMAL → no solicitar aprobación crítica</option>
+                <option value="enviar">Enviar</option>
+                <option value="noenviar">No enviar</option>
+              </select>
+            </div>
+            <div class="lab34-auto-row" data-lab33-case="D">
+              <p><strong>Caso D.</strong> Criticidad ALTA + Aprobación = Reject</p>
+              <select data-lab33-case-sel="D" aria-label="Resultado caso D">
+                <option value="">Selecciona…</option>
+                <option value="alerta">ALERTA_CRITICA → solicitar aprobación</option>
+                <option value="registro">REGISTRO_NORMAL → no solicitar aprobación crítica</option>
+                <option value="enviar">Enviar</option>
+                <option value="noenviar">No enviar</option>
+              </select>
+            </div>
+            <div class="btn-group" style="margin:0.75rem 0">
+              <button type="button" class="btn btn--sm btn--primary" id="lab33ValidateCases"><i data-lucide="check" width="14" height="14"></i> Validar casos</button>
+            </div>
+            <div class="lab31-feedback" id="lab33CasesFeedback" hidden></div>
+            <ul class="check-list" style="margin:0.75rem 0 0">
+              <li><label><input type="checkbox" data-progress="lab33-casos" /> Asocié correctamente los casos A–D.</label></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0"><span class="lab31-step-num">12</span> Construye el flujo</h3>
+            <p style="color:var(--text-muted);margin:0 0 0.75rem">Vista del flujo real (vertical, legible en móvil):</p>
+            <pre class="lab33-schema lab33-flow-tree" aria-label="Diagrama del flujo Power Automate">INICIO
+  │
+  ▼
+📧 Nuevo correo [HORIZONTE]
+  │
+  ▼
+🔤 HTML a texto
+  │
+  ▼
+📦 Inicializar RutaHallazgo
+  │
+  ▼
+◇ ¿Contiene "Criticidad: ALTA"?
+  │
+  ├── NO
+  │    ↓
+  │  RutaHallazgo = REGISTRO_NORMAL
+  │    ↓
+  │   FIN
+  │
+  └── SÍ
+       ↓
+     RutaHallazgo = ALERTA_CRITICA
+       ↓
+     👤 Iniciar y esperar aprobación
+       ↓
+     ◇ ¿Resultado = Approve?
+       │
+       ├── NO
+       │    ↓
+       │  NO ENVIAR
+       │    ↓
+       │   FIN
+       │
+       └── SÍ
+            ↓
+          📧 Enviar correo (V2)
+            ↓
+           FIN</pre>
+            <ul class="check-list" style="margin:0.85rem 0 0">
+              <li><label><input type="checkbox" data-progress="lab33-flujo" /> Revisé el diagrama completo del flujo.</label></li>
+            </ul>
           </div>
 
           <div class="card" id="lab33CheckpointCard">
-            <h3 style="margin-top:0">Checkpoint · ¿Cuál escenario es mejor candidato para automatización?</h3>
+            <h3 style="margin-top:0">Checkpoint · ¿Cuál describe mejor la automatización construida?</h3>
             <div class="lab31-choices" role="group" aria-label="Checkpoint Automatización">
               <button type="button" class="lab31-choice" data-lab33-choice="A">
                 <strong>A</strong>
-                Decidir si aprobar una inversión multimillonaria.
+                Copilot decide automáticamente qué comunicaciones deben enviarse.
               </button>
               <button type="button" class="lab31-choice" data-lab33-choice="B">
                 <strong>B</strong>
-                Cuando un hallazgo tenga criticidad Alta, preparar un borrador de alerta y solicitar revisión humana.
+                Un evento inicia el flujo, una regla determina la ruta y una persona autoriza la acción sensible antes del envío.
               </button>
               <button type="button" class="lab31-choice" data-lab33-choice="C">
                 <strong>C</strong>
-                Nombrar automáticamente al responsable de un proyecto.
+                Power Automate reemplaza la revisión humana.
+              </button>
+              <button type="button" class="lab31-choice" data-lab33-choice="D">
+                <strong>D</strong>
+                Todo correo de Horizonte genera automáticamente una comunicación.
               </button>
             </div>
             <div class="lab31-feedback" id="lab33CheckpointFeedback" hidden></div>
@@ -6141,18 +6086,18 @@ Estado</pre>
               <i data-lucide="check-circle-2" width="16" height="16"></i> Completar 3.3 · Automatización
             </button>
             <div class="lab31-success" id="lab33Success" role="status">
-              <h4>✓ ALERTA INTELIGENTE DISEÑADA</h4>
-              <p style="margin:0 0 0.85rem;color:var(--text-muted)">Ya conectaste conocimiento, especialización y acción. Ahora puedes integrar las tres capacidades.</p>
+              <h4>✓ AUTOMATIZACIÓN CON CONTROL HUMANO</h4>
+              <p style="margin:0 0 0.85rem;color:var(--text-muted)">Ya orquestaste eventos, reglas, aprobación humana y acciones. En 3.4 integrarás las tres capacidades del laboratorio.</p>
               <div class="lab-chain" aria-label="Integración final" style="margin:0.5rem auto 1rem">
                 <div class="lab-chain__node"><strong>📓 Cuaderno</strong></div>
                 <div class="lab-chain__arrow" aria-hidden="true">↓</div>
                 <div class="lab-chain__node"><strong>🤖 Agente</strong></div>
                 <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-                <div class="lab-chain__node"><strong>📌 Hallazgo</strong></div>
+                <div class="lab-chain__node"><strong>📧 Evento</strong></div>
                 <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-                <div class="lab-chain__node"><strong>⚡ Automatización</strong></div>
+                <div class="lab-chain__node"><strong>◇ Regla</strong></div>
                 <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-                <div class="lab-chain__node"><strong>👤 Validación</strong></div>
+                <div class="lab-chain__node"><strong>👤 Aprobación</strong></div>
                 <div class="lab-chain__arrow" aria-hidden="true">↓</div>
                 <div class="lab-chain__node"><strong>✉ Acción</strong></div>
               </div>
@@ -6310,13 +6255,13 @@ Estado</pre>
                   <textarea class="lab33-textarea" data-lab34-arch="conocimiento" rows="3"></textarea></label>
                 <label><strong>2. Especialización</strong><span>¿Qué función debe cumplir el agente?</span>
                   <textarea class="lab33-textarea" data-lab34-arch="especializacion" rows="3"></textarea></label>
-                <label><strong>3. Evento / condición</strong><span>¿Qué evento ocurre y qué condición debe evaluarse?</span>
+                <label><strong>3. Evento / condición</strong><span>¿Qué evento operativo ocurre (p. ej. correo [HORIZONTE]) y qué regla de criticidad se evalúa?</span>
                   <textarea class="lab33-textarea" data-lab34-arch="evento" rows="3"></textarea></label>
-                <label><strong>4. Acción</strong><span>¿Qué tarea puede ejecutar el sistema?</span>
+                <label><strong>4. Acción</strong><span>¿Qué tarea puede ejecutar el sistema solo después de controles?</span>
                   <textarea class="lab33-textarea" data-lab34-arch="accion" rows="3"></textarea></label>
-                <label><strong>5. Control humano</strong><span>¿Qué debe validar necesariamente una persona?</span>
+                <label><strong>5. Control humano</strong><span>¿Qué debe aprobar o rechazar necesariamente una persona?</span>
                   <textarea class="lab33-textarea" data-lab34-arch="control" rows="3"></textarea></label>
-                <label><strong>Trazabilidad</strong><span>¿Qué evidencia debe conservarse?</span>
+                <label><strong>Trazabilidad</strong><span>¿Qué evidencia debería conservarse (evolución recomendada si aún no está implementada)?</span>
                   <textarea class="lab33-textarea" data-lab34-arch="trazabilidad" rows="3"></textarea></label>
               </div>
               <p style="font-weight:600;margin:0.85rem 0 0.35rem">Autoevaluación del diseño</p>
@@ -6353,27 +6298,52 @@ Estado</pre>
             </div>
 
             <div class="card" id="lab34SystemViz" hidden>
-              <h3 style="margin-top:0;text-align:center">Tu sistema de trabajo</h3>
+              <h3 style="margin-top:0;text-align:center">Ecosistema de trabajo</h3>
               <div class="lab-chain" aria-label="Sistema completo">
                 <div class="lab-chain__node"><strong>📄 Fuentes</strong></div>
                 <div class="lab-chain__arrow">↓</div>
                 <div class="lab-chain__node"><strong>📓 Cuaderno</strong><span>Contexto</span></div>
                 <div class="lab-chain__arrow">↓</div>
-                <div class="lab-chain__node"><strong>🤖 Agente</strong><span>Especialización</span></div>
+                <div class="lab-chain__node"><strong>🤖 Agente PMO</strong><span>Especialización</span></div>
                 <div class="lab-chain__arrow">↓</div>
-                <div class="lab-chain__node"><strong>📌 Hallazgo</strong><span>Evidencia</span></div>
+                <div class="lab-chain__node"><strong>📧 Evento operativo</strong><span>Correo [HORIZONTE]</span></div>
                 <div class="lab-chain__arrow">↓</div>
-                <div class="lab-chain__node"><strong>⚡ Automatización</strong><span>Evento + condición</span></div>
+                <div class="lab-chain__node"><strong>◇ Regla</strong><span>Criticidad</span></div>
                 <div class="lab-chain__arrow">↓</div>
-                <div class="lab-chain__node"><strong>✨ Borrador</strong><span>IA generativa</span></div>
+                <div class="lab-chain__node"><strong>👤 Aprobación humana</strong></div>
                 <div class="lab-chain__arrow">↓</div>
-                <div class="lab-chain__node"><strong>👤 Persona</strong><span>Validación / decisión</span></div>
-                <div class="lab-chain__arrow">↓</div>
-                <div class="lab-chain__node"><strong>✉ Acción</strong></div>
+                <div class="lab-chain__node"><strong>✉ Acción</strong><span>Enviar / No enviar</span></div>
                 <div class="lab-chain__arrow">↓</div>
                 <div class="lab-chain__node"><strong>🧾 Trazabilidad</strong></div>
               </div>
-              <p class="lab32-quote" style="margin:1rem 0 0;text-align:center">Copilot acelera el trabajo. Las fuentes sustentan. Las reglas controlan. Las personas deciden.</p>
+              <div class="lab33-routes" style="margin-top:1rem">
+                <div class="lab33-route">
+                  <p class="lab-badge" style="margin:0 0 0.45rem">Implementado / probado</p>
+                  <ul style="margin:0;padding-left:1.1rem;color:var(--text-muted);font-size:0.88rem">
+                    <li>Outlook como trigger</li>
+                    <li>HTML a texto</li>
+                    <li>Condición de criticidad</li>
+                    <li>Variable RutaHallazgo</li>
+                    <li>Aprobación humana</li>
+                    <li>Condición Approve</li>
+                    <li>Envío Outlook</li>
+                  </ul>
+                </div>
+                <div class="lab33-route">
+                  <p class="lab-badge lab-badge--soon" style="margin:0 0 0.45rem">Conceptual / evolución</p>
+                  <ul style="margin:0;padding-left:1.1rem;color:var(--text-muted);font-size:0.88rem">
+                    <li>Conectar salida del Agente directamente a Power Automate</li>
+                    <li>IA para extracción de correo no estructurado</li>
+                    <li>Borradores automáticos con IA</li>
+                    <li>Registro persistente de trazabilidad (si aún no se implementó)</li>
+                  </ul>
+                </div>
+              </div>
+              <p class="lab32-quote" style="margin:1rem 0 0;text-align:center">Copilot acelera el trabajo. Las reglas controlan. Las personas autorizan.</p>
+              <p class="disclaimer disclaimer--info" style="margin:0.85rem 0 0;text-align:left">
+                <i data-lucide="info" width="18" height="18"></i>
+                <span>No se afirma una integración técnica Agente PMO → Power Automate si esa conexión no ha sido implementada. El diagrama describe un ecosistema de trabajo.</span>
+              </p>
             </div>
 
             <div class="card">
@@ -11640,25 +11610,28 @@ Estado</pre>
 
   /* ========== LAB 3.3 · AUTOMATIZACIÓN ========== */
   const LAB33_REQUIRED = [
-    "lab33-hallazgo",
     "lab33-evento",
-    "lab33-condicion",
-    "lab33-ia",
-    "lab33-borrador",
+    "lab33-html",
+    "lab33-var",
+    "lab33-regla",
     "lab33-hitl",
-    "lab33-p1",
-    "lab33-p2",
-    "lab33-p3",
-    "lab33-trazabilidad"
+    "lab33-approve",
+    "lab33-envio",
+    "lab33-false",
+    "lab33-trazabilidad",
+    "lab33-ia-diff",
+    "lab33-casos",
+    "lab33-flujo"
   ];
+
+  const LAB33_CASE_ANSWERS = { A: "alerta", B: "registro", C: "enviar", D: "noenviar" };
 
   function lab33RequirementsMet() {
     const checks = LAB33_REQUIRED.every(k => !!state.progress[k]);
-    const eventOk = !!state.progress["lab33-event-choice"];
-    const ruta = !!state.progress["lab33-ruta"];
-    const gov = !!state.progress["lab33-gov"];
-    const checkpoint = !!state.progress["lab33-checkpoint"];
-    return checks && eventOk && ruta && gov && checkpoint;
+    const eventOk = state.progress["lab33-event-choice"] === "B";
+    const ruleOk = state.progress["lab33-rule-choice"] === "B";
+    const checkpoint = state.progress["lab33-checkpoint"] === "B";
+    return checks && eventOk && ruleOk && checkpoint;
   }
 
   function updateLab34Unlock() {
@@ -11706,7 +11679,7 @@ Estado</pre>
     { id: "n2", need: "Aplicar repetidamente criterios PMO, reglas de evidencia y límites de actuación.", answer: "agente", options: [
       ["chat", "Copilot Chat"], ["cuaderno", "Cuaderno"], ["agente", "Agente"], ["auto", "Automatización"]
     ]},
-    { id: "n3", need: "Cuando la criticidad sea ALTA, iniciar una rutina de alerta.", answer: "auto", options: [
+    { id: "n3", need: "Cuando llegue un correo [HORIZONTE] con Criticidad: ALTA, iniciar una rutina con aprobación humana.", answer: "auto", options: [
       ["chat", "Copilot Chat"], ["cuaderno", "Cuaderno"], ["agente", "Agente"], ["auto", "Automatización"]
     ]},
     { id: "n4", need: "Realizar una consulta puntual o explorar inicialmente una pregunta.", answer: "chat", options: [
@@ -11717,28 +11690,27 @@ Estado</pre>
     ]}
   ];
   const LAB34_ORDER_EXPECTED = [
-    "fuentes", "cuaderno", "agente", "hallazgo", "condicion", "borrador", "validacion", "envio", "registro"
+    "fuentes", "cuaderno", "agente", "evento", "regla", "aprobacion", "accion", "trazabilidad"
   ];
   const LAB34_ORDER_LABELS = {
-    fuentes: "Fuentes actualizadas",
+    fuentes: "Fuentes",
     cuaderno: "Cuaderno",
     agente: "Agente PMO",
-    hallazgo: "Hallazgo estructurado",
-    condicion: "Condición de criticidad",
-    borrador: "Borrador de comunicación",
-    validacion: "Validación humana",
-    envio: "Envío / acción",
-    registro: "Registro de trazabilidad"
+    evento: "Evento operativo · Correo [HORIZONTE]",
+    regla: "Regla · Criticidad",
+    aprobacion: "Aprobación humana",
+    accion: "Acción · Enviar / No enviar",
+    trazabilidad: "Trazabilidad"
   };
   const LAB34_AUTO = [
-    { id: "a1", text: "Detectar que existe un nuevo registro.", answer: "auto" },
-    { id: "a2", text: "Leer el campo de criticidad.", answer: "auto" },
-    { id: "a3", text: "Comprobar si criticidad = ALTA.", answer: "auto" },
-    { id: "a4", text: "Preparar un borrador de correo.", answer: "auto" },
+    { id: "a1", text: "Detectar un nuevo correo [HORIZONTE].", answer: "auto" },
+    { id: "a2", text: "Convertir el cuerpo HTML a texto.", answer: "auto" },
+    { id: "a3", text: "Comprobar si el contenido contiene “Criticidad: ALTA”.", answer: "auto" },
+    { id: "a4", text: "Asignar RutaHallazgo = ALERTA_CRITICA o REGISTRO_NORMAL.", answer: "auto" },
     { id: "a5", text: "Confirmar que una inferencia es un hecho.", answer: "human" },
-    { id: "a6", text: "Aprobar modificación de alcance.", answer: "human" },
+    { id: "a6", text: "Aprobar el envío de una comunicación sensible.", answer: "human" },
     { id: "a7", text: "Aceptar formalmente un riesgo.", answer: "human" },
-    { id: "a8", text: "Enviar una comunicación después de aprobación explícita.", answer: "auto" },
+    { id: "a8", text: "Enviar un correo después de Resultado = Approve.", answer: "auto" },
     { id: "a9", text: "Nombrar al responsable del proyecto sin evidencia.", answer: "forbid" }
   ];
   const LAB34_ERR_OK = ["crit", "auth", "resp", "mail", "trace"];
@@ -11973,8 +11945,8 @@ Estado</pre>
       if (fb) {
         fb.hidden = false;
         fb.innerHTML = good
-          ? "<strong>Arquitectura correcta.</strong> El flujo conecta contexto, especialización, condición, acción y control humano."
-          : "<strong>El orden aún no es el esperado.</strong> Piensa: fuentes → contexto → especialización → hallazgo → condición → borrador → persona → acción → registro.";
+          ? "<strong>Arquitectura correcta.</strong> El ecosistema conecta fuentes, Cuaderno, Agente, evento operativo, regla, aprobación humana, acción y trazabilidad."
+          : "<strong>El orden aún no es el esperado.</strong> Piensa: fuentes → Cuaderno → Agente → evento [HORIZONTE] → regla → aprobación → acción → trazabilidad.";
       }
       if (good) {
         state.progress["lab34-d2"] = true;
@@ -12121,7 +12093,7 @@ Estado</pre>
     if (hint) {
       hint.textContent = ready || state.progress["lab-3-3"]
         ? "Puedes cerrar la misión 3.3."
-        : "Marca todos los pasos, pruebas y el checkpoint para habilitar el cierre.";
+        : "Completa los pasos, las pruebas A–D y el checkpoint (B) para habilitar el cierre.";
     }
 
     const success = document.getElementById("lab33Success");
@@ -12135,32 +12107,25 @@ Estado</pre>
       cardStatus.style.color = state.progress["lab-3-3"] ? "var(--brand-accent)" : "";
     }
 
-    root.querySelectorAll("[data-lab33-ruta]").forEach(el => {
-      el.classList.toggle("is-picked", state.progress["lab33-ruta"] === el.getAttribute("data-lab33-ruta"));
-    });
-    root.querySelectorAll("[data-lab33-gov]").forEach(el => {
-      el.classList.toggle("is-picked", state.progress["lab33-gov"] === el.getAttribute("data-lab33-gov"));
-    });
-
-    const govHint = document.getElementById("lab33GovHint");
-    const gv = state.progress["lab33-gov"];
-    if (govHint) {
-      if (gv === "partial" || gv === "no") {
-        govHint.hidden = false;
-        govHint.innerHTML = "<strong>Revisa las instrucciones y el diseño del flujo.</strong> La revisión humana no debe eliminarse. Ajusta y vuelve a probar.";
-      } else if (gv === "yes") {
-        govHint.hidden = false;
-        govHint.innerHTML = "<strong>Bien.</strong> Se mantuvo el control humano.";
-      } else {
-        govHint.hidden = true;
-        govHint.innerHTML = "";
-      }
-    }
-
     const eventChoice = state.progress["lab33-event-choice"];
     if (eventChoice) applyLab33Event(eventChoice, false);
+    const ruleChoice = state.progress["lab33-rule-choice"];
+    if (ruleChoice) applyLab33Rule(ruleChoice, false);
     const checkpoint = state.progress["lab33-checkpoint"];
     if (checkpoint) applyLab33Checkpoint(checkpoint, false);
+
+    state.lab33 = state.lab33 || {};
+    state.lab33.cases = state.lab33.cases || {};
+    root.querySelectorAll("[data-lab33-case-sel]").forEach(sel => {
+      const id = sel.getAttribute("data-lab33-case-sel");
+      const val = state.lab33.cases[id] || "";
+      if (sel.value !== val) sel.value = val;
+      const row = sel.closest("[data-lab33-case]");
+      if (row) {
+        row.classList.toggle("is-ok", val && val === LAB33_CASE_ANSWERS[id]);
+        row.classList.toggle("is-bad", val && val !== LAB33_CASE_ANSWERS[id]);
+      }
+    });
 
     updateLab34Unlock();
   }
@@ -12176,14 +12141,36 @@ Estado</pre>
     if (feedback) {
       feedback.hidden = false;
       feedback.innerHTML = choice === "B"
-        ? "<strong>Correcto.</strong> El evento es el registro de un nuevo hallazgo. Todavía no hay decisión ni envío."
-        : "<strong>No es el evento.</strong> Aprobar el proyecto o decidir enviar un correo son decisiones/acciones, no el disparador. La respuesta correcta es B.";
+        ? "<strong>Correcto.</strong> El evento es recibir un nuevo correo con asunto [HORIZONTE]. La criticidad y la aprobación son reglas o decisiones posteriores."
+        : "<strong>No es el evento.</strong> Criticidad, aprobación y envío son condiciones o acciones. El disparador es el correo [HORIZONTE] (opción B).";
     }
     if (persist) {
       state.progress["lab33-event-choice"] = choice;
       saveState();
       updateLab33UI();
       toast(choice === "B" ? "Evento correcto" : "Evento registrado", choice === "B" ? "check" : "info");
+    }
+  }
+
+  function applyLab33Rule(choice, persist) {
+    const feedback = document.getElementById("lab33RuleFeedback");
+    document.querySelectorAll("[data-lab33-rule]").forEach(btn => {
+      const val = btn.getAttribute("data-lab33-rule");
+      btn.classList.toggle("is-selected", val === choice);
+      btn.classList.toggle("is-correct", val === choice && choice === "B");
+      btn.classList.toggle("is-wrong", val === choice && choice !== "B");
+    });
+    if (feedback) {
+      feedback.hidden = false;
+      feedback.innerHTML = choice === "B"
+        ? "<strong>Correcto.</strong> La criticidad está expresada mediante una condición explícita: es una regla determinística."
+        : "<strong>Revisa el criterio.</strong> No necesitamos IA aquí porque la regla “Criticidad: ALTA” ya está definida de forma explícita (opción B).";
+    }
+    if (persist) {
+      state.progress["lab33-rule-choice"] = choice;
+      saveState();
+      updateLab33UI();
+      toast(choice === "B" ? "Regla correcta" : "Respuesta registrada", choice === "B" ? "check" : "info");
     }
   }
 
@@ -12198,8 +12185,8 @@ Estado</pre>
     if (feedback) {
       feedback.hidden = false;
       feedback.innerHTML = choice === "B"
-        ? "<strong>Correcto.</strong> Automatizar una rutina con condición objetiva y revisión humana es un buen candidato. Las opciones A y C son decisiones de autoridad."
-        : "<strong>No es el mejor caso.</strong> Aprobar inversiones o nombrar responsables no deben automatizarse. El escenario B combina evento, condición y control humano.";
+        ? "<strong>Correcto.</strong> Automatizar no significa eliminar el control humano. El diseño determina qué puede ejecutar el sistema y dónde debe detenerse."
+        : "<strong>No es la mejor descripción.</strong> El flujo combina evento, regla y autorización humana antes del envío (opción B).";
     }
     if (persist) {
       state.progress["lab33-checkpoint"] = choice;
@@ -12209,62 +12196,71 @@ Estado</pre>
     }
   }
 
+  function lab33ValidateCases() {
+    state.lab33 = state.lab33 || {};
+    state.lab33.cases = state.lab33.cases || {};
+    let ok = true;
+    Object.keys(LAB33_CASE_ANSWERS).forEach(id => {
+      const val = state.lab33.cases[id] || "";
+      if (val !== LAB33_CASE_ANSWERS[id]) ok = false;
+    });
+    const feedback = document.getElementById("lab33CasesFeedback");
+    if (feedback) {
+      feedback.hidden = false;
+      feedback.innerHTML = ok
+        ? "<strong>Correcto.</strong> A→alerta, B→registro, C→enviar, D→no enviar."
+        : "<strong>Revisa las asociaciones.</strong> A: ALERTA_CRITICA; B: REGISTRO_NORMAL; C: Enviar; D: No enviar.";
+    }
+    if (ok) {
+      state.progress["lab33-casos"] = true;
+      toast("Casos A–D correctos", "check");
+    } else {
+      state.progress["lab33-casos"] = false;
+      toast("Hay casos incorrectos", "alert-triangle");
+    }
+    saveState();
+    updateLab33UI();
+    updateProgressUI();
+  }
+
   function initLab33() {
     const root = document.getElementById("lab-automatizacion");
     if (!root || root.dataset.boundLab33) return;
     root.dataset.boundLab33 = "1";
-    state.lab33 = { hallazgo: "", trazabilidad: "", ...(state.lab33 || {}) };
-
-    const hallazgoInput = document.getElementById("lab33HallazgoInput");
-    const traceInput = document.getElementById("lab33TraceInput");
-    if (hallazgoInput) {
-      hallazgoInput.value = state.lab33.hallazgo || "";
-      hallazgoInput.addEventListener("input", () => {
-        state.lab33.hallazgo = hallazgoInput.value;
-        saveState();
-      });
-    }
-    if (traceInput) {
-      traceInput.value = state.lab33.trazabilidad || "";
-      traceInput.addEventListener("input", () => {
-        state.lab33.trazabilidad = traceInput.value;
-        saveState();
-      });
-    }
+    state.lab33 = { cases: {}, ...(state.lab33 || {}) };
+    state.lab33.cases = state.lab33.cases || {};
 
     root.addEventListener("change", (e) => {
       const t = e.target;
       if (t && t.matches && t.matches("input[data-progress]")) {
-        if (state.progress["lab-3-3"] && !lab33RequirementsMet()) {
-          state.progress["lab-3-3"] = false;
-          saveState();
-        }
+        // Conservar lab-3-3 si ya estaba completo; no revocar por requisitos nuevos.
         updateLab33UI();
+      }
+      if (t && t.matches && t.matches("[data-lab33-case-sel]")) {
+        const id = t.getAttribute("data-lab33-case-sel");
+        state.lab33.cases[id] = t.value;
+        saveState();
+        updateLab33UI();
+      }
+      if (t && t.matches && t.matches("input[data-lab33-trace-item]")) {
+        state.lab33.traceItems = state.lab33.traceItems || {};
+        state.lab33.traceItems[t.getAttribute("data-lab33-trace-item")] = !!t.checked;
+        saveState();
       }
     });
 
     root.querySelectorAll("[data-lab33-event]").forEach(btn => {
       btn.addEventListener("click", () => applyLab33Event(btn.getAttribute("data-lab33-event"), true));
     });
-    root.querySelectorAll("[data-lab33-ruta]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.progress["lab33-ruta"] = btn.getAttribute("data-lab33-ruta");
-        saveState();
-        updateLab33UI();
-        toast("Ruta de implementación registrada");
-      });
-    });
-    root.querySelectorAll("[data-lab33-gov]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.progress["lab33-gov"] = btn.getAttribute("data-lab33-gov");
-        saveState();
-        updateLab33UI();
-        toast("Resultado de gobernanza registrado");
-      });
+    root.querySelectorAll("[data-lab33-rule]").forEach(btn => {
+      btn.addEventListener("click", () => applyLab33Rule(btn.getAttribute("data-lab33-rule"), true));
     });
     root.querySelectorAll("[data-lab33-choice]").forEach(btn => {
       btn.addEventListener("click", () => applyLab33Checkpoint(btn.getAttribute("data-lab33-choice"), true));
     });
+
+    const validateBtn = document.getElementById("lab33ValidateCases");
+    if (validateBtn) validateBtn.addEventListener("click", lab33ValidateCases);
 
     const completeBtn = document.getElementById("lab33CompleteBtn");
     if (completeBtn) {
@@ -12276,7 +12272,7 @@ Estado</pre>
         state.progress["lab-3-3"] = true;
         saveState();
         updateLab33UI();
-        toast("Alerta inteligente diseñada");
+        toast("Automatización con control humano completada");
         const success = document.getElementById("lab33Success");
         if (success) success.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
