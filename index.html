@@ -1233,6 +1233,16 @@
       background: color-mix(in srgb, var(--brand-accent) 40%, transparent);
       color: var(--brand-dark);
     }
+    .lab31-audit { display: grid; gap: 0.65rem; margin: 0.75rem 0; }
+    .lab31-audit-row {
+      padding: 0.75rem 0.85rem; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--bg-elevated);
+    }
+    .lab31-audit-row p { margin: 0 0 0.55rem; font-size: 0.92rem; color: var(--text-muted); }
+    .lab31-audit-row .btn.is-picked {
+      border-color: var(--brand-primary);
+      background: color-mix(in srgb, var(--brand-primary) 12%, var(--bg-elevated));
+    }
     @media (max-width: 800px) {
       .lab31-transform { grid-template-columns: 1fr; }
       .lab31-transform__arrow { transform: rotate(90deg); padding: 0.15rem 0; }
@@ -4689,513 +4699,297 @@ Tono: ejecutivo, claro y prudente.</div>
           <div class="card">
             <p class="lab31__kicker"><i data-lucide="book-open" width="14" height="14"></i> 3.1 · Cuaderno</p>
             <h3 class="lab31__title" id="lab31Title">Construye el Centro de Conocimiento Horizonte</h3>
-            <p class="lab31__subtitle">De archivos dispersos a un contexto de proyecto reutilizable.</p>
-            <p style="margin:0 0 0.75rem;color:var(--text-muted)">En el ejercicio anterior tuviste que indicar a Copilot qué archivos debía analizar y controlar cuidadosamente sus fuentes.</p>
-            <p style="margin:0;color:var(--text-muted)">Ahora organizarás esas referencias en un Cuaderno dedicado al Proyecto Horizonte.</p>
-            <div class="lab31-transform" aria-label="Evolución Chat a Cuaderno">
-              <div class="lab31-transform__box">
-                <strong>Antes</strong>
-                <p>Archivos + prompt + conversación</p>
-              </div>
-              <div class="lab31-transform__arrow" aria-hidden="true">↓</div>
-              <div class="lab31-transform__box">
-                <strong>Ahora</strong>
-                <p>Cuaderno + referencias + instrucciones + consultas</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3 style="margin-top:0">¿Para qué sirve?</h3>
-            <div class="lab31-concepts">
-              <div class="lab31-concepts__item">
-                <strong>Contexto</strong>
-                <p>Reúne las referencias relevantes para un trabajo o proyecto.</p>
-              </div>
-              <div class="lab31-concepts__item">
-                <strong>Instrucciones</strong>
-                <p>Permite definir cómo quieres que Copilot trabaje con ese contexto.</p>
-              </div>
-              <div class="lab31-concepts__item">
-                <strong>Continuidad</strong>
-                <p>Facilita volver al proyecto y realizar nuevas consultas sobre las referencias reunidas.</p>
-              </div>
-            </div>
-            <p class="disclaimer disclaimer--info" style="margin:0.5rem 0 0">
+            <p class="lab31__subtitle">De archivos separados a conocimiento conectado.</p>
+            <p style="margin:0 0 0.65rem;color:var(--text-muted)">Hasta ahora trabajaste con documentos y tareas específicas.</p>
+            <p style="margin:0 0 0.65rem;color:var(--text-muted)">Ahora utilizarás las mismas fuentes para construir un espacio de conocimiento alrededor de Proyecto Horizonte.</p>
+            <p style="margin:0 0 0.85rem;color:var(--text-muted)">El objetivo no es hacer otra pregunta a Copilot. El objetivo es observar qué ocurre cuando varias fuentes relacionadas se reúnen dentro del mismo contexto.</p>
+            <p class="disclaimer disclaimer--info" style="margin:0 0 1rem">
               <i data-lucide="info" width="18" height="18"></i>
-              <span>Un Cuaderno no reemplaza los documentos originales ni toma decisiones por el equipo. Organiza el contexto con el que trabajará Copilot.</span>
+              <span><strong>Proyecto Horizonte es un caso académico ficticio.</strong></span>
             </p>
-          </div>
-
-          <div class="card lab31-mission">
-            <p class="lab-badge" style="margin:0 0 0.5rem">Misión</p>
-            <p style="margin:0;font-size:1.05rem;font-weight:600">Construir el Cuaderno Proyecto Horizonte y utilizarlo como centro de conocimiento para preparar una revisión ejecutiva del proyecto.</p>
-            <div class="lab31-mission__result">
-              <strong>Resultado esperado:</strong> 📓 Cuaderno: Proyecto Horizonte<br>
-              <span class="text-muted" style="font-size:0.9rem">con sus referencias, instrucciones y primeras consultas.</span>
+            <div class="lab31-files" style="margin-bottom:0.75rem" aria-label="Fuentes del proyecto">
+              <div class="lab31-file"><strong>📄 Alcance</strong></div>
+              <div class="lab31-file"><strong>📊 Presupuesto / Cronograma</strong></div>
+              <div class="lab31-file"><strong>📝 Reunión</strong></div>
+              <div class="lab31-file"><strong>⚠️ Riesgos</strong></div>
+              <div class="lab31-file"><strong>💬 Interesados</strong></div>
+            </div>
+            <div class="lab-chain" aria-label="Hacia el contexto común" style="max-width:18rem;margin:0.5rem auto 0">
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>📓 Cuaderno Horizonte</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>🧠 Contexto común</strong></div>
             </div>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">1</span> Paso 1 · Crea tu espacio de trabajo</h3>
+            <h3 style="margin-top:0"><span class="lab31-step-num">1</span> Paso 1 · Crea tu espacio de conocimiento</h3>
             <ol style="margin:0.5rem 0 0.85rem;padding-left:1.25rem;color:var(--text-muted)">
               <li>Abre Microsoft 365 Copilot.</li>
-              <li>Accede a Cuadernos / Notebooks.</li>
-              <li>Selecciona crear un nuevo Cuaderno.</li>
-              <li>Asigna el nombre: <strong style="color:var(--text)">Proyecto Horizonte · Centro de Conocimiento</strong></li>
-              <li>Agrega una descripción: <em style="color:var(--text)">“Espacio de trabajo para analizar, contrastar y preparar información ejecutiva del Proyecto Horizonte.”</em></li>
+              <li>Accede a Cuadernos.</li>
+              <li>Crea un nuevo Cuaderno.</li>
+              <li>Utiliza como nombre: <strong style="color:var(--text)">Proyecto Horizonte</strong></li>
             </ol>
+            <p style="color:var(--text-muted)">Un Cuaderno reúne fuentes relacionadas dentro de un mismo contexto de trabajo.</p>
             <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-created" /> Ya creé el Cuaderno Proyecto Horizonte.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-created" /> Creé el Cuaderno Proyecto Horizonte.</label></li>
             </ul>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">2</span> Paso 2 · Construye el contexto</h3>
-            <p style="color:var(--text-muted)">Reutiliza los archivos del caso anterior. Si ya los tienes en OneDrive o SharePoint, incorpóralos al Cuaderno sin volver a descargarlos.</p>
+            <h3 style="margin-top:0"><span class="lab31-step-num">2</span> Paso 2 · Agrega las referencias</h3>
+            <p style="color:var(--text-muted);margin:0 0 0.75rem">Agrega los cinco documentos como Referencias de tu Cuaderno.</p>
             <div class="lab31-files">
               <div class="lab31-file">
+                <strong>02 · Alcance</strong>
+                <p class="text-muted" style="margin:0;font-size:0.88rem">Qué se pretende hacer.</p>
                 <code>02_Alcance_Proyecto_Horizonte.docx</code>
                 <button type="button" class="btn btn--sm btn--energy" data-planilla="s2v2-alcance"><i data-lucide="download" width="14" height="14"></i> Descargar</button>
               </div>
               <div class="lab31-file">
+                <strong>03 · Presupuesto y cronograma</strong>
+                <p class="text-muted" style="margin:0;font-size:0.88rem">Recursos y tiempos.</p>
                 <code>03_Presupuesto_y_Cronograma_Horizonte.xlsx</code>
                 <button type="button" class="btn btn--sm btn--energy" data-planilla="s2v2-presupuesto"><i data-lucide="download" width="14" height="14"></i> Descargar</button>
               </div>
               <div class="lab31-file">
+                <strong>04 · Reunión</strong>
+                <p class="text-muted" style="margin:0;font-size:0.88rem">Decisiones, propuestas, compromisos y pendientes.</p>
                 <code>04_Transcripcion_Reunion_Horizonte.docx</code>
                 <button type="button" class="btn btn--sm btn--energy" data-planilla="s2v2-transcripcion"><i data-lucide="download" width="14" height="14"></i> Descargar</button>
               </div>
               <div class="lab31-file">
+                <strong>05 · Riesgos</strong>
+                <p class="text-muted" style="margin:0;font-size:0.88rem">Incertidumbre y criticidad.</p>
                 <code>05_Registro_Inicial_Riesgos_Horizonte.xlsx</code>
                 <button type="button" class="btn btn--sm btn--energy" data-planilla="s2v2-riesgos"><i data-lucide="download" width="14" height="14"></i> Descargar</button>
               </div>
               <div class="lab31-file">
+                <strong>06 · Interesados</strong>
+                <p class="text-muted" style="margin:0;font-size:0.88rem">Expectativas y preocupaciones.</p>
                 <code>06_Comentarios_Interesados_Horizonte.docx</code>
                 <button type="button" class="btn btn--sm btn--energy" data-planilla="s2v2-comentarios"><i data-lucide="download" width="14" height="14"></i> Descargar</button>
               </div>
             </div>
-            <p class="disclaimer disclaimer--info" style="margin:0.35rem 0 0.75rem">
+            <div class="lab31-transform" style="margin:1rem 0" aria-label="Cinco fuentes un contexto">
+              <div class="lab31-transform__box"><strong>5 fuentes</strong><p>Referencias del proyecto</p></div>
+              <div class="lab31-transform__arrow" aria-hidden="true">↓</div>
+              <div class="lab31-transform__box"><strong>1 contexto</strong><p>Cuaderno Horizonte</p></div>
+            </div>
+            <ul class="check-list" style="margin:0">
+              <li><label><input type="checkbox" data-progress="lab31-refs" /> Incorporé las referencias del Proyecto Horizonte.</label></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0"><span class="lab31-step-num">3</span> Paso 3 · ¿Qué entendió Copilot?</h3>
+            <p style="margin:0 0 0.5rem"><strong>Abre Información general.</strong></p>
+            <p style="color:var(--text-muted)">Copilot utiliza las referencias incorporadas para construir una síntesis del contenido. Antes de crear nuevos productos, revisa qué interpretación construyó a partir de las fuentes.</p>
+            <div class="lab32-finding" style="margin:0.85rem 0">
+              <p class="lab-badge" style="margin:0 0 0.45rem">Observa</p>
+              <p style="margin:0 0 0.45rem;font-weight:600">Busca en el resumen y en las conclusiones clave:</p>
+              <ol style="margin:0;padding-left:1.2rem;color:var(--text-muted);font-size:0.95rem">
+                <li>¿Qué necesidad intenta resolver Proyecto Horizonte?</li>
+                <li>¿El proyecto aparece como aprobado o como iniciativa en estructuración?</li>
+                <li>¿Qué condiciones deben resolverse antes de ejecutar?</li>
+                <li>¿Qué riesgos aparecen como relevantes?</li>
+                <li>¿Qué información continúa pendiente?</li>
+              </ol>
+            </div>
+            <ul class="check-list" style="margin:0">
+              <li><label><input type="checkbox" data-progress="lab31-resumen" /> Revisé el Resumen.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-conclusiones" /> Revisé las Conclusiones clave.</label></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0"><span class="lab31-step-num">4</span> Paso 4 · No confíes solamente en la síntesis</h3>
+            <p class="lab32-quote" style="margin:0 0 0.75rem">Copilot puede resumir. Tú debes verificar.</p>
+            <p style="color:var(--text-muted)">En Información general pueden aparecer referencias asociadas a las afirmaciones generadas. Utilízalas para regresar a la evidencia original.</p>
+            <div class="lab31-mission" style="padding:0.85rem 1rem;border-radius:var(--radius-sm);margin:0.85rem 0">
+              <p class="lab-badge" style="margin:0 0 0.4rem">Misión</p>
+              <p style="margin:0 0 0.45rem">Selecciona al menos <strong>dos</strong> afirmaciones importantes de la síntesis. Para cada una:</p>
+              <ol style="margin:0;padding-left:1.2rem;color:var(--text-muted);font-size:0.92rem">
+                <li>identifica la referencia asociada;</li>
+                <li>abre la fuente;</li>
+                <li>localiza la evidencia;</li>
+                <li>comprueba que la síntesis conserve el significado original.</li>
+              </ol>
+            </div>
+            <ul class="check-list" style="margin:0">
+              <li><label><input type="checkbox" data-progress="lab31-verify-1" /> Verifiqué una primera afirmación contra su fuente.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-verify-2" /> Verifiqué una segunda afirmación contra su fuente.</label></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0">Busca cambios de significado</h3>
+            <div class="lab32-concepts" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+              <div class="lab31-concepts__item">
+                <strong>⚠️ Aprobación</strong>
+                <p>¿Copilot diferencia correctamente entre “proyecto aprobado” e “iniciativa en estructuración”?</p>
+              </div>
+              <div class="lab31-concepts__item">
+                <strong>💰 Presupuesto</strong>
+                <p>¿Diferencia “presupuesto preliminar” de “presupuesto definitivamente aprobado”?</p>
+              </div>
+              <div class="lab31-concepts__item">
+                <strong>📅 Fechas</strong>
+                <p>¿Diferencia “fecha propuesta” de “fecha confirmada”?</p>
+              </div>
+              <div class="lab31-concepts__item">
+                <strong>✉️ Comunicación</strong>
+                <p>¿Diferencia “borrador preparado” de “comunicación autorizada para envío”?</p>
+              </div>
+              <div class="lab31-concepts__item">
+                <strong>👤 Responsables</strong>
+                <p>¿Diferencia “rol o responsable sugerido” de “responsable formalmente confirmado”?</p>
+              </div>
+            </div>
+            <p class="disclaimer disclaimer--info" style="margin:0.85rem 0">
               <i data-lucide="info" width="18" height="18"></i>
-              <span>Estas referencias representan perspectivas diferentes del mismo proyecto. El valor del Cuaderno aparece cuando Copilot puede contrastarlas.</span>
+              <span>Una síntesis puede parecer correcta y aun así cambiar el significado si modifica el nivel de certeza de la fuente.</span>
             </p>
-            <ul class="check-list" id="lab31RefChecks" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-ref-alcance" data-lab31-ref /> Alcance</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-ref-presupuesto" data-lab31-ref /> Presupuesto y cronograma</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-ref-transcripcion" data-lab31-ref /> Transcripción</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-ref-riesgos" data-lab31-ref /> Riesgos</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-ref-interesados" data-lab31-ref /> Interesados</label></li>
-            </ul>
-            <p class="lab31-ref-count" id="lab31RefCount" aria-live="polite">0 / 5 referencias incorporadas</p>
-          </div>
-
-          <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">3</span> Paso 3 · Dile al Cuaderno cómo debe trabajar</h3>
-            <p style="color:var(--text-muted)">Las referencias indican <strong style="color:var(--text)">QUÉ</strong> información utilizar. Las instrucciones indican <strong style="color:var(--text)">CÓMO</strong> debe trabajar Copilot con ella.</p>
-            <div class="prompt-box lab31-prompt" id="lab31-instrucciones">Este Cuaderno es el espacio de trabajo del Proyecto Horizonte.
-
-Utiliza exclusivamente las referencias incorporadas al Cuaderno para
-responder preguntas relacionadas con este proyecto.
-
-REGLAS DE TRABAJO
-
-1. Fundamenta los hallazgos en las referencias disponibles.
-
-2. Identifica la fuente de cada afirmación relevante.
-
-3. Diferencia siempre entre:
-
-HECHO CONFIRMADO
-CÁLCULO
-INFERENCIA
-RECOMENDACIÓN
-PENDIENTE DE VALIDACIÓN
-
-4. No inventes:
-- cifras;
-- fechas;
-- responsables;
-- compromisos;
-- decisiones.
-
-5. No asumas que Proyecto Horizonte está aprobado.
-
-6. No conviertas propuestas registradas en reuniones en decisiones
-confirmadas.
-
-7. Cuando dos referencias contengan información contradictoria,
-presenta la discrepancia y las fuentes involucradas.
-
-8. No determines cuál información es correcta cuando la evidencia no
-sea suficiente.
-
-9. Cuando falte información utiliza:
-
-PENDIENTE DE VALIDACIÓN.
-
-10. Prioriza información útil para gestión de proyectos y comité
-directivo.
-
-11. Mantén trazabilidad entre hallazgo y referencia.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab31-instrucciones"><i data-lucide="copy" width="14" height="14"></i> Copiar instrucciones</button>
-            </div>
             <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-instructions" /> Ya configuré las instrucciones del Cuaderno.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-meaning" /> Revisé posibles cambios de significado.</label></li>
             </ul>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">4</span> Paso 4 · Antes de analizar, verifica</h3>
-            <p style="color:var(--text-muted)">Reconocer el nombre de una referencia no significa necesariamente que Copilot pueda utilizar correctamente su contenido.</p>
-            <div class="prompt-box lab31-prompt" id="lab31-verificacion">Antes de analizar Proyecto Horizonte, verifica las referencias
-disponibles en este Cuaderno.
-
-Genera una tabla con:
-
-| Referencia | Tipo | Información principal identificada | Evidencia concreta de acceso | Estado |
-
-Para cada referencia proporciona como evidencia al menos una sección,
-hoja, campo, cifra o elemento concreto que demuestre que puedes
-consultar su contenido.
-
-No analices todavía el proyecto.
-
-No inventes contenido para demostrar acceso.
-
-Si no puedes consultar una referencia indica:
-
-NO DISPONIBLE PARA ANÁLISIS.
-
-Después responde:
-
-1. ¿Cuántas referencias puedes utilizar realmente?
-2. ¿Qué referencias presentan limitaciones?
-3. ¿El contexto disponible es suficiente para comenzar un análisis
-multifuente?</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab31-verificacion"><i data-lucide="copy" width="14" height="14"></i> Copiar prompt de verificación</button>
-            </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-verify-refs" /> Copilot reconoce las 5 referencias.</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-verify-access" /> Copilot demuestra acceso a su contenido.</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-verify-limits" /> Revisé si existen fuentes con limitaciones.</label></li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <p class="lab-badge" style="margin:0 0 0.45rem">Reto 1 · Consulta</p>
-            <h3 style="margin-top:0">¿Qué sabemos del proyecto?</h3>
-            <div class="prompt-box lab31-prompt" id="lab31-reto1">Utilizando exclusivamente las referencias de este Cuaderno, prepara
-una ficha ejecutiva del Proyecto Horizonte.
-
-Incluye:
-
-- necesidad;
-- objetivo;
-- alcance;
-- principales entregables;
-- presupuesto disponible;
-- hitos relevantes;
-- riesgos principales;
-- interesados identificados;
-- información pendiente.
-
-Para cada apartado identifica la referencia utilizada.
-
-No realices todavía recomendaciones.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab31-reto1"><i data-lucide="copy" width="14" height="14"></i> Copiar Reto 1</button>
-            </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-reto1" /> Completé el Reto 1.</label></li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <p class="lab-badge" style="margin:0 0 0.45rem">Reto 2 · Análisis multifuente</p>
-            <h3 style="margin-top:0">Ahora haz que las fuentes conversen</h3>
-            <p class="disclaimer disclaimer--info" style="margin:0 0 0.75rem">
-              <i data-lucide="sparkles" width="18" height="18"></i>
-              <span>Este es el momento clave del ejercicio: no analices las fuentes de forma aislada; haz que se contrasten entre sí.</span>
-            </p>
-            <div class="prompt-box lab31-prompt" id="lab31-reto2">Cruza todas las referencias disponibles del Proyecto Horizonte.
-
-No las analices de manera aislada.
-
-Identifica información relacionada que aparezca en dos o más fuentes
-y construye una matriz con:
-
-| Tema | Fuente A | Fuente B | Coincidencia o discrepancia |
-| Evidencia | Impacto | Acción requerida |
-
-Busca específicamente:
-
-- fechas diferentes;
-- montos inconsistentes;
-- compromisos que no aparecen en el alcance;
-- actividades sin responsable;
-- responsables mencionados de manera diferente;
-- riesgos relacionados con hitos;
-- comentarios de interesados que afecten alcance, tiempo o costo;
-- decisiones mencionadas en reunión que no estén formalizadas;
-- información presente en una fuente y ausente en otra.
-
-Clasifica cada resultado como:
-
-COINCIDENCIA
-DISCREPANCIA
-VACÍO DE INFORMACIÓN
-INFERENCIA
-
-No decidas cuál fuente es correcta cuando exista contradicción.
-
-Finaliza indicando:
-
-“5 asuntos que deberían validarse antes del comité”.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab31-reto2"><i data-lucide="copy" width="14" height="14"></i> Copiar Reto 2</button>
-            </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-reto2" /> Completé el Reto 2.</label></li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <p class="lab-badge" style="margin:0 0 0.45rem">Reto 3 · Síntesis ejecutiva</p>
-            <h3 style="margin-top:0">Del conocimiento a la decisión</h3>
-            <div class="prompt-box lab31-prompt" id="lab31-reto3">Utilizando el contexto completo de este Cuaderno y los resultados
-anteriores, prepara un briefing ejecutivo del Proyecto Horizonte para
-un comité directivo.
-
-Estructura:
-
-1. Estado general.
-2. Cinco hallazgos prioritarios.
-3. Riesgos que requieren atención.
-4. Inconsistencias pendientes.
-5. Información faltante.
-6. Decisiones requeridas.
-7. Próximos pasos.
-
-Para cada hallazgo indica la referencia que lo sustenta.
-
-No presentes recomendaciones como decisiones aprobadas.
-
-No asumas que el proyecto está aprobado.
-
-Marca los faltantes como:
-
-PENDIENTE DE VALIDACIÓN.
-
-Extensión máxima:
-
-Una página ejecutiva equivalente.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab31-reto3"><i data-lucide="copy" width="14" height="14"></i> Copiar Reto 3</button>
-            </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-reto3" /> Completé el Reto 3.</label></li>
-            </ul>
-          </div>
-
-          <div class="card lab31-extra" id="lab31Infografia">
-            <p class="lab-badge lab31-extra__badge" style="margin:0 0 0.45rem">Nueva capacidad · Reto extra</p>
-            <h3 class="lab31__title" style="font-size:1.2rem;margin:0 0 0.35rem">Del conocimiento a la infografía</h3>
-            <p class="lab31__subtitle" style="margin:0 0 0.85rem">Transforma el contenido de tu Cuaderno en una pieza visual para comunicación ejecutiva.</p>
-
-            <div class="lab-chain" aria-label="De fuentes a infografía" style="margin:0.5rem auto 1rem;max-width:16rem">
-              <div class="lab-chain__node"><strong>📄 Fuentes</strong></div>
-              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+            <h3 style="margin-top:0"><span class="lab31-step-num">5</span> Paso 5 · Una base de conocimiento, diferentes representaciones</h3>
+            <p style="color:var(--text-muted)">Ahora utiliza las mismas referencias para observar cómo Copilot puede transformar el conocimiento en diferentes formatos.</p>
+            <div class="lab-chain" aria-label="Creación rápida" style="max-width:22rem;margin:1rem auto">
               <div class="lab-chain__node"><strong>📓 Cuaderno</strong></div>
               <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>🔎 Analizar</strong></div>
+              <div class="lab-chain__node"><strong>Crear</strong></div>
               <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>🧠 Sintetizar</strong></div>
-              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>🎨 Infografía</strong></div>
+              <div class="lab-chain__node"><strong>Creación rápida con Copilot</strong></div>
             </div>
-
-            <p style="margin:0 0 0.75rem;color:var(--text-muted)">El Cuaderno no solo permite trabajar con información contextualizada. También puede ayudarte a transformar ese conocimiento en formatos visuales más fáciles de comunicar.</p>
-            <p class="disclaimer disclaimer--info" style="margin:0 0 1rem">
-              <i data-lucide="info" width="18" height="18"></i>
-              <span>En este reto no buscamos decorar información. Buscamos transformar evidencia compleja en comunicación ejecutiva.</span>
+            <div class="lab31-files" style="margin-top:0.75rem">
+              <div class="lab31-file"><strong>🧠 Mapa mental</strong><p class="text-muted" style="margin:0;font-size:0.88rem">Comprender</p></div>
+              <div class="lab31-file"><strong>🎓 Guía de estudio</strong><p class="text-muted" style="margin:0;font-size:0.88rem">Aprender</p></div>
+              <div class="lab31-file"><strong>🎨 Infografía</strong><p class="text-muted" style="margin:0;font-size:0.88rem">Comunicar</p></div>
+            </div>
+            <p class="disclaimer" style="margin:0.85rem 0 0">
+              <i data-lucide="mouse-pointer" width="18" height="18"></i>
+              <span>Estas opciones se ejecutan al hacer clic. No requieren escribir un prompt.</span>
             </p>
+          </div>
 
-            <div class="lab31-mission" style="padding:0.9rem 1rem;border-radius:var(--radius-sm);margin-bottom:1rem">
-              <p class="lab-badge" style="margin:0 0 0.45rem">Crea la infografía ejecutiva de Proyecto Horizonte</p>
-              <p style="margin:0 0 0.55rem;font-weight:600">Utiliza el contenido disponible en tu Cuaderno para crear una infografía que permita comprender rápidamente el estado del Proyecto Horizonte.</p>
-              <div class="lab31-mission__result" style="margin-top:0.5rem">
-                <strong>Resultado:</strong> 🎨 Infografía ejecutiva basada en las fuentes del Cuaderno.
-              </div>
-            </div>
-
-            <ol style="margin:0 0 0.85rem;padding-left:1.2rem;color:var(--text-muted);font-size:0.95rem">
-              <li>Abre tu Cuaderno de Proyecto Horizonte.</li>
-              <li>Confirma que las fuentes del proyecto están disponibles.</li>
-              <li>Utiliza la capacidad disponible para crear una infografía a partir del contenido del Cuaderno.</li>
-              <li>Utiliza el prompt propuesto como guía.</li>
-              <li>Revisa cuidadosamente el resultado.</li>
-              <li>Compara la infografía contra las fuentes originales.</li>
-            </ol>
-            <p class="disclaimer" style="margin:0 0 0.85rem">
-              <i data-lucide="alert-triangle" width="18" height="18"></i>
-              <span>Las opciones visibles y la disponibilidad de esta capacidad pueden variar según la configuración de Microsoft 365 de tu organización.</span>
+          <div class="card">
+            <h3 style="margin-top:0">5A · Comprende las relaciones</h3>
+            <p style="margin:0 0 0.5rem"><strong>En tu Cuaderno selecciona: Crear → Mapa mental</strong></p>
+            <p style="color:var(--text-muted)">Copilot generará automáticamente una representación de las relaciones que identifica en las referencias.</p>
+            <p class="disclaimer disclaimer--info" style="margin:0.75rem 0">
+              <i data-lucide="help-circle" width="18" height="18"></i>
+              <span>Observa el resultado: ¿Qué relaciones entre alcance, presupuesto, cronograma, riesgos e interesados resultan más visibles?</span>
             </p>
-
-            <div class="prompt-box lab31-prompt" id="lab31-infografia">Crea una infografía ejecutiva sobre el Proyecto Horizonte utilizando
-exclusivamente la información disponible en este Cuaderno.
-
-OBJETIVO
-
-Permitir que una persona directiva comprenda rápidamente la información
-más relevante del proyecto y los aspectos que requieren atención.
-
-ESTRUCTURA
-
-1. PROYECTO HORIZONTE
-Resume propósito y alcance principal.
-
-2. ESTADO ACTUAL
-Presenta únicamente datos verificables disponibles en las fuentes.
-
-3. HITOS CLAVE
-Incluye fechas o hitos únicamente cuando estén respaldados por las
-fuentes.
-
-4. RIESGOS Y HALLAZGOS
-Destaca los elementos más relevantes.
-Incluye criticidad únicamente cuando pueda sustentarse.
-
-5. INFORMACIÓN PENDIENTE
-Identifica aspectos que todavía requieren validación.
-
-6. DECISIONES O VALIDACIONES REQUERIDAS
-Muestra claramente aquello que requiere intervención humana.
-
-REGLAS
-
-- Utiliza exclusivamente información disponible en el Cuaderno.
-- No inventes cifras.
-- No inventes fechas.
-- No inventes responsables.
-- No inventes decisiones.
-- No conviertas inferencias en hechos.
-- No presentes recomendaciones como decisiones aprobadas.
-- Cuando falte información utiliza:
-  PENDIENTE DE VALIDACIÓN.
-- Prioriza información relevante para una audiencia ejecutiva.
-- Reduce texto innecesario.
-- Mantén trazabilidad conceptual con las fuentes.
-
-DISEÑO
-
-Crea una infografía:
-
-- ejecutiva;
-- profesional;
-- limpia;
-- visualmente jerarquizada;
-- fácil de comprender;
-- con poco texto;
-- con cifras clave cuando estén sustentadas;
-- con riesgos y pendientes claramente diferenciados.
-
-Evita saturar la pieza con información.
-
-La infografía debe permitir comprender los puntos esenciales sin
-reemplazar la revisión de las fuentes originales.</div>
-            <div class="btn-group" style="margin:0.35rem 0 1rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab31-infografia"><i data-lucide="copy" width="14" height="14"></i> Copiar prompt para infografía</button>
-            </div>
-
-            <h4 style="margin:0 0 0.45rem;font-size:1rem">Antes de utilizarla, valida</h4>
-            <ul class="check-list" style="margin:0 0 0.65rem">
-              <li><label><input type="checkbox" data-progress="lab31-infografia-v1" /> Las cifras coinciden con las fuentes.</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-infografia-v2" /> Las fechas coinciden con las fuentes.</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-infografia-v3" /> Los responsables están sustentados.</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-infografia-v4" /> Los riesgos conservan su significado original.</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-infografia-v5" /> Las inferencias están diferenciadas.</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-infografia-v6" /> Los pendientes siguen visibles.</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-infografia-v7" /> No aparecen decisiones inexistentes.</label></li>
-              <li><label><input type="checkbox" data-progress="lab31-infografia-v8" /> La simplificación visual no cambió el sentido de la información.</label></li>
-            </ul>
-            <p style="margin:0 0 1rem;font-weight:600;color:var(--text-muted)">La transformación visual también necesita validación humana.</p>
-
-            <div class="lab32-quote" style="margin:0 0 0.85rem">
-              <strong style="display:block;margin-bottom:0.35rem">¿Qué acabas de hacer?</strong>
-              No pediste información nueva. Transformaste conocimiento ya organizado y contextualizado en el Cuaderno en un nuevo formato de comunicación.
-            </div>
-            <div class="lab31-transform" aria-label="Mismas fuentes, diferentes entregables" style="margin:0 0 0.85rem">
-              <div class="lab31-transform__box">
-                <strong>Mismas fuentes</strong>
-                <p>Evidencia del Cuaderno</p>
-              </div>
-              <div class="lab31-transform__arrow" aria-hidden="true">↓</div>
-              <div class="lab31-transform__box">
-                <strong>Diferentes entregables</strong>
-                <p>📄 Informe · 📊 Presentación · 🎨 Infografía</p>
-              </div>
-            </div>
-            <p class="lab32-quote" style="margin:0 0 0.85rem;text-align:center">El formato cambia. La evidencia no.</p>
-
-            <p class="lab-badge lab-badge--soon" style="margin:0 0 0.45rem">Opcional</p>
             <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-infografia" /> Creé mi infografía</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-mindmap" /> Generé y revisé el Mapa mental.</label></li>
             </ul>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0">¿Qué cambió?</h3>
-            <div class="lab31-compare">
-              <div class="lab31-compare__col">
-                <h4>Antes · Copilot Chat</h4>
-                <ul>
-                  <li>Seleccionabas archivos.</li>
-                  <li>Explicabas nuevamente el contexto.</li>
-                  <li>Construías prompts extensos.</li>
-                  <li>Controlabas manualmente las fuentes.</li>
-                </ul>
-              </div>
-              <div class="lab31-compare__col">
-                <h4>Ahora · Cuaderno</h4>
-                <ul>
-                  <li>El proyecto tiene un espacio contextual.</li>
-                  <li>Las referencias están reunidas.</li>
-                  <li>Existen instrucciones permanentes.</li>
-                  <li>Puedes formular nuevas consultas sobre el mismo contexto.</li>
-                </ul>
-              </div>
-            </div>
-            <p class="disclaimer" style="margin:1rem 0 0">
+            <h3 style="margin-top:0">5B · Comunica visualmente</h3>
+            <p style="margin:0 0 0.5rem"><strong>En tu Cuaderno selecciona: Crear → Infografía</strong></p>
+            <p style="color:var(--text-muted)">Copilot transformará el contenido del Cuaderno en una representación visual.</p>
+            <p class="disclaimer disclaimer--info" style="margin:0.75rem 0">
               <i data-lucide="help-circle" width="18" height="18"></i>
-              <span><strong>Reflexión:</strong> ¿Qué tipo de trabajo de tu organización tendría suficiente continuidad y documentación para beneficiarse de un Cuaderno? No compartas datos confidenciales.</span>
+              <span>¿Qué información priorizó Copilot al transformar el proyecto en una pieza visual?</span>
             </p>
+            <ul class="check-list" style="margin:0">
+              <li><label><input type="checkbox" data-progress="lab31-infografia" /> Generé y revisé la Infografía.</label></li>
+            </ul>
+          </div>
+
+          <div class="card lab31-extra">
+            <p class="lab-badge lab31-extra__badge" style="margin:0 0 0.45rem">Exploración opcional</p>
+            <h3 style="margin-top:0">¿Quieres probar otra transformación?</h3>
+            <p style="margin:0 0 0.5rem"><strong>Selecciona: Crear → Guía de estudio</strong></p>
+            <p style="color:var(--text-muted)">Observa cómo las mismas referencias pueden transformarse en un contenido orientado al aprendizaje y repaso.</p>
+            <ul class="check-list" style="margin:0.75rem 0 0">
+              <li><label><input type="checkbox" data-progress="lab31-guide" /> Exploré la Guía de estudio.</label></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0"><span class="lab31-step-num">6</span> Paso 6 · Que se vea bien no significa que esté bien</h3>
+            <p style="color:var(--text-muted)">La transformación visual simplifica información. Esa simplificación también debe validarse.</p>
+            <div id="lab31AuditList" class="lab31-audit"></div>
+            <p class="disclaimer disclaimer--info" style="margin:0.85rem 0">
+              <i data-lucide="info" width="18" height="18"></i>
+              <span>La infografía generada puede variar entre participantes. El objetivo es desarrollar validación humana.</span>
+            </p>
+            <ul class="check-list" style="margin:0">
+              <li><label><input type="checkbox" data-progress="lab31-audit" /> Audité la Infografía contra las fuentes.</label></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0">Una misma evidencia. Tres formas de utilizarla.</h3>
+            <div class="lab31-concepts">
+              <div class="lab31-concepts__item"><strong>Resumen</strong><p>Sirve para comprender rápidamente.</p></div>
+              <div class="lab31-concepts__item"><strong>Mapa mental</strong><p>Sirve para visualizar relaciones.</p></div>
+              <div class="lab31-concepts__item"><strong>Infografía</strong><p>Sirve para comunicar visualmente.</p></div>
+            </div>
+            <div class="lab-chain" style="max-width:18rem;margin:1rem auto 0.75rem" aria-label="Mismas fuentes">
+              <div class="lab-chain__node"><strong>📄 Mismas fuentes</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>📓 Mismo contexto</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>🧠 Diferentes representaciones</strong></div>
+            </div>
+            <p class="lab32-quote" style="margin:0;text-align:center">El formato cambia. La evidencia no.</p>
           </div>
 
           <div class="card" id="lab31CheckpointCard">
-            <h3 style="margin-top:0">Checkpoint · ¿Cuándo utilizarías un Cuaderno?</h3>
-            <p style="color:var(--text-muted);margin:0 0 0.5rem">Selecciona el escenario más adecuado:</p>
+            <h3 style="margin-top:0">Checkpoint · ¿Qué aporta realmente un Cuaderno?</h3>
+            <p style="color:var(--text-muted);margin:0 0 0.5rem">¿Cuál describe mejor lo que acabas de hacer?</p>
             <div class="lab31-choices" role="group" aria-label="Checkpoint Cuaderno">
               <button type="button" class="lab31-choice" data-lab31-choice="A">
                 <strong>A</strong>
-                Necesito redactar un correo aislado.
+                Guardar cinco archivos en el mismo lugar.
               </button>
               <button type="button" class="lab31-choice" data-lab31-choice="B">
                 <strong>B</strong>
-                Trabajo durante varias semanas con documentos relacionados de un mismo proyecto.
+                Crear un espacio contextual donde Copilot puede sintetizar y transformar varias fuentes relacionadas.
               </button>
               <button type="button" class="lab31-choice" data-lab31-choice="C">
                 <strong>C</strong>
-                Necesito corregir una frase.
+                Crear automáticamente un agente especializado.
+              </button>
+              <button type="button" class="lab31-choice" data-lab31-choice="D">
+                <strong>D</strong>
+                Automatizar el envío de información.
               </button>
             </div>
             <div class="lab31-feedback" id="lab31CheckpointFeedback" hidden></div>
           </div>
 
           <div class="card">
+            <h3 style="margin-top:0">De archivos a conocimiento</h3>
+            <div class="lab-chain" aria-label="Cierre 3.1" style="max-width:18rem;margin:0.5rem auto 1rem">
+              <div class="lab-chain__node"><strong>📄 Archivos</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>📚 Referencias</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>📓 Cuaderno</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>🧠 Contexto</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>🔎 Síntesis + evidencia</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>🎨 Representaciones</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>👤 Validación humana</strong></div>
+            </div>
+            <p style="color:var(--text-muted);margin:0 0 0.75rem">No se trataba de generar una infografía. Se trataba de comprobar cómo varias fuentes pueden convertirse en un contexto reutilizable sin perder la conexión con la evidencia.</p>
+            <p class="lab32-quote" style="margin:0;text-align:center">El formato cambia. La evidencia no.</p>
+          </div>
+
+          <div class="card">
             <h3 style="margin-top:0">Completar 3.1 · Cuaderno</h3>
-            <p id="lab31GateHint" style="color:var(--text-muted);font-size:0.92rem;margin:0 0 0.85rem">Marca todos los pasos, retos y el checkpoint para habilitar el cierre.</p>
+            <p id="lab31GateHint" style="color:var(--text-muted);font-size:0.92rem;margin:0 0 0.85rem">Marca los pasos requeridos y responde el checkpoint correctamente para habilitar el cierre.</p>
             <button type="button" class="btn btn--primary" id="lab31CompleteBtn" disabled aria-disabled="true">
               <i data-lucide="check-circle-2" width="16" height="16"></i> Completar 3.1 · Cuaderno
             </button>
@@ -6746,6 +6540,7 @@ Estado</pre>
     avance: {},
     risks: null,
     lab33: { hallazgo: "", trazabilidad: "" },
+    lab31: { audit: {} },
     lab34: {
       matches: {},
       order: null,
@@ -11293,57 +11088,60 @@ Estado</pre>
 
 
   /* ========== LAB 3.1 · CUADERNO ========== */
-  const LAB31_REF_KEYS = [
-    "lab31-ref-alcance",
-    "lab31-ref-presupuesto",
-    "lab31-ref-transcripcion",
-    "lab31-ref-riesgos",
-    "lab31-ref-interesados"
-  ];
   const LAB31_REQUIRED = [
     "lab31-created",
-    ...LAB31_REF_KEYS,
-    "lab31-instructions",
-    "lab31-verify-refs",
-    "lab31-verify-access",
-    "lab31-verify-limits",
-    "lab31-reto1",
-    "lab31-reto2",
-    "lab31-reto3"
+    "lab31-refs",
+    "lab31-resumen",
+    "lab31-conclusiones",
+    "lab31-verify-1",
+    "lab31-verify-2",
+    "lab31-meaning",
+    "lab31-mindmap",
+    "lab31-infografia",
+    "lab31-audit"
   ];
 
-  function lab31RefsDone() {
-    return LAB31_REF_KEYS.filter(k => state.progress[k]).length;
+  const LAB31_AUDIT_Q = [
+    "¿La infografía presenta Proyecto Horizonte como aprobado?",
+    "¿Las cifras coinciden con las fuentes?",
+    "¿Las fechas conservan correctamente su nivel de certeza?",
+    "¿Los riesgos representados están respaldados por las fuentes?",
+    "¿Los responsables mencionados están sustentados?",
+    "¿Diferencia propuestas de decisiones confirmadas?",
+    "¿Mantiene visibles los principales pendientes?",
+    "¿La simplificación visual cambió el significado de algún dato?"
+  ];
+
+  function lab31NewGateMet() {
+    const checks = LAB31_REQUIRED.every(k => !!state.progress[k]);
+    const checkpointOk = state.progress["lab31-checkpoint"] === "B";
+    return checks && checkpointOk;
   }
 
   function lab31RequirementsMet() {
-    const checks = LAB31_REQUIRED.every(k => !!state.progress[k]);
-    const checkpoint = !!state.progress["lab31-checkpoint"];
-    return checks && checkpoint;
+    // Compatibilidad: quien ya completó 3.1 no pierde el cierre
+    if (state.progress["lab-3-1"]) return true;
+    return lab31NewGateMet();
   }
 
   function updateLab31UI() {
     const root = document.getElementById("lab-cuaderno");
     if (!root) return;
 
-    const countEl = document.getElementById("lab31RefCount");
-    if (countEl) countEl.textContent = lab31RefsDone() + " / 5 referencias incorporadas";
-
     const ready = lab31RequirementsMet();
+    const canCompleteNew = lab31NewGateMet();
     const btn = document.getElementById("lab31CompleteBtn");
     const hint = document.getElementById("lab31GateHint");
     if (btn) {
       const already = !!state.progress["lab-3-1"];
-      btn.disabled = !(ready || already);
+      btn.disabled = !(canCompleteNew || already);
       btn.setAttribute("aria-disabled", btn.disabled ? "true" : "false");
       const label = already ? "3.1 completado" : "Completar 3.1 · Cuaderno";
       btn.innerHTML = `<i data-lucide="check-circle-2" width="16" height="16"></i> ${label}`;
       if (window.lucide) lucide.createIcons({ nodes: [btn] });
     }
     if (hint) {
-      hint.textContent = ready || state.progress["lab-3-1"]
-        ? "Puedes cerrar la misión 3.1."
-        : "Marca todos los pasos, retos y el checkpoint para habilitar el cierre.";
+      hint.textContent = alreadyMessage(ready, canCompleteNew);
     }
 
     const success = document.getElementById("lab31Success");
@@ -11357,9 +11155,58 @@ Estado</pre>
       cardStatus.style.color = state.progress["lab-3-1"] ? "var(--brand-accent)" : "";
     }
 
+    renderLab31Audit();
     const choice = state.progress["lab31-checkpoint"];
     if (choice) applyLab31Checkpoint(choice, false);
     updateLab34Unlock();
+  }
+
+  function alreadyMessage(ready, canCompleteNew) {
+    if (state.progress["lab-3-1"]) return "Puedes cerrar la misión 3.1.";
+    if (canCompleteNew) return "Puedes cerrar la misión 3.1.";
+    return "Marca los pasos requeridos y responde el checkpoint correctamente (opción B) para habilitar el cierre.";
+  }
+
+  function renderLab31Audit() {
+    const box = document.getElementById("lab31AuditList");
+    if (!box) return;
+    state.lab31 = state.lab31 || {};
+    state.lab31.audit = state.lab31.audit || {};
+    if (box.dataset.boundAudit) {
+      box.querySelectorAll("[data-lab31-audit]").forEach(row => {
+        const id = row.getAttribute("data-lab31-audit");
+        const val = state.lab31.audit[id] || "";
+        row.querySelectorAll("[data-lab31-audit-ans]").forEach(btn => {
+          btn.classList.toggle("is-picked", btn.getAttribute("data-lab31-audit-ans") === val);
+        });
+      });
+      return;
+    }
+    box.dataset.boundAudit = "1";
+    box.innerHTML = LAB31_AUDIT_Q.map((q, i) => {
+      const id = "q" + (i + 1);
+      return `<div class="lab31-audit-row" data-lab31-audit="${id}">
+        <p>${i + 1}. ${q}</p>
+        <div class="btn-group" role="group" aria-label="Respuesta ${i + 1}">
+          <button type="button" class="btn btn--sm btn--ghost" data-lab31-audit-ans="si">Sí</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-lab31-audit-ans="no">No</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-lab31-audit-ans="nd">No puedo determinarlo</button>
+        </div>
+      </div>`;
+    }).join("");
+    box.querySelectorAll(".lab31-audit-row").forEach(row => {
+      const id = row.getAttribute("data-lab31-audit");
+      row.querySelectorAll("[data-lab31-audit-ans]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.lab31 = state.lab31 || {};
+          state.lab31.audit = state.lab31.audit || {};
+          state.lab31.audit[id] = btn.getAttribute("data-lab31-audit-ans");
+          saveState();
+          renderLab31Audit();
+        });
+      });
+    });
+    renderLab31Audit();
   }
 
   function applyLab31Checkpoint(choice, persist) {
@@ -11374,9 +11221,9 @@ Estado</pre>
     if (feedback) {
       feedback.hidden = false;
       if (choice === "B") {
-        feedback.innerHTML = "<strong>Correcto.</strong> Un Cuaderno aporta valor cuando hay continuidad, varias referencias relacionadas y consultas recurrentes sobre el mismo proyecto. Los escenarios A y C se resuelven mejor con una conversación puntual en Copilot Chat.";
+        feedback.innerHTML = "<strong>Correcto.</strong> Un Cuaderno organiza conocimiento contextualizado. Un Agente, que trabajarás a continuación, añade comportamiento, instrucciones y especialización.";
       } else {
-        feedback.innerHTML = "<strong>No es el mejor caso.</strong> Para una tarea aislada (correo o corrección breve) suele bastar Copilot Chat. El Cuaderno brilla cuando trabajas semanas con documentos relacionados de un mismo proyecto (opción B).";
+        feedback.innerHTML = "<strong>No es la mejor descripción.</strong> Un Cuaderno no es solo almacenamiento, ni un agente, ni una automatización. Crea un espacio contextual para sintetizar y transformar fuentes relacionadas (opción B).";
       }
     }
     if (persist) {
@@ -11391,15 +11238,12 @@ Estado</pre>
     const root = document.getElementById("lab-cuaderno");
     if (!root || root.dataset.boundLab31) return;
     root.dataset.boundLab31 = "1";
+    state.lab31 = state.lab31 || { audit: {} };
 
     root.addEventListener("change", (e) => {
       const t = e.target;
       if (t && t.matches && t.matches("input[data-progress]")) {
-        // bindProgressInputs ya guarda; sincronizamos UI del módulo
-        if (state.progress["lab-3-1"] && !lab31RequirementsMet()) {
-          state.progress["lab-3-1"] = false;
-          saveState();
-        }
+        // No revocar lab-3-1 si ya estaba completo (compatibilidad con progreso anterior)
         updateLab31UI();
       }
     });
@@ -11413,8 +11257,14 @@ Estado</pre>
     const completeBtn = document.getElementById("lab31CompleteBtn");
     if (completeBtn) {
       completeBtn.addEventListener("click", () => {
-        if (!lab31RequirementsMet() && !state.progress["lab-3-1"]) {
-          toast("Completa todos los pasos requeridos", "alert-triangle");
+        if (state.progress["lab-3-1"]) {
+          updateLab31UI();
+          const success = document.getElementById("lab31Success");
+          if (success) success.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          return;
+        }
+        if (!lab31NewGateMet()) {
+          toast("Completa los pasos requeridos y el checkpoint (B)", "alert-triangle");
           return;
         }
         state.progress["lab-3-1"] = true;
