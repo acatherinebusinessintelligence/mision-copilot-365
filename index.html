@@ -1011,6 +1011,92 @@
     .footer__meta { margin: 0; max-width: 70ch; }
     .footer__meta strong { color: var(--brand-light); }
 
+    /* ========== COPILOT LAB (Apartado 3) ========== */
+    .lab-flow {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+      gap: 0.45rem 0.35rem; margin: 1.25rem 0 0.5rem;
+    }
+    .lab-flow__step {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: 999px; padding: 0.45rem 0.85rem;
+      font-size: 0.82rem; font-weight: 700; color: var(--text);
+    }
+    .lab-flow__step i, .lab-flow__step svg { color: var(--brand-primary); width: 16px; height: 16px; }
+    .lab-flow__arrow {
+      color: var(--brand-primary); font-weight: 800; font-size: 1rem; line-height: 1;
+      user-select: none;
+    }
+    .lab-flow__tagline {
+      text-align: center; margin: 0.65rem auto 0; max-width: 42rem;
+      font-size: 0.95rem; font-weight: 600; color: var(--brand-primary);
+    }
+    .lab-card {
+      display: flex; flex-direction: column; gap: 0.55rem; height: 100%;
+      border-top: 4px solid var(--brand-primary);
+    }
+    .lab-card--locked {
+      border-top-color: var(--text-muted);
+      opacity: 0.88;
+      background: color-mix(in srgb, var(--bg-elevated) 92%, var(--border));
+    }
+    .lab-card__meta {
+      display: flex; flex-wrap: wrap; gap: 0.35rem 0.75rem;
+      font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem;
+    }
+    .lab-card__meta strong { color: var(--text); font-weight: 700; }
+    .lab-card .btn { margin-top: auto; align-self: flex-start; }
+    .lab-chain {
+      display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+      margin: 1rem auto; max-width: 22rem; text-align: center;
+    }
+    .lab-chain__node {
+      width: 100%; background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 0.75rem 1rem;
+    }
+    .lab-chain__node strong { display: block; color: var(--brand-primary); }
+    .lab-chain__node span { font-size: 0.86rem; color: var(--text-muted); }
+    .lab-chain__arrow { color: var(--brand-primary); font-weight: 800; }
+    .lab-compare {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem; margin-top: 1rem;
+    }
+    .lab-compare__item {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 0.9rem 1rem;
+      border-left: 3px solid var(--brand-primary);
+    }
+    .lab-compare__item strong {
+      display: block; font-size: 0.82rem; letter-spacing: 0.03em;
+      text-transform: uppercase; color: var(--brand-primary); margin-bottom: 0.35rem;
+    }
+    .lab-compare__item p { margin: 0; font-size: 0.9rem; color: var(--text-muted); }
+    .lab-placeholder {
+      margin-top: 1rem; padding: 1.1rem 1.2rem;
+      border: 1px dashed color-mix(in srgb, var(--brand-primary) 40%, var(--border));
+      border-radius: var(--radius); background: color-mix(in srgb, var(--brand-primary) 6%, var(--bg-elevated));
+    }
+    .lab-placeholder h4 { margin: 0 0 0.4rem; }
+    .lab-placeholder p { margin: 0; color: var(--text-muted); font-size: 0.92rem; }
+    .lab-badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      padding: 0.2rem 0.5rem; border-radius: 6px;
+      background: color-mix(in srgb, var(--brand-accent) 35%, transparent);
+      color: var(--brand-dark);
+    }
+    .lab-badge--soon {
+      background: color-mix(in srgb, var(--text-muted) 18%, transparent);
+      color: var(--text-muted);
+    }
+    @media (max-width: 980px) {
+      .lab-compare { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .lab-compare { grid-template-columns: 1fr; }
+      .lab-flow { flex-direction: column; }
+      .lab-flow__arrow { transform: rotate(90deg); }
+    }
+
     /* ========== MOBILE ========== */
     @media (max-width: 980px) {
       .hero__grid, .grid-2, .grid-3, .grid-4, .grid-6, .form-grid.cols-2, .formula, .slides {
@@ -1078,6 +1164,7 @@
           <li><a href="#sesion1">Sesión 1</a></li>
           <li><a href="#desafio">Desafío</a></li>
           <li><a href="#sesion2">Sesión 2</a></li>
+          <li><a href="#copilot-lab">Copilot Lab</a></li>
           <li><a href="#prompts">Prompts</a></li>
           <li><a href="#proyecto-final">Proyecto final</a></li>
         </ul>
@@ -4063,6 +4150,160 @@ Tono: ejecutivo, claro y prudente.</div>
       </div>
     </section>
 
+    <!-- ========== COPILOT LAB (Apartado 3 · Etapa 1: estructura) ========== -->
+    <section id="copilot-lab" class="section-dark" aria-labelledby="labTitle">
+      <div class="container">
+        <p class="section-kicker">Apartado 3</p>
+        <h2 class="section-title" id="labTitle">Copilot Lab</h2>
+        <p class="hero__subtitle" style="margin:0 0 0.65rem">Del prompt al sistema de trabajo</p>
+        <p class="lead">Ya utilizaste Copilot para analizar información y crear entregables. Ahora aprenderás a convertir ese trabajo en un entorno más organizado, especializado y automatizado.</p>
+        <p class="lead" style="margin-top:0.5rem">Este laboratorio utiliza nuevamente el Proyecto Horizonte para mostrar cómo evolucionar desde una conversación con Copilot hacia un sistema de trabajo apoyado por IA.</p>
+
+        <div class="lab-flow" aria-label="Evolución del laboratorio">
+          <span class="lab-flow__step"><i data-lucide="message-square"></i> Copilot Chat</span>
+          <span class="lab-flow__arrow" aria-hidden="true">↓</span>
+          <span class="lab-flow__step"><i data-lucide="book-open"></i> Cuaderno</span>
+          <span class="lab-flow__arrow" aria-hidden="true">↓</span>
+          <span class="lab-flow__step"><i data-lucide="bot"></i> Agente</span>
+          <span class="lab-flow__arrow" aria-hidden="true">↓</span>
+          <span class="lab-flow__step"><i data-lucide="zap"></i> Automatización</span>
+        </div>
+        <p class="lab-flow__tagline">De preguntar a Copilot → a construir una forma de trabajo con Copilot.</p>
+
+        <div class="card" style="margin:2rem 0 1.5rem;color:var(--text)">
+          <h3 style="margin-top:0">Ya analizaste Horizonte. Ahora llévalo al siguiente nivel.</h3>
+          <p style="margin:0 0 0.65rem;color:var(--text-muted)">En el ejercicio anterior trabajaste con múltiples documentos, prompts profesionales, un informe ejecutivo y una presentación para comité.</p>
+          <p style="margin:0;color:var(--text-muted)">Ahora reutilizarás Proyecto Horizonte para descubrir tres capacidades que permiten evolucionar ese trabajo: organizar conocimiento, especializar a Copilot y automatizar acciones.</p>
+        </div>
+
+        <h3 style="margin:1.75rem 0 0.85rem;color:var(--brand-light)">Mapa del laboratorio</h3>
+        <div class="grid grid-3">
+          <article class="card lab-card" style="color:var(--text)">
+            <div class="card__icon" aria-hidden="true"><i data-lucide="book-open" width="22" height="22"></i></div>
+            <p class="lab-badge">3.1 · Cuaderno</p>
+            <h3>Construye el Centro de Conocimiento Horizonte</h3>
+            <p>Reúne las fuentes del proyecto en un espacio de trabajo contextual para consultar, contrastar y reutilizar información.</p>
+            <div class="lab-card__meta">
+              <span><strong>Resultado:</strong> Centro de conocimiento del Proyecto Horizonte.</span>
+              <span><strong>Habilidad:</strong> Contexto + fuentes + trazabilidad.</span>
+            </div>
+            <a class="btn btn--sm btn--primary" href="#lab-cuaderno"><i data-lucide="book-open" width="14" height="14"></i> Comenzar Cuaderno</a>
+            <label style="display:inline-flex;gap:0.4rem;margin-top:0.65rem;font-size:0.85rem;cursor:pointer;color:var(--text)">
+              <input type="checkbox" data-progress="lab-3-1" /> Marcar 3.1 como visto
+            </label>
+          </article>
+
+          <article class="card lab-card" style="color:var(--text)">
+            <div class="card__icon" aria-hidden="true"><i data-lucide="bot" width="22" height="22"></i></div>
+            <p class="lab-badge">3.2 · Agente</p>
+            <h3>Construye tu PMO Copilot</h3>
+            <p>Configura un Copilot especializado para analizar proyectos siguiendo reglas permanentes de PMO, trazabilidad y validación.</p>
+            <div class="lab-card__meta">
+              <span><strong>Resultado:</strong> Agente PMO especializado.</span>
+              <span><strong>Habilidad:</strong> Rol + instrucciones + conocimiento + comportamiento.</span>
+            </div>
+            <a class="btn btn--sm btn--primary" href="#lab-agente"><i data-lucide="bot" width="14" height="14"></i> Crear Agente PMO</a>
+            <label style="display:inline-flex;gap:0.4rem;margin-top:0.65rem;font-size:0.85rem;cursor:pointer;color:var(--text)">
+              <input type="checkbox" data-progress="lab-3-2" /> Marcar 3.2 como visto
+            </label>
+          </article>
+
+          <article class="card lab-card" style="color:var(--text)">
+            <div class="card__icon card__icon--energy" aria-hidden="true"><i data-lucide="zap" width="22" height="22"></i></div>
+            <p class="lab-badge">3.3 · Automatización</p>
+            <h3>Del hallazgo a la acción</h3>
+            <p>Diseña un flujo que detecte un hallazgo crítico, evalúe una condición, prepare una comunicación ejecutiva y gestione su notificación.</p>
+            <div class="lab-card__meta">
+              <span><strong>Resultado:</strong> Alerta inteligente de hallazgos.</span>
+              <span><strong>Habilidad:</strong> Evento + condición + IA + acción.</span>
+            </div>
+            <a class="btn btn--sm btn--primary" href="#lab-automatizacion"><i data-lucide="zap" width="14" height="14"></i> Automatizar Hallazgo</a>
+            <label style="display:inline-flex;gap:0.4rem;margin-top:0.65rem;font-size:0.85rem;cursor:pointer;color:var(--text)">
+              <input type="checkbox" data-progress="lab-3-3" /> Marcar 3.3 como visto
+            </label>
+          </article>
+        </div>
+
+        <div class="card" style="margin:1.75rem 0;color:var(--text)">
+          <h3 style="margin-top:0;text-align:center">Conexión entre las tres herramientas</h3>
+          <div class="lab-chain" aria-label="Cadena Cuaderno → Agente → Automatización">
+            <div class="lab-chain__node"><strong>📓 Cuaderno</strong><span>Organiza el conocimiento</span></div>
+            <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+            <div class="lab-chain__node"><strong>🤖 Agente</strong><span>Especializa el comportamiento</span></div>
+            <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+            <div class="lab-chain__node"><strong>⚡ Automatización</strong><span>Ejecuta una acción</span></div>
+          </div>
+          <p style="text-align:center;margin:0.75rem 0 0;font-weight:600;color:var(--text-muted)">El valor no está en utilizar cada herramienta por separado, sino en comprender cuándo utilizar cada una.</p>
+        </div>
+
+        <h3 style="margin:1.75rem 0 0.35rem;color:var(--brand-light)">¿Qué cambia?</h3>
+        <p class="text-muted" style="margin:0 0 0.5rem;color:#c5c0dc;font-size:0.92rem">Ninguna herramienta reemplaza a otra: cada una cumple un rol distinto en el sistema de trabajo.</p>
+        <div class="lab-compare">
+          <div class="lab-compare__item" style="color:var(--text)">
+            <strong>Copilot Chat</strong>
+            <p>Resuelve una tarea o conversación.</p>
+          </div>
+          <div class="lab-compare__item" style="color:var(--text)">
+            <strong>Cuaderno</strong>
+            <p>Mantiene reunido el contexto relevante de un proyecto.</p>
+          </div>
+          <div class="lab-compare__item" style="color:var(--text)">
+            <strong>Agente</strong>
+            <p>Aplica instrucciones y comportamiento especializado.</p>
+          </div>
+          <div class="lab-compare__item" style="color:var(--text)">
+            <strong>Automatización</strong>
+            <p>Ejecuta una rutina cuando ocurre un evento o se cumple una condición.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin:1.75rem 0;color:var(--text)">
+          <h3 style="margin-top:0">Proyecto integrador: Horizonte</h3>
+          <p style="margin:0 0 0.65rem;color:var(--text-muted)">No comenzaremos desde cero.</p>
+          <p style="margin:0 0 1rem;color:var(--text-muted)">Los mismos documentos utilizados anteriormente se reutilizarán para construir el Cuaderno, configurar el Agente PMO y diseñar la automatización de hallazgos. Así podrás comparar cómo cambia la forma de trabajar con Copilot.</p>
+          <div class="lab-flow" aria-label="Hilo conductor Horizonte">
+            <span class="lab-flow__step">Archivos Horizonte</span>
+            <span class="lab-flow__arrow" aria-hidden="true">↓</span>
+            <span class="lab-flow__step">Cuaderno</span>
+            <span class="lab-flow__arrow" aria-hidden="true">↓</span>
+            <span class="lab-flow__step">Agente PMO</span>
+            <span class="lab-flow__arrow" aria-hidden="true">↓</span>
+            <span class="lab-flow__step">Hallazgo crítico</span>
+            <span class="lab-flow__arrow" aria-hidden="true">↓</span>
+            <span class="lab-flow__step">Correo / notificación</span>
+          </div>
+        </div>
+
+        <article class="card lab-card lab-card--locked" id="lab-reto" style="color:var(--text);margin-bottom:1.5rem">
+          <div class="card__icon" aria-hidden="true"><i data-lucide="flag" width="22" height="22"></i></div>
+          <p class="lab-badge lab-badge--soon">🏁 Reto integrador · Próximamente</p>
+          <h3>De Copilot a un sistema de trabajo</h3>
+          <p>Conecta lo aprendido para diseñar cómo debería operar Proyecto Horizonte utilizando conocimiento, especialización, automatización y validación humana.</p>
+          <div class="lab-card__meta">
+            <span><strong>Estado:</strong> Disponible después de completar 3.1, 3.2 y 3.3.</span>
+          </div>
+          <button type="button" class="btn btn--sm btn--ghost" disabled aria-disabled="true">Reto bloqueado</button>
+          <label style="display:inline-flex;gap:0.4rem;margin-top:0.65rem;font-size:0.85rem;cursor:pointer;color:var(--text)">
+            <input type="checkbox" data-progress="lab-3-4" /> Marcar 3.4 como visto (cuando esté disponible)
+          </label>
+        </article>
+
+        <!-- Placeholders Etapa 1 · sin ejercicios -->
+        <div id="lab-cuaderno" class="lab-placeholder" style="color:var(--text)">
+          <h4><i data-lucide="book-open" width="18" height="18" style="vertical-align:-3px"></i> 3.1 · Cuaderno</h4>
+          <p><strong>Placeholder · Etapa 1.</strong> Aquí se construirá el Centro de Conocimiento Horizonte. El ejercicio completo se implementará en una etapa posterior. Por ahora solo navegas la estructura del laboratorio.</p>
+        </div>
+        <div id="lab-agente" class="lab-placeholder" style="color:var(--text);margin-top:0.85rem">
+          <h4><i data-lucide="bot" width="18" height="18" style="vertical-align:-3px"></i> 3.2 · Agente PMO</h4>
+          <p><strong>Placeholder · Etapa 1.</strong> Aquí se configurará el Agente PMO. No hay formularios ni instrucciones de agente en esta etapa.</p>
+        </div>
+        <div id="lab-automatizacion" class="lab-placeholder" style="color:var(--text);margin-top:0.85rem;margin-bottom:0.5rem">
+          <h4><i data-lucide="zap" width="18" height="18" style="vertical-align:-3px"></i> 3.3 · Automatización</h4>
+          <p><strong>Placeholder · Etapa 1.</strong> Aquí se diseñará el flujo de hallazgo crítico. No hay automatización real ni simulada en esta etapa.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ========== 7. PROMPTS ========== -->
     <section id="prompts" class="section-dark" aria-labelledby="promptsTitle">
       <div class="container">
@@ -4373,7 +4614,8 @@ Tono: ejecutivo, claro y prudente.</div>
     "reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6",
     "s1-done","s2-done","proyecto-final",
     "s2-f0","s2-f1","s2-f2","s2-f3","s2-f4","s2-f5","s2-f6","s2-f7","s2-f8",
-    "s2-e1","s2-e2","s2-e3","s2-e4","s2-e5","s2-e6","s2-e7","s2-e8","s2-e9","s2-e10"
+    "s2-e1","s2-e2","s2-e3","s2-e4","s2-e5","s2-e6","s2-e7","s2-e8","s2-e9","s2-e10",
+    "lab-3-1","lab-3-2","lab-3-3","lab-3-4"
   ];
 
   function calcPercent() {
