@@ -1333,7 +1333,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-09-22-copilot-lab-etapa1-v1"
+APP_CODE_VERSION = "2026-09-22-copilot-lab-etapa5-34-v1"
 
 
 @app.get("/health")
