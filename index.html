@@ -1225,6 +1225,14 @@
     }
     .lab31 .btn--block-sm { width: auto; }
     .lab31-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .lab31-extra {
+      border-top: 4px solid var(--brand-accent);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--brand-accent) 28%, transparent);
+    }
+    .lab31-extra__badge {
+      background: color-mix(in srgb, var(--brand-accent) 40%, transparent);
+      color: var(--brand-dark);
+    }
     @media (max-width: 800px) {
       .lab31-transform { grid-template-columns: 1fr; }
       .lab31-transform__arrow { transform: rotate(90deg); padding: 0.15rem 0; }
@@ -1232,6 +1240,7 @@
       .lab31-compare { grid-template-columns: 1fr; }
       .lab31 .btn-group .btn { width: 100%; justify-content: center; }
       .lab31 .lab31-file .btn { width: 100%; justify-content: center; }
+      .lab31-extra .btn-group .btn { width: 100%; justify-content: center; }
     }
 
     /* ========== LAB 3.2 · AGENTE PMO ========== */
@@ -4987,6 +4996,152 @@ Una página ejecutiva equivalente.</div>
             </div>
             <ul class="check-list" style="margin:0">
               <li><label><input type="checkbox" data-progress="lab31-reto3" /> Completé el Reto 3.</label></li>
+            </ul>
+          </div>
+
+          <div class="card lab31-extra" id="lab31Infografia">
+            <p class="lab-badge lab31-extra__badge" style="margin:0 0 0.45rem">Nueva capacidad · Reto extra</p>
+            <h3 class="lab31__title" style="font-size:1.2rem;margin:0 0 0.35rem">Del conocimiento a la infografía</h3>
+            <p class="lab31__subtitle" style="margin:0 0 0.85rem">Transforma el contenido de tu Cuaderno en una pieza visual para comunicación ejecutiva.</p>
+
+            <div class="lab-chain" aria-label="De fuentes a infografía" style="margin:0.5rem auto 1rem;max-width:16rem">
+              <div class="lab-chain__node"><strong>📄 Fuentes</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>📓 Cuaderno</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>🔎 Analizar</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>🧠 Sintetizar</strong></div>
+              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+              <div class="lab-chain__node"><strong>🎨 Infografía</strong></div>
+            </div>
+
+            <p style="margin:0 0 0.75rem;color:var(--text-muted)">El Cuaderno no solo permite trabajar con información contextualizada. También puede ayudarte a transformar ese conocimiento en formatos visuales más fáciles de comunicar.</p>
+            <p class="disclaimer disclaimer--info" style="margin:0 0 1rem">
+              <i data-lucide="info" width="18" height="18"></i>
+              <span>En este reto no buscamos decorar información. Buscamos transformar evidencia compleja en comunicación ejecutiva.</span>
+            </p>
+
+            <div class="lab31-mission" style="padding:0.9rem 1rem;border-radius:var(--radius-sm);margin-bottom:1rem">
+              <p class="lab-badge" style="margin:0 0 0.45rem">Crea la infografía ejecutiva de Proyecto Horizonte</p>
+              <p style="margin:0 0 0.55rem;font-weight:600">Utiliza el contenido disponible en tu Cuaderno para crear una infografía que permita comprender rápidamente el estado del Proyecto Horizonte.</p>
+              <div class="lab31-mission__result" style="margin-top:0.5rem">
+                <strong>Resultado:</strong> 🎨 Infografía ejecutiva basada en las fuentes del Cuaderno.
+              </div>
+            </div>
+
+            <ol style="margin:0 0 0.85rem;padding-left:1.2rem;color:var(--text-muted);font-size:0.95rem">
+              <li>Abre tu Cuaderno de Proyecto Horizonte.</li>
+              <li>Confirma que las fuentes del proyecto están disponibles.</li>
+              <li>Utiliza la capacidad disponible para crear una infografía a partir del contenido del Cuaderno.</li>
+              <li>Utiliza el prompt propuesto como guía.</li>
+              <li>Revisa cuidadosamente el resultado.</li>
+              <li>Compara la infografía contra las fuentes originales.</li>
+            </ol>
+            <p class="disclaimer" style="margin:0 0 0.85rem">
+              <i data-lucide="alert-triangle" width="18" height="18"></i>
+              <span>Las opciones visibles y la disponibilidad de esta capacidad pueden variar según la configuración de Microsoft 365 de tu organización.</span>
+            </p>
+
+            <div class="prompt-box lab31-prompt" id="lab31-infografia">Crea una infografía ejecutiva sobre el Proyecto Horizonte utilizando
+exclusivamente la información disponible en este Cuaderno.
+
+OBJETIVO
+
+Permitir que una persona directiva comprenda rápidamente la información
+más relevante del proyecto y los aspectos que requieren atención.
+
+ESTRUCTURA
+
+1. PROYECTO HORIZONTE
+Resume propósito y alcance principal.
+
+2. ESTADO ACTUAL
+Presenta únicamente datos verificables disponibles en las fuentes.
+
+3. HITOS CLAVE
+Incluye fechas o hitos únicamente cuando estén respaldados por las
+fuentes.
+
+4. RIESGOS Y HALLAZGOS
+Destaca los elementos más relevantes.
+Incluye criticidad únicamente cuando pueda sustentarse.
+
+5. INFORMACIÓN PENDIENTE
+Identifica aspectos que todavía requieren validación.
+
+6. DECISIONES O VALIDACIONES REQUERIDAS
+Muestra claramente aquello que requiere intervención humana.
+
+REGLAS
+
+- Utiliza exclusivamente información disponible en el Cuaderno.
+- No inventes cifras.
+- No inventes fechas.
+- No inventes responsables.
+- No inventes decisiones.
+- No conviertas inferencias en hechos.
+- No presentes recomendaciones como decisiones aprobadas.
+- Cuando falte información utiliza:
+  PENDIENTE DE VALIDACIÓN.
+- Prioriza información relevante para una audiencia ejecutiva.
+- Reduce texto innecesario.
+- Mantén trazabilidad conceptual con las fuentes.
+
+DISEÑO
+
+Crea una infografía:
+
+- ejecutiva;
+- profesional;
+- limpia;
+- visualmente jerarquizada;
+- fácil de comprender;
+- con poco texto;
+- con cifras clave cuando estén sustentadas;
+- con riesgos y pendientes claramente diferenciados.
+
+Evita saturar la pieza con información.
+
+La infografía debe permitir comprender los puntos esenciales sin
+reemplazar la revisión de las fuentes originales.</div>
+            <div class="btn-group" style="margin:0.35rem 0 1rem">
+              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab31-infografia"><i data-lucide="copy" width="14" height="14"></i> Copiar prompt para infografía</button>
+            </div>
+
+            <h4 style="margin:0 0 0.45rem;font-size:1rem">Antes de utilizarla, valida</h4>
+            <ul class="check-list" style="margin:0 0 0.65rem">
+              <li><label><input type="checkbox" data-progress="lab31-infografia-v1" /> Las cifras coinciden con las fuentes.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-infografia-v2" /> Las fechas coinciden con las fuentes.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-infografia-v3" /> Los responsables están sustentados.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-infografia-v4" /> Los riesgos conservan su significado original.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-infografia-v5" /> Las inferencias están diferenciadas.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-infografia-v6" /> Los pendientes siguen visibles.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-infografia-v7" /> No aparecen decisiones inexistentes.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-infografia-v8" /> La simplificación visual no cambió el sentido de la información.</label></li>
+            </ul>
+            <p style="margin:0 0 1rem;font-weight:600;color:var(--text-muted)">La transformación visual también necesita validación humana.</p>
+
+            <div class="lab32-quote" style="margin:0 0 0.85rem">
+              <strong style="display:block;margin-bottom:0.35rem">¿Qué acabas de hacer?</strong>
+              No pediste información nueva. Transformaste conocimiento ya organizado y contextualizado en el Cuaderno en un nuevo formato de comunicación.
+            </div>
+            <div class="lab31-transform" aria-label="Mismas fuentes, diferentes entregables" style="margin:0 0 0.85rem">
+              <div class="lab31-transform__box">
+                <strong>Mismas fuentes</strong>
+                <p>Evidencia del Cuaderno</p>
+              </div>
+              <div class="lab31-transform__arrow" aria-hidden="true">↓</div>
+              <div class="lab31-transform__box">
+                <strong>Diferentes entregables</strong>
+                <p>📄 Informe · 📊 Presentación · 🎨 Infografía</p>
+              </div>
+            </div>
+            <p class="lab32-quote" style="margin:0 0 0.85rem;text-align:center">El formato cambia. La evidencia no.</p>
+
+            <p class="lab-badge lab-badge--soon" style="margin:0 0 0.45rem">Opcional</p>
+            <ul class="check-list" style="margin:0">
+              <li><label><input type="checkbox" data-progress="lab31-infografia" /> Creé mi infografía</label></li>
             </ul>
           </div>
 
