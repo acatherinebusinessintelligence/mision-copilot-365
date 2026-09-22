@@ -859,6 +859,12 @@ def mission():
     return send_from_directory(BASE_DIR, "index.html")
 
 
+@app.get("/horizonte")
+def horizonte_portal():
+    """Portal público del caso Proyecto Horizonte (fuente web para Agente PMO)."""
+    return send_from_directory(BASE_DIR, "horizonte.html")
+
+
 # ---------------------------------------------------------------------------
 # API progreso estudiante
 # ---------------------------------------------------------------------------

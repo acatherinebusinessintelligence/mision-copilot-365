@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyecto Horizonte · Centro de Información del Proyecto</title>
+  <meta name="description" content="Centro de Información del Proyecto Horizonte: estado, alcance, hitos, riesgos, interesados y fuentes de referencia. Caso académico ficticio. Iniciativa en estructuración." />
+  <meta name="robots" content="index,follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --hz-ink: #0f2744;
+      --hz-ink-soft: #1e3a5f;
+      --hz-surface: #f7f9fc;
+      --hz-card: #ffffff;
+      --hz-line: #d5dee9;
+      --hz-muted: #5a6b7d;
+      --hz-accent: #0d6e6e;
+      --hz-accent-soft: #e6f4f4;
+      --hz-warn: #8a5a00;
+      --hz-warn-bg: #fff6e0;
+      --hz-pend: #6b4c9a;
+      --hz-pend-bg: #f3edfa;
+      --hz-ok: #1b6b3a;
+      --hz-ok-bg: #e8f6ee;
+      --hz-update: #1a4f8c;
+      --hz-update-bg: #e8f1fb;
+      --hz-radius: 12px;
+      --hz-max: 960px;
+      --font-sans: "Montserrat", system-ui, sans-serif;
+      --font-serif: "Source Serif 4", Georgia, serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--hz-ink);
+      background: linear-gradient(180deg, #eef3f8 0%, var(--hz-surface) 220px, var(--hz-surface) 100%);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--hz-accent); }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid #ffec00;
+      outline-offset: 2px;
+    }
+    .hz-wrap { width: min(100% - 1.5rem, var(--hz-max)); margin-inline: auto; }
+    header.hz-header {
+      background: linear-gradient(135deg, var(--hz-ink) 0%, var(--hz-ink-soft) 55%, #164a6a 100%);
+      color: #fff;
+      padding: 1.75rem 0 1.5rem;
+      border-bottom: 4px solid var(--hz-accent);
+    }
+    .hz-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(255,236,0,0.95);
+      color: var(--hz-ink);
+      margin-bottom: 0.85rem;
+    }
+    .hz-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.55rem, 4vw, 2.15rem);
+      margin: 0 0 0.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .hz-header .hz-sub {
+      margin: 0;
+      font-size: 1rem;
+      opacity: 0.92;
+      font-weight: 500;
+    }
+    nav.hz-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--hz-line);
+    }
+    .hz-nav__list {
+      display: flex;
+      gap: 0.35rem;
+      overflow-x: auto;
+      padding: 0.65rem 0;
+      margin: 0;
+      list-style: none;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .hz-nav__list a {
+      display: inline-block;
+      white-space: nowrap;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--hz-ink-soft);
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      min-height: 40px;
+      line-height: 1.4;
+    }
+    .hz-nav__list a:hover {
+      background: var(--hz-accent-soft);
+      border-color: #b7d9d9;
+      color: var(--hz-accent);
+    }
+    main { padding: 1.5rem 0 3rem; }
+    section {
+      background: var(--hz-card);
+      border: 1px solid var(--hz-line);
+      border-radius: var(--hz-radius);
+      padding: 1.25rem 1.15rem;
+      margin: 0 0 1rem;
+      box-shadow: 0 1px 0 rgba(15,39,68,0.04);
+    }
+    section h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.15rem;
+      color: var(--hz-ink);
+      border-bottom: 2px solid var(--hz-accent-soft);
+      padding-bottom: 0.45rem;
+    }
+    section h3 {
+      margin: 1rem 0 0.45rem;
+      font-size: 0.98rem;
+      color: var(--hz-ink-soft);
+    }
+    p { margin: 0 0 0.75rem; color: var(--hz-ink); }
+    .muted { color: var(--hz-muted); }
+    .tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.5rem;
+      border-radius: 6px;
+      margin: 0 0.25rem 0.25rem 0;
+      vertical-align: middle;
+    }
+    .tag--ok { background: var(--hz-ok-bg); color: var(--hz-ok); }
+    .tag--prop { background: var(--hz-warn-bg); color: var(--hz-warn); }
+    .tag--pend { background: var(--hz-pend-bg); color: var(--hz-pend); }
+    .tag--upd { background: var(--hz-update-bg); color: var(--hz-update); }
+    .tag--ref { background: #eef1f5; color: #445566; }
+    .legend {
+      display: grid;
+      gap: 0.55rem;
+      margin: 0.85rem 0 0;
+      padding: 0.85rem;
+      background: var(--hz-surface);
+      border-radius: 10px;
+      border: 1px dashed var(--hz-line);
+    }
+    .legend p { margin: 0; font-size: 0.88rem; color: var(--hz-muted); }
+    .status-card {
+      margin: 0.85rem 0 0;
+      padding: 1rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--hz-accent);
+      background: var(--hz-accent-soft);
+    }
+    .status-card strong { display: block; font-size: 1.05rem; margin-bottom: 0.35rem; }
+    .grid-2 {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+    .certainty {
+      padding: 0.85rem;
+      border-radius: 10px;
+      border: 1px solid var(--hz-line);
+      background: #fff;
+    }
+    .certainty h3 { margin: 0 0 0.4rem; }
+    .certainty p { margin: 0; font-size: 0.9rem; color: var(--hz-muted); }
+    .certainty--ok { border-top: 3px solid var(--hz-ok); }
+    .certainty--prop { border-top: 3px solid #d4a017; }
+    .certainty--pend { border-top: 3px solid var(--hz-pend); }
+    ul.clean { margin: 0.35rem 0 0.75rem; padding-left: 1.15rem; }
+    ul.clean li { margin: 0.25rem 0; }
+    .timeline { list-style: none; margin: 0.5rem 0 0; padding: 0; border-left: 3px solid var(--hz-line); }
+    .timeline li {
+      position: relative;
+      padding: 0 0 1.1rem 1.1rem;
+      margin-left: 0.15rem;
+    }
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      left: -0.55rem;
+      top: 0.35rem;
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+      background: var(--hz-accent);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px var(--hz-line);
+    }
+    .timeline .when { font-size: 0.82rem; color: var(--hz-muted); font-weight: 600; }
+    .risk {
+      border: 1px solid var(--hz-line);
+      border-radius: 10px;
+      padding: 0.85rem;
+      margin: 0 0 0.65rem;
+      background: #fff;
+    }
+    .risk h3 { margin: 0 0 0.35rem; font-size: 0.95rem; }
+    .risk dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.2rem 0.65rem;
+      margin: 0.5rem 0 0;
+      font-size: 0.88rem;
+    }
+    .risk dt { color: var(--hz-muted); font-weight: 600; }
+    .risk dd { margin: 0; }
+    .update {
+      border: 1px solid var(--hz-line);
+      border-radius: 10px;
+      padding: 0.85rem;
+      margin: 0 0 0.65rem;
+    }
+    .update h3 { margin: 0 0 0.35rem; font-size: 0.95rem; }
+    details.faq {
+      border: 1px solid var(--hz-line);
+      border-radius: 10px;
+      padding: 0.65rem 0.85rem;
+      margin: 0 0 0.55rem;
+      background: #fff;
+    }
+    details.faq summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--hz-ink-soft);
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+    }
+    details.faq p { margin: 0.55rem 0 0.25rem; font-size: 0.92rem; color: var(--hz-muted); }
+    .sources code {
+      display: block;
+      font-size: 0.82rem;
+      background: var(--hz-surface);
+      padding: 0.45rem 0.6rem;
+      border-radius: 6px;
+      margin: 0.35rem 0;
+      word-break: break-all;
+      border: 1px solid var(--hz-line);
+    }
+    footer.hz-footer {
+      border-top: 1px solid var(--hz-line);
+      padding: 1.25rem 0 2rem;
+      color: var(--hz-muted);
+      font-size: 0.85rem;
+    }
+    footer.hz-footer p { color: var(--hz-muted); margin: 0 0 0.4rem; }
+    .note {
+      font-size: 0.9rem;
+      color: var(--hz-muted);
+      border-left: 3px solid var(--hz-line);
+      padding-left: 0.75rem;
+      margin: 0.75rem 0 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="hz-header">
+    <div class="hz-wrap">
+      <p class="hz-badge">Caso académico ficticio</p>
+      <h1>Proyecto Horizonte</h1>
+      <p class="hz-sub">Centro de Información del Proyecto</p>
+    </div>
+  </header>
+
+  <nav class="hz-nav" aria-label="Secciones del portal">
+    <div class="hz-wrap">
+      <ul class="hz-nav__list">
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#estado">Estado</a></li>
+        <li><a href="#objetivos">Objetivos</a></li>
+        <li><a href="#alcance">Alcance</a></li>
+        <li><a href="#hitos">Hitos</a></li>
+        <li><a href="#riesgos">Riesgos</a></li>
+        <li><a href="#interesados">Interesados</a></li>
+        <li><a href="#gobierno">Gobierno</a></li>
+        <li><a href="#actualizaciones">Actualizaciones</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="hz-wrap">
+    <section id="resumen" aria-labelledby="h-resumen">
+      <h2 id="h-resumen">1. Resumen</h2>
+      <p>
+        Proyecto Horizonte es una iniciativa de modernización de infraestructura energética urbana
+        orientada a la zona Horizonte Norte, donde se registra aumento de demanda y margen operativo
+        limitado en horas pico.
+      </p>
+      <p>
+        El propósito declarado es incrementar la confiabilidad operativa, mejorar la trazabilidad de
+        activos y fortalecer la capacidad de respuesta ante contingencias.
+      </p>
+      <article class="status-card">
+        <span class="tag tag--prop">Propuesta</span>
+        <span class="tag tag--pend">Pendiente de validación</span>
+        <strong>Estado actual: iniciativa en estructuración</strong>
+        <p class="muted" style="margin:0">
+          La ejecución está condicionada al cierre de validaciones y decisiones pendientes.
+          No debe presentarse como proyecto definitivamente aprobado.
+        </p>
+      </article>
+    </section>
+
+    <section id="estado" aria-labelledby="h-estado">
+      <h2 id="h-estado">2. Estado y niveles de certeza</h2>
+      <p class="muted">Los estados indican el nivel de certeza de la información publicada.</p>
+      <div class="grid-2" style="margin-top:0.85rem">
+        <article class="certainty certainty--ok">
+          <h3><span class="tag tag--ok">Confirmado</span></h3>
+          <p>Información respaldada por las fuentes. Ejemplo: el comité operativo acordó presentar el proyecto como iniciativa en estructuración, no como aprobado.</p>
+        </article>
+        <article class="certainty certainty--prop">
+          <h3><span class="tag tag--prop">Propuesta</span></h3>
+          <p>Alternativas o acciones todavía no convertidas en decisión. Ejemplo: ventanas nocturnas, borrador de comunicación a comunidad, fecha de siguiente reunión.</p>
+        </article>
+        <article class="certainty certainty--pend">
+          <h3><span class="tag tag--pend">Pendiente de validación</span></h3>
+          <p>Información que requiere confirmación. Ejemplo: presupuesto definitivo, ventanas de intervención autorizadas, aprobación de inicio por comité directivo.</p>
+        </article>
+      </div>
+      <div class="legend" aria-label="Leyenda de etiquetas">
+        <p><span class="tag tag--ok">Confirmado</span> respaldado por fuentes.</p>
+        <p><span class="tag tag--prop">Propuesta</span> aún no es decisión.</p>
+        <p><span class="tag tag--pend">Pendiente de validación</span> requiere confirmación.</p>
+        <p><span class="tag tag--upd">Actualización</span> cambio derivado de las fuentes.</p>
+        <p><span class="tag tag--ref">Fuente de referencia</span> documento del caso.</p>
+      </div>
+    </section>
+
+    <section id="objetivos" aria-labelledby="h-objetivos">
+      <h2 id="h-objetivos">3. Objetivos</h2>
+      <h3>Objetivo general <span class="tag tag--ok">Confirmado</span></h3>
+      <p>
+        Estructurar y ejecutar una modernización de infraestructura energética urbana que incremente
+        la confiabilidad operativa, mejore la trazabilidad de activos y fortalezca la respuesta ante contingencias.
+      </p>
+      <h3>Objetivos específicos <span class="tag tag--ok">Confirmado</span></h3>
+      <ul class="clean">
+        <li>Diagnóstico técnico de equipos, tableros, protecciones y puntos críticos.</li>
+        <li>Actualización de componentes priorizados según criticidad, obsolescencia y disponibilidad presupuestal.</li>
+        <li>Plan de intervención que minimice afectaciones a usuarios y comunidad.</li>
+        <li>Integración de riesgos, presupuesto, cronograma y comunicaciones en un tablero de control ejecutivo.</li>
+      </ul>
+      <p class="note">
+        La duración esperada de ocho meses se expresa desde la aprobación formal.
+        <span class="tag tag--pend">Pendiente de validación</span> la fecha de inicio aprobada.
+      </p>
+    </section>
+
+    <section id="alcance" aria-labelledby="h-alcance">
+      <h2 id="h-alcance">4. Alcance</h2>
+      <h3>Incluido <span class="tag tag--ok">Confirmado</span></h3>
+      <ul class="clean">
+        <li>Levantamiento de información técnica en sitio.</li>
+        <li>Revisión de inventario de activos y condiciones de operación.</li>
+        <li>Sustitución de componentes de control y protección priorizados.</li>
+        <li>Coordinación con contratistas para actividades especializadas.</li>
+        <li>Plan de comunicación preventiva para comunidad y usuarios cercanos.</li>
+        <li>Cierre documental con lecciones aprendidas y recomendaciones de mantenimiento.</li>
+      </ul>
+      <h3>Exclusiones iniciales <span class="tag tag--ok">Confirmado</span></h3>
+      <ul class="clean">
+        <li>Construcción de una nueva instalación desde cero.</li>
+        <li>Intervenciones fuera del polígono operativo definido para el piloto.</li>
+        <li>Cambios tarifarios o decisiones comerciales.</li>
+        <li>Compromisos regulatorios no definidos expresamente por el área jurídica.</li>
+        <li>Adquisiciones no presupuestadas que superen el umbral aprobado.</li>
+      </ul>
+      <h3>No confirmado / pendiente</h3>
+      <ul class="clean">
+        <li><span class="tag tag--pend">Pendiente de validación</span> Fecha exacta de inicio aprobada.</li>
+        <li><span class="tag tag--pend">Pendiente de validación</span> Proveedores o contratistas seleccionados.</li>
+        <li><span class="tag tag--pend">Pendiente de validación</span> Detalle técnico definitivo de equipos a sustituir.</li>
+        <li><span class="tag tag--pend">Pendiente de validación</span> Ventanas de intervención autorizadas.</li>
+        <li><span class="tag tag--pend">Pendiente de validación</span> Criterios de priorización final de activos.</li>
+        <li><span class="tag tag--pend">Pendiente de validación</span> Responsables nominales de cada frente.</li>
+      </ul>
+      <h3>Presupuesto <span class="tag tag--prop">Propuesta</span></h3>
+      <p>
+        Presupuesto preliminar referenciado: <strong>COP 2.850.000.000</strong>, incluyendo una reserva
+        de contingencia cuya disponibilidad no debe presentarse como autorizada sin validación de Finanzas.
+      </p>
+    </section>
+
+    <section id="hitos" aria-labelledby="h-hitos">
+      <h2 id="h-hitos">5. Hitos y dependencias</h2>
+      <p class="muted">Las fechas del cronograma son estimadas. No constituyen compromiso de inicio ni de ejecución.</p>
+      <ol class="timeline">
+        <li>
+          <p class="when"><span class="tag tag--pend">Pendiente</span> <span class="tag tag--prop">Propuesto</span> 2026-08-18 · 2026-08-22</p>
+          <p><strong>C-001 Aprobación de inicio</strong> — depende del comité directivo. Fecha sujeta a agenda.</p>
+        </li>
+        <li>
+          <p class="when"><span class="tag tag--prop">Propuesto</span> <span class="tag tag--pend">Condicionado</span> 2026-08-25 · 2026-09-12</p>
+          <p><strong>C-002 Levantamiento en sitio</strong> — depende de C-001. Requiere acceso coordinado y validación SST previa a campo.</p>
+        </li>
+        <li>
+          <p class="when"><span class="tag tag--prop">Propuesto</span> 2026-08-25 · 2026-09-18</p>
+          <p><strong>C-003 Revisión documental e inventario</strong> — puede avanzar en paralelo con C-002 tras C-001.</p>
+        </li>
+        <li>
+          <p class="when"><span class="tag tag--prop">Propuesto</span> <span class="tag tag--pend">Condicionado</span> 2026-09-15 · 2026-10-10</p>
+          <p><strong>C-004 Análisis de protecciones</strong> — depende de mediciones de C-002.</p>
+        </li>
+        <li>
+          <p class="when"><span class="tag tag--prop">Propuesto</span> <span class="tag tag--pend">Condicionado</span> 2026-09-22 · 2026-10-24</p>
+          <p><strong>C-005 Confirmación disponibilidad de equipos</strong> — riesgo por tiempos de proveedor.</p>
+        </li>
+        <li>
+          <p class="when"><span class="tag tag--prop">Propuesto</span> <span class="tag tag--pend">Condicionado</span> 2026-10-01 · 2026-10-20</p>
+          <p><strong>C-006 Plan comunidad y usuarios</strong> — debe validarse con Operación; sin emisión externa prematura.</p>
+        </li>
+        <li>
+          <p class="when"><span class="tag tag--prop">Propuesto</span> <span class="tag tag--pend">Condicionado</span> 2026-11-03 · 2026-12-15</p>
+          <p><strong>C-007 Montaje e integración</strong> — ventanas de intervención por definir.</p>
+        </li>
+        <li>
+          <p class="when"><span class="tag tag--prop">Propuesto</span> 2026-12-16 · 2027-01-12</p>
+          <p><strong>C-008 Pruebas funcionales</strong> — depende de C-007.</p>
+        </li>
+        <li>
+          <p class="when"><span class="tag tag--prop">Propuesto</span> 2027-01-15 · 2027-02-05</p>
+          <p><strong>C-009 Documentación y lecciones aprendidas</strong> — cierre documental.</p>
+        </li>
+      </ol>
+      <h3>Dependencias relevantes</h3>
+      <ul class="clean">
+        <li>Inicio de ejecución requiere aprobación del comité directivo y validación técnica final.</li>
+        <li>Comunicaciones externas dependen de ventanas confirmadas por Operación.</li>
+        <li>SST solicita hito de revisión obligatorio antes de visitas a campo.</li>
+        <li>Disponibilidad parcial de contratistas especializados se asume para el segundo trimestre del proyecto <span class="tag tag--prop">Propuesta</span>.</li>
+      </ul>
+    </section>
+
+    <section id="riesgos" aria-labelledby="h-riesgos">
+      <h2 id="h-riesgos">6. Riesgos</h2>
+      <p class="muted">Vista ejecutiva del registro inicial. No se añaden riesgos fuera de las fuentes.</p>
+
+      <article class="risk">
+        <h3>R-001 · Retraso en disponibilidad de equipos críticos</h3>
+        <dl>
+          <dt>Categoría</dt><dd>Cronograma</dd>
+          <dt>Impacto</dt><dd>Alta · Probabilidad Alta</dd>
+          <dt>Estado</dt><dd>Abierto · Validación requerida</dd>
+          <dt>Dependencia</dt><dd>Proveedor especializado</dd>
+          <dt>Tratamiento</dt><dd>Solicitar confirmación temprana de disponibilidad (Abastecimiento)</dd>
+        </dl>
+      </article>
+      <article class="risk">
+        <h3>R-002 · Presupuesto insuficiente para alcance final</h3>
+        <dl>
+          <dt>Categoría</dt><dd>Financiero</dd>
+          <dt>Impacto</dt><dd>Alta · Probabilidad Media</dd>
+          <dt>Estado</dt><dd>Abierto · Validación requerida</dd>
+          <dt>Dependencia</dt><dd>Costos definitivos no validados</dd>
+          <dt>Tratamiento</dt><dd>Validar partidas de mayor costo y soportes (Finanzas)</dd>
+        </dl>
+      </article>
+      <article class="risk">
+        <h3>R-003 · Ventanas de intervención no autorizadas</h3>
+        <dl>
+          <dt>Categoría</dt><dd>Operativo</dd>
+          <dt>Impacto</dt><dd>Alta · Probabilidad Media</dd>
+          <dt>Estado</dt><dd>Abierto · Validación requerida</dd>
+          <dt>Dependencia</dt><dd>Confirmación de Operación</dd>
+          <dt>Tratamiento</dt><dd>Definir tres escenarios de ventana (Operación)</dd>
+        </dl>
+      </article>
+      <article class="risk">
+        <h3>R-004 · Comunicación prematura a comunidad</h3>
+        <dl>
+          <dt>Categoría</dt><dd>Reputacional</dd>
+          <dt>Impacto</dt><dd>Media · Probabilidad Media</dd>
+          <dt>Estado</dt><dd>Abierto · Validación requerida</dd>
+          <dt>Dependencia</dt><dd>Fechas validadas antes de emitir mensaje</dd>
+          <dt>Tratamiento</dt><dd>Aprobar mensaje solo con fechas validadas (Comunicaciones)</dd>
+        </dl>
+      </article>
+      <article class="risk">
+        <h3>R-005 · Permisos SST incompletos</h3>
+        <dl>
+          <dt>Categoría</dt><dd>Seguridad</dd>
+          <dt>Impacto</dt><dd>Alta · Probabilidad Media</dd>
+          <dt>Estado</dt><dd>Abierto · Validación requerida</dd>
+          <dt>Dependencia</dt><dd>Condiciones de campo</dd>
+          <dt>Tratamiento</dt><dd>Incluir hito de validación SST previo (SST)</dd>
+        </dl>
+      </article>
+      <article class="risk">
+        <h3>R-006 · Manejo ambiental insuficiente</h3>
+        <dl>
+          <dt>Categoría</dt><dd>Ambiental</dd>
+          <dt>Impacto</dt><dd>Media · Probabilidad Baja</dd>
+          <dt>Estado</dt><dd>Abierto · Validación requerida</dd>
+          <dt>Dependencia</dt><dd>Plan de residuos detallado</dd>
+          <dt>Tratamiento</dt><dd>Detallar plan de residuos y evidencias (Ambiental)</dd>
+        </dl>
+      </article>
+      <article class="risk">
+        <h3>R-007 · Contratista sin disponibilidad en fechas requeridas</h3>
+        <dl>
+          <dt>Categoría</dt><dd>Contractual</dd>
+          <dt>Impacto</dt><dd>Media · Probabilidad Media</dd>
+          <dt>Estado</dt><dd>Abierto · Validación requerida</dd>
+          <dt>Dependencia</dt><dd>Capacidad parcial en segundo trimestre</dd>
+          <dt>Tratamiento</dt><dd>Validar agenda y condiciones contractuales (Contratación)</dd>
+        </dl>
+      </article>
+      <article class="risk">
+        <h3>R-008 · Información técnica incompleta</h3>
+        <dl>
+          <dt>Categoría</dt><dd>Técnico</dd>
+          <dt>Impacto</dt><dd>Alta · Probabilidad Alta</dd>
+          <dt>Estado</dt><dd>Abierto · Validación requerida</dd>
+          <dt>Dependencia</dt><dd>Inventario y mediciones no consolidadas</dd>
+          <dt>Tratamiento</dt><dd>Completar inventario antes de decisiones (Ingeniería)</dd>
+        </dl>
+      </article>
+    </section>
+
+    <section id="interesados" aria-labelledby="h-interesados">
+      <h2 id="h-interesados">7. Interesados</h2>
+      <p class="muted">Grupos y preocupaciones según comentarios de interesados. No se inventan nombres fuera de las fuentes de reunión cuando el portal habla de roles.</p>
+      <article class="risk">
+        <h3>Comunidad cercana</h3>
+        <p>Solicita aviso mínimo de cinco días ante ruido o afectación vehicular; prefiere información diurna e intervenciones nocturnas si hay bloqueo de vías. Preocupación por cortes no programados y canales de atención.</p>
+      </article>
+      <article class="risk">
+        <h3>Usuarios comerciales</h3>
+        <p>Preguntan por afectaciones en fines de semana; piden mensajes concretos. Una afectación no anunciada impactaría ventas.</p>
+      </article>
+      <article class="risk">
+        <h3>Operación</h3>
+        <p>Las ventanas definitivas no están aprobadas. Sugiere tres escenarios antes de prometer fechas. Ninguna comunicación externa sin validación operativa.</p>
+      </article>
+      <article class="risk">
+        <h3>Finanzas</h3>
+        <p>Requiere soporte documental para partidas superiores a COP 100.000.000. Separar presupuesto base y contingencia. La reserva no debe presentarse como disponible sin autorización.</p>
+      </article>
+      <article class="risk">
+        <h3>SST y ambiente</h3>
+        <p>Revisar permisos de trabajo, residuos, EPP y supervisión. La visita de diagnóstico también requiere control de seguridad. No clasificar el riesgo como bajo antes de inspección.</p>
+      </article>
+      <article class="risk">
+        <h3>Dirección</h3>
+        <p>Solicita presentación ejecutiva breve con decisiones requeridas, riesgos prioritarios y datos pendientes. No desea recomendación de aprobación si faltan validaciones técnicas y financieras.</p>
+      </article>
+    </section>
+
+    <section id="gobierno" aria-labelledby="h-gobierno">
+      <h2 id="h-gobierno">8. Gobierno</h2>
+      <p class="note">Una participación registrada no implica automáticamente autoridad de aprobación.</p>
+      <h3>Roles con evidencia en fuentes de reunión <span class="tag tag--ok">Confirmado</span> (participación)</h3>
+      <ul class="clean">
+        <li>Líder de proyecto — coordina alcance y cronograma.</li>
+        <li>Ingeniería — valida diagnóstico técnico y protecciones.</li>
+        <li>Finanzas — revisa presupuesto y autorizaciones.</li>
+        <li>Comunicaciones — gestiona mensajes a comunidad.</li>
+        <li>SST y ambiente — requisitos de seguridad y manejo ambiental.</li>
+        <li>Operación — define ventanas de intervención.</li>
+      </ul>
+      <h3>Autoridad de inicio</h3>
+      <p>
+        <span class="tag tag--pend">Rol pendiente de validación</span>
+        La aprobación de inicio se asocia al comité directivo / patrocinador en el cronograma.
+        No existe en las fuentes una autorización formal de ejecución emitida.
+      </p>
+      <h3>Interesados preliminares por área (alcance)</h3>
+      <ul class="clean">
+        <li>Dirección de Infraestructura — patrocinio y priorización.</li>
+        <li>Operación y Mantenimiento — viabilidad técnica y ventanas.</li>
+        <li>Finanzas — control presupuestal.</li>
+        <li>SST — condiciones seguras de ejecución.</li>
+        <li>Gestión Ambiental — controles ambientales.</li>
+        <li>Comunidad y usuarios cercanos — afectación por actividades.</li>
+        <li>Contratistas — ejecución especializada.</li>
+      </ul>
+    </section>
+
+    <section id="actualizaciones" aria-labelledby="h-act">
+      <h2 id="h-act">9. Actualizaciones</h2>
+      <p class="muted">Historial derivado únicamente de las fuentes. Sin eventos inventados.</p>
+      <article class="update">
+        <p><span class="tag tag--upd">Actualización</span> <span class="tag tag--ok">Confirmado</span></p>
+        <h3>Decisión de presentación del proyecto</h3>
+        <p>El comité operativo registró como decisión confirmada no presentar el proyecto como aprobado, sino como iniciativa en estructuración.</p>
+      </article>
+      <article class="update">
+        <p><span class="tag tag--upd">Actualización</span> <span class="tag tag--prop">Propuesta</span></p>
+        <h3>Presupuesto preliminar referenciado</h3>
+        <p>Se mantiene la cifra preliminar de COP 2.850.000.000. Finanzas debe validar si la reserva de contingencia está aprobada o es solo estimación.</p>
+      </article>
+      <article class="update">
+        <p><span class="tag tag--upd">Actualización</span> <span class="tag tag--pend">Pendiente</span></p>
+        <h3>Ventanas de intervención</h3>
+        <p>Operación indicó que las ventanas no están aprobadas. Se propuso entregar tres alternativas para evaluación.</p>
+      </article>
+      <article class="update">
+        <p><span class="tag tag--upd">Actualización</span> <span class="tag tag--prop">Propuesta</span></p>
+        <h3>Comunicación a comunidad</h3>
+        <p>Se preparará un borrador de mensaje marcado como no emitible hasta confirmación de fechas por Operación.</p>
+      </article>
+      <article class="update">
+        <p><span class="tag tag--upd">Actualización</span> <span class="tag tag--pend">Pendiente</span></p>
+        <h3>Hito SST / ambiental previo a campo</h3>
+        <p>Se registró como requisito pendiente de validación, no como aprobación final, una revisión SST y ambiental antes de visitas a campo.</p>
+      </article>
+      <article class="update">
+        <p><span class="tag tag--upd">Actualización</span> <span class="tag tag--prop">Propuesta</span></p>
+        <h3>Compromisos de avance del comité operativo</h3>
+        <p>
+          Compromisos referidos en la reunión: información técnica (Ingeniería), revisión presupuestal (Finanzas),
+          borrador no emitible (Comunicaciones) y alternativas de ventana (Operación).
+          La siguiente reunión quedó propuesta, pendiente de confirmación.
+        </p>
+      </article>
+    </section>
+
+    <section id="faq" aria-labelledby="h-faq">
+      <h2 id="h-faq">10. Preguntas frecuentes</h2>
+      <details class="faq">
+        <summary>¿Proyecto Horizonte está aprobado?</summary>
+        <p>No. Según la decisión registrada en la reunión, debe presentarse como iniciativa en estructuración, no como aprobado.</p>
+      </details>
+      <details class="faq">
+        <summary>¿Qué debe ocurrir antes de iniciar?</summary>
+        <p>Entre otras condiciones: aprobación del comité directivo, validación técnica, validaciones presupuestales, ventanas de intervención autorizadas y requisitos SST/ambientales previos a campo. Varios de estos puntos permanecen <span class="tag tag--pend">Pendiente de validación</span>.</p>
+      </details>
+      <details class="faq">
+        <summary>¿Cuáles son los principales riesgos?</summary>
+        <p>El registro inicial prioriza, entre otros, retraso de equipos críticos, presupuesto insuficiente, ventanas no autorizadas, comunicación prematura, permisos SST incompletos e información técnica incompleta. Ver sección Riesgos.</p>
+      </details>
+      <details class="faq">
+        <summary>¿Existe una fecha definitiva de inicio?</summary>
+        <p>No. El cronograma muestra fechas estimadas para “aprobación de inicio”, sujetas a agenda. La fecha exacta de inicio aprobada figura como información faltante.</p>
+      </details>
+      <details class="faq">
+        <summary>¿El presupuesto es definitivo?</summary>
+        <p>No. Es un presupuesto preliminar de referencia. La contingencia requiere autorización y no debe presentarse como disponible sin validación.</p>
+      </details>
+      <details class="faq">
+        <summary>¿Puede comunicarse externamente una fecha propuesta?</summary>
+        <p>No de forma autorizada según las fuentes. El borrador de comunicación debe permanecer no emitible hasta que Operación confirme fechas.</p>
+      </details>
+      <details class="faq">
+        <summary>¿Quién puede aprobar el inicio?</summary>
+        <p>El cronograma asocia la aprobación de inicio al comité directivo / patrocinador. <span class="tag tag--pend">Pendiente de validación</span> una autorización formal emitida.</p>
+      </details>
+    </section>
+
+    <section id="glosario" aria-labelledby="h-glosario">
+      <h2 id="h-glosario">11. Glosario</h2>
+      <dl class="risk" style="display:block">
+        <p><strong>Iniciativa en estructuración</strong> — estado acordado de presentación del proyecto; no equivale a aprobación de ejecución.</p>
+        <p><strong>Presupuesto preliminar</strong> — cifra de referencia sujeta a validación documental y autorización de contingencia.</p>
+        <p><strong>Ventana de intervención</strong> — periodo operativo para trabajos; no autorizada hasta confirmación de Operación.</p>
+        <p><strong>Borrador no emitible</strong> — comunicación preparada que no debe enviarse externamente sin validación.</p>
+        <p><strong>Reserva / contingencia</strong> — partida de reserva preliminar; su uso requiere autorización.</p>
+        <p><strong>Polígono operativo del piloto</strong> — límite geográfico/operativo del alcance incluido.</p>
+        <p><strong>Comité directivo</strong> — instancia referida para aprobación de inicio en el cronograma.</p>
+        <p><strong>Validación requerida</strong> — marca de riesgos y partidas que aún necesitan confirmación formal.</p>
+      </dl>
+    </section>
+
+    <section id="fuentes" aria-labelledby="h-fuentes" class="sources">
+      <h2 id="h-fuentes">12. Fuentes de referencia</h2>
+      <p>Este portal resume información procedente de las fuentes de referencia del caso.</p>
+      <p><span class="tag tag--ref">Fuente de referencia</span></p>
+      <code>02_Alcance_Proyecto_Horizonte.docx</code>
+      <code>03_Presupuesto_y_Cronograma_Horizonte.xlsx</code>
+      <code>04_Transcripcion_Reunion_Horizonte.docx</code>
+      <code>05_Registro_Inicial_Riesgos_Horizonte.xlsx</code>
+      <code>06_Comentarios_Interesados_Horizonte.docx</code>
+      <p class="note">Caso académico ficticio. Los datos, nombres, cifras y situaciones no corresponden a una operación real. No se publica información privada fuera del caso.</p>
+    </section>
+  </main>
+
+  <footer class="hz-footer">
+    <div class="hz-wrap">
+      <p><strong>Proyecto Horizonte</strong> · Centro de Información del Proyecto</p>
+      <p>Caso académico ficticio · Iniciativa en estructuración</p>
+    </div>
+  </footer>
+</body>
+</html>
