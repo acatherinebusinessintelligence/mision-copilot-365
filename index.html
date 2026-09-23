@@ -1423,6 +1423,10 @@
       width: 100%;
       max-width: 100%;
       height: auto;
+      max-height: 70vh;
+      object-fit: contain;
+      object-position: top center;
+      background: #fff;
     }
     .lab33-guide-map {
       list-style: none;
@@ -5759,13 +5763,17 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
               <div class="lab-chain__node"><strong>✓ Compara</strong></div>
             </div>
             <div class="btn-group" style="margin:0.85rem 0 0.35rem;flex-wrap:wrap">
-              <button type="button" class="btn btn--primary" data-planilla="lab33-powerautomate">
+              <button type="button" class="btn btn--primary" data-reto-email="lab33">
+                <i data-lucide="mail" width="16" height="16"></i> Enviar correo de prueba [HORIZONTE] a mi bandeja
+              </button>
+              <button type="button" class="btn btn--secondary" data-planilla="lab33-powerautomate">
                 <i data-lucide="download" width="16" height="16"></i> Descargar guía visual de Power Automate
               </button>
-              <a class="btn btn--sm btn--secondary" href="/planillas/Powerautomate.png" download="Powerautomate.png">
+              <a class="btn btn--sm btn--ghost" href="/planillas/Powerautomate.png" download="Powerautomate.png">
                 <i data-lucide="image" width="14" height="14"></i> Enlace directo
               </a>
             </div>
+            <p id="retoEmailStatus-lab33" data-reto-email-hint style="margin:0 0 0.35rem;font-size:0.88rem;color:var(--text-muted)">El correo llega a tu bandeja con asunto <strong>[HORIZONTE]</strong> y el texto <strong>Criticidad: ALTA</strong>, para disparar el flujo de Power Automate.</p>
             <p style="margin:0 0 0.85rem;font-size:0.85rem;color:var(--text-muted)">Referencia visual · Proyecto Horizonte · Laboratorio 3.3</p>
             <p style="margin:0 0 0.45rem;font-weight:600">Vista previa del resultado esperado</p>
             <figure class="lab33-guide-preview">

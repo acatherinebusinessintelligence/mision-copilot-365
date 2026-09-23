@@ -228,6 +228,30 @@ def _smtp_config() -> tuple[str, str, str, int]:
 
 
 
+def _lab33_horizonte_email_content() -> tuple[str, str]:
+    """Correo de prueba del Lab 3.3. El asunto incluye [HORIZONTE] y el cuerpo 'Criticidad: ALTA'."""
+    subject = "[HORIZONTE] Hallazgo de prueba · Laboratorio 3.3"
+    body = """Buenos días,
+
+Este mensaje es un caso académico ficticio para probar el flujo de Power Automate del Laboratorio 3.3.
+
+ID: H-LAB-33
+PROYECTO: Horizonte
+HALLAZGO: Caso de práctica para la automatización del laboratorio.
+FUENTE: Correo de prueba del Laboratorio 3.3.
+Criticidad: ALTA
+ESTADO: Requiere revisión humana.
+ACCIÓN REQUERIDA: Validar antes de comunicar.
+
+No presenta el proyecto como aprobado. No autoriza envíos externos por sí solo.
+
+Cordialmente,
+Dirección de Infraestructura
+Proyecto Horizonte · caso académico ficticio
+"""
+    return subject, body
+
+
 def _s2_horizonte_email_content() -> tuple[str, str]:
     subject = "SOLICITUD DE ANÁLISIS | Proyecto Horizonte"
     body = """Buenos días,
@@ -382,6 +406,10 @@ def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: s
         subject, body = _s2_horizonte_email_content()
         return subject, body, "Laura Méndez · Dirección de Infraestructura"
 
+    if reto_id in ("lab33", "lab-33", "powerautomate", "pa33"):
+        subject, body = _lab33_horizonte_email_content()
+        return subject, body, "Laboratorio 3.3 · Proyecto Horizonte"
+
     # r2-all se resuelve en send_reto_email (4 envíos independientes)
     if reto_id in ("r2", "reto2", "reto-2", "r2-all", "r2all"):
         return "", "", ""
@@ -401,7 +429,7 @@ def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: s
 
 
 def list_reto_email_ids() -> list[str]:
-    return ["r1", "r2", "r2-all", "s2"] + [p["id"] for p in get_reto_r2_parts()]
+    return ["r1", "r2", "r2-all", "s2", "lab33"] + [p["id"] for p in get_reto_r2_parts()]
 
 
 def _send_email_smtp(to_email: str, subject: str, body: str, from_display: str) -> tuple[bool, str]:
