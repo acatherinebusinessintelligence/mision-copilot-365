@@ -2,7 +2,7 @@
 from pathlib import Path
 from openpyxl import load_workbook
 
-root = Path(r"c:\Users\USER\OneDrive\Documentos\Sergio arboleda\Clases_Enel")
+root = Path(__file__).resolve().parent.parent
 t = (root / "index.html").read_text(encoding="utf-8")
 a = t.find('"r6": {')
 b = t.find('"fase-1": {', a)

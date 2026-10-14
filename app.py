@@ -759,16 +759,6 @@ def planillas(filename: str):
     return send_from_directory(BASE_DIR / "planillas", filename)
 
 
-@app.get("/logo.png")
-def logo():
-    return send_from_directory(BASE_DIR, "logo.png")
-
-
-@app.get("/fondo-corporativo.png")
-def fondo():
-    return send_from_directory(BASE_DIR, "fondo-corporativo.png")
-
-
 # ---------------------------------------------------------------------------
 # Auth estudiante
 # ---------------------------------------------------------------------------

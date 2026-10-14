@@ -124,7 +124,7 @@ def main():
     cell.text = ""
     set_run(cell.paragraphs[0].add_run("Plantilla de llenado · Matriz de compromisos post-reunión"), size=15, bold=True, color=YELLOW)
     p2 = cell.add_paragraph()
-    set_run(p2.add_run("Misión Copilot 365 · ECCO · Universidad Sergio Arboleda"), size=9, color="D5D2E6")
+    set_run(p2.add_run("Misión Copilot 365"), size=9, color="D5D2E6")
     doc.add_paragraph()
 
     chips = doc.add_table(rows=1, cols=2)

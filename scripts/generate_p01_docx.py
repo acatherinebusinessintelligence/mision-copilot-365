@@ -141,7 +141,7 @@ def main():
     r = p1.add_run("Formato adjunto · Análisis de correo operativo")
     set_run(r, size=16, bold=True, color=YELLOW)
     p2 = cell.add_paragraph()
-    r2 = p2.add_run("Misión Copilot 365 · ECCO · Universidad Sergio Arboleda · Capacitación empresarial")
+    r2 = p2.add_run("Misión Copilot 365 · Capacitación empresarial")
     set_run(r2, size=9, color="D5D2E6")
     doc.add_paragraph()
 

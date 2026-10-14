@@ -144,7 +144,7 @@ def add_banner(doc, title: str):
     set_run(p1.add_run(title), size=16, bold=True, color=YELLOW)
     p2 = cell.add_paragraph()
     set_run(
-        p2.add_run("Misión Copilot 365 · ECCO · Universidad Sergio Arboleda"),
+        p2.add_run("Misión Copilot 365"),
         size=9,
         color="D5D2E6",
     )

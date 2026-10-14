@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
 
-root = Path(r"c:\Users\USER\OneDrive\Documentos\Sergio arboleda\Clases_Enel")
+root = Path(__file__).resolve().parent.parent
 t = (root / "index.html").read_text(encoding="utf-8")
 app = (root / "app.py").read_text(encoding="utf-8")
 
