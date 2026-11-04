@@ -2071,6 +2071,18 @@
     .learn-grid strong { color: var(--brand-primary); }
     [data-theme="dark"] .learn-grid strong { color: #c9c2ff; }
     .learn-grid span { font-size: 0.82rem; color: var(--text-muted); }
+    .esc-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1.25rem 0 1rem; }
+    .esc-tabs button { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--border); background: var(--bg-elevated); color: var(--text); padding: 0.5rem 0.85rem; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 0.86rem; }
+    .esc-tabs button[aria-selected="true"] { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+    .esc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem; }
+    .esc-card h3 { font-size: 1.05rem; margin: 0.15rem 0 0.35rem; }
+    .esc-card__apps { margin: 0; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--brand-primary); }
+    [data-theme="dark"] .esc-card__apps { color: var(--brand-accent); }
+    .esc-card__sit { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 0.6rem; }
+    .esc-card__meta { display: grid; grid-template-columns: 90px 1fr; gap: 0.25rem 0.6rem; font-size: 0.84rem; margin: 0.4rem 0; }
+    .esc-card__meta dt { font-weight: 800; color: var(--text-muted); }
+    .esc-card__meta dd { margin: 0; }
+    .esc-card__links { font-size: 0.82rem; margin: 0.4rem 0 0; color: var(--text-muted); }
     .pr-own-note { margin: 0.75rem 0 0; font-size: 0.86rem; color: var(--text-muted); }
     .adv-prompt { margin: 1rem 0; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 1rem; background: var(--bg-elevated); }
     .adv-prompt > summary { cursor: pointer; padding: 0.85rem 0; font-weight: 700; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
@@ -7188,6 +7200,17 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       </div>
     </section>
 
+
+    <!-- ========== 8b. ESCENARIOS POR ROL ========== -->
+    <section id="escenarios" aria-labelledby="escTitle">
+      <div class="container">
+        <p class="section-kicker">Herramientas</p>
+        <h2 class="section-title" id="escTitle">Escenarios por rol · sector energético</h2>
+        <p class="lead">Ideas concretas para llevar Copilot a tu día a día, al estilo de la Scenario Library de Microsoft. Elige tu rol, copia el prompt y adáptalo a tus documentos.</p>
+        <div class="esc-tabs" id="escTabs" role="tablist"></div>
+        <div class="esc-grid" id="escGrid"></div>
+      </div>
+    </section>
     <!-- ========== 9. EVALUACIÓN ========== -->
     <section id="evaluacion" class="section-dark" aria-labelledby="evalTitle">
       <div class="container">
@@ -8776,6 +8799,171 @@ No envíes nada a nadie: solo infórmame.`,
     attachPromptMeters();
     initCopyButtons();
     if (window.lucide) lucide.createIcons();
+  }
+
+
+  /* ========== ESCENARIOS POR ROL ========== */
+  const ESCENARIOS = [
+  {
+    "id": "oym",
+    "role": "Operación y mantenimiento",
+    "icon": "wrench",
+    "items": [
+      {
+        "t": "Reprogramar un mantenimiento",
+        "apps": "Outlook · Copilot Chat",
+        "sit": "Un mantenimiento cambia de fecha y hay que avisar al equipo y a los usuarios.",
+        "p": "Redacta el aviso de reprogramación del mantenimiento de [equipo o circuito], que pasa del [fecha] al [fecha] por [motivo].\nVersión 1 para el equipo técnico: responsables, horario y recursos.\nVersión 2 para usuarios afectados: qué pasa, cuándo y a quién contactar, en lenguaje sencillo.\nNo inventes horarios ni responsables: si falta un dato, déjalo como [por confirmar].",
+        "v": "Dos mensajes coherentes en minutos.",
+        "c": "Confirma la nueva fecha con planeación antes de enviar.",
+        "kit": "pr12",
+        "ref": "#paso-r1"
+      },
+      {
+        "t": "Resumen de entrega de turno",
+        "apps": "Teams · Word · Copilot Chat",
+        "sit": "Al cambio de turno, las novedades quedan dispersas en notas y chats.",
+        "p": "Con las notas del turno que pego al final, entrega:\n1. Novedades del turno.\n2. Equipos con alarma o en observación.\n3. Trabajos pendientes con responsable.\n4. Riesgos para el siguiente turno.\nMarca «No especificado» lo que falte.\n\nNOTAS:\n[pega aquí]",
+        "v": "Entrega de turno estandarizada y sin olvidos.",
+        "c": "No incluyas datos personales de los trabajadores.",
+        "kit": "pr3",
+        "ref": "#paso-r3"
+      }
+    ]
+  },
+  {
+    "id": "pmo",
+    "role": "PMO y proyectos",
+    "icon": "gantt-chart",
+    "items": [
+      {
+        "t": "Informe semanal de avance",
+        "apps": "Excel · Word · Copilot Chat",
+        "sit": "Cada semana hay que consolidar el avance de varios frentes para la gerencia.",
+        "p": "Con el Excel de avance adjunto, entrega:\n1. Tabla: Frente | % plan | % real | Desviación.\n2. Desviaciones mayores a 5 % con su causa reportada (marca como Inferencia lo que no esté escrito).\n3. Decisiones que debe tomar la gerencia.\n4. Resumen de 120 palabras.\nMuestra los cálculos para que pueda verificarlos.",
+        "v": "Informe en minutos en lugar de horas.",
+        "c": "Verifica los porcentajes en el Excel.",
+        "kit": "pr9",
+        "ref": "#paso-s2-f3"
+      },
+      {
+        "t": "Preparar un comité",
+        "apps": "Copilot Chat · PowerPoint",
+        "sit": "Hay que presentar el estado de un proyecto y pedir decisiones.",
+        "p": "Usa el prompt «Presentación ejecutiva» del kit con el análisis de tu proyecto.",
+        "v": "Contenido de 8 diapositivas listo para la plantilla corporativa.",
+        "c": "Separa decisiones de propuestas.",
+        "kit": "pr10",
+        "ref": "#paso-s2-f7"
+      }
+    ]
+  },
+  {
+    "id": "hse",
+    "role": "HSE · seguridad y ambiente",
+    "icon": "shield-alert",
+    "items": [
+      {
+        "t": "Analizar un reporte de incidente",
+        "apps": "Word · Copilot Chat",
+        "sit": "Llega un reporte de incidente y hay que preparar la investigación.",
+        "p": "Con el reporte de incidente adjunto (anonimizado), separa:\n1. Hechos descritos.\n2. Hipótesis de causa (márcalas como hipótesis).\n3. Acciones inmediatas tomadas.\n4. Preguntas para la investigación.\nNo asignes culpas ni concluyas la causa raíz.",
+        "v": "Investigación mejor estructurada desde el inicio.",
+        "c": "Anonimiza: los reportes pueden tener datos de salud o personales.",
+        "kit": "pr13",
+        "ref": "#uso-responsable"
+      },
+      {
+        "t": "Checklist de un permiso de trabajo",
+        "apps": "Word · Copilot Chat",
+        "sit": "Hay que verificar requisitos de un procedimiento antes de autorizar un trabajo.",
+        "p": "Con el procedimiento adjunto, crea un checklist verificable para [tipo de trabajo]: Requisito | Evidencia esperada | Quién verifica | Sección del procedimiento.\nNo agregues requisitos que no estén en el procedimiento.",
+        "v": "Checklist trazable al procedimiento vigente.",
+        "c": "La autorización final es de la persona responsable.",
+        "kit": "pr4",
+        "ref": "#paso-r5"
+      }
+    ]
+  },
+  {
+    "id": "com",
+    "role": "Comunicaciones y relacionamiento",
+    "icon": "megaphone",
+    "items": [
+      {
+        "t": "Responder a la comunidad",
+        "apps": "Outlook · Copilot Chat",
+        "sit": "Una comunidad pide información sobre un trabajo que la afecta.",
+        "p": "Usa el prompt «Mensaje a comunidad» del kit con los hechos confirmados.",
+        "v": "Mensaje claro, sin tecnicismos ni promesas.",
+        "c": "Publica solo mensajes autorizados.",
+        "kit": "pr12",
+        "ref": "#paso-r4"
+      },
+      {
+        "t": "Preparar una reunión con la junta comunal",
+        "apps": "Copilot Chat · Word",
+        "sit": "Hay una reunión con líderes comunitarios con temas sensibles.",
+        "p": "Con los antecedentes adjuntos, prepara para la reunión con [junta o grupo]:\n1. Objetivo de la reunión.\n2. Mensajes clave (máx. 3).\n3. Preguntas difíciles probables con una respuesta sugerida.\n4. Compromisos que NO podemos asumir sin aprobación.",
+        "v": "Llegar preparado a conversaciones difíciles.",
+        "c": "No compartas información interna no autorizada.",
+        "kit": "pr5",
+        "ref": "#paso-r4"
+      }
+    ]
+  },
+  {
+    "id": "fin",
+    "role": "Finanzas y compras",
+    "icon": "landmark",
+    "items": [
+      {
+        "t": "Comparar cotizaciones",
+        "apps": "Excel · Word · Copilot Chat",
+        "sit": "Llegan varias cotizaciones con condiciones distintas.",
+        "p": "Compara las cotizaciones adjuntas en: precio, plazo de entrega, garantía, condiciones de pago y exclusiones.\nTabla comparativa + riesgos de cada oferta.\nNo recomiendes adjudicar: indica qué debe validarse antes de decidir.",
+        "v": "Comparación objetiva y completa en minutos.",
+        "c": "La adjudicación sigue el proceso de compras.",
+        "kit": "pr11",
+        "ref": "#paso-r5"
+      },
+      {
+        "t": "Presupuesto vs. ejecutado",
+        "apps": "Excel · Copilot",
+        "sit": "Hay que explicar las variaciones del presupuesto del mes.",
+        "p": "Con el Excel adjunto, compara presupuesto y ejecutado por partida.\nSeñala las variaciones mayores a 10 % y muestra el cálculo.\nMarca como Inferencia cualquier causa que no esté registrada.",
+        "v": "Variaciones explicadas con trazabilidad.",
+        "c": "Verifica los totales en Excel antes de reportar.",
+        "kit": "pr9",
+        "ref": "#paso-s2-f3"
+      }
+    ]
+  }
+];
+  let escRole = ESCENARIOS[0].id;
+  function renderEscenarios() {
+    const tabs = document.getElementById("escTabs");
+    const grid = document.getElementById("escGrid");
+    if (!tabs || !grid) return;
+    tabs.innerHTML = ESCENARIOS.map(r => `<button type="button" role="tab" aria-selected="${r.id === escRole}" data-esc="${r.id}"><i data-lucide="${r.icon}" width="16" height="16"></i> ${r.role}</button>`).join("");
+    const role = ESCENARIOS.find(r => r.id === escRole);
+    grid.innerHTML = role.items.map((it, i) => {
+      const kit = PROMPTS.find(pr => pr.id === it.kit);
+      const pid = `esc-${role.id}-${i}`;
+      return `<article class="card esc-card">
+        <p class="esc-card__apps">${it.apps}</p>
+        <h3>${it.t}</h3>
+        <p class="esc-card__sit">${it.sit}</p>
+        <div class="prompt-box" id="${pid}">${esc(it.p)}</div>
+        <div class="btn-group" style="gap:0.4rem;margin:0.5rem 0"><button type="button" class="btn btn--sm btn--primary" data-copy="#${pid}"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+        <dl class="esc-card__meta"><dt>Valor</dt><dd>${it.v}</dd><dt>Precaución</dt><dd>${it.c}</dd></dl>
+        <p class="esc-card__links">${kit ? `Prompt base del kit: <strong>${esc(kit.name)}</strong> · ` : ""}<a href="${it.ref}">Lo practicaste aquí →</a></p>
+      </article>`;
+    }).join("");
+    tabs.querySelectorAll("[data-esc]").forEach(b => b.addEventListener("click", () => { escRole = b.dataset.esc; renderEscenarios(); }));
+    attachPromptMeters(grid);
+    initCopyButtons();
+    if (window.lucide) lucide.createIcons({ nodes: [tabs, grid] });
   }
 
   function renderActivitySheets() {
@@ -14794,9 +14982,10 @@ No envíes nada a nadie: solo infórmame.`,
         { sel: "#lab-reto", title: "3.4 Reto integrador", key: "lab-3-4",
           locked: () => !!document.querySelector("#lab-reto.lab-card--locked") }
       ] },
-    { id: "herramientas", title: "Herramientas", sub: "Prompts y planillas", icon: "wrench",
+    { id: "herramientas", title: "Herramientas", sub: "Prompts, escenarios y planillas", icon: "wrench",
       steps: [
         { sel: "#prompts", title: "Biblioteca de prompts" },
+        { sel: "#escenarios", title: "Escenarios por rol" },
         { sel: "#recursos", title: "Planillas para descargar" }
       ] },
     { id: "cierre", title: "Cierre", sub: "Lo que me llevo y lo que haré", icon: "flag",
@@ -15369,6 +15558,7 @@ No envíes nada a nadie: solo infórmame.`,
     renderPromptFilters();
     renderPromptLibrary();
     initPromptBuilder();
+    renderEscenarios();
     renderTemplates();
     initPlanillaDownloads();
     renderLeccionesTable();
