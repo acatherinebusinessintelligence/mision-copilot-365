@@ -7,3 +7,14 @@ data/*.sqlite
 venv/
 *.log
 .DS_Store
+
+# Documentos personales / administrativos (no forman parte del curso)
+ctacobro/
+Cuenta_de_cobro*.docx
+
+# Scripts temporales de parcheo y verificación
+scripts/_*.py
+scripts/Powerautomate.png
+
+# Descargas duplicadas del navegador
+* (1).*

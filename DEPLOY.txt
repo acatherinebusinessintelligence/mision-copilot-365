@@ -1,108 +1,108 @@
 DESPLIEGUE — Misión Copilot 365
-Cuenta PythonAnywhere: acatherinem
-URL esperada: https://acatherinem.pythonanywhere.com
-Dashboard: https://www.pythonanywhere.com/user/acatherinem/
+Cuenta PythonAnywhere: dracorazonia
+URL:        https://dracorazonia.pythonanywhere.com
+Dashboard:  https://www.pythonanywhere.com/user/dracorazonia/
+Repositorio: https://github.com/acatherinebusinessintelligence/mision-copilot-365
 ============================================================
 
-1) Gmail (para enviar claves)
-----------------------------
-Cuenta: analizamostunegocio@gmail.com
+ESTRUCTURA EN EL SERVIDOR
+-------------------------
+/home/dracorazonia/mision-copilot-365/   <- clon del repositorio (código)
+  ├── app.py, index.html, horizonte.html, wsgi.py, templates/, planillas/
+  ├── .env              <- SOLO en el servidor (secretos). Nunca en git.
+  ├── venv/             <- entorno virtual (no está en git)
+  └── data/mision.db    <- base de estudiantes y progreso (no está en git)
 
-1. Activa verificación en 2 pasos.
-2. Crea "Contraseña de aplicaciones" en Google.
-3. Guárdala para el archivo .env (SMTP_APP_PASSWORD).
+/var/www/dracorazonia_pythonanywhere_com_wsgi.py  <- copia de wsgi.py
 
-
-2) Subir el proyecto
---------------------
-Opción A — Git (recomendada):
-  En una Bash console de PythonAnywhere:
-    cd ~
-    git clone https://github.com/TU_USUARIO/TU_REPO.git Clases_Enel
-    cd Clases_Enel
-
-Opción B — Subir ZIP por Files y descomprimir en /home/acatherinem/Clases_Enel
+Regla de oro: el código llega por `git pull`. Nunca subas un ZIP encima de la
+carpeta: puedes borrar data/mision.db (estudiantes y avance) o el .env.
 
 
-3) Entorno virtual e instalación
---------------------------------
-En Bash console:
+A) PRIMER DESPLIEGUE
+====================
 
-  cd /home/acatherinem/Clases_Enel
-  python3.10 -m venv venv
-  source venv/bin/activate
-  pip install -r requirements.txt
+1) Clonar (Bash console de PythonAnywhere)
+   cd ~
+   git clone https://github.com/acatherinebusinessintelligence/mision-copilot-365.git
+   cd mision-copilot-365
 
+   (Si ya existe una carpeta anterior, p. ej. ~/Clases_Enel, ver sección C.)
 
-4) Crear archivo .env
----------------------
-En Bash:
+2) Entorno virtual
+   python3.10 -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
 
-  cd /home/acatherinem/Clases_Enel
-  nano .env
+3) Archivo .env  (nano .env) — completa los secretos:
+   FLASK_SECRET_KEY=<cadena larga aleatoria: python3 -c "import secrets;print(secrets.token_hex(32))">
+   ADMIN_PASSWORD=<clave de administrador>
+   SMTP_EMAIL=analizamostunegocio@gmail.com
+   SMTP_APP_PASSWORD=xxxx xxxx xxxx xxxx
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   MAIL_FROM_NAME=Misión Copilot 365
+   APP_BASE_URL=https://dracorazonia.pythonanywhere.com
+   EMAIL_WEBHOOK_URL=<URL /exec del Apps Script, ver sección D>
+   EMAIL_WEBHOOK_SECRET=<mismo secreto del script>
 
-Pega (completa los secretos):
+4) Web app (pestaña Web)
+   - Add a new web app > Manual configuration > Python 3.10
+   - Source code:       /home/dracorazonia/mision-copilot-365
+   - Working directory: /home/dracorazonia/mision-copilot-365
+   - Virtualenv:        /home/dracorazonia/mision-copilot-365/venv
+   - WSGI configuration file: reemplaza todo por el contenido de wsgi.py
+     (detecta sola la carpeta mision-copilot-365 o Clases_Enel)
+   - Reload
 
-FLASK_SECRET_KEY=pon-aqui-una-cadena-larga-aleatoria
-ADMIN_PASSWORD=tu-clave-de-administrador
-SMTP_EMAIL=analizamostunegocio@gmail.com
-SMTP_APP_PASSWORD=xxxx xxxx xxxx xxxx
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-MAIL_FROM_NAME=Misión Copilot 365
-APP_BASE_URL=https://acatherinem.pythonanywhere.com
-
-Guarda: Ctrl+O, Enter, Ctrl+X
-
-
-5) Crear Web App
-----------------
-1. Entra a https://www.pythonanywhere.com/user/acatherinem/
-2. Web > Add a new web app
-3. Manual configuration > Python 3.10 (o la disponible)
-4. Configura:
-   - Source code:        /home/acatherinem/Clases_Enel
-   - Working directory:  /home/acatherinem/Clases_Enel
-   - Virtualenv:         /home/acatherinem/Clases_Enel/venv
-5. Abre el WSGI configuration file y deja el contenido de wsgi.py
-6. Reload la web app
-
-
-6) Rutas
---------
-Admin:       https://acatherinem.pythonanywhere.com/admin/login
-Estudiantes: https://acatherinem.pythonanywhere.com/login
-Salud:       https://acatherinem.pythonanywhere.com/health
+5) Verificar
+   https://dracorazonia.pythonanywhere.com/health   -> "version" debe coincidir
+                                                      con APP_CODE_VERSION de app.py
+   https://dracorazonia.pythonanywhere.com/login
+   https://dracorazonia.pythonanywhere.com/admin/login
 
 
-7) Flujo diario
----------------
-1. Entras a /admin/login
-2. Creas estudiante + envías clave
-3. Ves el progreso en el panel (se actualiza solo)
+B) ACTUALIZAR (cada vez que hay cambios)
+========================================
+En tu PC:   git add ... && git commit && git push
+En PythonAnywhere (Bash console):
+   cd ~/mision-copilot-365
+   git pull
+   source venv/bin/activate && pip install -r requirements.txt   # solo si cambió requirements.txt
+Luego: pestaña Web > Reload.
+Verifica /health: el campo "version" debe ser el nuevo.
+
+Si git pull se queja de cambios locales en el servidor:
+   git status            # revisa qué cambió (no debería haber nada salvo .env/data, que están ignorados)
+   git stash             # o descártalos si eran ediciones hechas a mano en el servidor
 
 
-8) Si el correo falla (plan free)
---------------------------------
-El plan gratuito a menudo bloquea SMTP (puerto 587).
-Para Reto 1 / Reto 2 (enviar correo a la bandeja del estudiante):
+C) MIGRAR DESDE UNA CARPETA SUBIDA A MANO (p. ej. ~/Clases_Enel sin git)
+=======================================================================
+   cd ~
+   git clone https://github.com/acatherinebusinessintelligence/mision-copilot-365.git
+   cp ~/Clases_Enel/.env           ~/mision-copilot-365/.env
+   mkdir -p ~/mision-copilot-365/data
+   cp ~/Clases_Enel/data/mision.db ~/mision-copilot-365/data/mision.db   # conserva estudiantes y avance
+   cd ~/mision-copilot-365 && python3.10 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+   Pestaña Web: cambia Source code / Working directory / Virtualenv a ~/mision-copilot-365 y Reload.
+   Cuando todo funcione, puedes borrar ~/Clases_Enel.
 
-1. Abre https://script.google.com con analizamostunegocio@gmail.com
-2. Crea un proyecto y pega scripts/gmail_reto1_webhook.gs
-3. Pon el mismo WEBHOOK_SECRET que usarás en .env
-4. Implementar → Aplicación web (Ejecutar como: Yo / Acceso: Cualquiera)
-5. Autoriza Gmail; copia la URL que termina en /exec (no /dev)
-6. En el .env de PythonAnywhere:
-     EMAIL_WEBHOOK_URL=https://script.google.com/macros/s/.../exec
-     EMAIL_WEBHOOK_SECRET=el-mismo-secreto-del-script
-7. Web → Reload
-8. Verifica https://acatherinem.pythonanywhere.com/health
-   → mail.webhook_configured=true y mail.webhook_is_exec=true
 
-Si la UI dice "Enviado" pero no llega:
-- No uses la misma cuenta Gmail de salida como estudiante (self-send).
-- Revisa spam / Todos / Enviados en Gmail.
-- Si el secreto no coincide, ahora el API devolverá error (no falso éxito).
+D) CORREO (plan free bloquea SMTP)
+==================================
+1. https://script.google.com con analizamostunegocio@gmail.com
+2. Nuevo proyecto, pega scripts/gmail_reto1_webhook.gs y pon el mismo WEBHOOK_SECRET del .env
+3. Implementar > Aplicación web (Ejecutar como: Yo / Acceso: Cualquiera); copia la URL /exec
+4. En .env: EMAIL_WEBHOOK_URL y EMAIL_WEBHOOK_SECRET; Web > Reload
+5. /health -> mail.webhook_configured=true y mail.webhook_is_exec=true
+Si el envío de claves falla, se pueden copiar desde el panel admin.
 
-Las claves de acceso siguen pudiendo copiarse desde el panel admin
-si el envío SMTP de claves también falla.
+
+E) SEGURIDAD
+============
+- .env y data/ están en .gitignore: nunca los subas al repositorio.
+- Hasta la versión 2026-11-04 existía la ruta /assets/<archivo> que exponía
+  .env y data/mision.db públicamente. Ya se eliminó. Como pudo estar expuesta,
+  cambia ADMIN_PASSWORD, FLASK_SECRET_KEY, SMTP_APP_PASSWORD (revoca la
+  contraseña de aplicación en Google) y EMAIL_WEBHOOK_SECRET (también en el script).

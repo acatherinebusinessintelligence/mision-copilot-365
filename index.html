@@ -1603,6 +1603,260 @@
     }
     [data-tooltip]:hover::after, [data-tooltip]:focus-visible::after { opacity: 1; }
 
+    /* ========== COURSE SHELL · navegación tipo LMS (una actividad por pantalla) ========== */
+    :root { --cs-side-w: 300px; --cs-bar-h: 64px; }
+    .cs-hide { display: none !important; }
+    body.cs-on nav[aria-label="Principal"], body.cs-on .nav__toggle { display: none !important; }
+    html:has(body.cs-on) { scroll-padding-top: calc(var(--nav-h) + var(--cs-bar-h) + 16px); }
+    .cs-side-toggle { display: none; }
+    .cs-layout { display: grid; grid-template-columns: var(--cs-side-w) minmax(0, 1fr); align-items: start; }
+    .cs-layout > main { min-width: 0; }
+
+    /* Índice lateral */
+    .cs-side {
+      position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h));
+      overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;
+      background: var(--bg-elevated); border-right: 1px solid var(--border);
+      padding: 1rem 0.75rem 2rem;
+    }
+    .cs-side__progress {
+      padding: 0.9rem 1rem 1rem; border-radius: var(--radius-sm); margin-bottom: 0.9rem;
+      background: linear-gradient(140deg, var(--brand-dark), var(--navy-mid)); color: #fff;
+      border-bottom: 3px solid var(--brand-accent);
+    }
+    .cs-side__progress small {
+      display: block; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--brand-accent); font-weight: 700;
+    }
+    .cs-side__progress strong { font-size: 1.45rem; font-weight: 800; }
+    .cs-side__progress span { font-size: 0.78rem; color: rgba(255,255,255,0.75); }
+    .cs-meter { height: 6px; border-radius: 999px; background: rgba(255,255,255,0.18); overflow: hidden; margin-top: 0.45rem; }
+    .cs-meter > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent)); transition: width 0.4s ease; }
+    .cs-mod { margin-bottom: 0.2rem; }
+    .cs-mod__btn {
+      width: 100%; display: flex; align-items: center; gap: 0.65rem; padding: 0.55rem 0.6rem;
+      border: 0; background: transparent; border-radius: 10px; cursor: pointer; text-align: left;
+      font-weight: 700; font-size: 0.87rem; color: var(--text); line-height: 1.25;
+    }
+    .cs-mod__btn:hover { background: var(--surface); }
+    .cs-mod__icon {
+      width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; flex-shrink: 0;
+      background: var(--surface); color: var(--brand-primary); transition: var(--transition);
+    }
+    .cs-mod__icon svg { width: 17px; height: 17px; }
+    [data-theme="dark"] .cs-mod__icon { color: #c9c2ff; }
+    .cs-mod.is-current .cs-mod__icon { background: var(--brand-primary); color: #fff; }
+    .cs-mod.is-complete .cs-mod__icon { background: var(--brand-accent); color: var(--brand-dark); }
+    .cs-mod__txt { flex: 1; min-width: 0; }
+    .cs-mod__txt small { display: block; font-weight: 500; font-size: 0.72rem; color: var(--text-muted); }
+    .cs-mod__count { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+    .cs-mod__chev { color: var(--text-muted); transition: transform 0.2s; flex-shrink: 0; }
+    .cs-mod.is-open .cs-mod__chev { transform: rotate(180deg); }
+    .cs-steps { list-style: none; margin: 0.1rem 0 0.55rem; padding: 0 0 0 1.35rem; display: none; position: relative; }
+    .cs-mod.is-open .cs-steps { display: block; }
+    .cs-steps::before {
+      content: ""; position: absolute; left: calc(1.35rem + 0.5rem + 6px); top: 0.9rem; bottom: 0.9rem;
+      width: 2px; background: var(--border);
+    }
+    .cs-step {
+      display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.42rem 0.5rem; border-radius: 8px;
+      color: var(--text-muted); font-size: 0.83rem; font-weight: 500; line-height: 1.35; text-decoration: none;
+    }
+    .cs-step:hover { background: var(--surface); color: var(--text); text-decoration: none; }
+    .cs-step__dot {
+      width: 14px; height: 14px; margin-top: 2px; border-radius: 50%; flex-shrink: 0; position: relative; z-index: 1;
+      border: 2px solid var(--border); background: var(--bg-elevated);
+      display: grid; place-items: center; font-size: 9px; font-weight: 900; line-height: 1;
+    }
+    .cs-step.is-visited .cs-step__dot { border-color: var(--electric-soft); }
+    .cs-step.is-done .cs-step__dot { background: var(--brand-accent); border-color: var(--brand-accent); color: var(--brand-dark); }
+    .cs-step.is-done .cs-step__dot::after { content: "✓"; }
+    .cs-step.is-locked .cs-step__dot::after { content: "🔒"; font-size: 7px; }
+    .cs-step.is-current { background: color-mix(in srgb, var(--brand-primary) 12%, transparent); color: var(--brand-primary); font-weight: 700; }
+    [data-theme="dark"] .cs-step.is-current { color: #fff; background: color-mix(in srgb, var(--brand-primary) 35%, transparent); }
+    .cs-step.is-current .cs-step__dot { border-color: var(--brand-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-primary) 25%, transparent); }
+    .cs-side__foot { margin: 1rem 0.5rem 0; font-size: 0.74rem; color: var(--text-muted); line-height: 1.45; }
+    .cs-side__foot kbd {
+      font-family: inherit; font-size: 0.7rem; font-weight: 700; padding: 0.05rem 0.35rem;
+      border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; background: var(--surface);
+    }
+
+    /* Barra de lección (sticky) */
+    .cs-bar {
+      position: sticky; top: var(--nav-h); z-index: 60;
+      background: color-mix(in srgb, var(--bg-elevated) 94%, transparent); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .cs-bar__inner { display: flex; align-items: center; gap: 1rem; padding: 0.6rem 1.5rem; min-height: var(--cs-bar-h); }
+    .cs-crumb { min-width: 0; flex: 1; }
+    .cs-crumb small {
+      display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--brand-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    [data-theme="dark"] .cs-crumb small { color: var(--brand-accent); }
+    .cs-crumb strong { display: block; font-size: 0.98rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cs-dots { display: flex; gap: 0.3rem; flex-wrap: wrap; justify-content: flex-end; max-width: 46%; }
+    .cs-dots a {
+      min-width: 28px; height: 28px; padding: 0 0.3rem; border-radius: 8px; display: grid; place-items: center;
+      font-size: 0.74rem; font-weight: 700; text-decoration: none;
+      background: var(--surface); color: var(--text-muted); border: 1px solid transparent; transition: var(--transition);
+    }
+    .cs-dots a:hover { border-color: var(--brand-primary); color: var(--brand-primary); text-decoration: none; }
+    .cs-dots a.is-done { background: color-mix(in srgb, var(--brand-accent) 60%, transparent); color: var(--brand-dark); }
+    .cs-dots a.is-current { background: var(--brand-primary); color: #fff; box-shadow: 0 4px 12px rgba(74,61,166,0.35); }
+    .cs-bar__nav { display: flex; gap: 0.4rem; flex-shrink: 0; }
+    .cs-iconbtn {
+      width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--border);
+      background: var(--bg-elevated); color: var(--text); display: grid; place-items: center; cursor: pointer;
+      transition: var(--transition);
+    }
+    .cs-iconbtn:hover:not(:disabled) { border-color: var(--brand-primary); color: var(--brand-primary); }
+    .cs-iconbtn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* Vista de cada paso */
+    body.cs-on main > section { padding: 2.25rem 0 3rem; min-height: calc(100vh - var(--nav-h) - var(--cs-bar-h)); }
+    body.cs-on main > section.hero { padding: 4rem 0 3rem; }
+    body.cs-on .container { width: min(1120px, calc(100% - 3rem)); }
+    body.cs-on .reto.cs-active { border-color: color-mix(in srgb, var(--brand-primary) 40%, var(--border)); box-shadow: var(--shadow); }
+    body.cs-on .reto.cs-active > .reto__header { cursor: default; background: color-mix(in srgb, var(--brand-primary) 6%, transparent); }
+    body.cs-on .reto.cs-active .reto__chevron { display: none; }
+    body.cs-on .reto.cs-active > .reto__header strong { font-size: 1.12rem; }
+    .cs-view-enter { animation: rise 0.28s ease; }
+
+    /* Paginador inferior */
+    .cs-pager-wrap { position: relative; z-index: 2; }
+    .cs-pager {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+    }
+    .section-dark .cs-pager, .hero .cs-pager { border-color: rgba(255,255,255,0.16); }
+    .cs-pager__done {
+      grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      padding: 0.9rem 1.1rem; border-radius: var(--radius); color: var(--text);
+      background: color-mix(in srgb, var(--brand-accent) 14%, var(--bg-elevated));
+      border: 1px solid color-mix(in srgb, var(--brand-accent) 55%, var(--border));
+    }
+    .cs-pager__done p { margin: 0; font-size: 0.92rem; }
+    .cs-pager__link {
+      display: flex; flex-direction: column; gap: 0.2rem; padding: 1rem 1.2rem; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--bg-elevated); color: var(--text);
+      text-decoration: none; transition: var(--transition); min-width: 0;
+    }
+    .cs-pager__link:hover { border-color: var(--brand-primary); text-decoration: none; transform: translateY(-1px); box-shadow: var(--shadow); }
+    .cs-pager__link small { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .cs-pager__link strong { font-size: 0.98rem; overflow: hidden; text-overflow: ellipsis; }
+    .cs-pager__link--next { grid-column: 2; text-align: right; align-items: flex-end; background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+    .cs-pager__link--next:hover { color: #fff; background: #5a4bb8; }
+    .cs-pager__link--next small { color: var(--brand-accent); }
+
+    /* Pantallas internas (labs) */
+    .cs-sub {
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+      margin: 0 0 1.1rem; padding: 0.7rem 0.9rem; border-radius: var(--radius-sm);
+      background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text);
+    }
+    .cs-sub__label { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+    .cs-sub__chips { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+    .cs-sub__chips button {
+      min-width: 30px; height: 30px; padding: 0 0.45rem; border-radius: 999px; cursor: pointer;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text-muted);
+      font-size: 0.75rem; font-weight: 700; transition: var(--transition);
+    }
+    .cs-sub__chips button:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+    .cs-sub__chips button.is-seen { background: color-mix(in srgb, var(--brand-primary) 12%, var(--surface)); color: var(--brand-primary); }
+    .cs-sub__chips button.is-current { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+    .cs-sub__meter { flex: 1 1 120px; height: 5px; border-radius: 999px; background: var(--surface); overflow: hidden; }
+    .cs-sub__meter span { display: block; height: 100%; background: var(--brand-primary); transition: width 0.3s; }
+
+    /* Prompts largos: vista previa + expandir (copiar sigue copiando todo) */
+    .cs-clamp { max-height: 340px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 62%, transparent); mask-image: linear-gradient(#000 62%, transparent); }
+    .cs-clamp-btn { margin: -0.35rem 0 0.85rem; }
+    body.cs-on .prompt-config { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 800px) { body.cs-on .prompt-config { grid-template-columns: minmax(0, 1fr); } }
+    .user-chip[hidden] { display: none; }
+    body.cs-on .back-top { left: auto; right: 1.25rem; }
+    body.cs-on main > section > .container > div:has(> .reto.cs-active) { margin-top: 0 !important; }
+
+    /* Estado automático de sesión */
+    .session-status {
+      display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;
+      margin: 1.25rem 0; padding: 0.85rem 1rem; border-radius: var(--radius-sm);
+      background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text);
+    }
+    .session-status__meter { flex: 1 1 160px; height: 8px; border-radius: 999px; background: var(--surface); overflow: hidden; }
+    .session-status__meter span { display: block; height: 100%; background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent)); transition: width 0.4s; }
+    .session-status strong { font-size: 0.92rem; }
+    .session-status.is-complete { border-color: var(--brand-accent); background: color-mix(in srgb, var(--brand-accent) 14%, var(--bg-elevated)); }
+
+    /* Ruta automática */
+    .section-dark .path-body { color: var(--text); }
+    .path-links { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.6rem; }
+    .path-links a {
+      font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 999px; text-decoration: none;
+      background: var(--surface); color: var(--text-muted); border: 1px solid var(--border);
+    }
+    .path-links a.is-done { background: color-mix(in srgb, var(--brand-accent) 55%, transparent); color: var(--brand-dark); border-color: transparent; }
+    .path-links a:hover { border-color: var(--brand-primary); text-decoration: none; }
+
+    /* Evaluación por módulo */
+    .eval-next { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; color: var(--text); margin: 0 0 1.25rem; border-left: 4px solid var(--brand-accent); }
+    .eval-next p { margin: 0; }
+    .eval-modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 0 0 1.5rem; }
+    .eval-mod { color: var(--text); }
+    .eval-mod__head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .eval-mod__head h3 { font-size: 0.98rem; margin: 0; }
+    .eval-mod__head span { font-size: 0.82rem; font-weight: 700; color: var(--brand-primary); white-space: nowrap; }
+    [data-theme="dark"] .eval-mod__head span { color: var(--brand-accent); }
+    .eval-mod__bar { height: 8px; border-radius: 999px; background: var(--surface); overflow: hidden; margin-bottom: 0.75rem; }
+    .eval-mod__bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent)); }
+    .eval-mod ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; }
+    .eval-mod li a { display: flex; gap: 0.5rem; align-items: center; font-size: 0.84rem; color: var(--text-muted); text-decoration: none; }
+    .eval-mod li a:hover { color: var(--brand-primary); }
+    .eval-mod li a.is-done { color: var(--text); }
+    .eval-mod li i { font-style: normal; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; font-size: 0.65rem; flex-shrink: 0; border: 2px solid var(--border); }
+    .eval-mod li a.is-done i { background: var(--brand-accent); border-color: var(--brand-accent); color: var(--brand-dark); }
+    #evaluacion .kpi { color: var(--text); }
+
+    /* Prompt Lab plegable */
+    .prism-toggle { border: 1px dashed color-mix(in srgb, var(--brand-primary) 45%, var(--border)); border-radius: var(--radius-sm); padding: 0.25rem 0.9rem; background: color-mix(in srgb, var(--brand-primary) 4%, transparent); }
+    .prism-toggle > summary {
+      cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0;
+      font-weight: 700; font-size: 0.92rem; color: var(--brand-primary);
+    }
+    [data-theme="dark"] .prism-toggle > summary { color: #c9c2ff; }
+    .prism-toggle > summary::-webkit-details-marker { display: none; }
+    .prism-toggle > summary::before { content: "▸"; transition: transform 0.2s; }
+    .prism-toggle[open] > summary::before { transform: rotate(90deg); }
+    .prism-toggle > summary small { font-weight: 500; color: var(--text-muted); }
+    .prism-toggle[open] { padding-bottom: 0.9rem; }
+
+    .cs-backdrop { display: none; }
+    @media (max-width: 1080px) {
+      .cs-layout { grid-template-columns: minmax(0, 1fr); }
+      .cs-side {
+        position: fixed; top: var(--nav-h); left: 0; bottom: 0; height: auto; width: min(330px, 88vw);
+        z-index: 1200; transform: translateX(-102%); transition: transform 0.25s ease; box-shadow: var(--shadow-lg);
+      }
+      body.cs-side-open .cs-side { transform: none; }
+      body.cs-side-open .cs-backdrop { display: block; position: fixed; inset: var(--nav-h) 0 0 0; background: rgba(15,12,35,0.5); z-index: 1100; }
+      .cs-side-toggle { display: grid; }
+      .cs-dots { display: none; }
+    }
+    @media (max-width: 640px) {
+      .cs-bar__inner { padding: 0.5rem 0.85rem; gap: 0.6rem; }
+      body.cs-on .container { width: calc(100% - 1.5rem); }
+      .cs-pager { grid-template-columns: 1fr; }
+      .cs-pager__link--next { grid-column: 1; }
+      .nav__brand-text span { display: none; }
+    }
+    @media print {
+      .cs-side, .cs-bar, .cs-pager-wrap, .cs-backdrop { display: none !important; }
+      .cs-layout { display: block; }
+      body.print-cert main > section:not(#evaluacion), body.print-cert footer { display: none !important; }
+      body.print-cert #evaluacion > .container > :not(#certificate) { display: none !important; }
+      body.print-cert #evaluacion { background: white !important; color: black; min-height: 0; }
+    }
+
     /* ========== PRINT ========== */
     @media print {
       .nav, .back-top, .toast-stack, .nav__toggle, .icon-btn, .btn, .modal-backdrop { display: none !important; }
@@ -1735,7 +1989,7 @@
       <div class="container">
         <p class="section-kicker">Ruta de aprendizaje</p>
         <h2 class="section-title" id="rutaTitle">Ocho etapas hacia decisiones mejores</h2>
-        <p class="lead">Marca cada etapa al completarla. El estado se guarda en tu navegador.</p>
+        <p class="lead">Cada etapa se completa sola cuando terminas las actividades que la desarrollan. Pulsa una actividad para ir a ella.</p>
         <div class="path-track" id="pathTrack" style="margin-top:2rem"></div>
       </div>
     </section>
@@ -1750,10 +2004,7 @@
           <i data-lucide="monitor" width="18" height="18"></i>
           <span><strong>Método de trabajo:</strong> abre la aplicación Microsoft 365 indicada, ejecuta Copilot con el prompt y entrega el resultado en el formato solicitado (columnas o estructura indicadas). No se exige un archivo con nombre fijo salvo que el reto lo diga. No inventes datos: si falta información, escribe “no especificado”.</span>
         </div>
-        <label class="principle" style="margin:1.25rem 0;cursor:pointer">
-          <input type="checkbox" data-progress="s1-done" />
-          <span><strong>Marcar Sesión 1 como finalizada</strong> cuando completes los retos y la autoevaluación.</span>
-        </label>
+        <div class="session-status" data-session-status="s1" aria-live="polite"></div>
 
         <!-- RETO 1 -->
         <article class="reto is-open" data-reto="r1">
@@ -2273,10 +2524,7 @@
           <p style="margin:0.5rem 0 0;font-size:0.9rem"><strong>Entregable final:</strong> documento ejecutivo completo (no resumen conversacional), listo para pegar en Microsoft Word y exportar a PDF: portada, tabla de contenido, resumen 200–300 palabras, desarrollo en tablas, hallazgos, riesgos, pendientes, recomendaciones, conclusiones y validación humana.</p>
         </div>
 
-        <label class="principle" style="margin:1rem 0;cursor:pointer">
-          <input type="checkbox" data-progress="s2-done" />
-          <span><strong>Marcar Sesión 2 como finalizada</strong> al completar las fases y los entregables con validación humana.</span>
-        </label>
+        <div class="session-status" data-session-status="s2" aria-live="polite"></div>
 
         <div class="card" style="margin:1.5rem 0">
           <h3>Herramientas disponibles</h3>
@@ -4599,18 +4847,18 @@ Tono: ejecutivo, claro y prudente.</div>
         <!-- ENTREGABLES -->
         <div class="card entregable" style="margin:2rem 0">
           <strong>Entregables finales</strong>
-          <p class="text-muted" style="font-size:0.9rem;margin:0.35rem 0 0.75rem">Marca cada ítem cuando lo hayas completado y validado. El progreso se guarda en LocalStorage.</p>
+          <p class="text-muted" style="font-size:0.9rem;margin:0.35rem 0 0.75rem">Se marcan automáticamente cuando completas la fase de la que sale cada entregable. Pulsa la fase para ir a ella.</p>
           <ul class="check-list">
-            <li><input type="checkbox" data-progress="s2-e1" /> Análisis del correo.</li>
-            <li><input type="checkbox" data-progress="s2-e2" /> Matriz de alcance.</li>
-            <li><input type="checkbox" data-progress="s2-e3" /> Análisis presupuestal.</li>
-            <li><input type="checkbox" data-progress="s2-e4" /> Análisis del cronograma.</li>
-            <li><input type="checkbox" data-progress="s2-e5" /> Matriz de compromisos.</li>
-            <li><input type="checkbox" data-progress="s2-e6" /> Comparación documental.</li>
-            <li><input type="checkbox" data-progress="s2-e7" /> Matriz de riesgos.</li>
-            <li><input type="checkbox" data-progress="s2-e8" /> Estructura de presentación.</li>
-            <li><input type="checkbox" data-progress="s2-e9" /> Correo ejecutivo.</li>
-            <li><input type="checkbox" data-progress="s2-e10" /> Registro de validación humana.</li>
+            <li><input type="checkbox" data-progress="s2-e1" disabled /> Análisis del correo. <a href="#paso-s2-f1" style="font-size:0.8rem;font-weight:700">Fase 1 →</a></li>
+            <li><input type="checkbox" data-progress="s2-e2" disabled /> Matriz de alcance. <a href="#paso-s2-f2" style="font-size:0.8rem;font-weight:700">Fase 2 →</a></li>
+            <li><input type="checkbox" data-progress="s2-e3" disabled /> Análisis presupuestal. <a href="#paso-s2-f3" style="font-size:0.8rem;font-weight:700">Fase 3 →</a></li>
+            <li><input type="checkbox" data-progress="s2-e4" disabled /> Análisis del cronograma. <a href="#paso-s2-f3" style="font-size:0.8rem;font-weight:700">Fase 3 →</a></li>
+            <li><input type="checkbox" data-progress="s2-e5" disabled /> Matriz de compromisos. <a href="#paso-s2-f4" style="font-size:0.8rem;font-weight:700">Fase 4 →</a></li>
+            <li><input type="checkbox" data-progress="s2-e6" disabled /> Comparación documental. <a href="#paso-s2-f5" style="font-size:0.8rem;font-weight:700">Fase 5 →</a></li>
+            <li><input type="checkbox" data-progress="s2-e7" disabled /> Matriz de riesgos. <a href="#paso-s2-f6" style="font-size:0.8rem;font-weight:700">Fase 6 →</a></li>
+            <li><input type="checkbox" data-progress="s2-e8" disabled /> Estructura de presentación. <a href="#paso-s2-f7" style="font-size:0.8rem;font-weight:700">Fase 7 →</a></li>
+            <li><input type="checkbox" data-progress="s2-e9" disabled /> Correo ejecutivo. <a href="#paso-s2-f8" style="font-size:0.8rem;font-weight:700">Fase 8 →</a></li>
+            <li><input type="checkbox" data-progress="s2-e10" disabled /> Registro de validación humana. <a href="#paso-s2-f1" style="font-size:0.8rem;font-weight:700">Fases 1–8 →</a></li>
           </ul>
         </div>
 
@@ -4659,7 +4907,7 @@ Tono: ejecutivo, claro y prudente.</div>
               <span><strong>Habilidad:</strong> Contexto + fuentes + trazabilidad.</span>
             </div>
             <a class="btn btn--sm btn--primary" href="#lab-cuaderno"><i data-lucide="book-open" width="14" height="14"></i> Comenzar Cuaderno</a>
-            <p id="lab31CardStatus" style="margin:0.65rem 0 0;font-size:0.85rem;color:var(--text-muted)">Estado: pendiente · completa la misión 3.1 abajo</p>
+            <p id="lab31CardStatus" style="margin:0.65rem 0 0;font-size:0.85rem;color:var(--text-muted)">Estado: pendiente · completa la misión 3.1</p>
           </article>
 
           <article class="card lab-card" style="color:var(--text)">
@@ -4672,7 +4920,7 @@ Tono: ejecutivo, claro y prudente.</div>
               <span><strong>Habilidad:</strong> Rol + instrucciones + conocimiento + comportamiento.</span>
             </div>
             <a class="btn btn--sm btn--primary" href="#lab-agente"><i data-lucide="bot" width="14" height="14"></i> Crear Agente PMO</a>
-            <p id="lab32CardStatus" style="margin:0.65rem 0 0;font-size:0.85rem;color:var(--text-muted)">Estado: pendiente · completa la misión 3.2 abajo</p>
+            <p id="lab32CardStatus" style="margin:0.65rem 0 0;font-size:0.85rem;color:var(--text-muted)">Estado: pendiente · completa la misión 3.2</p>
           </article>
 
           <article class="card lab-card" style="color:var(--text)">
@@ -4685,7 +4933,7 @@ Tono: ejecutivo, claro y prudente.</div>
               <span><strong>Habilidad:</strong> Evento + regla + human-in-the-loop.</span>
             </div>
             <a class="btn btn--sm btn--primary" href="#lab-automatizacion"><i data-lucide="zap" width="14" height="14"></i> Automatizar Hallazgo</a>
-            <p id="lab33CardStatus" style="margin:0.65rem 0 0;font-size:0.85rem;color:var(--text-muted)">Estado: pendiente · completa la misión 3.3 abajo</p>
+            <p id="lab33CardStatus" style="margin:0.65rem 0 0;font-size:0.85rem;color:var(--text-muted)">Estado: pendiente · completa la misión 3.3</p>
           </article>
         </div>
 
@@ -6570,13 +6818,15 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
         <p class="section-kicker">Seguimiento</p>
         <h2 class="section-title" id="evalTitle">Evaluación y seguimiento</h2>
         <div class="grid grid-3" style="margin:1.5rem 0">
-          <div class="card kpi"><div class="kpi__value" id="statRetos">0</div><div class="kpi__label">Retos completados</div></div>
+          <div class="card kpi"><div class="kpi__value" id="statRetos">0</div><div class="kpi__label">Actividades completadas</div></div>
           <div class="card kpi"><div class="kpi__value" id="statFavs">0</div><div class="kpi__label">Prompts favoritos</div></div>
           <div class="card kpi"><div class="kpi__value" id="statSesiones">0</div><div class="kpi__label">Sesiones finalizadas</div></div>
           <div class="card kpi"><div class="kpi__value" id="statQuiz">0</div><div class="kpi__label">Puntaje autoevaluación</div></div>
           <div class="card kpi"><div class="kpi__value" id="statFinal">No</div><div class="kpi__label">Proyecto final</div></div>
           <div class="card kpi"><div class="kpi__value" id="statPct">0%</div><div class="kpi__label">Porcentaje general</div></div>
         </div>
+        <div class="card eval-next" id="evalNext"></div>
+        <div class="eval-modules" id="evalModules"></div>
         <div class="btn-group">
           <button class="btn btn--secondary" id="resetProgress"><i data-lucide="rotate-ccw" width="16" height="16"></i> Reiniciar progreso</button>
           <button class="btn btn--primary" id="printCert"><i data-lucide="award" width="16" height="16"></i> Imprimir certificado simbólico</button>
@@ -6736,6 +6986,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     }
   }
   function saveState() {
+    syncDerivedProgress();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     updateProgressUI();
     scheduleServerSync();
@@ -6786,6 +7037,10 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
         nameEl.textContent = currentStudent.name || currentStudent.email;
         chip.hidden = false;
       }
+      const certName = document.getElementById("certName");
+      if (certName && currentStudent && (currentStudent.name || currentStudent.email)) {
+        certName.textContent = currentStudent.name || currentStudent.email;
+      }
       const r1Status = document.getElementById("reto1EmailStatus");
       if (r1Status && currentStudent?.email) {
         r1Status.innerHTML = `El correo se enviará a <strong>${esc(currentStudent.email)}</strong> (tu correo de acceso) desde <code>analizamostunegocio@gmail.com</code>.`;
@@ -6829,23 +7084,92 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
   }
 
   /* ========== PROGRESO ========== */
-  const PROGRESS_KEYS = [
-    "reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6",
-    "s1-done","s2-done","proyecto-final",
-    "s2-f0","s2-f1","s2-f2","s2-f3","s2-f4","s2-f5","s2-f6","s2-f7","s2-f8",
-    "s2-e1","s2-e2","s2-e3","s2-e4","s2-e5","s2-e6","s2-e7","s2-e8","s2-e9","s2-e10",
-    "lab-3-1","lab-3-2","lab-3-3","lab-3-4"
+  /* Fuente única del avance: 22 actividades evaluables (misma lista en app.py → calc_percent_from_payload). */
+  const S1_RETOS = ["reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6"];
+  const S2_FASES = ["s2-f0","s2-f1","s2-f2","s2-f3","s2-f4","s2-f5","s2-f6","s2-f7","s2-f8"];
+  const ACTIVITY_GROUPS = [
+    { id: "s1", title: "Sesión 1 · Productividad individual",
+      items: [...S1_RETOS.map(k => ({ key: k, href: "#paso-" + k.slice(5) })), { key: "quiz-s1", title: "Autoevaluación", href: "#autoeval" }] },
+    { id: "desafio", title: "Entre sesiones", items: [{ key: "desafio", title: "Mi oportunidad Copilot", href: "#desafio" }] },
+    { id: "s2", title: "Sesión 2 · Proyecto Horizonte", items: S2_FASES.map(k => ({ key: k, href: "#paso-" + k })) },
+    { id: "lab", title: "Copilot Lab", items: [
+      { key: "lab-3-1", title: "3.1 Cuaderno", href: "#lab-cuaderno" },
+      { key: "lab-3-2", title: "3.2 Agente PMO", href: "#lab-agente" },
+      { key: "lab-3-3", title: "3.3 Automatización", href: "#lab-automatizacion" },
+      { key: "lab-3-4", title: "3.4 Reto integrador", href: "#lab-reto" }] },
+    { id: "final", title: "Proyecto final", items: [{ key: "proyecto-final", title: "Mi caso de uso de Copilot", href: "#proyecto-final" }] }
   ];
+  const ALL_ACTIVITIES = ACTIVITY_GROUPS.flatMap(g => g.items);
+  // Entregables de Sesión 2 → fases de las que salen (se marcan solos).
+  const S2_ENTREGABLES = {
+    "s2-e1": ["s2-f1"], "s2-e2": ["s2-f2"], "s2-e3": ["s2-f3"], "s2-e4": ["s2-f3"], "s2-e5": ["s2-f4"],
+    "s2-e6": ["s2-f5"], "s2-e7": ["s2-f6"], "s2-e8": ["s2-f7"], "s2-e9": ["s2-f8"], "s2-e10": S2_FASES.slice(1)
+  };
+
+  function quizAnswered() { return Object.keys((state.quiz && state.quiz.answers) || {}).length; }
+  function activityDone(key) {
+    if (key === "quiz-s1") return quizAnswered() >= 5;
+    if (key === "desafio") return Object.values(state.oportunidad || {}).some(v => String(v || "").trim());
+    return !!state.progress[key];
+  }
+  function activityTitle(item) {
+    if (item.title) return item.title;
+    const el = document.querySelector(item.href);
+    const num = el && el.querySelector(":scope > .reto__header .reto__num");
+    const t = el && el.querySelector(":scope > .reto__header strong");
+    const prefix = item.key.startsWith("reto-") ? "Reto " : "Fase ";
+    return prefix + (num ? num.textContent.trim() : "") + (t ? " · " + t.textContent.trim() : "");
+  }
+  function nextActivity() { return ALL_ACTIVITIES.find(i => !activityDone(i.key)) || null; }
 
   function calcPercent() {
-    const done = PROGRESS_KEYS.filter(k => state.progress[k]).length;
-    const quizPts = Math.min(5, state.quiz.score || 0);
-    const favBonus = Math.min(3, (state.favorites || []).length) * 0.5;
-    const pathDone = Object.values(state.path || {}).filter(Boolean).length;
-    const pathPts = Math.min(4, pathDone * 0.5);
-    const totalWeight = PROGRESS_KEYS.length + 5 + 1.5 + 4;
-    const score = done + quizPts + Math.min(1.5, favBonus) + pathPts;
-    return Math.round((score / totalWeight) * 100);
+    const done = ALL_ACTIVITIES.filter(i => i.key !== "quiz-s1" && activityDone(i.key)).length
+      + Math.min(5, quizAnswered()) / 5;
+    return Math.round((done / ALL_ACTIVITIES.length) * 100);
+  }
+
+  /* Estados derivados: sesión finalizada y entregables ya no se marcan a mano. */
+  function syncDerivedProgress() {
+    const pr = state.progress;
+    pr["s1-done"] = S1_RETOS.every(k => pr[k]) && activityDone("quiz-s1");
+    pr["s2-done"] = S2_FASES.every(k => pr[k]);
+    Object.entries(S2_ENTREGABLES).forEach(([e, fases]) => { pr[e] = fases.every(f => pr[f]); });
+    document.querySelectorAll('[data-progress^="s2-e"]').forEach(el => { el.checked = !!pr[el.getAttribute("data-progress")]; });
+  }
+
+  function renderSessionStatus() {
+    document.querySelectorAll("[data-session-status]").forEach(box => {
+      const g = ACTIVITY_GROUPS.find(x => x.id === box.getAttribute("data-session-status"));
+      if (!g) return;
+      const done = g.items.filter(i => activityDone(i.key)).length;
+      const pct = Math.round(done / g.items.length * 100);
+      const next = g.items.find(i => !activityDone(i.key));
+      box.classList.toggle("is-complete", !next);
+      box.innerHTML = `<strong>${next ? `Avance de la sesión: ${done} de ${g.items.length} actividades` : "✓ Sesión completada"}</strong>
+        <div class="session-status__meter" aria-hidden="true"><span style="width:${pct}%"></span></div>
+        ${next ? `<a class="btn btn--sm btn--primary" href="${next.href}">Continuar: ${esc(activityTitle(next))} →</a>` : ""}`;
+    });
+  }
+
+  function renderEvalModules() {
+    const wrap = document.getElementById("evalModules");
+    if (!wrap) return;
+    wrap.innerHTML = ACTIVITY_GROUPS.map(g => {
+      const done = g.items.filter(i => activityDone(i.key)).length;
+      const pct = Math.round(done / g.items.length * 100);
+      return `<div class="card eval-mod">
+        <div class="eval-mod__head"><h3>${esc(g.title)}</h3><span>${done}/${g.items.length}</span></div>
+        <div class="eval-mod__bar" aria-hidden="true"><span style="width:${pct}%"></span></div>
+        <ul>${g.items.map(i => `<li><a href="${i.href}" class="${activityDone(i.key) ? "is-done" : ""}"><i>${activityDone(i.key) ? "✓" : ""}</i>${esc(activityTitle(i))}</a></li>`).join("")}</ul>
+      </div>`;
+    }).join("");
+    const nx = document.getElementById("evalNext");
+    if (nx) {
+      const n = nextActivity();
+      nx.innerHTML = n
+        ? `<p><strong>Siguiente actividad recomendada:</strong> ${esc(activityTitle(n))}</p><a class="btn btn--sm btn--primary" href="${n.href}">Ir ahora →</a>`
+        : `<p><strong>¡Completaste las ${ALL_ACTIVITIES.length} actividades!</strong> Ya puedes imprimir tu certificado simbólico.</p>`;
+    }
   }
 
   function updateProgressUI() {
@@ -6855,9 +7179,8 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     if (fill) fill.style.width = pct + "%";
     if (label) label.textContent = pct + "%";
 
-    const retos = ["reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6"]
-      .filter(k => state.progress[k]).length;
-    document.getElementById("statRetos").textContent = retos;
+    const actividades = ALL_ACTIVITIES.filter(i => activityDone(i.key)).length;
+    document.getElementById("statRetos").textContent = actividades + "/" + ALL_ACTIVITIES.length;
     document.getElementById("statFavs").textContent = (state.favorites || []).length;
     const sesiones = [state.progress["s1-done"], state.progress["s2-done"]].filter(Boolean).length;
     document.getElementById("statSesiones").textContent = sesiones;
@@ -6867,6 +7190,9 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     document.getElementById("certPct").textContent = pct + "%";
     document.getElementById("certDate").textContent = new Date().toLocaleDateString("es-CO");
     renderPath();
+    renderSessionStatus();
+    renderEvalModules();
+    csRefresh();
   }
 
   function bindProgressInputs() {
@@ -6885,19 +7211,26 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
 
   /* ========== RUTA ========== */
   const PATH_STEPS = [
-    { id: "p1", icon: "bot", name: "Comprender Copilot", desc: "Qué puede y qué no debe decidir por ti." },
-    { id: "p2", icon: "message-square-code", name: "Formular instrucciones", desc: "Rol, contexto, tarea, formato y verificación." },
-    { id: "p3", icon: "folder-tree", name: "Organizar información", desc: "De correos y notas a estructuras claras." },
-    { id: "p4", icon: "megaphone", name: "Adaptar comunicaciones", desc: "Técnico, ejecutivo y comunitario." },
-    { id: "p5", icon: "file-search", name: "Analizar documentos", desc: "Comparar versiones y detectar impactos." },
-    { id: "p6", icon: "shield-alert", name: "Identificar riesgos", desc: "Causa, consecuencia y señales de alerta." },
-    { id: "p7", icon: "gantt-chart", name: "Gestionar un proyecto", desc: "Alcance, plan, interesados y avance." },
-    { id: "p8", icon: "landmark", name: "Preparar decisiones", desc: "Escenarios y recomendación argumentada." }
+    { id: "p1", icon: "bot", name: "Comprender Copilot", desc: "Qué puede y qué no debe decidir por ti.", keys: ["reto-r1", "quiz-s1"] },
+    { id: "p2", icon: "message-square-code", name: "Formular instrucciones", desc: "Rol, contexto, tarea, formato y verificación.", keys: ["reto-r2", "s2-f0"] },
+    { id: "p3", icon: "folder-tree", name: "Organizar información", desc: "De correos y notas a estructuras claras.", keys: ["reto-r3", "reto-r6"] },
+    { id: "p4", icon: "megaphone", name: "Adaptar comunicaciones", desc: "Técnico, ejecutivo y comunitario.", keys: ["reto-r4", "s2-f8"] },
+    { id: "p5", icon: "file-search", name: "Analizar documentos", desc: "Comparar versiones y detectar impactos.", keys: ["reto-r5", "s2-f1", "s2-f2", "s2-f5"] },
+    { id: "p6", icon: "shield-alert", name: "Identificar riesgos", desc: "Causa, consecuencia y señales de alerta.", keys: ["s2-f6"] },
+    { id: "p7", icon: "gantt-chart", name: "Gestionar un proyecto", desc: "Alcance, plan, interesados y avance.", keys: ["s2-f3", "s2-f4", "lab-3-1", "lab-3-2", "lab-3-3"] },
+    { id: "p8", icon: "landmark", name: "Preparar decisiones", desc: "Escenarios y recomendación argumentada.", keys: ["s2-f7", "lab-3-4", "proyecto-final"] }
   ];
+  function pathKeyLabel(k) {
+    if (k.startsWith("reto-")) return "Reto " + k.slice(6);
+    if (k.startsWith("s2-f")) return "Fase " + k.slice(4);
+    if (k.startsWith("lab-")) return "Lab " + k.slice(4).replace("-", ".");
+    return { "quiz-s1": "Autoevaluación", "proyecto-final": "Proyecto final" }[k] || k;
+  }
+  function pathStepDone(s) { return s.keys.every(activityDone); }
 
   function pathStatus(id, index) {
-    if (state.path[id]) return "done";
-    const firstPending = PATH_STEPS.findIndex(s => !state.path[s.id]);
+    if (pathStepDone(PATH_STEPS[index])) return "done";
+    const firstPending = PATH_STEPS.findIndex(s => !pathStepDone(s));
     if (index === firstPending) return "active";
     return "pending";
   }
@@ -6915,19 +7248,15 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
           <span class="badge ${badgeClass}">${badge}</span>
           <h3>${i + 1}. ${s.name}</h3>
           <p>${s.desc}</p>
-          <label style="display:inline-flex;gap:0.4rem;margin-top:0.65rem;font-size:0.85rem;cursor:pointer">
-            <input type="checkbox" data-path="${s.id}" ${state.path[s.id] ? "checked" : ""}/> Marcar etapa
-          </label>
+          <div class="path-links">${s.keys.map(k => {
+            const item = ALL_ACTIVITIES.find(i => i.key === k);
+            return `<a href="${item ? item.href : "#"}" class="${activityDone(k) ? "is-done" : ""}">${activityDone(k) ? "✓ " : ""}${pathKeyLabel(k)}</a>`;
+          }).join("")}</div>
         </div>
       </div>`;
     }).join("");
     if (window.lucide) lucide.createIcons({ nodes: [track] });
-    track.querySelectorAll("[data-path]").forEach(cb => {
-      cb.addEventListener("change", () => {
-        state.path[cb.getAttribute("data-path")] = cb.checked;
-        saveState();
-      });
-    });
+
   }
 
   /* ========== ACORDEONES / TABS ========== */
@@ -10827,7 +11156,9 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       });
     });
     document.getElementById("printCert").addEventListener("click", () => {
+      document.body.classList.add("print-cert");
       window.print();
+      setTimeout(() => document.body.classList.remove("print-cert"), 300);
     });
     document.getElementById("downloadProgress").addEventListener("click", () => {
       const summary = {
@@ -10898,6 +11229,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       '<div class="prism-host" data-prism-ready="' + key + '">' +
       '<h4 class="prism-host__title"><i data-lucide="layers" width="18" height="18"></i> Prompt Lab · ' + escHtml(data.title) + '</h4>' +
       '<p class="text-muted" style="font-size:0.88rem;margin:0 0 0.75rem">Fuente: <strong>' + escHtml(data.file) + '</strong> · Persona sugerida: ' + escHtml(data.persona) + '. Usa la metodología <strong>PRISM</strong> (Persona · Realidad · Información · Solicitud · Método).</p>' +
+      '<details class="prism-toggle"><summary>Practicar por niveles: Básico → Experto <small>· opcional · 4 prompts + mejora</small></summary>' +
       '<div class="prism-levels">' + cards + '</div>' +
       '<div class="card prism-improve" style="margin:1rem 0 0;padding:1rem">' +
       '<h4 style="margin:0 0 0.5rem">Mejora tu prompt</h4>' +
@@ -10905,7 +11237,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       '<ul style="font-size:0.9rem">' + hints + '</ul>' +
       '<label for="' + improveId + '" style="display:block;margin:0.65rem 0 0.35rem;font-weight:600">Tu segunda versión (PRISM)</label>' +
       '<textarea id="' + improveId + '" data-s2-note="' + improveId + '" placeholder="Reescribe el prompt profesional con más precisión…"></textarea>' +
-      '</div></div>'
+      '</div></details></div>'
     );
   }
 
@@ -11327,7 +11659,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     if (cardStatus) {
       cardStatus.textContent = state.progress["lab-3-1"]
         ? "Estado: completado ✓"
-        : "Estado: pendiente · completa la misión 3.1 abajo";
+        : "Estado: pendiente · completa la misión 3.1";
       cardStatus.style.color = state.progress["lab-3-1"] ? "var(--brand-accent)" : "";
     }
 
@@ -11546,7 +11878,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     if (cardStatus) {
       cardStatus.textContent = state.progress["lab-3-2"]
         ? "Estado: completado ✓"
-        : "Estado: pendiente · completa la misión 3.2 abajo";
+        : "Estado: pendiente · completa la misión 3.2";
       cardStatus.style.color = state.progress["lab-3-2"] ? "var(--brand-accent)" : "";
     }
 
@@ -12191,7 +12523,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     if (cardStatus) {
       cardStatus.textContent = state.progress["lab-3-3"]
         ? "Estado: completado ✓"
-        : "Estado: pendiente · completa la misión 3.3 abajo";
+        : "Estado: pendiente · completa la misión 3.3";
       cardStatus.style.color = state.progress["lab-3-3"] ? "var(--brand-accent)" : "";
     }
 
@@ -12370,8 +12702,566 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
   }
 
   /* ========== BOOT ========== */
+  /* ========== COURSE SHELL · módulos, pasos y navegación ========== */
+  const CS_KEY = "misionCopilot365_shell_v1";
+  const CS_MODULES = [
+    { id: "bienvenida", title: "Bienvenida", sub: "Presentación y ruta", icon: "home",
+      steps: [
+        { sel: "#inicio", title: "Portada" },
+        { sel: "#mision", title: "Tu misión con Copilot" },
+        { sel: "#ruta", title: "Ruta de aprendizaje" }
+      ] },
+    { id: "s1", title: "Sesión 1", sub: "Productividad individual", icon: "user",
+      section: "#sesion1", retos: true,
+      introTitle: "Introducción y método de trabajo",
+      outroTitle: "Autoevaluación",
+      outroDone: () => Object.keys((state.quiz && state.quiz.answers) || {}).length >= 5 },
+    { id: "desafio", title: "Entre sesiones", sub: "Mi oportunidad Copilot", icon: "lightbulb",
+      steps: [
+        { sel: "#desafio", title: "Mi oportunidad Copilot",
+          done: () => Object.values(state.oportunidad || {}).some(v => String(v || "").trim()) }
+      ] },
+    { id: "s2", title: "Sesión 2", sub: "Proyecto Horizonte · PRISM", icon: "briefcase",
+      section: "#sesion2", retos: true,
+      introTitle: "Caso, archivos y metodología",
+      outroTitle: "Constructor PRISM y entregables",
+      outroDone: () => ["s2-e1","s2-e2","s2-e3","s2-e4","s2-e5","s2-e6","s2-e7","s2-e8","s2-e9","s2-e10"].every(k => state.progress[k]) },
+    { id: "lab", title: "Copilot Lab", sub: "Cuaderno · Agente · Automatización", icon: "flask-conical",
+      section: "#copilot-lab",
+      introTitle: "Mapa del laboratorio",
+      parts: [
+        { sel: "#lab-cuaderno", title: "3.1 Cuaderno · Centro de conocimiento", key: "lab-3-1" },
+        { sel: "#lab-agente", title: "3.2 Agente PMO Copilot", key: "lab-3-2" },
+        { sel: "#lab-automatizacion", title: "3.3 Automatización · Power Automate", key: "lab-3-3" },
+        { sel: "#lab-reto", title: "3.4 Reto integrador", key: "lab-3-4",
+          locked: () => !!document.querySelector("#lab-reto.lab-card--locked") }
+      ] },
+    { id: "herramientas", title: "Herramientas", sub: "Prompts y planillas", icon: "wrench",
+      steps: [
+        { sel: "#prompts", title: "Biblioteca de prompts" },
+        { sel: "#recursos", title: "Planillas para descargar" }
+      ] },
+    { id: "cierre", title: "Cierre", sub: "Proyecto final y progreso", icon: "flag",
+      steps: [
+        { sel: "#proyecto-final", title: "Proyecto final · Mi caso de uso", key: "proyecto-final" },
+        { sel: "#cierre", title: "Uso responsable y cierre" },
+        { sel: "#evaluacion", title: "Mi progreso y certificado" }
+      ] }
+  ];
+
+  const CS = { ready: false, modules: [], steps: [], current: null, screen: 0, store: { last: null, visited: {}, screen: {}, seen: {} } };
+  // Actividades largas que se dividen en pantallas (una tarjeta "Paso N" por pantalla).
+  const CS_SCREENED = ["lab-cuaderno", "lab-agente", "lab-automatizacion"];
+
+  function csLoadStore() {
+    try { CS.store = { last: null, visited: {}, screen: {}, seen: {}, ...JSON.parse(localStorage.getItem(CS_KEY) || "{}") }; } catch { /* sin datos */ }
+  }
+  function csSaveStore() {
+    try { localStorage.setItem(CS_KEY, JSON.stringify(CS.store)); } catch { /* almacenamiento lleno o bloqueado */ }
+  }
+
+  function csEnsureId(el, fallback) {
+    if (!el.id) el.id = fallback;
+    return el.id;
+  }
+
+  /* Construye la lista de pasos a partir del HTML existente (sin reescribir contenido). */
+  function csBuildSteps() {
+    CS_MODULES.forEach(m => {
+      const mod = { ...m, steps: [] };
+      const push = (s) => { s.module = mod; s.index = mod.steps.length; mod.steps.push(s); CS.steps.push(s); };
+
+      if (m.steps) {
+        m.steps.forEach(def => {
+          const sec = document.querySelector(def.sel);
+          if (!sec) return;
+          push({ title: def.title, anchorId: sec.id, section: sec, parts: [sec], inner: false,
+                 done: def.done || (def.key ? () => !!state.progress[def.key] : null) });
+        });
+      } else {
+        const sec = document.querySelector(m.section);
+        const cont = sec && sec.querySelector(":scope > .container");
+        if (!cont) return;
+        const kids = [...cont.children];
+        const topOf = el => kids.find(k => k === el || k.contains(el));
+        const stepDefs = m.retos
+          ? [...sec.querySelectorAll("article.reto[data-reto]")]
+              .filter(el => !el.parentElement.closest(".reto"))
+              .map(el => {
+                const cb = el.querySelector(":scope > .reto__header input[data-progress]");
+                const titleEl = el.querySelector(":scope > .reto__header strong");
+                const num = el.querySelector(":scope > .reto__header .reto__num");
+                const key = cb ? cb.getAttribute("data-progress") : null;
+                return { el, key, title: (num ? num.textContent.trim() + " · " : "") + (titleEl ? titleEl.textContent.trim() : "Actividad"),
+                         anchorId: csEnsureId(el, "paso-" + el.getAttribute("data-reto")) };
+              })
+          : (m.parts || []).map(p => {
+              const el = document.querySelector(p.sel);
+              return el ? { el, key: p.key, title: p.title, locked: p.locked, anchorId: el.id } : null;
+            }).filter(Boolean);
+        if (!stepDefs.length) return;
+
+        // Encabezado (kicker + título) siempre visible; el resto se reparte entre intro, pasos y cierre.
+        let i = 0;
+        const head = [];
+        while (i < kids.length && kids[i].matches(".section-kicker, .section-title, .hero__subtitle")) head.push(kids[i++]);
+        head.forEach(el => el.classList.add("cs-head"));
+        const firstTop = kids.indexOf(topOf(stepDefs[0].el));
+        const lastTop = kids.indexOf(topOf(stepDefs[stepDefs.length - 1].el));
+        const intro = kids.slice(i, firstTop);
+        const outro = kids.slice(lastTop + 1);
+
+        if (intro.length) {
+          push({ title: m.introTitle || "Introducción", anchorId: sec.id, section: sec, parts: intro, inner: true, intro: true, done: null });
+        }
+        stepDefs.forEach((d, idx) => {
+          const parts = [d.el];
+          // Contenido suelto entre dos pasos se asocia al paso anterior.
+          const from = kids.indexOf(topOf(d.el)) + 1;
+          const to = idx + 1 < stepDefs.length ? kids.indexOf(topOf(stepDefs[idx + 1].el)) : lastTop + 1;
+          for (let k = from; k < to; k++) parts.push(kids[k]);
+          push({ title: d.title, anchorId: d.anchorId, section: sec, parts, inner: true, reto: m.retos ? d.el : null,
+                 key: d.key, locked: d.locked, done: d.key ? () => !!state.progress[d.key] : null });
+        });
+        if (outro.length) {
+          push({ title: m.outroTitle || "Cierre", anchorId: csEnsureId(outro[0], sec.id + "-cierre"), section: sec,
+                 parts: outro, inner: true, done: m.outroDone || null });
+        }
+      }
+      if (mod.steps.length) CS.modules.push(mod);
+    });
+    CS.steps.forEach(s => { if (CS_SCREENED.includes(s.anchorId)) s.screens = csBuildScreens(s); });
+  }
+
+  /* Divide una actividad en pantallas: cada tarjeta numerada, de prueba o checkpoint abre una nueva. */
+  function csBuildScreens(step) {
+    const root = step.parts[0];
+    const cards = [...root.children].filter(el => !el.classList.contains("cs-sub") && el.id !== "csPager");
+    const isBreak = (el) => {
+      const h3 = el.querySelector(":scope > h3, :scope > h2");
+      const t = h3 ? h3.textContent.trim() : "";
+      const badge = el.querySelector(":scope > .lab-badge");
+      return !!(h3 && h3.querySelector(".lab31-step-num"))
+        || /^(Prueba|Pruebas|Checkpoint)/i.test(t)
+        || (badge && /^Prueba/i.test(badge.textContent.trim()));
+    };
+    const screens = [];
+    cards.forEach(el => {
+      if (!screens.length || (isBreak(el) && screens[screens.length - 1].els.length)) {
+        const hd = el.querySelector("h3, h2, .lab-badge");
+        let title = hd ? hd.textContent.replace(/\s+/g, " ").trim() : "Introducción";
+        if (!screens.length && !isBreak(el)) title = "Introducción";
+        title = title.replace(/^\d+\s*/, "");
+        screens.push({ title, els: [] });
+      }
+      screens[screens.length - 1].els.push(el);
+    });
+    if (screens.length < 3) return null;
+    const nav = document.createElement("nav");
+    nav.className = "cs-sub";
+    nav.setAttribute("aria-label", "Pantallas de la actividad");
+    root.prepend(nav);
+    return { root, nav, list: screens };
+  }
+
+  function csApplyScreen(step, idx) {
+    const sc = step.screens;
+    if (!sc) return;
+    idx = Math.max(0, Math.min(idx, sc.list.length - 1));
+    CS.screen = idx;
+    CS.store.screen[step.anchorId] = idx;
+    CS.store.seen[step.anchorId] = CS.store.seen[step.anchorId] || {};
+    CS.store.seen[step.anchorId][idx] = true;
+    sc.list.forEach((s, i) => s.els.forEach(el => el.classList.toggle("cs-hide", i !== idx)));
+    const seen = CS.store.seen[step.anchorId];
+    const pct = Math.round(Object.keys(seen).length / sc.list.length * 100);
+    sc.nav.innerHTML = `<span class="cs-sub__label">Pantalla ${idx + 1} de ${sc.list.length}</span>
+      <div class="cs-sub__chips">${sc.list.map((s, i) => `<button type="button" data-cs-screen="${i}" title="${esc(s.title)}"
+        class="${i === idx ? "is-current" : ""} ${seen[i] ? "is-seen" : ""}" ${i === idx ? 'aria-current="step"' : ""}>${i === 0 ? "Inicio" : i}</button>`).join("")}</div>
+      <div class="cs-sub__meter" title="Pantallas revisadas: ${pct}%"><span style="width:${pct}%"></span></div>`;
+    sc.nav.querySelectorAll("[data-cs-screen]").forEach(b => b.addEventListener("click", () => csShowScreen(+b.dataset.csScreen)));
+  }
+
+  function csShowScreen(idx) {
+    const step = CS.current;
+    if (!step || !step.screens) return;
+    csApplyScreen(step, idx);
+    csSaveStore();
+    csRenderPager(step);
+    csRefresh();
+    csClampPrompts(step.section);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+
+  /* Colapsa prompts muy largos con un botón para verlos completos. */
+  function csClampPrompts(scope) {
+    scope.querySelectorAll("div.prompt-box, pre.prompt-box").forEach(box => {
+      if (box.dataset.csClamp || box.closest(".cs-hide")) return;
+      if (box.scrollHeight < 560) return;
+      box.dataset.csClamp = "1";
+      box.classList.add("cs-clamp");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "btn btn--sm btn--secondary cs-clamp-btn";
+      const setLabel = () => {
+        const open = !box.classList.contains("cs-clamp");
+        const lines = (box.innerText.match(/\n/g) || []).length + 1;
+        btn.textContent = open ? "Contraer prompt ▲" : `Ver prompt completo (${lines} líneas) ▼`;
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      };
+      btn.addEventListener("click", () => { box.classList.toggle("cs-clamp"); setLabel(); });
+      setLabel();
+      box.insertAdjacentElement("afterend", btn);
+    });
+  }
+
+  function csStepStatus(s) {
+    if (s.done && s.done()) return "done";
+    if (s.locked && s.locked()) return "locked";
+    if (CS.store.visited[s.anchorId]) return "visited";
+    return "pending";
+  }
+  function csModuleDone(mod) {
+    return mod.steps.filter(s => csStepStatus(s) === "done" || (!s.done && CS.store.visited[s.anchorId])).length;
+  }
+
+  function csBuildChrome() {
+    const main = document.querySelector("main");
+    const layout = document.createElement("div");
+    layout.className = "cs-layout";
+    main.parentNode.insertBefore(layout, main);
+
+    const side = document.createElement("aside");
+    side.className = "cs-side";
+    side.id = "csSide";
+    side.setAttribute("aria-label", "Índice del curso");
+    side.innerHTML = `
+      <div class="cs-side__progress">
+        <small>Tu avance</small>
+        <strong id="csPct">0%</strong> <span id="csPctLabel">del curso</span>
+        <div class="cs-meter" aria-hidden="true"><span id="csMeter"></span></div>
+      </div>
+      <nav aria-label="Módulos del curso">
+        ${CS.modules.map((mod, mi) => `
+          <div class="cs-mod" data-cs-mod="${mi}">
+            <button type="button" class="cs-mod__btn" aria-expanded="false">
+              <span class="cs-mod__icon"><i data-lucide="${mod.icon}"></i></span>
+              <span class="cs-mod__txt">${esc(mod.title)}<small>${esc(mod.sub)}</small></span>
+              <span class="cs-mod__count" data-cs-count="${mi}"></span>
+              <i data-lucide="chevron-down" class="cs-mod__chev" width="16" height="16"></i>
+            </button>
+            <ol class="cs-steps">
+              ${mod.steps.map(s => `<li><a class="cs-step" href="#${s.anchorId}" data-cs-step="${s.anchorId}"><span class="cs-step__dot" aria-hidden="true"></span><span>${esc(s.title)}</span></a></li>`).join("")}
+            </ol>
+          </div>`).join("")}
+      </nav>
+      <p class="cs-side__foot">Atajos: <kbd>Alt</kbd> + <kbd>→</kbd> siguiente · <kbd>Alt</kbd> + <kbd>←</kbd> anterior. Tu avance se guarda automáticamente.</p>`;
+    layout.appendChild(side);
+    layout.appendChild(main);
+
+    const backdrop = document.createElement("div");
+    backdrop.className = "cs-backdrop";
+    backdrop.addEventListener("click", () => csToggleSide(false));
+    document.body.appendChild(backdrop);
+
+    side.querySelectorAll(".cs-mod__btn").forEach(btn => btn.addEventListener("click", () => {
+      const mod = btn.closest(".cs-mod");
+      const open = !mod.classList.contains("is-open");
+      mod.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    }));
+
+    const bar = document.createElement("div");
+    bar.className = "cs-bar";
+    bar.innerHTML = `
+      <div class="cs-bar__inner">
+        <div class="cs-crumb"><small id="csCrumbMod"></small><strong id="csCrumbStep"></strong></div>
+        <div class="cs-dots" id="csDots" aria-label="Pasos del módulo"></div>
+        <div class="cs-bar__nav">
+          <button type="button" class="cs-iconbtn" id="csPrev" aria-label="Paso anterior"><i data-lucide="chevron-left" width="18" height="18"></i></button>
+          <button type="button" class="cs-iconbtn" id="csNext" aria-label="Paso siguiente"><i data-lucide="chevron-right" width="18" height="18"></i></button>
+        </div>
+      </div>`;
+    main.prepend(bar);
+    document.getElementById("csPrev").addEventListener("click", () => csGoRelative(-1));
+    document.getElementById("csNext").addEventListener("click", () => csGoRelative(1));
+
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "icon-btn cs-side-toggle";
+    toggle.id = "csSideToggle";
+    toggle.setAttribute("aria-controls", "csSide");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Abrir índice del curso");
+    toggle.innerHTML = `<i data-lucide="list" width="20" height="20"></i>`;
+    toggle.addEventListener("click", () => csToggleSide(!document.body.classList.contains("cs-side-open")));
+    const actions = document.querySelector(".nav__actions");
+    if (actions) actions.prepend(toggle);
+
+    if (window.lucide) lucide.createIcons({ nodes: [side, bar, toggle] });
+  }
+
+  function csToggleSide(open) {
+    document.body.classList.toggle("cs-side-open", open);
+    const t = document.getElementById("csSideToggle");
+    if (t) t.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
+  function csResolve(hash) {
+    const id = decodeURIComponent((hash || "").replace(/^#/, ""));
+    if (!id) return null;
+    const exact = CS.steps.find(s => s.anchorId === id);
+    if (exact) return { step: exact, target: null };
+    const el = document.getElementById(id);
+    if (!el) return null;
+    const step = CS.steps.find(s => s.parts.some(p => p.contains(el)))
+      || CS.steps.find(s => s.section === el.closest("main > section"));
+    return step ? { step, target: el } : null;
+  }
+
+  function csRender(step, target, screenIdx) {
+    const moduleChanged = !CS.current || CS.current.module !== step.module;
+    CS.current = step;
+    const sections = [...document.querySelectorAll("main > section")];
+    sections.forEach(sec => sec.classList.toggle("cs-hide", sec !== step.section));
+    step.section.querySelectorAll(".cs-hide").forEach(el => el.classList.remove("cs-hide"));
+    if (step.inner) {
+      CS.steps.filter(s => s.section === step.section && s !== step).forEach(s => {
+        s.parts.forEach(p => {
+          if (!step.parts.some(q => q === p || q.contains(p) || p.contains(q))) p.classList.add("cs-hide");
+        });
+      });
+    }
+    // En pasos internos (no introducción) el encabezado grande de la sección sobra: la barra ya da contexto.
+    step.section.querySelectorAll(".cs-head").forEach(el => el.classList.toggle("cs-hide", step.inner && !step.intro));
+    if (step.screens) {
+      let idx = screenIdx;
+      if (target) {
+        const found = step.screens.list.findIndex(s => s.els.some(el => el === target || el.contains(target)));
+        if (found >= 0) idx = found;
+      }
+      if (idx === "last") idx = step.screens.list.length - 1;
+      if (typeof idx !== "number" || idx < 0) idx = CS.store.screen[step.anchorId] || 0;
+      csApplyScreen(step, idx);
+    }
+    if (moduleChanged) {
+      document.querySelectorAll(".cs-mod.is-open").forEach(m => {
+        m.classList.remove("is-open");
+        m.querySelector(".cs-mod__btn").setAttribute("aria-expanded", "false");
+      });
+      CS.openedFor = null;
+    }
+    document.querySelectorAll(".reto.cs-active").forEach(r => r.classList.remove("cs-active"));
+    if (step.reto) {
+      step.reto.classList.add("is-open", "cs-active");
+      const hdr = step.reto.querySelector(":scope > .reto__header");
+      if (hdr) hdr.setAttribute("aria-expanded", "true");
+    }
+    step.section.classList.remove("cs-view-enter");
+    void step.section.offsetWidth;
+    step.section.classList.add("cs-view-enter");
+
+    CS.store.last = step.anchorId;
+    CS.store.visited[step.anchorId] = true;
+    csSaveStore();
+    csRenderPager(step);
+    csRefresh();
+    csClampPrompts(step.section);
+
+    if (target && target !== step.section) {
+      requestAnimationFrame(() => target.scrollIntoView({ behavior: "auto", block: "start" }));
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+    const t = (step.module.title + " · " + step.title);
+    document.title = t + " · Misión Copilot 365";
+  }
+
+  function csRenderPager(step) {
+    let wrap = document.getElementById("csPager");
+    if (!wrap) {
+      wrap = document.createElement("div");
+      wrap.id = "csPager";
+      wrap.className = "container cs-pager-wrap";
+    }
+    step.section.appendChild(wrap);
+    const i = CS.steps.indexOf(step);
+    const prev = CS.steps[i - 1];
+    const next = CS.steps[i + 1];
+    const sc = step.screens;
+    const prevScreen = sc && CS.screen > 0 ? sc.list[CS.screen - 1] : null;
+    const nextScreen = sc && CS.screen < sc.list.length - 1 ? sc.list[CS.screen + 1] : null;
+    const cb = step.key ? document.querySelector(`.reto__header input[data-progress="${step.key}"]`) : null;
+    const showDone = cb && !cb.checked;
+    const label = (s) => (s.module === step.module ? "" : s.module.title + " · ") + s.title;
+    const prevHtml = prevScreen
+      ? `<a class="cs-pager__link" href="#" data-cs-goscreen="${CS.screen - 1}"><small>← Pantalla anterior</small><strong>${esc(prevScreen.title)}</strong></a>`
+      : prev ? `<a class="cs-pager__link" href="#${prev.anchorId}" data-cs-prev="1"><small>← Anterior</small><strong>${esc(label(prev))}</strong></a>` : "";
+    const nextHtml = nextScreen
+      ? `<a class="cs-pager__link cs-pager__link--next" href="#" data-cs-goscreen="${CS.screen + 1}"><small>Siguiente pantalla →</small><strong>${esc(nextScreen.title)}</strong></a>`
+      : next ? `<a class="cs-pager__link cs-pager__link--next" href="#${next.anchorId}"><small>Siguiente →</small><strong>${esc(label(next))}</strong></a>` : "";
+    wrap.innerHTML = `<nav class="cs-pager" aria-label="Navegación entre actividades">
+      ${showDone ? `<div class="cs-pager__done"><p><strong>¿Terminaste esta actividad?</strong> Márcala para registrar tu avance.</p>
+        <button type="button" class="btn btn--sm btn--energy" id="csMarkDone"><i data-lucide="check" width="16" height="16"></i> Marcar como hecha${next ? " y continuar" : ""}</button></div>` : ""}
+      ${prevHtml}${nextHtml}
+    </nav>`;
+    wrap.querySelectorAll("[data-cs-goscreen]").forEach(a => a.addEventListener("click", e => {
+      e.preventDefault();
+      csShowScreen(+a.dataset.csGoscreen);
+    }));
+    const prevLink = wrap.querySelector("[data-cs-prev]");
+    if (prevLink) prevLink.addEventListener("click", e => { e.preventDefault(); csGoRelative(-1); });
+    const btn = document.getElementById("csMarkDone");
+    if (btn) btn.addEventListener("click", () => {
+      cb.checked = true;
+      cb.dispatchEvent(new Event("change", { bubbles: true }));
+      if (next) csGo(next);
+      else csRenderPager(step);
+    });
+    if (window.lucide) lucide.createIcons({ nodes: [wrap] });
+  }
+
+  function csRefresh() {
+    if (!CS.ready) return;
+    const step = CS.current;
+    const pct = calcPercent();
+    const pctEl = document.getElementById("csPct");
+    if (pctEl) pctEl.textContent = pct + "%";
+    const meter = document.getElementById("csMeter");
+    if (meter) meter.style.width = pct + "%";
+
+    CS.modules.forEach((mod, mi) => {
+      const box = document.querySelector(`[data-cs-mod="${mi}"]`);
+      if (!box) return;
+      const isCur = step && step.module === mod;
+      const done = csModuleDone(mod);
+      box.classList.toggle("is-current", !!isCur);
+      box.classList.toggle("is-complete", done === mod.steps.length);
+      if (isCur && CS.openedFor !== mod) {
+        CS.openedFor = mod;
+        box.classList.add("is-open");
+        box.querySelector(".cs-mod__btn").setAttribute("aria-expanded", "true");
+      }
+      const count = box.querySelector(`[data-cs-count="${mi}"]`);
+      if (count) count.textContent = done + "/" + mod.steps.length;
+    });
+    document.querySelectorAll("[data-cs-step]").forEach(a => {
+      const s = CS.steps.find(x => x.anchorId === a.getAttribute("data-cs-step"));
+      if (!s) return;
+      const st = csStepStatus(s);
+      a.classList.toggle("is-done", st === "done");
+      a.classList.toggle("is-locked", st === "locked");
+      a.classList.toggle("is-visited", st === "visited");
+      a.classList.toggle("is-current", s === step);
+      if (s === step) a.setAttribute("aria-current", "step"); else a.removeAttribute("aria-current");
+    });
+
+    if (!step) return;
+    document.getElementById("csCrumbMod").textContent =
+      step.module.title + " · " + step.module.sub + "  ·  Paso " + (step.index + 1) + " de " + step.module.steps.length;
+    document.getElementById("csCrumbStep").textContent = step.title;
+    const dots = document.getElementById("csDots");
+    dots.innerHTML = step.module.steps.map((s, i) => {
+      const st = csStepStatus(s);
+      return `<a href="#${s.anchorId}" title="${esc(s.title)}" class="${s === step ? "is-current" : ""} ${st === "done" ? "is-done" : ""}">${st === "done" && s !== step ? "✓" : i + 1}</a>`;
+    }).join("");
+    const i = CS.steps.indexOf(step);
+    const scr = step.screens;
+    document.getElementById("csPrev").disabled = i <= 0 && !(scr && CS.screen > 0);
+    document.getElementById("csNext").disabled = i >= CS.steps.length - 1 && !(scr && CS.screen < scr.list.length - 1);
+    // Mantener visible el paso actual en el índice lateral
+    const curLink = document.querySelector(".cs-step.is-current");
+    if (curLink && curLink.scrollIntoViewIfNeeded) curLink.scrollIntoViewIfNeeded(false);
+  }
+
+  function csGo(step, target, replace, screenIdx) {
+    const hash = "#" + (target && target.id ? target.id : step.anchorId);
+    if (replace) history.replaceState(null, "", hash);
+    else if (location.hash !== hash) history.pushState(null, "", hash);
+    csRender(step, target, screenIdx);
+  }
+  function csGoRelative(delta) {
+    const cur = CS.current;
+    if (cur && cur.screens) {
+      const n = CS.screen + delta;
+      if (n >= 0 && n < cur.screens.list.length) { csShowScreen(n); return; }
+    }
+    const i = CS.steps.indexOf(cur);
+    const s = CS.steps[i + delta];
+    if (s) csGo(s, null, false, delta < 0 ? "last" : 0);
+  }
+
+  function initCourseShell() {
+    try {
+      csLoadStore();
+      csBuildSteps();
+      if (!CS.steps.length) return;
+      csBuildChrome();
+      document.body.classList.add("cs-on");
+      CS.ready = true;
+
+      // Enlaces internos (#id) → abrir el paso que contiene el destino.
+      document.addEventListener("click", e => {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const r = csResolve(a.getAttribute("href"));
+        if (!r) return;
+        e.preventDefault();
+        csToggleSide(false);
+        csGo(r.step, r.target, false, a.classList.contains("cs-pager__link--next") ? 0 : undefined);
+      });
+      window.addEventListener("popstate", () => {
+        const r = csResolve(location.hash) || { step: CS.steps[0], target: null };
+        csRender(r.step, r.target);
+      });
+      window.addEventListener("hashchange", () => {
+        const r = csResolve(location.hash);
+        if (r && r.step !== CS.current) csRender(r.step, r.target);
+      });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") csToggleSide(false);
+        if (!e.altKey || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+        if (e.target.closest("input, textarea, select, [contenteditable]")) return;
+        e.preventDefault();
+        csGoRelative(e.key === "ArrowRight" ? 1 : -1);
+      });
+      // Código existente que hace scrollIntoView sobre contenido de otro paso/pantalla: mostrarlo primero.
+      const nativeScroll = Element.prototype.scrollIntoView;
+      Element.prototype.scrollIntoView = function (...args) {
+        if (CS.ready && this.closest && this.closest(".cs-hide")) {
+          const st = CS.steps.find(s => s.parts.some(p => p.contains(this)));
+          if (st) {
+            const scrIdx = st.screens ? st.screens.list.findIndex(sc => sc.els.some(el => el.contains(this))) : undefined;
+            csGo(st, null, false, scrIdx);
+          }
+        }
+        return nativeScroll.apply(this, args);
+      };
+      // En modo shell el encabezado del reto activo no colapsa la actividad.
+      document.addEventListener("click", e => {
+        const hdr = e.target.closest(".reto.cs-active > .reto__header");
+        if (hdr && !e.target.closest("label, input")) e.stopPropagation();
+      }, true);
+
+      const fromHash = csResolve(location.hash);
+      const fromStore = !fromHash && CS.store.last ? csResolve("#" + CS.store.last) : null;
+      const start = fromHash || fromStore || { step: CS.steps[0], target: null };
+      csGo(start.step, start.target, true);
+      if (fromStore && start.step !== CS.steps[0]) toast("Continúas donde quedaste: " + esc(start.step.title), "bookmark");
+    } catch (err) {
+      // Si algo falla, la página sigue funcionando como documento continuo.
+      console.warn("Course shell desactivado", err);
+      document.body.classList.remove("cs-on");
+      document.querySelectorAll(".cs-hide").forEach(el => el.classList.remove("cs-hide"));
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", async () => {
     await initServerSession();
+    // Anclas estables para cada reto/fase (enlaces de ruta, estado de sesión, evaluación e índice).
+    document.querySelectorAll("article.reto[data-reto]").forEach(el => { if (!el.id) el.id = "paso-" + el.dataset.reto; });
+    syncDerivedProgress();
     initTheme();
     initNav();
     initAccordions();
@@ -12422,6 +13312,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     initEvalActions();
     initModal();
     updateProgressUI();
+    initCourseShell();
     if (window.lucide) lucide.createIcons();
   });
   </script>

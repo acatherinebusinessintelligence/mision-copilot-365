@@ -151,21 +151,22 @@ def require_student(view):
 
 
 def calc_percent_from_payload(payload: dict) -> int:
-    """Misma lógica aproximada que el frontend para el panel admin."""
+    """Misma lógica que calcPercent() del frontend: 22 actividades evaluables."""
     progress = payload.get("progress") or {}
     keys = [
         "reto-r1", "reto-r2", "reto-r3", "reto-r4", "reto-r5", "reto-r6",
-        "s1-done", "s2-done", "proyecto-final",
-        "fase-1", "fase-2", "fase-3", "fase-4", "fase-5", "fase-6", "fase-7", "fase-8",
+        "s2-f0", "s2-f1", "s2-f2", "s2-f3", "s2-f4", "s2-f5", "s2-f6", "s2-f7", "s2-f8",
+        "lab-3-1", "lab-3-2", "lab-3-3", "lab-3-4",
+        "proyecto-final",
     ]
     done = sum(1 for k in keys if progress.get(k))
-    quiz_score = min(5, int((payload.get("quiz") or {}).get("score") or 0))
-    favs = min(3, len(payload.get("favorites") or [])) * 0.5
-    path_done = sum(1 for v in (payload.get("path") or {}).values() if v)
-    path_pts = min(4, path_done * 0.5)
-    total_weight = len(keys) + 5 + 1.5 + 4
-    score = done + quiz_score + min(1.5, favs) + path_pts
-    return int(round((score / total_weight) * 100))
+    oportunidad = payload.get("oportunidad") or {}
+    if any(str(v or "").strip() for v in oportunidad.values()):
+        done += 1
+    answered = len((payload.get("quiz") or {}).get("answers") or {})
+    done += min(5, answered) / 5
+    total = len(keys) + 2  # + autoevaluación + desafío entre sesiones
+    return int(round((done / total) * 100))
 
 
 def send_access_email(to_email: str, name: str, access_key: str) -> tuple[bool, str]:
@@ -749,10 +750,8 @@ def student_summary(row: sqlite3.Row, progress_row: sqlite3.Row | None) -> dict:
 # Archivos estáticos del front
 # ---------------------------------------------------------------------------
 
-@app.get("/assets/<path:filename>")
-def assets(filename: str):
-    return send_from_directory(BASE_DIR, filename)
-
+# Nota de seguridad: no exponer BASE_DIR completo (contiene .env, data/mision.db y código).
+# Solo se publican archivos concretos y la carpeta planillas/.
 
 @app.get("/planillas/<path:filename>")
 def planillas(filename: str):
@@ -1357,7 +1356,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-09-22-copilot-lab-infografia-extra-v1"
+APP_CODE_VERSION = "2026-11-04-course-shell-ux-v1"
 
 
 @app.get("/health")
