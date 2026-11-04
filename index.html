@@ -1991,6 +1991,10 @@
     .pr-part { margin: 0.5rem 0; }
     .pr-part__head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.84rem; }
     .pr-part__text { width: 100%; font-size: 0.78rem !important; resize: vertical; }
+    .s2t-legend { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.6rem; }
+    .s2t-legend span { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.7rem 0.25rem 0.3rem; border-radius: 999px; background: var(--surface); }
+    .s2t-legend b { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--brand-primary); color: #fff; font-size: 0.7rem; }
+    .pr-turn { width: 100%; resize: vertical; }
     .pr-own-note { margin: 0.75rem 0 0; font-size: 0.86rem; color: var(--text-muted); }
     .adv-prompt { margin: 1rem 0; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 1rem; background: var(--bg-elevated); }
     .adv-prompt > summary { cursor: pointer; padding: 0.85rem 0; font-weight: 700; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
@@ -3051,7 +3055,7 @@ Reglas:
               <!-- PASO 1 · ANÁLISIS DOCUMENTAL INTEGRAL (siempre visible) -->
               <div class="card" id="s2f1Paso1" style="margin:1.25rem 0;padding:1rem 1.1rem;border-left:4px solid var(--brand-primary)">
                 <h4 style="margin-top:0" id="s2f1PromptsAnchor">Paso 1 · Ejecuta el análisis integral</h4>
-                <p><strong>Ejecuta este prompt únicamente después de confirmar que Copilot puede acceder al contenido de los archivos requeridos.</strong></p>
+                <p><strong>Ejecuta este prompt únicamente después de confirmar que Copilot puede acceder al contenido de los archivos requeridos.</strong> Es un prompt largo: si tu licencia no lo admite, usa <strong>PRISM en conversación</strong> (al inicio de esta fase).</p>
                 <div class="btn-group" style="margin:0.5rem 0 1rem;flex-wrap:wrap;gap:0.5rem">
                   <button type="button" class="btn btn--sm btn--energy" data-planilla="s2v2-alcance"><i data-lucide="download" width="14" height="14"></i> Alcance</button>
                   <button type="button" class="btn btn--sm btn--energy" data-planilla="s2v2-presupuesto"><i data-lucide="download" width="14" height="14"></i> Presupuesto</button>
@@ -3403,8 +3407,8 @@ Antes de responder, comprueba:
                   <li>Abrir Microsoft 365 Copilot Chat.</li>
                   <li>Cargar o seleccionar el archivo <code>02_Alcance_Proyecto_Horizonte.docx</code>.</li>
                   <li>Confirmar que el nombre del archivo aparece en la conversación.</li>
-                  <li>Ejecutar primero un prompt de reconocimiento.</li>
-                  <li>Después ejecutar el prompt profesional.</li>
+                  <li>Envía los turnos de <strong>PRISM en conversación</strong> (abajo): el Turno 1 hace el reconocimiento del archivo.</li>
+                  <li>Si tu licencia admite prompts largos, puedes usar en su lugar el prompt profesional completo.</li>
                   <li>Comparar el resultado con el archivo original.</li>
                 </ol>
               </div>
@@ -4412,10 +4416,10 @@ Finaliza con:
               </span>
             </button>
             <div class="reto__body">
-              <p>Producto esperado: archivo <strong>Presentacion_Comite_Proyecto_Horizonte.pptx</strong> generado con la plantilla <code>07_Plantilla_Comite_Horizonte.pptx</code>. Ejecuta el prompt en la misma conversación donde estén cargados los archivos <strong>02 a 07</strong>.</p>
+              <p>Producto esperado: archivo <strong>Presentacion_Comite_Proyecto_Horizonte.pptx</strong> generado con la plantilla <code>07_Plantilla_Comite_Horizonte.pptx</code>. Trabaja en la misma conversación donde estén cargados los archivos <strong>02 a 07</strong>, con los turnos de <strong>PRISM en conversación</strong>.</p>
               <div class="disclaimer disclaimer--danger" style="margin:0.85rem 0">
                 <i data-lucide="alert-triangle" width="18" height="18"></i>
-                <span><strong>Entregable único:</strong> archivo PowerPoint (.pptx). No solicites ni aceptes Word, PDF, tabla de contenido ni “documento ejecutivo” como resultado de este caso: eso hace que Copilot priorice el informe escrito y no la presentación visual.</span>
+                <span><strong>Entregable único:</strong> archivo PowerPoint (.pptx). No solicites ni aceptes Word, PDF, tabla de contenido ni “documento ejecutivo” como resultado de este caso. Si tu Copilot no puede crear archivos, el entregable sigue siendo el .pptx: constrúyelo tú en la plantilla 07 con el contenido de las 8 diapositivas (Turno 2) o con Copilot en PowerPoint.</span>
               </div>
 
               <div class="m365-box">
@@ -4424,8 +4428,8 @@ Finaliza con:
                   <li>Abre Microsoft 365 Copilot Chat.</li>
                   <li>Carga o selecciona los archivos 02 al 07 (incluye la plantilla PPTX).</li>
                   <li>Confirma acceso al contenido (no solo el nombre) y que la plantilla se puede usar visualmente.</li>
-                  <li>Copia y ejecuta el prompt profesional.</li>
-                  <li>Descarga <code>Presentacion_Comite_Proyecto_Horizonte.pptx</code> y revísalo visualmente.</li>
+                  <li>Envía los 3 turnos de <strong>PRISM en conversación</strong> (abajo) o, si tu licencia admite prompts largos, el prompt profesional completo.</li>
+                  <li>Descarga <code>Presentacion_Comite_Proyecto_Horizonte.pptx</code>. Si Copilot no pudo crearlo, pega el contenido de cada diapositiva en la plantilla 07. Revísalo visualmente.</li>
                 </ol>
               </div>
 
@@ -8006,6 +8010,190 @@ Laura Méndez · Coordinación de Campo · Ext. 4412`,
       }));
       attachPromptMeters(box);
       fill("case");
+    });
+    attachPromptMeters();
+    initCopyButtons();
+    initPlanillaDownloads();
+    if (window.lucide) lucide.createIcons();
+  }
+
+
+  /* ========== SESIÓN 2 · PRISM EN CONVERSACIÓN (turnos < 2.000 caracteres) ==========
+     Los turnos se derivan del nivel 3 (PRISM) de S2_PRISM: P·R·I → contexto; S·M → análisis;
+     el bloque largo de "entregable final" se reemplaza por un turno 3 compacto. */
+  Object.assign(S1_SOURCES, {"s2-01": "De: Laura Mendez <laura.mendez@energiafutura.com>\nPara: <>\nAsunto: SOLICITUD DE ANALISIS | Proyecto Horizonte\nFecha: Wed, 05 Aug 2026 02:39:51 +0000\n\nBuenos dias,\n\nSolicitamos realizar la revision inicial del Proyecto Horizonte, iniciativa orientada a la modernizacion de infraestructura energetica urbana.\n\nPara este analisis se adjuntan los siguientes documentos:\n- Documento preliminar de alcance.\n- Presupuesto y cronograma.\n- Transcripcion de la reunion inicial.\n- Registro preliminar de riesgos.\n- Comentarios de los interesados.\n\nEl comite requiere recibir:\n1. Resumen ejecutivo.\n2. Alcance consolidado.\n3. Hallazgos presupuestales.\n4. Riesgos prioritarios.\n5. Compromisos identificados.\n6. Informacion faltante.\n7. Decisiones requeridas.\n8. Presentacion ejecutiva.\n\nPor favor, no asuma que la iniciativa esta aprobada. Diferencie claramente la informacion confirmada, las propuestas y los elementos pendientes de validacion.\n\nCordialmente,\n\nLaura Mendez\nDireccion de Infraestructura", "s2-02": "02 - Alcance preliminar del Proyecto Horizonte\nModernizacion de infraestructura energetica urbana\nCaso academico ficticio. Los datos, nombres, cifras y situaciones no corresponden a una operacion real.\nProposito del documento\nPresentar una base inicial para que el equipo analice el alcance, los entregables, las restricciones y los puntos pendientes del proyecto mediante Microsoft 365 Copilot Chat.\n1. Contexto y necesidad\n• La zona urbana Horizonte Norte ha presentado aumento sostenido de demanda energetica por crecimiento residencial, comercial y de servicios.\n• Los equipos instalados en la infraestructura existente operan con margen limitado durante horas de alta demanda.\n• La organizacion busca mejorar la confiabilidad del servicio, reducir eventos recurrentes y preparar la infraestructura para crecimiento proyectado.\n2. Objetivo general\n• Estructurar y ejecutar una modernizacion de infraestructura energetica urbana que incremente la confiabilidad operativa, mejore la trazabilidad de activos y fortalezca la capacidad de respuesta ante contingencias.\n3. Objetivos especificos\n• Realizar diagnostico tecnico de equipos, tableros, protecciones y puntos criticos.\n• Actualizar componentes priorizados segun criticidad, obsolescencia y disponibilidad presupuestal.\n• Definir un plan de intervencion que minimice afectaciones a usuarios y comunidad.\n• Integrar seguimiento de riesgos, presupuesto, cronograma y comunicaciones en un tablero de control ejecutivo.\n4. Alcance incluido\n• Levantamiento de informacion tecnica en sitio.\n• Revision de inventario de activos y condiciones de operacion.\n• Sustitucion de componentes de control y proteccion priorizados.\n• Coordinacion con contratistas para actividades especializadas.\n• Plan de comunicacion preventiva para comunidad y usuarios cercanos.\n• Cierre documental con lecciones aprendidas y recomendaciones de mantenimiento.\n5. Exclusiones iniciales\n• Construccion de una nueva instalacion desde cero.\n• Intervenciones fuera del poligono operativo definido para el piloto.\n• Cambios tarifarios o decisiones comerciales.\n• Compromisos regulatorios no definidos expresamente por el area juridica.\n• Adquisiciones no presupuestadas que superen el umbral aprobado.\n6. Restricciones y supuestos\n• La duracion esperada del proyecto es de ocho meses desde su aprobacion formal.\n• El presupuesto preliminar es de COP 2.850.000.000.\n• La ventana principal de intervencion debera definirse con Operaciones y Comunicaciones.\n• Se asume disponibilidad parcial de contratistas especializados durante el segundo trimestre del proyecto.\n• El inicio de ejecucion requiere aprobacion del comite directivo y validacion tecnica final.\n7. Entregables previstos\n• Informe de diagnostico tecnico.\n• Plan de trabajo y cronograma validado.\n• Matriz de riesgos y plan de mitigacion.\n• Plan de comunicacion con interesados.\n• Registro de compromisos y decisiones.\n• Informe ejecutivo de cierre de fase.\n8. Criterios de aceptacion preliminares\n• Diagnostico validado por el area tecnica.\n• Cronograma aprobado por las areas involucradas.\n• Matriz de riesgos con responsables definidos por rol.\n• Presupuesto conciliado con las categorias financieras.\n• Comunicaciones preventivas revisadas antes de actividades en campo.\n9. Informacion faltante\n• Fecha exacta de inicio aprobada.\n• Nombre de proveedores o contratistas seleccionados.\n• Detalle tecnico definitivo de equipos a sustituir.\n• Ventanas de intervencion autorizadas.\n• Criterios de priorizacion final de activos.\n• Responsables nominales de cada frente.\n10. Interesados preliminares\nInteresado\nRol en el proyecto\nInfluencia\nNecesidad de informacion\nDireccion de Infraestructura\nPatrocinio y priorizacion\nAlta\nResumen ejecutivo y decisiones requeridas\nOperacion y Mantenimiento\nViabilidad tecnica y ventanas de intervencion\nAlta\nPlan operativo y riesgos\nFinanzas\nControl presupuestal\nMedia\nPresupuesto, desviaciones y autorizaciones\nSeguridad y Salud en el Trabajo\nCondiciones seguras de ejecucion\nAlta\nMatriz de riesgos operativos\nGestion Ambiental\nRequisitos y controles ambientales\nMedia\nPlan de manejo y comunicaciones\nComunidad y usuarios cercanos\nAfectacion por actividades programadas\nMedia\nMensajes claros, fechas y canales de atencion\nContratistas\nEjecucion especializada\nAlta\nAlcance, entregables y condiciones contractuales\n11. Notas para trabajo con Copilot\nUsar este documento como fuente principal de alcance.\nDiferenciar informacion explicita, inferida y no especificada.\nNo completar vacios con supuestos no indicados.\nValidar cualquier recomendacion con el equipo responsable.", "s2-03": "## Hoja: Presupuesto\nID | Categoria | Partida | Descripcion | Cantidad | Unidad | Costo unitario | Costo total | Tipo costo | Criticidad | Validacion requerida | Observacion\nP-001 | Diagnostico | Levantamiento tecnico | Visitas, mediciones y validacion documental | 12 | jornada | 3.500.000 | 42.000.000 | Servicio | Alta | No | Base para planificacion\nP-002 | Ingenieria | Analisis de protecciones | Revision de ajustes y coordinacion de protecciones | 1 | paquete | 115.000.000 | 115.000.000 | Servicio | Alta | Si | Requiere validacion tecnica\nP-003 | Equipos | Modulo de control | Componente de control y comunicacion | 4 | unidad | 185.000.000 | 740.000.000 | Capex | Alta | Si | Sujeto a disponibilidad proveedor\nP-004 | Equipos | Protecciones digitales | Reemplazo de equipos priorizados | 6 | unidad | 92.000.000 | 552.000.000 | Capex | Alta | Si | Debe conciliarse con inventario\nP-005 | Obra y montaje | Instalacion especializada | Montaje, pruebas e integracion | 1 | paquete | 485.000.000 | 485.000.000 | Servicio | Alta | Si | Depende de ventanas operativas\nP-006 | SST | Plan de seguridad | EPP, permisos, capacitaciones y supervision | 1 | paquete | 86.000.000 | 86.000.000 | Servicio | Alta | No | No sustituye aprobaciones SST\nP-007 | Ambiental | Gestion ambiental | Manejo de residuos y controles preventivos | 1 | paquete | 62.000.000 | 62.000.000 | Servicio | Media | No | Requiere registro de evidencias\nP-008 | Comunicaciones | Comunicacion a comunidad | Piezas, mensajes, canal de atencion y seguimiento | 1 | paquete | 38.000.000 | 38.000.000 | Servicio | Media | No | Ajustar con comunicaciones\nP-009 | Gestion de proyecto | PMO y seguimiento | Planeacion, control, informes y comite | 8 | mes | 27.000.000 | 216.000.000 | Servicio | Media | No | Duracion estimada\nP-010 | Contingencia | Reserva preliminar | Reserva para variaciones del alcance validado | 1 | paquete | 514.000.000 | 514.000.000 | Reserva | Alta | Si | Uso requiere autorizacion\nTOTAL |  |  |  |  |  |  | 2.850.000.000\n## Hoja: Cronograma\nID | Fase | Actividad | Inicio estimado | Fin estimado | Duracion dias | Dependencia | Responsable rol | Estado | Criticidad | Observaciones\nC-001 | Inicio | Aprobacion de inicio | 2026-08-18 | 2026-08-22 | 5 | Comite directivo | Patrocinador | Pendiente | Alta | Fecha sujeta a agenda\nC-002 | Diagnostico | Levantamiento en sitio | 2026-08-25 | 2026-09-12 | 19 | C-001 | Equipo tecnico | Pendiente | Alta | Requiere acceso coordinado\nC-003 | Diagnostico | Revision documental e inventario | 2026-08-25 | 2026-09-18 | 25 | C-001 | Operacion | Pendiente | Media | Puede avanzar en paralelo\nC-004 | Ingenieria | Analisis de protecciones | 2026-09-15 | 2026-10-10 | 26 | C-002 | Ingenieria | Pendiente | Alta | Depende de mediciones\nC-005 | Compras | Confirmacion disponibilidad equipos | 2026-09-22 | 2026-10-24 | 33 | C-004 | Abastecimiento | Pendiente | Alta | Riesgo por tiempos proveedor\nC-006 | Comunicaciones | Plan comunidad y usuarios | 2026-10-01 | 2026-10-20 | 20 | C-001 | Comunicaciones | Pendiente | Media | Debe validarse con operaciones\nC-007 | Ejecucion | Montaje e integracion | 2026-11-03 | 2026-12-15 | 43 | C-005 | Contratista | Pendiente | Alta | Ventanas de intervencion por definir\nC-008 | Pruebas | Pruebas funcionales | 2026-12-16 | 2027-01-12 | 28 | C-007 | Ingenieria | Pendiente | Alta | Incluye pruebas de comunicacion\nC-009 | Cierre | Documentacion y lecciones aprendidas | 2027-01-15 | 2027-02-05 | 22 | C-008 | PMO | Pendiente | Media | Cierre documental\n## Hoja: Resumen\nResumen del presupuesto y cronograma\nPresupuesto total | 2.850.000.000\nPartidas con criticidad alta | 7\nActividades críticas | 6\nFecha inicio estimada | 2026-08-18\nFecha fin estimada | 2027-02-05\nCategorias | Costo\nDiagnostico | 42.000.000\nIngenieria | 115.000.000\nEquipos | 1.292.000.000\nObra y montaje | 485.000.000\nSST | 86.000.000\nAmbiental | 62.000.000\nComunicaciones | 38.000.000\nGestion de proyecto | 216.000.000\nContingencia | 514.000.000", "s2-04": "04 - Transcripcion ficticia de reunion inicial\nComite operativo Proyecto Horizonte - 05/08/2026 - 09:00 a 10:00\nCaso academico ficticio. Los datos, nombres, cifras y situaciones no corresponden a una operacion real.\nProposito\nLa transcripcion permite practicar extraccion de decisiones, propuestas, compromisos, riesgos y temas pendientes con Microsoft 365 Copilot Chat.\nParticipantes\nNombre\nRol\nEnfoque\nAna Rojas\nLider de proyecto\nCoordina alcance y cronograma\nCarlos Beltran\nIngenieria\nValida diagnostico tecnico y protecciones\nSofia Vargas\nFinanzas\nRevisa presupuesto y autorizaciones\nDiego Pardo\nComunicaciones\nGestiona mensajes a comunidad\nMariana Torres\nSST y ambiente\nRevisa requisitos de seguridad y manejo ambiental\nJavier Ortiz\nOperacion\nDefine ventanas de intervencion\nTranscripcion\n09:00 - Ana Rojas: Buenos dias. El objetivo de esta reunion es revisar la solicitud inicial y definir que informacion necesitamos antes de llevar el caso al comite directivo.\n09:03 - Carlos Beltran: Desde ingenieria vemos viable iniciar con un diagnostico en sitio, pero no puedo confirmar el alcance de equipos hasta revisar inventario y mediciones recientes.\n09:06 - Sofia Vargas: El presupuesto preliminar de 2.850 millones es una referencia. Necesito validar si la reserva de contingencia esta aprobada o si solo es una estimacion.\n09:09 - Diego Pardo: Propongo preparar un mensaje preventivo a comunidad, pero no deberia enviarse hasta tener ventanas de intervencion confirmadas por Operacion.\n09:12 - Javier Ortiz: Las ventanas de intervencion no estan aprobadas. Podemos revisar alternativas nocturnas, aunque eso incrementaria costos y requeriria validacion de seguridad.\n09:16 - Mariana Torres: No podemos asumir que las actividades son de bajo riesgo. Falta revisar permisos de trabajo, manejo de residuos y plan de atencion de incidentes.\n09:20 - Ana Rojas: Entonces queda como decision confirmada que no presentaremos el proyecto como aprobado. Lo presentaremos como iniciativa en estructuracion.\n09:24 - Carlos Beltran: Me comprometo a entregar una lista preliminar de informacion tecnica requerida antes del 12 de agosto.\n09:28 - Sofia Vargas: Yo revisare el presupuesto y marcare las partidas que requieren soporte documental. Puedo tener un primer comentario el 13 de agosto.\n09:32 - Diego Pardo: Para comunicaciones, preparare un borrador de mensaje, pero lo dejare marcado como no emitible hasta que Operacion confirme fechas.\n09:36 - Javier Ortiz: No prometo fecha de ventana todavia. Puedo entregar tres alternativas para evaluacion el 16 de agosto.\n09:40 - Mariana Torres: Solicito que se incluya una revision SST y ambiental como hito obligatorio antes de cualquier visita a campo.\n09:44 - Ana Rojas: Eso lo registramos como requisito pendiente de validacion, no como aprobacion final.\n09:48 - Carlos Beltran: Hay un posible riesgo con disponibilidad de equipos. Si el proveedor tarda mas de lo esperado, el cronograma se puede mover varias semanas.\n09:52 - Sofia Vargas: Tambien puede haber riesgo financiero si se activa la contingencia sin criterio aprobado.\n09:56 - Ana Rojas: Cierro con compromisos: Carlos informacion tecnica al 12 de agosto, Sofia revision presupuestal al 13, Diego borrador no emitible al 14 y Javier alternativas de ventana al 16. La siguiente reunion queda propuesta para el 19 de agosto a las 9:00, pendiente de confirmacion.\nInstruccion para Copilot\nDiferencie decisiones confirmadas, propuestas, opiniones, preguntas, preocupaciones, tareas, fechas confirmadas y fechas tentativas. No convierta propuestas en decisiones aprobadas.", "s2-05": "## Hoja: Riesgos\nID | Riesgo | Categoria | Fuente | Causa | Consecuencia | Probabilidad | Impacto | Nivel | Control existente | Accion sugerida | Responsable rol | Senal de alerta | Estado | Validacion requerida\nR-001 | Retraso en disponibilidad de equipos criticos | Cronograma | Alcance y reunion | Dependencia de proveedor especializado | Desplazamiento de actividades de montaje | Alta | Alta | Alto | Seguimiento de compras | Solicitar confirmacion temprana de disponibilidad | Abastecimiento | Proveedor no confirma fecha | Abierto | Si\nR-002 | Presupuesto insuficiente para alcance final | Financiero | Presupuesto | Costos definitivos no validados | Solicitud de recursos adicionales | Media | Alta | Alto | Reserva preliminar | Validar partidas de mayor costo y soportes | Finanzas | Variacion superior al 10% | Abierto | Si\nR-003 | Ventanas de intervencion no autorizadas | Operativo | Reunion | Falta de confirmacion de Operacion | Reprogramaciones y conflictos operativos | Media | Alta | Alto | Pendiente | Definir tres escenarios de ventana | Operacion | Sin respuesta a fecha limite | Abierto | Si\nR-004 | Comunicacion prematura a comunidad | Reputacional | Reunion y comentarios | Mensaje enviado antes de aprobar fechas | Confusion, reclamos y perdida de confianza | Media | Media | Medio | Borrador no emitible | Aprobar mensaje solo con fechas validadas | Comunicaciones | Solicitud de piezas antes de fechas | Abierto | Si\nR-005 | Permisos SST incompletos | Seguridad | Alcance y reunion | Falta de validacion de condiciones de campo | Suspension de actividades o incidentes | Media | Alta | Alto | Revision requerida | Incluir hito de validacion SST previo | SST | Visita programada sin permisos | Abierto | Si\nR-006 | Manejo ambiental insuficiente | Ambiental | Alcance | Manejo de residuos no detallado | Observaciones ambientales y reprocesos | Baja | Media | Bajo | Gestion ambiental prevista | Detallar plan de residuos y evidencias | Ambiental | Sin responsable ambiental | Abierto | Si\nR-007 | Contratista sin disponibilidad en fechas requeridas | Contractual | Alcance | Capacidad parcial en segundo trimestre | Reasignacion o sobrecostos | Media | Media | Medio | Supuesto de disponibilidad parcial | Validar agenda y condiciones contractuales | Contratacion | Proveedor propone fechas posteriores | Abierto | Si\nR-008 | Informacion tecnica incompleta | Tecnico | Alcance | Inventario y mediciones no consolidadas | Diseno incorrecto o cambios de alcance | Alta | Alta | Alto | Diagnostico previsto | Completar inventario antes de decisiones | Ingenieria | Diferencias entre inventario y campo | Abierto | Si\n## Hoja: Resumen\nResumen de riesgos\nNivel | Cantidad\nAlto | 5\nMedio | 2\nBajo | 1\nCategoria | Cantidad\nTecnico | 1\nOperativo | 1\nSeguridad | 1\nAmbiental | 1\nSocial | 0\nContractual | 1\nFinanciero | 1\nRegulatorio | 0\nReputacional | 1\nCronograma | 1", "s2-06": "06 - Comentarios de interesados\nProyecto Horizonte - insumos cualitativos para analisis\nCaso academico ficticio. Los datos, nombres, cifras y situaciones no corresponden a una operacion real.\nUso esperado\nEste documento permite practicar la identificacion de preocupaciones, necesidades de informacion, riesgos sociales y posibles contradicciones entre fuentes.\nComunidad cercana\nSolicita que cualquier intervencion con ruido o afectacion vehicular sea informada con minimo cinco dias de anticipacion.\nPrefiere horarios diurnos para recibir informacion, pero horarios nocturnos para intervenciones que bloqueen vias.\nManifiesta preocupacion por cortes no programados y por falta de canales claros de atencion.\nUsuarios comerciales\nSolicitan conocer si habra ventanas de afectacion durante fines de semana.\nPiden mensajes concretos, sin lenguaje excesivamente tecnico.\nIndican que una afectacion no anunciada tendria impacto en ventas.\nOperacion\nAdvierte que las ventanas definitivas no estan aprobadas.\nSugiere analizar tres escenarios antes de prometer fechas.\nSolicita que ninguna comunicacion externa se emita sin validacion operativa.\nFinanzas\nRequiere soporte documental para partidas superiores a COP 100.000.000.\nSolicita separar claramente presupuesto base y contingencia.\nAdvierte que la reserva no debe presentarse como disponible sin autorizacion.\nSST y ambiente\nSolicita revisar permisos de trabajo, manejo de residuos, EPP y responsables de supervision.\nIndica que la visita de diagnostico tambien requiere control de seguridad.\nSugiere no clasificar el riesgo como bajo antes de la inspeccion.\nDireccion\nQuiere una presentacion ejecutiva de maximo ocho diapositivas.\nSolicita ver claramente decisiones requeridas, riesgos prioritarios y datos pendientes.\nNo desea recibir una recomendacion de aprobacion si faltan validaciones tecnicas y financieras.\nPreguntas sugeridas para Copilot\nQue necesidades de informacion aparecen por cada grupo de interesados?\nQue riesgos sociales o reputacionales se derivan de los comentarios?\nQue contradicciones existen entre preferencias de comunidad y restricciones operativas?\nQue mensajes no deberian enviarse antes de contar con validacion?"});
+  const S2_SRC_LABEL = { "s2-01": "01 Correo de solicitud", "s2-02": "02 Alcance", "s2-03": "03 Presupuesto y cronograma",
+    "s2-04": "04 Transcripción", "s2-05": "05 Registro de riesgos", "s2-06": "06 Comentarios de interesados" };
+  const S2_PLANILLA = { "s2-01": "s2v2-correo", "s2-02": "s2v2-alcance", "s2-03": "s2v2-presupuesto",
+    "s2-04": "s2v2-transcripcion", "s2-05": "s2v2-riesgos", "s2-06": "s2v2-comentarios" };
+  const S2_ALL = ["s2-01", "s2-02", "s2-03", "s2-04", "s2-05", "s2-06"];
+  const S2_PHASES = {
+    f0: { srcs: S2_ALL, parts: false, turns: 2, app: "progressive", dest: "" },
+    f1: { srcs: S2_ALL, app: "word-multi", dest: "Word" },
+    f2: { srcs: ["s2-02"], app: "word", dest: "Word" },
+    f3: { srcs: ["s2-03"], app: "excel", dest: "Word" },
+    f4: { srcs: ["s2-04"], app: "word", dest: "Word" },
+    f5: { srcs: ["s2-02", "s2-03", "s2-04"], app: "word-multi", dest: "Word" },
+    f6: { srcs: ["s2-02", "s2-03", "s2-04", "s2-05", "s2-06"], app: "word-multi", dest: "Word" },
+    f7: { srcs: ["s2-02", "s2-03", "s2-04", "s2-05", "s2-06"], app: "ppt", dest: "PowerPoint", extraFile: "07 Plantilla comité (.pptx)" },
+    f8: { srcs: ["s2-01"], app: "outlook", dest: "Outlook",
+          note: "Además de la fuente, pega el resumen ejecutivo y los riesgos prioritarios que validaste en las fases anteriores." }
+  };
+  const S2_T1_SUFFIX = "\n\nAntes de analizar, confirma en una línea qué archivos puedes leer y cuáles no. Todavía no analices.";
+  const S2_T2_PREFIX = "Ahora sí, con el contexto del mensaje anterior:\n\n";
+  const S2_T2_RULES = "\n\nReglas: toda afirmación con evidencia del archivo de origen; marca las inferencias como «Inferencia»; no inventes cifras, fechas, responsables ni decisiones; no apruebes el proyecto; lo que falte, «PENDIENTE DE VALIDACIÓN».";
+  const S2_T3_DOC = `Con tu análisis anterior, redacta el documento ejecutivo final, listo para copiar a Word y exportar a PDF. No respondas de forma conversacional.
+
+Estructura:
+1. Portada: título, proyecto, objetivo, fecha (si no aparece: PENDIENTE DE VALIDACIÓN), documentos analizados y estado «Borrador para validación».
+2. Resumen ejecutivo de 200 a 300 palabras.
+3. Desarrollo en tablas: cada hallazgo con su evidencia y archivo de origen.
+4. Riesgos y alertas con semáforo 🔴🟡🟢.
+5. Información pendiente (PENDIENTE DE VALIDACIÓN).
+6. Recomendaciones y decisiones requeridas.
+7. Conclusiones.
+8. Validación humana: tabla vacía Revisó | Fecha | Observaciones, para que la complete la persona.
+
+Usa títulos claros y tablas en Markdown. No agregues datos que no estén en el análisis.`;
+  const S2_T_OVERRIDES = {
+    f7: {
+      t2: `Ahora sí, con el contexto del mensaje anterior, prepara el contenido de la presentación al comité: exactamente 8 diapositivas con el estilo de la plantilla 07.
+
+Diapositivas: 1 Portada; 2 Contexto y necesidad; 3 Objetivo, alcance y exclusiones; 4 Hitos y cronograma; 5 Presupuesto; 6 Riesgos prioritarios (máx. 5, con 🔴🟡🟢); 7 Hallazgos y decisiones requeridas; 8 Próximos pasos.
+
+Para cada una: Título con mensaje (no genérico) | 3 a 5 viñetas (35 a 50 palabras visibles) | Dato clave y archivo de origen | Nota del presentador (80 a 150 palabras).
+
+Reglas: cifras idénticas al Excel; separa decisiones de propuestas; lo que falte, «PENDIENTE DE VALIDACIÓN»; no afirmes que el proyecto está aprobado; no inventes datos.`,
+      t3: `Si puedes crear archivos: genera Presentacion_Comite_Proyecto_Horizonte.pptx con el contenido anterior, usando 07_Plantilla_Comite_Horizonte.pptx como base visual (conserva logos, colores, tipografías y pies de página) e incluye las notas del presentador. Adjunta el .pptx para descargar.
+
+Si no puedes crear el archivo, dilo en una línea y entrega el contenido de cada diapositiva en un bloque separado, listo para copiar en la plantilla.`
+    },
+    f8: {
+      t3: `Revisa el correo y entrega solo la versión final, lista para pegar en Outlook:
+- Cuerpo de máximo 250 palabras.
+- Asunto claro y específico.
+- No afirma que el proyecto fue aprobado ni inventa compromisos.
+- Cada cifra o riesgo coincide con los archivos; lo no validado dice «PENDIENTE DE VALIDACIÓN».
+- Lista de anexos y próxima acción recomendada al final.
+
+Después del correo, agrega una lista de 5 puntos para la validación humana antes de enviarlo.`
+    }
+  };
+
+  function s2Section(t, a, b) {
+    const i = t.indexOf(a);
+    if (i < 0) return "";
+    const j = b ? t.indexOf(b, i + 1) : -1;
+    return (j < 0 ? t.slice(i) : t.slice(i, j)).trim();
+  }
+  function s2Turns(fid) {
+    const cfg = S2_PHASES[fid];
+    const L3 = ((S2_PRISM[fid] || {}).levels || {})["3"];
+    if (!L3) return [];
+    const t = L3.text;
+    const ov = S2_T_OVERRIDES[fid] || {};
+    const t1 = s2Section(t, "P → PERSONA", "S → SOLICITUD") + S2_T1_SUFFIX;
+    const t2 = ov.t2 || (S2_T2_PREFIX + s2Section(t, "S → SOLICITUD", "Antes de responder") + S2_T2_RULES);
+    const out = [
+      { label: "Turno 1 · P·R·I · Contexto y fuentes", text: t1 },
+      { label: "Turno 2 · S·M · Análisis", text: t2 }
+    ];
+    if ((cfg.turns || 3) >= 3) out.push({ label: `Turno 3 · Entregable${cfg.dest ? " para " + cfg.dest : ""}`, text: ov.t3 || S2_T3_DOC });
+    return out;
+  }
+
+  function s2Routes(fid, files) {
+    const cfg = S2_PHASES[fid];
+    const n = (cfg.turns || 3);
+    const A = ["Abre una conversación <strong>nueva</strong> en Microsoft 365 Copilot Chat.",
+      `Adjunta ${files} (📎 o <strong>+</strong>).${cfg.parts === false ? "" : " Si no puedes adjuntar, envía la fuente en partes."}`,
+      "Envía el Turno 1 y revisa que Copilot reconozca los archivos correctos.",
+      "Envía el Turno 2 y verifica el análisis contra los archivos."];
+    if (n >= 3) A.push(`Envía el Turno 3 y copia el resultado a ${cfg.dest}.`);
+    A.push("Completa tú la validación humana.");
+    const B = ["Guarda los archivos en tu <strong>OneDrive</strong>.",
+      `En Copilot Chat, pestaña <strong>Trabajo</strong>, escribe <code>/</code> y selecciona ${files}.`,
+      "Envía los turnos en orden, en la misma conversación."];
+    const C = {
+      "word": ["C · Copilot dentro de Word", "Abre el archivo en Word y abre <strong>Copilot</strong>.", "Envía los turnos en orden: Copilot usará el documento abierto como fuente.", "Copia el resultado a un documento nuevo; no modifiques la fuente."],
+      "word-multi": ["C · Copilot dentro de Word", "Abre el documento principal en Word y abre <strong>Copilot</strong>.", "Escribe <code>/</code> para referenciar los demás archivos desde OneDrive (hasta donde tu licencia lo permita).", "Envía los turnos en orden. Si no puedes referenciar todos los archivos, usa la ruta A."],
+      "excel": ["C · Copilot dentro de Excel", "Abre el archivo 03 en Excel y abre <strong>Copilot</strong>.", "Envía los turnos 1 y 2: Copilot en Excel trabaja sobre la hoja abierta.", "Verifica cada cifra en la hoja y lleva el análisis a Word."],
+      "ppt": ["C · Copilot en PowerPoint", "Envía los turnos 1 y 2 en Copilot Chat y copia el contenido de las 8 diapositivas en un documento Word guardado en OneDrive.", "Abre la plantilla 07 en PowerPoint, abre <strong>Copilot</strong> y elige <em>Crear una presentación a partir de un archivo</em> con ese documento.", "Revisa diseño, cifras y notas del presentador; ajusta a mano lo necesario."],
+      "outlook": ["C · Copilot en Outlook", "En Outlook, crea un correo nuevo y abre <strong>Copilot → Redactar</strong>.", "Pega el Turno 2 junto con tus hallazgos validados de las fases anteriores.", "Pide ajustes («más breve», «más formal») y revisa que no afirme aprobación."],
+      "progressive": ["C · Si no puedes cargar todos", "Carga uno o dos archivos a la vez y aumenta progresivamente.", "En el Turno 1, menciona solo los archivos que cargaste.", "Anota qué archivos quedaron NO DISPONIBLES para tenerlo en cuenta en las fases siguientes."]
+    }[cfg.app];
+    return [
+      { id: "chat", title: "A · Copilot Chat", hint: "Cualquier licencia · recomendada", steps: A },
+      { id: "m365", title: "B · Licencia Microsoft 365 Copilot", hint: "Archivos desde OneDrive", steps: B },
+      { id: "app", title: C[0], hint: cfg.app === "progressive" ? "Carga parcial" : "Si tu licencia lo incluye", steps: C.slice(1) }
+    ];
+  }
+
+  function s2Trouble(fid) {
+    const list = [
+      "<strong>Copilot dice haber leído archivos que no cargaste:</strong> pide <em>«Lista solo los archivos que puedes abrir; marca los demás como NO DISPONIBLE PARA ANÁLISIS»</em>.",
+      "<strong>«El mensaje es demasiado largo»:</strong> no pegues archivos dentro de un turno: adjúntalos o usa «Enviar la fuente en partes».",
+      "<strong>Olvida el contexto en el Turno 2 o 3:</strong> vuelve a enviar el Turno 1 y continúa.",
+      "<strong>La respuesta se corta:</strong> escribe <em>«Continúa exactamente desde donde te detuviste, sin repetir»</em>.",
+      "<strong>Inventa cifras o fechas:</strong> pide <em>«Toda cifra debe indicar archivo y hoja o sección de origen; lo demás, PENDIENTE DE VALIDACIÓN»</em>.",
+      "<strong>No tienes Microsoft 365 Copilot:</strong> practica en Copilot gratuito (copilot.microsoft.com) <em>solo con estos archivos ficticios</em>."
+    ];
+    if (fid === "f3") list.push("<strong>El costo total aparece vacío:</strong> descarga de nuevo el archivo 03 (versión actualizada) o pide <em>«Calcula Cantidad × Costo unitario por fila y suma el total»</em>.");
+    if (fid === "f7") list.push("<strong>Copilot no genera el .pptx:</strong> usa el contenido del Turno 2 y pégalo en la plantilla 07 diapositiva por diapositiva, o usa la ruta C.");
+    return list;
+  }
+
+  function renderS2Turns() {
+    Object.keys(S2_PHASES).forEach(fid => {
+      const art = document.querySelector(`article.reto[data-reto="s2-${fid}"]`);
+      const body = art && art.querySelector(":scope > .reto__body");
+      if (!body || body.querySelector(".s2-turns")) return;
+      const cfg = S2_PHASES[fid];
+      const turns = s2Turns(fid);
+      if (!turns.length) return;
+      const base = `s2t-${fid}`;
+      const files = cfg.srcs.map(k => `<strong>${S2_SRC_LABEL[k]}</strong>`).join(", ") + (cfg.extraFile ? ` y <strong>${cfg.extraFile}</strong>` : "");
+      const parts = cfg.parts === false ? [] : splitSourceParts(cfg.srcs.map(k => ({ key: k, label: S2_SRC_LABEL[k] })));
+      const routes = s2Routes(fid, files);
+      const box = document.createElement("div");
+      box.className = "pr-routes s2-turns";
+      box.innerHTML = `
+        <div class="pr-routes__head"><h4>PRISM en conversación · ${turns.length} turnos</h4><span class="pr-badge">Funciona en cualquier Copilot</span></div>
+        <p class="pr-routes__lead">El prompt profesional dividido en mensajes cortos. Envía un turno, revisa la respuesta y envía el siguiente <strong>en la misma conversación</strong>.</p>
+        <div class="s2t-legend">${turns.map((t, i) => `<span><b>${i + 1}</b>${t.label.replace(/^Turno \d+ · /, "")}</span>`).join("")}</div>
+        ${turns.map((t, i) => `<div class="pr-part"><div class="pr-part__head"><strong>${t.label}</strong>
+          <button type="button" class="btn btn--sm btn--primary" data-copy="#${base}-${i + 1}"><i data-lucide="copy" width="14" height="14"></i> Copiar turno ${i + 1}</button></div>
+          <textarea class="prompt-box pr-turn" id="${base}-${i + 1}" spellcheck="false" rows="${Math.min(16, t.text.split("\n").length + 1)}">${esc(t.text)}</textarea></div>`).join("")}
+        <div class="pr-source">
+          <p class="pr-source__title"><i data-lucide="paperclip" width="15" height="15"></i> Fuentes de esta fase</p>
+          <ol>
+            <li><strong>Recomendado:</strong> adjunta ${files} en Copilot (📎 o <strong>+</strong>) junto con el Turno 1. Los archivos adjuntos no cuentan para el límite de caracteres.
+              <span class="btn-group" style="display:flex;margin-top:0.4rem;gap:0.4rem;flex-wrap:wrap">${cfg.srcs.map(k => `<button type="button" class="btn btn--sm btn--secondary" data-planilla="${S2_PLANILLA[k]}"><i data-lucide="download" width="14" height="14"></i> ${S2_SRC_LABEL[k]}</button>`).join("")}${cfg.extraFile ? `<button type="button" class="btn btn--sm btn--secondary" data-planilla="s2v2-pptx"><i data-lucide="download" width="14" height="14"></i> ${cfg.extraFile}</button>` : ""}</span></li>
+            ${parts.length ? `<li><strong>¿Tu Copilot no permite adjuntar archivos?</strong> Envía la fuente en ${parts.length} partes antes del Turno 1.</li>` : ""}
+            ${cfg.note ? `<li>${cfg.note}</li>` : ""}
+          </ol>
+          ${parts.length ? `<details class="pr-parts"><summary>Enviar la fuente en ${parts.length} partes</summary>
+            <p class="pr-routes__lead" style="margin:0.5rem 0">Envía cada parte en orden y espera «Recibido». Cuando termines, envía el Turno 1.</p>
+            ${parts.map((t, i) => `<div class="pr-part"><div class="pr-part__head"><strong>Parte ${i + 1} de ${parts.length}</strong>
+              <button type="button" class="btn btn--sm btn--ghost" data-copy="#${base}-p${i + 1}"><i data-lucide="copy" width="14" height="14"></i> Copiar parte ${i + 1}</button></div>
+              <textarea class="prompt-box pr-part__text" id="${base}-p${i + 1}" readonly rows="5">${esc(t)}</textarea></div>`).join("")}
+          </details>` : ""}
+        </div>
+        <h5>¿Dónde lo uso? Elige tu ruta</h5>
+        <div class="pr-tabs" role="tablist">${routes.map((r, i) => `<button type="button" role="tab" data-pr-tab="${r.id}" aria-selected="${i === 0}">${r.title}<small>${r.hint}</small></button>`).join("")}</div>
+        ${routes.map((r, i) => `<div class="pr-panel ${i === 0 ? "is-active" : ""}" data-pr-panel="${r.id}" role="tabpanel"><ol>${r.steps.map(s => `<li>${s}</li>`).join("")}</ol></div>`).join("")}
+        <details class="pr-trouble"><summary>¿Algo no funciona? Soluciones rápidas</summary><ul>${s2Trouble(fid).map(x => `<li>${x}</li>`).join("")}</ul></details>
+        <p class="pr-routes__lead" style="margin:0.75rem 0 0">¿Tu licencia admite prompts largos? Los niveles completos (Profesional y Experto) están en el <strong>Prompt Lab PRISM</strong> de esta fase.</p>`;
+      box.querySelectorAll("[data-pr-tab]").forEach(b => b.addEventListener("click", () => {
+        box.querySelectorAll("[data-pr-tab]").forEach(x => x.setAttribute("aria-selected", String(x === b)));
+        box.querySelectorAll("[data-pr-panel]").forEach(pn => pn.classList.toggle("is-active", pn.dataset.prPanel === b.dataset.prTab));
+      }));
+      // Ubicación: después de las instrucciones de la fase (m365-box) o al inicio, tras la ficha.
+      const anchor = fid !== "f1" && body.querySelector(":scope > .m365-box");
+      const sheet = body.querySelector(":scope > .act-sheet");
+      if (anchor) anchor.insertAdjacentElement("afterend", box);
+      else if (sheet) sheet.insertAdjacentElement("afterend", box);
+      else body.prepend(box);
     });
     attachPromptMeters();
     initCopyButtons();
@@ -12254,6 +12442,7 @@ Laura Méndez · Coordinación de Campo · Ext. 4412`,
       '<h4 class="prism-host__title"><i data-lucide="layers" width="18" height="18"></i> Prompt Lab · ' + escHtml(data.title) + '</h4>' +
       '<p class="text-muted" style="font-size:0.88rem;margin:0 0 0.75rem">Fuente: <strong>' + escHtml(data.file) + '</strong> · Persona sugerida: ' + escHtml(data.persona) + '. Usa la metodología <strong>PRISM</strong> (Persona · Realidad · Información · Solicitud · Método).</p>' +
       '<details class="prism-toggle"><summary>Practicar por niveles: Básico → Experto <small>· opcional · 4 prompts + mejora</small></summary>' +
+      '<p class="pr-routes__lead" style="margin:0.25rem 0 0.75rem">Los niveles 3 y 4 son prompts completos de referencia (6.000 a 13.000 caracteres) y pueden superar el límite de tu licencia. Para ejecutarlos usa <strong>PRISM en conversación</strong>, al inicio de esta fase.</p>' +
       '<div class="prism-levels">' + cards + '</div>' +
       '<div class="card prism-improve" style="margin:1rem 0 0;padding:1rem">' +
       '<h4 style="margin:0 0 0.5rem">Mejora tu prompt</h4>' +
@@ -14345,6 +14534,7 @@ Laura Méndez · Coordinación de Campo · Ext. 4412`,
     updateProgressUI();
     renderActivitySheets();
     renderPromptRoutes();
+    renderS2Turns();
     initCourseShell();
     if (window.lucide) lucide.createIcons();
   });
