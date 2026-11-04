@@ -2050,6 +2050,20 @@
     .commit-row p, .commit-row ul { margin: 0; }
     .commit-row ul { padding-left: 1.1rem; }
     @media (max-width: 700px) { .conf-head, .conf-row { grid-template-columns: 1fr; } .conf-head { display: none; } .commit-row { grid-template-columns: 1fr; } }
+    .ms-map h3 { display: flex; align-items: center; gap: 0.5rem; font-size: 1.05rem; }
+    .ms-map table { font-size: 0.88rem; }
+    .ms-map__plus td { background: color-mix(in srgb, var(--brand-accent) 12%, transparent); }
+    /* Bloques de novedades de Copilot (con ruta alternativa) */
+    .inno { margin: 1.25rem 0; border-radius: var(--radius); border: 2px dashed color-mix(in srgb, var(--brand-primary) 45%, var(--border)); background: var(--bg-elevated); color: var(--text); padding: 0 1.1rem; }
+    .inno > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; padding: 0.9rem 0; font-weight: 800; }
+    .inno > summary::-webkit-details-marker { display: none; }
+    .inno[open] { padding-bottom: 1rem; }
+    .inno__badge { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 999px; background: var(--brand-primary); color: #fff; }
+    .inno__lead { margin: 0 0 0.75rem; font-size: 0.9rem; color: var(--text-muted); }
+    .inno h5 { margin: 0.9rem 0 0.4rem; font-size: 0.9rem; }
+    .inno ol, .inno ul { margin: 0 0 0.5rem; padding-left: 1.2rem; font-size: 0.88rem; }
+    .inno li { margin-bottom: 0.3rem; }
+    .inno__note { font-size: 0.84rem; padding: 0.55rem 0.75rem; border-radius: 8px; background: var(--surface); border-left: 3px solid var(--brand-accent); margin: 0.6rem 0 0; }
     .pr-own-note { margin: 0.75rem 0 0; font-size: 0.86rem; color: var(--text-muted); }
     .adv-prompt { margin: 1rem 0; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 1rem; background: var(--bg-elevated); }
     .adv-prompt > summary { cursor: pointer; padding: 0.85rem 0; font-weight: 700; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
@@ -2817,7 +2831,7 @@
         <div class="card s2-prism">
           <div class="s2-prism__head">
             <h3>Método PRISM</h3>
-            <p>Cada prompt de la sesión se construye con estas 5 piezas. En cada fase puedes practicar 4 niveles: Básico → Mejorado → Profesional → Experto.</p>
+            <p>Cada prompt de la sesión se construye con estas 5 piezas. En cada fase puedes practicar 4 niveles: Básico → Mejorado → Profesional → Experto. Equivale al marco oficial de Microsoft: <strong>Objetivo</strong> (S), <strong>Contexto</strong> (R), <strong>Fuente</strong> (I) y <strong>Expectativas</strong> (M); PRISM añade Persona y Verificación.</p>
           </div>
           <div class="prism-method" aria-label="Metodología PRISM">
             <div class="prism-method__item"><strong>P · Persona</strong><span>¿Quién debe ser Copilot? (PMO, auditor, analista financiero, especialista en riesgos…)</span></div>
@@ -7092,6 +7106,23 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
           <div class="formula__step">✓ Verificación<span>cómo validar</span></div>
         </div>
         <p class="text-muted" style="font-size:0.88rem;margin:0.5rem 0 0">¿Tu prompt supera 2.000 caracteres? Envíalo en turnos: P·R·I primero (sin analizar), luego S·M y al final el entregable.</p>
+
+        <div class="card ms-map" style="margin:1.25rem 0;color:var(--text)">
+          <h3><i data-lucide="languages" width="20" height="20"></i> PRISM y el marco oficial de Microsoft</h3>
+          <p class="text-muted" style="font-size:0.9rem;margin:0 0 0.75rem">Microsoft Learn, la Copilot Prompt Gallery y Copilot Academy describen un buen prompt con cuatro partes: <strong>Objetivo, Contexto, Fuente y Expectativas</strong>. PRISM las incluye todas y agrega dos hábitos más.</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Microsoft</th><th>PRISM</th><th>Pregunta clave</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Objetivo</strong> (Goal)</td><td>S · Solicitud</td><td>¿Qué entregable necesito?</td></tr>
+              <tr><td><strong>Contexto</strong> (Context)</td><td>R · Realidad</td><td>¿Para qué, para quién y en qué situación?</td></tr>
+              <tr><td><strong>Fuente</strong> (Source)</td><td>I · Información</td><td>¿Qué archivos, correos o reuniones debe usar, y qué hace si falta un dato?</td></tr>
+              <tr><td><strong>Expectativas</strong> (Expectations)</td><td>M · Método</td><td>¿Formato, extensión, tono y estructura?</td></tr>
+              <tr class="ms-map__plus"><td>—</td><td>P · Persona</td><td>¿Qué experto debe ser Copilot? (PRISM lo hace explícito)</td></tr>
+              <tr class="ms-map__plus"><td>—</td><td>✓ Verificación</td><td>¿Cómo valido el resultado antes de usarlo? (la validación humana)</td></tr>
+            </tbody>
+          </table></div>
+          <p class="text-muted" style="font-size:0.86rem;margin:0.6rem 0 0">Así reconocerás el mismo método en cualquier recurso oficial de Microsoft.</p>
+        </div>
 
         <div class="card" style="margin:1.5rem 0;color:var(--text)">
           <h3>Constructor de prompts PRISM</h3>
