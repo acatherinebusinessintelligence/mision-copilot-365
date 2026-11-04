@@ -1921,6 +1921,34 @@
     @media (max-width: 640px) { .reto__header { flex-wrap: wrap; } .reto__header > span:last-child { margin-left: auto; } }
     @media (max-width: 760px) { .act-sheet { grid-template-columns: minmax(0, 1fr); } .act-sheet__goal { flex-wrap: wrap; } .act-sheet__time { margin-left: 0; } }
 
+    /* Uso responsable */
+    .resp-golden {
+      display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; padding: 1.1rem 1.35rem;
+      border-radius: var(--radius); background: linear-gradient(120deg, var(--brand-dark), var(--navy-mid));
+      color: #fff; border-left: 6px solid var(--brand-accent);
+    }
+    .resp-golden svg { color: var(--brand-accent); flex-shrink: 0; }
+    .resp-golden p { margin: 0; font-size: 1.12rem; }
+    .resp-golden span { color: var(--brand-accent); font-weight: 700; }
+    .resp-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .resp-group { display: grid; gap: 0.5rem; align-content: start; }
+    .resp-group__title { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.15rem; font-weight: 800; font-size: 0.92rem; }
+    .resp-group__title b { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--brand-primary); color: #fff; font-size: 0.75rem; }
+    .resp-group .principle { font-size: 0.92rem; color: var(--text); }
+    .resp-group .principle svg { color: var(--brand-primary); flex-shrink: 0; }
+    [data-theme="dark"] .resp-group .principle svg { color: #c9c2ff; }
+    .resp-commit h3 { display: flex; align-items: center; gap: 0.5rem; font-size: 1.05rem; }
+    .resp-commit__status { margin: 0.75rem 0 0; font-size: 0.88rem; font-weight: 700; color: var(--text-muted); }
+    .resp-commit__status.is-done { color: var(--success); }
+    .resp-reminder {
+      display: flex; align-items: center; gap: 0.5rem; margin: 1rem 0 0; padding: 0.65rem 0.9rem; border-radius: var(--radius-sm);
+      background: color-mix(in srgb, var(--warning) 12%, var(--bg-elevated)); border: 1px solid color-mix(in srgb, var(--warning) 40%, var(--border));
+      color: var(--text); font-size: 0.88rem; text-decoration: none;
+    }
+    .resp-reminder:hover { text-decoration: none; border-color: var(--brand-primary); }
+    .resp-reminder.is-done { background: color-mix(in srgb, var(--success) 10%, var(--bg-elevated)); border-color: color-mix(in srgb, var(--success) 35%, var(--border)); color: var(--text-muted); }
+    @media (max-width: 900px) { .resp-groups { grid-template-columns: minmax(0, 1fr); } }
+
     .cs-backdrop { display: none; }
     @media (max-width: 1080px) {
       .cs-layout { grid-template-columns: minmax(0, 1fr); }
@@ -2076,6 +2104,53 @@
       </div>
     </section>
 
+    <!-- ========== 2b. USO RESPONSABLE (antes de empezar) ========== -->
+    <section id="uso-responsable" aria-labelledby="usoTitle">
+      <div class="container">
+        <p class="section-kicker"><i data-lucide="shield-check" width="14" height="14"></i> Antes de empezar</p>
+        <h2 class="section-title" id="usoTitle">Uso responsable de Copilot</h2>
+        <p class="lead">En todas las actividades vas a cargar documentos en Copilot y a usar sus respuestas para decidir. Estas reglas aplican desde el primer reto, y también en tu trabajo real.</p>
+
+        <div class="resp-golden">
+          <i data-lucide="scale" width="26" height="26"></i>
+          <p><strong>Regla de oro:</strong> Copilot propone. <span>Tú verificas, corriges y decides.</span></p>
+        </div>
+
+        <div class="resp-groups">
+          <div class="resp-group">
+            <p class="resp-group__title"><b>1</b> Antes de cargar información</p>
+            <div class="principle"><i data-lucide="lock" width="18" height="18"></i><span>Proteger información confidencial.</span></div>
+            <div class="principle"><i data-lucide="key-round" width="18" height="18"></i><span>Respetar permisos de acceso.</span></div>
+            <div class="principle"><i data-lucide="shield-off" width="18" height="18"></i><span>No cargar datos sensibles sin autorización.</span></div>
+          </div>
+          <div class="resp-group">
+            <p class="resp-group__title"><b>2</b> Al revisar la respuesta</p>
+            <div class="principle"><i data-lucide="check-circle-2" width="18" height="18"></i><span>Verificar respuestas de Copilot.</span></div>
+            <div class="principle"><i data-lucide="git-compare" width="18" height="18"></i><span>Diferenciar hechos e inferencias.</span></div>
+            <div class="principle"><i data-lucide="file-warning" width="18" height="18"></i><span>Documentar supuestos.</span></div>
+          </div>
+          <div class="resp-group">
+            <p class="resp-group__title"><b>3</b> Al decidir</p>
+            <div class="principle"><i data-lucide="hand" width="18" height="18"></i><span>Evitar decisiones automáticas de alto impacto.</span></div>
+            <div class="principle"><i data-lucide="eye" width="18" height="18"></i><span>Mantener supervisión humana.</span></div>
+          </div>
+        </div>
+
+        <div class="card resp-commit">
+          <h3><i data-lucide="clipboard-check" width="20" height="20"></i> Tu compromiso · lista de verificación antes de usar Copilot</h3>
+          <p class="text-muted" style="font-size:0.9rem;margin:0 0 0.75rem">Repásala cada vez que vayas a cargar información. Marca las 5 para registrar tu compromiso.</p>
+          <ul class="check-list">
+            <li><input type="checkbox" data-progress="resp-1" /> ¿Tengo autorización para usar esta información?</li>
+            <li><input type="checkbox" data-progress="resp-2" /> ¿Eliminé datos personales o sensibles innecesarios?</li>
+            <li><input type="checkbox" data-progress="resp-3" /> ¿Indiqué audiencia, formato y restricciones?</li>
+            <li><input type="checkbox" data-progress="resp-4" /> ¿Voy a verificar hechos, fechas y responsables?</li>
+            <li><input type="checkbox" data-progress="resp-5" /> ¿La decisión final queda en manos humanas?</li>
+          </ul>
+          <p class="resp-commit__status" data-resp-status aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
     <!-- ========== 3. RUTA ========== -->
     <section id="ruta" class="section-dark" aria-labelledby="rutaTitle">
       <div class="container">
@@ -2096,6 +2171,7 @@
           <i data-lucide="monitor" width="18" height="18"></i>
           <span><strong>Método de trabajo:</strong> abre la aplicación Microsoft 365 indicada, ejecuta Copilot con el prompt y entrega el resultado en el formato solicitado (columnas o estructura indicadas). No se exige un archivo con nombre fijo salvo que el reto lo diga. No inventes datos: si falta información, escribe “no especificado”.</span>
         </div>
+        <a class="resp-reminder" href="#uso-responsable" data-resp-reminder></a>
         <div class="session-status" data-session-status="s1" aria-live="polite"></div>
 
         <!-- RETO 1 -->
@@ -2619,6 +2695,7 @@
           </div>
         </div>
 
+        <a class="resp-reminder" href="#uso-responsable" data-resp-reminder></a>
         <div class="session-status" data-session-status="s2" aria-live="polite"></div>
 
         <nav class="s2-phasemap" aria-label="Fases de la sesión">
@@ -6995,37 +7072,18 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       </div>
     </section>
 
-    <!-- ========== 11. USO RESPONSABLE + CIERRE ========== -->
+    <!-- ========== 11. CIERRE ========== -->
     <section id="cierre" class="section-dark" aria-labelledby="cierreTitle">
       <div class="container">
-        <p class="section-kicker">Uso responsable</p>
-        <h2 class="section-title" id="cierreTitle">Principios antes de decidir</h2>
-        <div class="principles" style="margin:1.5rem 0">
-          <div class="principle"><i data-lucide="lock" width="18" height="18"></i><span>Proteger información confidencial.</span></div>
-          <div class="principle"><i data-lucide="key-round" width="18" height="18"></i><span>Respetar permisos de acceso.</span></div>
-          <div class="principle"><i data-lucide="check-circle-2" width="18" height="18"></i><span>Verificar respuestas de Copilot.</span></div>
-          <div class="principle"><i data-lucide="git-compare" width="18" height="18"></i><span>Diferenciar hechos e inferencias.</span></div>
-          <div class="principle"><i data-lucide="hand" width="18" height="18"></i><span>Evitar decisiones automáticas de alto impacto.</span></div>
-          <div class="principle"><i data-lucide="eye" width="18" height="18"></i><span>Mantener supervisión humana.</span></div>
-          <div class="principle"><i data-lucide="file-warning" width="18" height="18"></i><span>Documentar supuestos.</span></div>
-          <div class="principle"><i data-lucide="shield-off" width="18" height="18"></i><span>No cargar datos sensibles sin autorización.</span></div>
-        </div>
+        <p class="section-kicker">Cierre</p>
+        <h2 class="section-title" id="cierreTitle">Cierre de la experiencia</h2>
 
-        <h3>Lista de verificación antes de usar Copilot</h3>
-        <ul class="check-list card" style="color:var(--text)">
-          <li><input type="checkbox" data-progress="resp-1" /> ¿Tengo autorización para usar esta información?</li>
-          <li><input type="checkbox" data-progress="resp-2" /> ¿Eliminé datos personales o sensibles innecesarios?</li>
-          <li><input type="checkbox" data-progress="resp-3" /> ¿Indiqué audiencia, formato y restricciones?</li>
-          <li><input type="checkbox" data-progress="resp-4" /> ¿Voy a verificar hechos, fechas y responsables?</li>
-          <li><input type="checkbox" data-progress="resp-5" /> ¿La decisión final queda en manos humanas?</li>
-        </ul>
-
-        <div class="card" style="margin-top:2rem;color:var(--text);text-align:center">
-          <h3>Cierre de la experiencia</h3>
+        <div class="card" style="margin-top:1.5rem;color:var(--text);text-align:center">
           <p>Has recorrido el camino desde la productividad individual hasta la preparación de decisiones de proyecto con Microsoft Copilot y Microsoft 365.</p>
           <p><strong>Recuerda:</strong> Copilot acelera el análisis; tú aportas el criterio, el contexto organizacional y la responsabilidad de la decisión.</p>
           <div class="btn-group" style="justify-content:center;margin-top:1rem">
             <a class="btn btn--primary" href="#evaluacion">Ver mi progreso</a>
+            <a class="btn btn--secondary" href="#uso-responsable">Repasar uso responsable</a>
             <a class="btn btn--secondary" href="#inicio">Volver al inicio</a>
           </div>
         </div>
@@ -7358,6 +7416,23 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     });
   }
 
+  const RESP_KEYS = ["resp-1", "resp-2", "resp-3", "resp-4", "resp-5"];
+  function respDone() { return RESP_KEYS.every(k => state.progress[k]); }
+  function renderRespStatus() {
+    const n = RESP_KEYS.filter(k => state.progress[k]).length;
+    const done = n === RESP_KEYS.length;
+    document.querySelectorAll("[data-resp-status]").forEach(el => {
+      el.classList.toggle("is-done", done);
+      el.textContent = done ? "✓ Compromiso registrado. Puedes repasar esta lista cuando quieras." : `Has marcado ${n} de 5.`;
+    });
+    document.querySelectorAll("[data-resp-reminder]").forEach(el => {
+      el.classList.toggle("is-done", done);
+      el.innerHTML = done
+        ? "<span>🛡️</span> Lista de uso responsable revisada · repásala antes de cargar información →"
+        : "<span>🛡️</span> <strong>Antes de usar Copilot:</strong> revisa la lista de uso responsable (5 preguntas) →";
+    });
+  }
+
   function renderPhaseMap() {
     document.querySelectorAll(".s2-phasemap a").forEach(a => {
       const key = a.getAttribute("href").replace("#paso-", "");
@@ -7420,6 +7495,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     renderPath();
     renderSessionStatus();
     renderPhaseMap();
+    renderRespStatus();
     renderEvalModules();
     csRefresh();
   }
@@ -12938,6 +13014,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       steps: [
         { sel: "#inicio", title: "Portada" },
         { sel: "#mision", title: "Tu misión con Copilot" },
+        { sel: "#uso-responsable", title: "Uso responsable de Copilot", done: () => respDone() },
         { sel: "#ruta", title: "Ruta de aprendizaje" }
       ] },
     { id: "s1", title: "Sesión 1", sub: "Productividad individual", icon: "user",
@@ -12973,7 +13050,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     { id: "cierre", title: "Cierre", sub: "Proyecto final y progreso", icon: "flag",
       steps: [
         { sel: "#proyecto-final", title: "Proyecto final · Mi caso de uso", key: "proyecto-final" },
-        { sel: "#cierre", title: "Uso responsable y cierre" },
+        { sel: "#cierre", title: "Cierre de la experiencia" },
         { sel: "#evaluacion", title: "Mi progreso y certificado" }
       ] }
   ];
