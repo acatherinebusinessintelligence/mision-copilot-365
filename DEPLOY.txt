@@ -41,7 +41,7 @@ A) PRIMER DESPLIEGUE
    SMTP_APP_PASSWORD=xxxx xxxx xxxx xxxx
    SMTP_HOST=smtp.gmail.com
    SMTP_PORT=587
-   MAIL_FROM_NAME=Misión Copilot 365
+   MAIL_FROM_NAME=Misión Copilot 365 · ECCO
    APP_BASE_URL=https://dracorazonia.pythonanywhere.com
    EMAIL_WEBHOOK_URL=<URL /exec del Apps Script, ver sección D>
    EMAIL_WEBHOOK_SECRET=<mismo secreto del script>
