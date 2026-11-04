@@ -1377,6 +1377,13 @@ def main() -> None:
         print(f"  Generando {name} …")
         fn(target)
 
+    # openpyxl no guarda el valor de las fórmulas y escribe las fechas como texto:
+    # sin esta corrección Copilot Chat ve vacíos el costo total y el resumen.
+    from fix_xlsx_cached_values import fix as fix_xlsx
+    for name in FILENAMES:
+        if name.endswith(".xlsx"):
+            fix_xlsx(OUT_DIR / name)
+
     zip_path = build_zip(OUT_DIR)
     print(f"  ZIP: {zip_path.name}")
 
