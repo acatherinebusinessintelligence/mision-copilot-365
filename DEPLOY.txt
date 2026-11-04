@@ -7,7 +7,7 @@ Repositorio: https://github.com/acatherinebusinessintelligence/mision-copilot-36
 
 ESTRUCTURA EN EL SERVIDOR
 -------------------------
-/home/dracorazonia/mision-copilot-365/   <- clon del repositorio (código)
+/home/dracorazonia/Clases_Enel/   <- clon del repositorio (código)
   ├── app.py, index.html, horizonte.html, wsgi.py, templates/, planillas/
   ├── .env              <- SOLO en el servidor (secretos). Nunca en git.
   ├── venv/             <- entorno virtual (no está en git)
@@ -24,10 +24,10 @@ A) PRIMER DESPLIEGUE
 
 1) Clonar (Bash console de PythonAnywhere)
    cd ~
-   git clone https://github.com/acatherinebusinessintelligence/mision-copilot-365.git
-   cd mision-copilot-365
+   git clone https://github.com/acatherinebusinessintelligence/mision-copilot-365.git Clases_Enel
+   cd Clases_Enel
 
-   (Si ya existe una carpeta anterior, p. ej. ~/Clases_Enel, ver sección C.)
+   (Si ~/Clases_Enel ya existe, NO clones: usa la sección B.)
 
 2) Entorno virtual
    python3.10 -m venv venv
@@ -48,11 +48,11 @@ A) PRIMER DESPLIEGUE
 
 4) Web app (pestaña Web)
    - Add a new web app > Manual configuration > Python 3.10
-   - Source code:       /home/dracorazonia/mision-copilot-365
-   - Working directory: /home/dracorazonia/mision-copilot-365
-   - Virtualenv:        /home/dracorazonia/mision-copilot-365/venv
+   - Source code:       /home/dracorazonia/Clases_Enel
+   - Working directory: /home/dracorazonia/Clases_Enel
+   - Virtualenv:        /home/dracorazonia/Clases_Enel/venv
    - WSGI configuration file: reemplaza todo por el contenido de wsgi.py
-     (detecta sola la carpeta mision-copilot-365 o Clases_Enel)
+     (detecta sola la carpeta Clases_Enel o mision-copilot-365)
    - Reload
 
 5) Verificar
@@ -66,10 +66,10 @@ B) ACTUALIZAR (cada vez que hay cambios)
 ========================================
 En tu PC:   git add ... && git commit && git push
 En PythonAnywhere (Bash console):
-   cd ~/mision-copilot-365
+   cd ~/Clases_Enel
    git pull
    source venv/bin/activate && pip install -r requirements.txt   # solo si cambió requirements.txt
-Luego: pestaña Web > Reload.
+Luego: pestaña Web > Reload (y en cuentas free: "Run until 3 months from today").
 Verifica /health: el campo "version" debe ser el nuevo.
 
 Si git pull se queja de cambios locales en el servidor:
@@ -77,16 +77,10 @@ Si git pull se queja de cambios locales en el servidor:
    git stash             # o descártalos si eran ediciones hechas a mano en el servidor
 
 
-C) MIGRAR DESDE UNA CARPETA SUBIDA A MANO (p. ej. ~/Clases_Enel sin git)
-=======================================================================
-   cd ~
-   git clone https://github.com/acatherinebusinessintelligence/mision-copilot-365.git
-   cp ~/Clases_Enel/.env           ~/mision-copilot-365/.env
-   mkdir -p ~/mision-copilot-365/data
-   cp ~/Clases_Enel/data/mision.db ~/mision-copilot-365/data/mision.db   # conserva estudiantes y avance
-   cd ~/mision-copilot-365 && python3.10 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
-   Pestaña Web: cambia Source code / Working directory / Virtualenv a ~/mision-copilot-365 y Reload.
-   Cuando todo funcione, puedes borrar ~/Clases_Enel.
+C) RESPALDO DE LA BASE DE DATOS (antes de cada actualización)
+==============================================================
+   cp ~/Clases_Enel/data/mision.db ~/mision_backup_$(date +%Y%m%d).db
+   Restaurar: cp ~/mision_backup_AAAAMMDD.db ~/Clases_Enel/data/mision.db  y Web > Reload
 
 
 D) CORREO (plan free bloquea SMTP)
