@@ -2064,6 +2064,13 @@
     .inno ol, .inno ul { margin: 0 0 0.5rem; padding-left: 1.2rem; font-size: 0.88rem; }
     .inno li { margin-bottom: 0.3rem; }
     .inno__note { font-size: 0.84rem; padding: 0.55rem 0.75rem; border-radius: 8px; background: var(--surface); border-left: 3px solid var(--brand-accent); margin: 0.6rem 0 0; }
+    .learn-more h3 { display: flex; align-items: center; gap: 0.5rem; font-size: 1.05rem; }
+    .learn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.6rem; }
+    .learn-grid a { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.8rem 0.9rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--text); text-decoration: none; }
+    .learn-grid a:hover { border-color: var(--brand-primary); text-decoration: none; }
+    .learn-grid strong { color: var(--brand-primary); }
+    [data-theme="dark"] .learn-grid strong { color: #c9c2ff; }
+    .learn-grid span { font-size: 0.82rem; color: var(--text-muted); }
     .pr-own-note { margin: 0.75rem 0 0; font-size: 0.86rem; color: var(--text-muted); }
     .adv-prompt { margin: 1rem 0; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 1rem; background: var(--bg-elevated); }
     .adv-prompt > summary { cursor: pointer; padding: 0.85rem 0; font-weight: 700; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
@@ -7173,6 +7180,18 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
             <a class="btn btn--sm btn--secondary" href="#prompts">Ir al kit de prompts</a>
           </div>
         </div>
+
+        <div class="card learn-more" style="color:var(--text)">
+          <h3><i data-lucide="graduation-cap" width="20" height="20"></i> Sigue aprendiendo con recursos oficiales de Microsoft</h3>
+          <p class="text-muted" style="font-size:0.9rem;margin:0 0 0.75rem">Usan el mismo método que practicaste (Objetivo, Contexto, Fuente y Expectativas = PRISM). Elige uno para tu plan a 30 días.</p>
+          <div class="learn-grid">
+            <a href="https://learn.microsoft.com/training/paths/get-started-with-microsoft-365-copilot" target="_blank" rel="noopener"><strong>Microsoft Learn</strong><span>Ruta gratuita «Get started with Microsoft 365 Copilot».</span></a>
+            <a href="https://copilot.cloud.microsoft/prompts" target="_blank" rel="noopener"><strong>Copilot Prompt Gallery</strong><span>Prompts listos por app y tarea. Compáralos con tu kit PRISM.</span></a>
+            <a href="https://adoption.microsoft.com/scenario-library/" target="_blank" rel="noopener"><strong>Scenario Library</strong><span>Casos de uso por área y rol, con apps y prompts.</span></a>
+            <a href="https://support.microsoft.com/topic/microsoft-copilot-academy-in-viva-learning-ffaa43bb-1723-4237-b021-2ed9b924c8e2" target="_blank" rel="noopener"><strong>Copilot Academy</strong><span>Rutas con práctica dentro de Viva Learning (si tu organización la tiene).</span></a>
+          </div>
+          <p class="text-muted" style="font-size:0.82rem;margin:0.6rem 0 0">Copilot cambia cada mes: revisa también las novedades de tu versión y lo que habilita tu organización.</p>
+        </div>
         <h3 style="margin:2rem 0 0.5rem">Mi progreso</h3>
         <div class="grid grid-3" style="margin:1.5rem 0">
           <div class="card kpi"><div class="kpi__value" id="statRetos">0</div><div class="kpi__label">Actividades completadas</div></div>
@@ -7239,6 +7258,15 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
             <div class="field"><label for="pf60">En 60 días</label><textarea id="pf60" name="d60" rows="2"></textarea></div>
             <div class="field"><label for="pf90">En 90 días</label><textarea id="pf90" name="d90" rows="2"></textarea></div>
             <div class="field"><label for="pfInd">Cómo sabré que funcionó</label><textarea id="pfInd" name="indicadores" rows="2" placeholder="Ej. Paso de 3 horas a 1 hora por informe"></textarea></div>
+            <div class="field" style="grid-column:1/-1"><label for="pfAprender">Seguiré aprendiendo con</label>
+              <select id="pfAprender" name="aprendizaje">
+                <option value="">— Elige un recurso —</option>
+                <option>Ruta de Microsoft Learn «Get started with Microsoft 365 Copilot»</option>
+                <option>Copilot Prompt Gallery</option>
+                <option>Scenario Library de Microsoft</option>
+                <option>Copilot Academy (Viva Learning)</option>
+                <option>El kit de prompts y los escenarios por rol de este curso</option>
+              </select></div>
           </div>
 
           <h3 class="plan-block">4 · Uso responsable</h3>
@@ -8581,7 +8609,7 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     return {
       ideas: (c.ideas || []).map(id => (CIERRE_IDEAS.find(x => x[0] === id) || [])[1]).filter(Boolean),
       problema: pf.problema, primer: pf.primerpaso, d90: pf.d90, ind: pf.indicadores, val: pf.validacion,
-      apps: pf.apps, sirvio: c.sirvio
+      apps: pf.apps, sirvio: c.sirvio, learn: pf.aprendizaje
     };
   }
   function renderCommitment() {
@@ -8603,6 +8631,7 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
         ${row("En 90 días", d.d90)}
         ${row("Sabré que funcionó cuando", d.ind)}
         ${row("Antes de usar un resultado, validaré", d.val)}
+        ${row("Seguiré aprendiendo con", d.learn)}
         <div class="btn-group" style="margin-top:0.75rem">
           <button type="button" class="btn btn--sm btn--primary" id="commitCopy"><i data-lucide="copy" width="14" height="14"></i> Copiar mi compromiso</button>
           <button type="button" class="btn btn--sm btn--secondary" id="commitDownload"><i data-lucide="download" width="14" height="14"></i> Descargar mi plan (Word)</button>
@@ -8615,7 +8644,8 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
         d.primer ? "Mi primer paso esta semana: " + d.primer : "",
         d.d90 ? "En 90 días: " + d.d90 : "",
         d.ind ? "Sabré que funcionó cuando: " + d.ind : "",
-        d.val ? "Antes de usar un resultado, validaré: " + d.val : ""
+        d.val ? "Antes de usar un resultado, validaré: " + d.val : "",
+        d.learn ? "Seguiré aprendiendo con: " + d.learn : ""
       ].filter(Boolean).join("\n\n");
       card.querySelector("#commitCopy").addEventListener("click", async () => {
         try { await navigator.clipboard.writeText(plain()); toast("Compromiso copiado"); } catch { toast("No se pudo copiar", "alert-triangle"); }
@@ -8628,7 +8658,7 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
           <h2>Mi plan de acción</h2><table>${li("Tarea a mejorar", pf.problema)}${li("Cómo lo hago hoy", pf.tarea)}${li("Resultado esperado", pf.esperado)}
           ${li("Herramientas", pf.apps)}${li("Fuentes", pf.entrada)}${li("Mi prompt", pf.prompt)}${li("Primer paso esta semana", pf.primerpaso)}
           ${li("30 días", pf.d30)}${li("60 días", pf.d60)}${li("90 días", pf.d90)}${li("Indicador", pf.indicadores)}
-          ${li("Validación humana", pf.validacion)}${li("Riesgos y datos que no cargaré", pf.riesgos)}${li("Apoyo", pf.compartir)}</table>`;
+          ${li("Validación humana", pf.validacion)}${li("Riesgos y datos que no cargaré", pf.riesgos)}${li("Apoyo", pf.compartir)}${li("Seguiré aprendiendo con", pf.aprendizaje)}</table>`;
         downloadWord("Mi_plan_de_accion_Copilot.doc", "Mi plan de acción con Copilot", "MCP-365-PLAN", "Microsoft 365 Copilot", html);
       });
     }
