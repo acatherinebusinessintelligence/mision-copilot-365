@@ -1995,6 +1995,14 @@
     .s2t-legend span { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.7rem 0.25rem 0.3rem; border-radius: 999px; background: var(--surface); }
     .s2t-legend b { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--brand-primary); color: #fff; font-size: 0.7rem; }
     .pr-turn { width: 100%; resize: vertical; }
+    .lab-alt { margin: 0.9rem 0 0.25rem; border: 1px dashed color-mix(in srgb, var(--brand-accent) 70%, var(--border)); border-radius: var(--radius-sm); padding: 0 0.9rem; background: color-mix(in srgb, var(--brand-accent) 8%, var(--bg-elevated)); color: var(--text); }
+    .lab-alt > summary { cursor: pointer; padding: 0.7rem 0; font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; gap: 0.45rem; }
+    .lab-alt[open] { padding-bottom: 0.8rem; }
+    .lab-alt__steps { margin: 0.25rem 0 0.75rem; padding-left: 1.2rem; font-size: 0.88rem; }
+    .lab-alt__steps li { margin-bottom: 0.4rem; }
+    .lab-alt__label { margin: 0.75rem 0 0.35rem; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); }
+    .lab-alt table { font-size: 0.84rem; }
+    .lab-alt__diff { margin: 0.75rem 0 0; font-size: 0.86rem; padding: 0.6rem 0.75rem; border-radius: 8px; background: var(--bg-elevated); border-left: 3px solid var(--brand-primary); }
     .pr-own-note { margin: 0.75rem 0 0; font-size: 0.86rem; color: var(--text-muted); }
     .adv-prompt { margin: 1rem 0; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 1rem; background: var(--bg-elevated); }
     .adv-prompt > summary { cursor: pointer; padding: 0.85rem 0; font-weight: 700; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
@@ -5273,7 +5281,7 @@ Tono: ejecutivo, claro y prudente.</div>
             </ol>
             <p style="color:var(--text-muted)">Un Cuaderno reúne fuentes relacionadas dentro de un mismo contexto de trabajo.</p>
             <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-created" /> Creé el Cuaderno Proyecto Horizonte.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-created" /> Creé el Cuaderno Proyecto Horizonte (o la conversación alternativa en Copilot Chat).</label></li>
             </ul>
           </div>
 
@@ -5426,7 +5434,7 @@ Tono: ejecutivo, claro y prudente.</div>
               <span>Observa el resultado: ¿Qué relaciones entre alcance, presupuesto, cronograma, riesgos e interesados resultan más visibles?</span>
             </p>
             <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-mindmap" /> Generé y revisé el Mapa mental.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-mindmap" /> Generé y revisé el Mapa mental (o el esquema jerárquico).</label></li>
             </ul>
           </div>
 
@@ -5439,7 +5447,7 @@ Tono: ejecutivo, claro y prudente.</div>
               <span>¿Qué información priorizó Copilot al transformar el proyecto en una pieza visual?</span>
             </p>
             <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab31-infografia" /> Generé y revisé la Infografía.</label></li>
+              <li><label><input type="checkbox" data-progress="lab31-infografia" /> Generé y revisé la Infografía (o la infografía en texto).</label></li>
             </ul>
           </div>
 
@@ -5610,7 +5618,7 @@ Tono: ejecutivo, claro y prudente.</div>
               <li>Utiliza como descripción: <em style="color:var(--text)">“Asistente especializado en apoyo a gestión de proyectos, análisis documental, riesgos, hallazgos y preparación de información ejecutiva para Proyecto Horizonte.”</em></li>
             </ol>
             <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab32-created" /> Ya creé el agente.</label></li>
+              <li><label><input type="checkbox" data-progress="lab32-created" /> Ya creé el agente (o el agente simulado en Copilot Chat).</label></li>
             </ul>
           </div>
 
@@ -5851,7 +5859,7 @@ decisión oficial.</div>
               <span>Agregar una fuente amplía el conocimiento disponible, pero su recuperación debe probarse. Conectar una fuente no garantiza que sea utilizada en cada respuesta.</span>
             </p>
             <ul class="check-list" style="margin:0 0 1rem">
-              <li><label><input type="checkbox" data-progress="lab32-portal" /> Agregué el Portal Horizonte como fuente de conocimiento.</label></li>
+              <li><label><input type="checkbox" data-progress="lab32-portal" /> Agregué el Portal Horizonte como fuente de conocimiento (o lo adjunté como PDF).</label></li>
             </ul>
             <div class="lab32-finding">
               <p class="lab-badge lab-badge--soon" style="margin:0 0 0.4rem">Gobernanza</p>
@@ -7449,17 +7457,17 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       goal: "Redactar el correo ejecutivo al comité con hallazgos, riesgos y decisiones requeridas.",
       out: "Correo ejecutivo de máximo 250 palabras (tercer entregable final).",
       ok: "No afirma que el proyecto está aprobado ni inventa compromisos, e incluye asunto, anexos y próxima acción." },
-    "lab-cuaderno": { min: 40, tools: "Microsoft 365 Copilot · Cuadernos",
+    "lab-cuaderno": { min: 40, tools: "Microsoft 365 Copilot · Cuadernos (o Copilot Chat)",
       goal: "Reunir las fuentes de Horizonte en un Cuaderno y comprobar cómo cambia la calidad del contexto.",
       out: "Centro de Conocimiento Horizonte.",
       ok: "Verificaste la síntesis contra las fuentes y completaste el checkpoint de la misión 3.1." },
-    "lab-agente": { min: 45, tools: "Microsoft 365 Copilot · Agentes",
+    "lab-agente": { min: 45, tools: "Microsoft 365 Copilot · Agentes (o agente simulado en Copilot Chat)",
       goal: "Configurar un agente PMO con propósito, instrucciones, conocimiento y límites.",
       out: "Agente «PMO Copilot · Proyecto Horizonte».",
       ok: "El agente superó las pruebas de función, especialización, límites y preparación para automatización." },
-    "lab-automatizacion": { min: 50, tools: "Outlook · Power Automate · Aprobaciones",
+    "lab-automatizacion": { min: 50, tools: "Outlook · Power Automate · Aprobaciones (o reglas de Outlook + Aprobaciones de Teams)",
       goal: "Construir un flujo correo → regla → aprobación humana → envío.",
-      out: "Flujo de Power Automate probado.",
+      out: "Flujo de Power Automate probado, o la ruta alternativa con reglas de Outlook y Aprobaciones de Teams.",
       ok: "Solo se envía si una persona aprueba, los casos no críticos no disparan acciones y queda trazabilidad." },
     "lab-reto": { min: 40, tools: "Cuaderno · Agente · Automatización",
       goal: "Decidir qué componente usar en cada situación y dónde conservar el control humano.",
@@ -8198,6 +8206,124 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     attachPromptMeters();
     initCopyButtons();
     initPlanillaDownloads();
+    if (window.lucide) lucide.createIcons();
+  }
+
+
+  /* ========== COPILOT LAB · RUTAS ALTERNATIVAS (sin Cuadernos, agentes o Power Automate) ========== */
+  const LAB_ALT = {
+  "lab31": {
+    "anchor": "Paso 1 · Crea tu espacio de conocimiento",
+    "title": "¿Tu licencia no incluye Cuadernos? Ruta alternativa con Copilot Chat",
+    "intro": "Puedes completar la misión en una conversación de Copilot Chat. Adjunta los archivos 02 a 06 y envía primero este mensaje de contexto; después usa los prompts equivalentes de cada paso.",
+    "prompt": "Durante toda esta conversación vas a funcionar como el Centro de Conocimiento del Proyecto Horizonte.\n\nFuentes autorizadas (adjuntas): 02 Alcance, 03 Presupuesto y cronograma, 04 Transcripción, 05 Registro de riesgos y 06 Comentarios de interesados.\n\nReglas para todas tus respuestas:\n- Usa solo estas fuentes y cita el archivo de origen en cada afirmación.\n- Si combinas fuentes, indica cuáles.\n- Lo que no esté en las fuentes: «No especificado en las fuentes».\n- Distingue hechos, inferencias y propuestas no aprobadas.\n\nPara empezar, responde: qué archivos puedes leer, de qué trata cada uno en una línea y qué relación ves entre ellos.",
+    "map": [
+      [
+        "Resumen",
+        "«Resume el Proyecto Horizonte en 150 palabras usando las 5 fuentes; indica el archivo de cada dato.»"
+      ],
+      [
+        "Conclusiones clave",
+        "«Lista 5 conclusiones clave del proyecto con su archivo de origen.»"
+      ],
+      [
+        "Mapa mental",
+        "«Crea un mapa mental como esquema jerárquico de máximo 3 niveles con los temas del proyecto y el archivo de cada tema.»"
+      ],
+      [
+        "Infografía",
+        "«Diseña una infografía de una página en texto: título, 4 bloques con cifras clave y una alerta; cada cifra con su archivo. Si puedes generar imágenes, crea también la versión visual.»"
+      ],
+      [
+        "Guía de estudio",
+        "«Crea 5 preguntas de repaso con su respuesta y su fuente.»"
+      ]
+    ],
+    "diff": "<strong>Lo que aprendes con la diferencia:</strong> un Cuaderno conserva las fuentes y el contexto de forma permanente; una conversación no. Si cierras el chat, tendrás que volver a adjuntar las fuentes y reenviar el mensaje de contexto. Eso es justamente lo que aporta un Cuaderno. Si tienes <em>Copilot Pages</em>, guarda allí la síntesis para conservarla."
+  },
+  "lab32": {
+    "anchor": "Paso 1 · Crea tu especialista",
+    "title": "¿Tu licencia no permite crear agentes? Agente simulado en Copilot Chat",
+    "intro": "Abre una conversación nueva, adjunta los archivos 02 a 06 y el Portal Horizonte en PDF (ábrelo → <kbd>Ctrl</kbd>+<kbd>P</kbd> → Guardar como PDF) y envía primero este mensaje. Contiene el propósito, las instrucciones y los límites del agente en versión compacta. Luego realiza las pruebas 1 a 4 y A a C en esa misma conversación.",
+    "prompt": "Durante toda esta conversación actúa como el agente «PMO Copilot · Proyecto Horizonte».\n\nPROPÓSITO: apoyar al equipo del Proyecto Horizonte en análisis documental, riesgos, hallazgos y preparación de información ejecutiva. Eres apoyo, no autoridad.\n\nFUENTES: solo los archivos adjuntos (02 a 06) y el Portal Horizonte (PDF adjunto). Lo que no esté en ellas: «PENDIENTE DE VALIDACIÓN».\n\nEVIDENCIA: clasifica cada afirmación como HECHO CONFIRMADO, CÁLCULO, INFERENCIA, RECOMENDACIÓN o PENDIENTE DE VALIDACIÓN. No inventes cifras, fechas, responsables, compromisos, aprobaciones ni estados. Si dos fuentes se contradicen, muestra ambas evidencias y pide validación.\n\nENFOQUE PMO: alcance, entregables, tiempo, costo, riesgos, interesados, dependencias y decisiones. Prioriza lo que afecte ejecución, cronograma, presupuesto o decisiones.\n\nCOMUNICACIÓN: ejecutiva, precisa y verificable; usa tablas, prioridades y preguntas de validación.\n\nLÍMITES: no apruebas el proyecto, no cambias alcance ni presupuesto, no nombras responsables, no aceptas ni cierras riesgos, no comprometes fechas ni hablas por el comité. Si te lo piden: identifica la decisión, muestra la evidencia, di qué falta y qué rol humano debe decidir.\n\nTodo resultado para comité, cliente o decisión oficial debe indicar que requiere validación humana.\n\nPara empezar, responde en 3 líneas: quién eres, qué fuentes puedes leer y qué no puedes hacer.",
+    "map": [],
+    "diff": "<strong>Lo que aprendes con la diferencia:</strong> un agente guarda estas instrucciones de forma permanente y las comparte con todo el equipo. En el agente simulado debes pegarlas al inicio de cada conversación nueva, y nada impide que alguien las cambie. Esa estabilidad es lo que aporta crear un agente."
+  },
+  "lab33": {
+    "anchor": "Construye el flujo",
+    "title": "¿No tienes Power Automate o tu organización lo bloquea? Ruta con Outlook y Aprobaciones de Teams",
+    "intro": "Puedes reproducir el mismo proceso (evento → regla → decisión humana → acción → trazabilidad) con herramientas incluidas en Microsoft 365. Lo que la regla no puede hacer sola lo haces tú, y así ves exactamente qué agrega Power Automate.",
+    "steps": [
+      "<strong>Evento y regla:</strong> en Outlook, ve a <em>Configuración → Correo → Reglas → Agregar regla</em>. Condiciones: el asunto incluye <code>[HORIZONTE]</code> y el cuerpo incluye <code>Criticidad: ALTA</code>. Acciones: marcar con importancia alta y mover a la carpeta <em>Hallazgos críticos</em>. No configures reenvío automático.",
+      "<strong>Decisión humana:</strong> en Teams, abre la app <em>Aprobaciones → Nueva solicitud</em>. Título «Alerta crítica Horizonte», aprobador: tú o un compañero, y adjunta o pega el hallazgo.",
+      "<strong>Acción controlada:</strong> solo si la solicitud queda <em>Aprobada</em>, envía el correo de alerta (puedes redactarlo con Copilot en Outlook). Si es <em>Rechazada</em>, no envíes nada y registra el motivo.",
+      "<strong>Trazabilidad:</strong> anota en una tabla de Excel u OneNote: fecha, hallazgo, decisión, aprobador y motivo.",
+      "<strong>Prueba:</strong> envía los correos de prueba de los casos A a D y verifica qué hace la regla en cada uno."
+    ],
+    "table": [
+      [
+        "Desencadenador «Cuando llega un correo»",
+        "Regla de Outlook con condición de asunto"
+      ],
+      [
+        "Html a texto",
+        "No es necesario: la regla lee el cuerpo directamente"
+      ],
+      [
+        "Variable RutaHallazgo",
+        "Carpeta de destino «Hallazgos críticos»"
+      ],
+      [
+        "Condición Criticidad = ALTA",
+        "Segunda condición de la regla"
+      ],
+      [
+        "Iniciar y esperar aprobación",
+        "Solicitud en Aprobaciones de Teams (manual)"
+      ],
+      [
+        "Enviar correo si se aprueba",
+        "Envío manual, solo con aprobación"
+      ],
+      [
+        "Registro",
+        "Tabla de trazabilidad en Excel u OneNote"
+      ]
+    ],
+    "diff": "<strong>Lo que aprendes con la diferencia:</strong> con la regla, el evento y la condición se automatizan, pero esperar la aprobación, enviar y registrar dependen de que alguien lo recuerde. Power Automate une esos pasos y deja registro de cada uno. Si tu organización lo habilita más adelante, la guía visual te muestra cómo construirlo."
+  }
+};
+  function renderLabAlternatives() {
+    Object.entries(LAB_ALT).forEach(([id, cfg]) => {
+      const root = document.getElementById({ lab31: "lab-cuaderno", lab32: "lab-agente", lab33: "lab-automatizacion" }[id]);
+      if (!root || root.querySelector(".lab-alt")) return;
+      // Solo tarjetas de paso numeradas (evita títulos de apoyo que mencionan el mismo texto).
+      const card = [...root.querySelectorAll(":scope > .card")].find(c => {
+        const h3 = c.querySelector(":scope > h3");
+        return h3 && h3.querySelector(".lab31-step-num") && h3.textContent.includes(cfg.anchor);
+      });
+      if (!card) return;
+      const taId = `alt-${id}`;
+      const d = document.createElement("details");
+      d.className = "lab-alt";
+      d.innerHTML = `<summary><i data-lucide="route" width="16" height="16"></i> ${cfg.title}</summary>
+        <p class="pr-routes__lead" style="margin:0.5rem 0 0.75rem">${cfg.intro}</p>
+        ${cfg.prompt ? `<div class="pr-part"><div class="pr-part__head"><strong>Mensaje de inicio</strong>
+          <button type="button" class="btn btn--sm btn--primary" data-copy="#${taId}"><i data-lucide="copy" width="14" height="14"></i> Copiar mensaje</button></div>
+          <textarea class="prompt-box pr-turn" id="${taId}" rows="${Math.min(16, cfg.prompt.split("\n").length + 1)}" spellcheck="false">${esc(cfg.prompt)}</textarea></div>` : ""}
+        ${cfg.steps ? `<ol class="lab-alt__steps">${cfg.steps.map(s => `<li>${s}</li>`).join("")}</ol>` : ""}
+        ${cfg.map && cfg.map.length ? `<p class="lab-alt__label">Prompts equivalentes a cada función del Cuaderno</p>
+          <div class="table-wrap"><table><thead><tr><th>En el Cuaderno</th><th>En Copilot Chat escribe…</th></tr></thead><tbody>
+          ${cfg.map.map(([a, b]) => `<tr><td><strong>${a}</strong></td><td>${b}</td></tr>`).join("")}</tbody></table></div>` : ""}
+        ${cfg.table ? `<p class="lab-alt__label">Equivalencias con el flujo de Power Automate</p>
+          <div class="table-wrap"><table><thead><tr><th>Power Automate</th><th>Ruta alternativa</th></tr></thead><tbody>
+          ${cfg.table.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join("")}</tbody></table></div>` : ""}
+        <p class="lab-alt__diff">${cfg.diff}</p>`;
+      const list = card.querySelector(":scope > ol, :scope > ul");
+      if (list) list.insertAdjacentElement("afterend", d); else card.appendChild(d);
+    });
+    attachPromptMeters();
+    initCopyButtons();
     if (window.lucide) lucide.createIcons();
   }
 
@@ -14535,6 +14661,7 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     renderActivitySheets();
     renderPromptRoutes();
     renderS2Turns();
+    renderLabAlternatives();
     initCourseShell();
     if (window.lucide) lucide.createIcons();
   });
