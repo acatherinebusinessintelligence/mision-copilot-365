@@ -880,7 +880,9 @@
     .formula__step {
       text-align: center; padding: 0.85rem 0.5rem; border-radius: 12px;
       background: var(--surface); border: 1px solid var(--border); font-size: 0.82rem; font-weight: 700;
+      color: var(--brand-primary);
     }
+    [data-theme="dark"] .formula__step { color: #fff; }
     .formula__step span {
       display: block; font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
       margin-top: 0.25rem; text-transform: none;
@@ -2003,6 +2005,20 @@
     .lab-alt__label { margin: 0.75rem 0 0.35rem; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); }
     .lab-alt table { font-size: 0.84rem; }
     .lab-alt__diff { margin: 0.75rem 0 0; font-size: 0.86rem; padding: 0.6rem 0.75rem; border-radius: 8px; background: var(--bg-elevated); border-left: 3px solid var(--brand-primary); }
+    .tpl-group { margin: 1.5rem 0 0; }
+    .tpl-group__title { font-size: 1.05rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .tpl-group__title small { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); }
+    .tpl-list { display: grid; gap: 0.4rem; }
+    .tpl-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto auto; gap: 0.85rem; align-items: center; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-elevated); }
+    .tpl-row__main { display: flex; flex-direction: column; min-width: 0; }
+    .tpl-row__main > span { font-size: 0.82rem; color: var(--text-muted); }
+    .tpl-row__where { font-size: 0.8rem; font-weight: 700; white-space: nowrap; }
+    .tpl-role { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.5rem; border-radius: 999px; text-align: center; background: var(--surface); color: var(--text-muted); }
+    .tpl-role--fuente { background: color-mix(in srgb, var(--brand-primary) 14%, transparent); color: var(--brand-primary); }
+    .tpl-role--plantilla { background: color-mix(in srgb, var(--brand-accent) 55%, transparent); color: var(--brand-dark); }
+    .tpl-role--kit { background: var(--brand-primary); color: #fff; }
+    [data-theme="dark"] .tpl-role--fuente { color: #c9c2ff; }
+    @media (max-width: 760px) { .tpl-row { grid-template-columns: 1fr; gap: 0.4rem; } .tpl-role { justify-self: start; } }
     .pr-own-note { margin: 0.75rem 0 0; font-size: 0.86rem; color: var(--text-muted); }
     .adv-prompt { margin: 1rem 0; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 1rem; background: var(--bg-elevated); }
     .adv-prompt > summary { cursor: pointer; padding: 0.85rem 0; font-weight: 700; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
@@ -7033,35 +7049,39 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       <div class="container">
         <p class="section-kicker">Biblioteca</p>
         <h2 class="section-title" id="promptsTitle">Biblioteca de prompts</h2>
-        <p class="lead">Filtra, copia y marca favoritos. Todo se guarda en LocalStorage.</p>
+        <p class="lead">El método del curso, un constructor y un kit de prompts listos para tu trabajo. Copia, adapta y marca tus favoritos; se guardan en tu cuenta.</p>
 
-        <h3 style="margin-top:2rem">Fórmula</h3>
+        <h3 style="margin-top:2rem">Método PRISM</h3>
         <div class="formula" aria-label="Estructura de un buen prompt">
-          <div class="formula__step">Rol<span>quién eres</span></div>
-          <div class="formula__step">Contexto<span>situación</span></div>
-          <div class="formula__step">Tarea<span>qué hacer</span></div>
-          <div class="formula__step">Criterios<span>cómo hacerlo</span></div>
-          <div class="formula__step">Formato<span>cómo entregar</span></div>
-          <div class="formula__step">Verificación<span>cómo validar</span></div>
+          <div class="formula__step">P · Persona<span>quién debe ser Copilot</span></div>
+          <div class="formula__step">R · Realidad<span>contexto y objetivo</span></div>
+          <div class="formula__step">I · Información<span>fuentes y vacíos</span></div>
+          <div class="formula__step">S · Solicitud<span>qué entregar</span></div>
+          <div class="formula__step">M · Método<span>formato y criterios</span></div>
+          <div class="formula__step">✓ Verificación<span>cómo validar</span></div>
         </div>
+        <p class="text-muted" style="font-size:0.88rem;margin:0.5rem 0 0">¿Tu prompt supera 2.000 caracteres? Envíalo en turnos: P·R·I primero (sin analizar), luego S·M y al final el entregable.</p>
 
         <div class="card" style="margin:1.5rem 0;color:var(--text)">
-          <h3>Constructor de prompts</h3>
+          <h3>Constructor de prompts PRISM</h3>
           <div class="form-grid cols-2">
-            <div class="field"><label for="pcRol">Rol</label><input id="pcRol" value="Analista de proyectos" /></div>
-            <div class="field"><label for="pcContexto">Contexto</label><input id="pcContexto" value="Caso académico Proyecto Horizonte" /></div>
-            <div class="field"><label for="pcTarea">Tarea</label><input id="pcTarea" value="Resumir riesgos prioritarios" /></div>
-            <div class="field"><label for="pcFuente">Fuente de información</label><input id="pcFuente" value="Documentos del caso" /></div>
-            <div class="field"><label for="pcCriterios">Criterios</label><input id="pcCriterios" value="No inventar; separar hechos e inferencias" /></div>
-            <div class="field"><label for="pcFormato">Formato</label><input id="pcFormato" value="Tabla con evidencia" /></div>
-            <div class="field"><label for="pcRestricciones">Restricciones</label><input id="pcRestricciones" value="Sin datos sensibles ni marcas reales" /></div>
-            <div class="field"><label for="pcVerif">Verificación</label><input id="pcVerif" value="Indicar ‘no especificado’ cuando falte dato" /></div>
+            <div class="field"><label for="pcRol">P · Persona (quién debe ser Copilot)</label><input id="pcRol" value="Analista de proyectos con experiencia en el sector energético" /></div>
+            <div class="field"><label for="pcContexto">R · Realidad (situación y objetivo)</label><input id="pcContexto" value="Preparamos la revisión del Proyecto Horizonte para el comité" /></div>
+            <div class="field"><label for="pcFuente">I · Información (fuentes autorizadas)</label><input id="pcFuente" value="Los archivos adjuntos del proyecto" /></div>
+            <div class="field"><label for="pcRestricciones">I · Restricciones</label><input id="pcRestricciones" value="Sin datos sensibles; no uses información externa" /></div>
+            <div class="field"><label for="pcTarea">S · Solicitud (qué debe entregar)</label><input id="pcTarea" value="Identificar los 5 riesgos prioritarios y la decisión que requiere cada uno" /></div>
+            <div class="field"><label for="pcFormato">M · Método (formato)</label><input id="pcFormato" value="Tabla: Riesgo | Evidencia | Nivel 🔴🟡🟢 | Decisión requerida" /></div>
+            <div class="field"><label for="pcCriterios">M · Criterios</label><input id="pcCriterios" value="No inventar; separar hechos e inferencias" /></div>
+            <div class="field"><label for="pcVerif">✓ Verificación (si falta un dato)</label><input id="pcVerif" value="Escribir «No especificado» y proponer una pregunta de validación" /></div>
           </div>
           <button class="btn btn--primary" id="buildPrompt" style="margin-top:1rem"><i data-lucide="wand-2" width="16" height="16"></i> Construir prompt</button>
           <div class="prompt-box" id="builtPrompt" style="margin-top:1rem">Completa los campos y presiona “Construir prompt”.</div>
           <button class="btn btn--sm btn--secondary" data-copy="#builtPrompt"><i data-lucide="copy" width="14" height="14"></i> Copiar</button>
         </div>
 
+        <h3 style="margin-top:2rem">Kit de prompts para tu trabajo</h3>
+        <p class="lead" style="font-size:1rem">Versiones listas para usar con tus propios documentos: completa los [corchetes], adjunta tus archivos y verifica el resultado. Todas caben en cualquier licencia de Copilot.</p>
+        <div class="field" style="max-width:420px;margin:0 0 0.75rem"><label for="promptSearchInput">Buscar</label><input id="promptSearchInput" type="search" placeholder="Ej. riesgos, correo, comité…" /></div>
         <div class="filter-bar" id="promptFilters" role="toolbar" aria-label="Filtros de prompts"></div>
         <div class="grid grid-2" id="promptLibrary"></div>
       </div>
@@ -7072,7 +7092,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       <div class="container">
         <p class="section-kicker">Kit de recursos</p>
         <h2 class="section-title" id="recursosTitle">Planillas para descargar</h2>
-        <p class="lead">No construyas las plantillas desde cero. Descárgalas, ábrelas en Word o Excel y completa el resultado de Copilot. Cada archivo ya trae estructura operativa lista para usar.</p>
+        <p class="lead">Todos los archivos del curso, ordenados por sesión. <strong>Fuente</strong>: se adjunta a Copilot y no se modifica. <strong>Plantilla</strong>: se completa con el resultado. <strong>Referencia</strong> y <strong>Guía</strong>: para comparar o consultar.</p>
         <div class="grid grid-2" id="templatesGrid" style="margin-top:1.5rem"></div>
       </div>
     </section>
@@ -11838,153 +11858,6 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
       "Powerautomate.png"
     ),
 
-    "informe-ejecutivo": () => downloadWord("MCP365_P07_Informe_ejecutivo_proyecto.doc", "Informe ejecutivo de proyecto · Comité", "MCP-365-P07", "Word + PowerPoint + Copilot", `
-      <h2>1. Portada del informe</h2>
-      <table class="data">
-        <tr><th>Campo</th><th>Contenido</th></tr>
-        <tr><td>Proyecto</td><td>Proyecto Horizonte · Modernización de infraestructura energética urbana</td></tr>
-        <tr><td>Fecha del informe</td><td></td></tr>
-        <tr><td>Elaborado por</td><td></td></tr>
-        <tr><td>Destinatario</td><td>Comité directivo / Dirección de Operaciones</td></tr>
-        <tr><td>Decisión solicitada</td><td></td></tr>
-      </table>
-      <h2>2. Resumen ejecutivo (máx. 12 líneas)</h2>
-      <div class="box"></div>
-      <h2>3. Estado del proyecto</h2>
-      <table class="data">
-        <tr><th>Indicador</th><th>Esperado</th><th>Real</th><th>Variación</th><th>Lectura</th></tr>
-        <tr><td>Avance (%)</td><td>58%</td><td>46%</td><td></td><td></td></tr>
-        <tr><td>Presupuesto ejecutado (%)</td><td>—</td><td>52%</td><td></td><td></td></tr>
-        <tr><td>Actividades críticas retrasadas</td><td>0</td><td>3</td><td></td><td></td></tr>
-        <tr><td>Riesgos altos abiertos</td><td>—</td><td>4</td><td></td><td></td></tr>
-        <tr><td>Decisiones pendientes</td><td>—</td><td>3</td><td></td><td></td></tr>
-      </table>
-      <h2>4. Desviaciones</h2>
-      <table class="data">
-        <tr><th>Desviación</th><th>Desde cuándo</th><th>Causa probable</th><th>Impacto</th><th>Evidencia</th></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      </table>
-      <h2>5. Riesgos prioritarios (Top 4)</h2>
-      <table class="data">
-        <tr><th>#</th><th>Riesgo</th><th>Nivel</th><th>Respuesta</th><th>Responsable</th><th>Señal de alerta</th></tr>
-        <tr><td>1</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>3</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>4</td><td></td><td></td><td></td><td></td><td></td></tr>
-      </table>
-      <h2>6. Escenarios evaluados</h2>
-      <table class="data">
-        <tr><th>Dimensión</th><th>A. Mantener plan</th><th>B. Reprogramar parcialmente</th><th>C. Solución temporal</th></tr>
-        <tr><td>Plazo</td><td></td><td></td><td></td></tr>
-        <tr><td>Costo</td><td></td><td></td><td></td></tr>
-        <tr><td>Comunidad</td><td></td><td></td><td></td></tr>
-        <tr><td>Operación</td><td></td><td></td><td></td></tr>
-        <tr><td>Riesgo residual</td><td></td><td></td><td></td></tr>
-      </table>
-      <h2>7. Recomendación argumentada</h2>
-      <div class="box"></div>
-      <h2>8. Decisiones requeridas del comité</h2>
-      <table class="data">
-        <tr><th>#</th><th>Decisión</th><th>Opciones</th><th>Fecha límite</th><th>Impacto si se aplaza</th></tr>
-        <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
-      </table>
-      <h2>9. Próximos 14 días</h2>
-      <table class="data">
-        <tr><th>Actividad</th><th>Responsable</th><th>Fecha</th><th>Entregable</th></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-      </table>
-      <h2>10. Pendiente de validación y supuestos</h2>
-      <table class="data">
-        <tr><th>Tipo</th><th>Descripción</th><th>Quién valida</th><th>Estado</th></tr>
-        <tr><td>Información faltante</td><td></td><td></td><td>☐ Abierto ☐ Cerrado</td></tr>
-        <tr><td>Supuesto</td><td></td><td></td><td>☐ Abierto ☐ Cerrado</td></tr>
-        <tr><td>Inferencia de Copilot</td><td></td><td></td><td>☐ Abierto ☐ Cerrado</td></tr>
-      </table>`),
-
-    "registro-riesgos": () => downloadWord("MCP365_P08_Registro_riesgos.doc", "Registro y matriz de riesgos del proyecto", "MCP-365-P08", "Excel + Copilot", `
-      <h2>1. Encabezado del registro</h2>
-      <table class="data">
-        <tr><th>Proyecto</th><td>Proyecto Horizonte</td><th>Fecha de corte</th><td></td></tr>
-        <tr><th>Responsable del registro</th><td></td><th>Revisión</th><td>☐ Inicial ☐ Actualización</td></tr>
-      </table>
-      <h2>2. Matriz de riesgos</h2>
-      <table class="data">
-        <tr><th>ID</th><th>Riesgo</th><th>Categoría</th><th>Causa</th><th>Consecuencia</th><th>Prob.</th><th>Impacto</th><th>Nivel</th><th>Respuesta</th><th>Responsable</th><th>Señal de alerta</th><th>Estado</th></tr>
-        <tr><td>R01</td><td>Retraso del equipo principal</td><td>Contractual</td><td>Cadena de suministro</td><td>Desfase de intervención</td><td>Alta</td><td>Alto</td><td>Alto</td><td></td><td>Compras</td><td>Confirmación &lt; 21 días</td><td>☐ Abierto ☐ Mitigado</td></tr>
-        <tr><td>R02</td><td>Rechazo de horarios por comunidad</td><td>Social</td><td>Ruido / molestias</td><td>Retrasos y reputación</td><td>Media</td><td>Alto</td><td>Alto</td><td></td><td>Comunicaciones</td><td>Quejas &gt; 5/semana</td><td>☐ Abierto ☐ Mitigado</td></tr>
-        <tr><td>R03</td><td>Hallazgo ambiental no previsto</td><td>Ambiental</td><td>Inspección incompleta</td><td>Paradas y controles extra</td><td>Baja</td><td>Alto</td><td>Medio</td><td></td><td>HSE</td><td>Desviación de muestreo</td><td>☐ Abierto ☐ Mitigado</td></tr>
-        <tr><td>R04</td><td>Indisponibilidad de personal crítico</td><td>Operativo</td><td>Sobrecarga / vacaciones</td><td>Cuello de botella técnico</td><td>Media</td><td>Alto</td><td>Alto</td><td></td><td>Operaciones</td><td>Cobertura &lt; 1</td><td>☐ Abierto ☐ Mitigado</td></tr>
-        <tr><td>R05</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Abierto ☐ Mitigado</td></tr>
-        <tr><td>R06</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Abierto ☐ Mitigado</td></tr>
-        <tr><td>R07</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Abierto ☐ Mitigado</td></tr>
-        <tr><td>R08</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>☐ Abierto ☐ Mitigado</td></tr>
-      </table>
-      <div class="hint">Categorías: Técnico · Operativo · Seguridad · Ambiental · Social · Contractual · Financiero · Regulatorio · Reputacional</div>
-      <h2>3. Priorización y escalamiento</h2>
-      <table class="data">
-        <tr><th>Riesgos altos a escalar hoy</th><th>Mensaje al comité (3 líneas)</th><th>Dueño del seguimiento</th></tr>
-        <tr><td></td><td></td><td></td></tr>
-      </table>`),
-
-    "raci": () => downloadWord("MCP365_P09_Matriz_RACI.doc", "Matriz RACI y criterios de aceptación", "MCP-365-P09", "Excel + Word + Copilot", `
-      <h2>1. Alcance de la matriz</h2>
-      <table class="data">
-        <tr><th>Proyecto / fase</th><td></td><th>Elaboró</th><td></td></tr>
-        <tr><th>Fecha</th><td></td><th>Validó</th><td></td></tr>
-      </table>
-      <div class="rule"><strong>Leyenda RACI:</strong> R = Responsible (ejecuta) · A = Accountable (responde por el resultado, solo uno) · C = Consulted · I = Informed</div>
-      <h2>2. Matriz RACI</h2>
-      <table class="data">
-        <tr><th>#</th><th>Actividad / entregable</th><th>R</th><th>A</th><th>C</th><th>I</th><th>Criterio de aceptación</th><th>Fecha objetivo</th><th>Notas de validación</th></tr>
-        <tr><td>1</td><td>Diagnóstico en sitio</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>2</td><td>Diseño de intervención</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>3</td><td>Aprovisionamiento de equipo principal</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>4</td><td>Plan de comunicación comunitaria</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>5</td><td>Permisos de seguridad / trabajo en altura</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>6</td><td>Intervención / montaje</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>7</td><td>Pruebas y puesta en servicio</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>8</td><td>Informe a comité directivo</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      </table>
-      <h2>3. Alertas de diseño RACI</h2>
-      <table class="data">
-        <tr><th>Chequeo</th><th>Resultado</th><th>Corrección</th></tr>
-        <tr><td>¿Hay exactamente un A por actividad?</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>¿Hay al menos un R por actividad?</td><td>☐ Sí ☐ No</td><td></td></tr>
-        <tr><td>¿Se evitó sobrecargar a la misma persona?</td><td>☐ Sí ☐ No</td><td></td></tr>
-      </table>`),
-
-    "interesados": () => downloadWord("MCP365_P10_Mapa_interesados.doc", "Mapa y plan de interesados", "MCP-365-P10", "Excel + Copilot", `
-      <h2>1. Matriz de interesados</h2>
-      <table class="data">
-        <tr><th>Interesado</th><th>Interés</th><th>Influencia</th><th>Cuadrante</th><th>Necesidad de información</th><th>Mensaje clave</th><th>Canal</th><th>Frecuencia</th><th>Responsable</th><th>KPI de comunicación</th></tr>
-        <tr><td>Comité directivo</td><td>Alto</td><td>Alta</td><td>Gestionar de cerca</td><td>Estado y decisiones</td><td>Riesgo y opciones</td><td>Presentación</td><td>Quincenal</td><td>PM</td><td></td></tr>
-        <tr><td>Equipo técnico</td><td>Alto</td><td>Media</td><td>Mantener informado</td><td>Plan y cambios</td><td>Prioridades</td><td>Reunión</td><td>Semanal</td><td>Líder técnico</td><td></td></tr>
-        <tr><td>Comunidad</td><td>Alto</td><td>Media</td><td>Mantener satisfecho</td><td>Horarios e impacto</td><td>Qué cambia y cuándo</td><td>Boletín / reunión</td><td>Por hito</td><td>Comunicaciones</td><td></td></tr>
-        <tr><td>Proveedor</td><td>Medio</td><td>Alta</td><td>Gestionar de cerca</td><td>Fechas y recepción</td><td>Compromisos</td><td>Correo</td><td>Según hito</td><td>Compras</td><td></td></tr>
-        <tr><td>Área ambiental</td><td>Alto</td><td>Media</td><td>Mantener informado</td><td>Controles</td><td>Cumplimiento plan</td><td>Informe</td><td>Mensual</td><td>HSE</td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      </table>
-      <h2>2. Plan de mensajes críticos (próximos 30 días)</h2>
-      <table class="data">
-        <tr><th>Fecha</th><th>Interesado</th><th>Mensaje</th><th>Canal</th><th>Dueño</th><th>Estado</th></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Enviado</td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Enviado</td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Enviado</td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td>☐ Pendiente ☐ Enviado</td></tr>
-      </table>
-      <h2>3. Riesgos de comunicación</h2>
-      <div class="box"></div>`),
-
     "bitacora-validacion": () => downloadWord("MCP365_P11_Bitacora_validacion_humana.doc", "Bitácora de validación humana de Copilot", "MCP-365-P11", "Todas las apps M365", `
       <h2>1. Registro de validaciones</h2>
       <table class="data">
@@ -12306,22 +12179,159 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
   }
 
   /* ========== PROMPTS LIBRARY ========== */
+  /* Biblioteca: prompts PRISM listos para el trabajo real (< 1.500 caracteres, con [huecos] para completar). */
   const PROMPTS = [
-    { id: "pr1", cat: "Correos", name: "Análisis de correo", use: "Editor configurable · plantilla Word", text: "Usa el editor del Reto 1: ajusta los campos configurables y copia el prompt completo generado. Modo edición de plantilla Word .docx; solo llena Hallazgo y Evidencia.", tip: "En el Reto 1 edita cada campo por separado y copia el prompt completo." },
-    { id: "pr2", cat: "Correos", name: "Respuesta ejecutiva", use: "Responder con claridad gerencial", text: "Redacta una respuesta ejecutiva breve: decisión, impacto, siguiente paso y dueño. Sin jerga innecesaria.", tip: "Indica tono formal." },
-    { id: "pr3", cat: "Reuniones", name: "Transcripción a compromisos", use: "Separar decisiones y tareas", text: "Diferencia decisiones, propuestas, opiniones, preguntas y tareas. Matriz: actividad, responsable, fecha, estado. Usa ‘no especificado’.", tip: "Marca lo no confirmado." },
-    { id: "pr4", cat: "Documentos", name: "Comparar versiones", use: "Detectar cambios de significado", text: "Compara versión A y B. Tabla: tema, anterior, actual, impacto posible, validación requerida.", tip: "Adjunta ambas versiones completas." },
-    { id: "pr5", cat: "Documentos", name: "Tres audiencias", use: "Adaptar un informe", text: "Genera tres versiones: técnica, gerencial y comunitaria. Mantén hechos; ajusta detalle y lenguaje.", tip: "Define extensión máxima." },
-    { id: "pr6", cat: "Proyectos", name: "Brief de proyecto", use: "Comprender alcance", text: "Construye brief: objetivo, justificación, alcance, exclusiones, entregables, supuestos, restricciones, interesados y vacíos. Evidenciado vs no especificado.", tip: "Usa solo documentos del caso." },
-    { id: "pr7", cat: "Proyectos", name: "EDT y RACI", use: "Estructurar trabajo", text: "Propón EDT, hitos, dependencias y matriz RACI. Señala supuestos. Recuerda validar con el equipo.", tip: "No tomes fechas como definitivas." },
-    { id: "pr8", cat: "Riesgos", name: "Matriz de riesgos", use: "Clasificar y priorizar", text: "Completa matriz: riesgo, categoría, causa, consecuencia, probabilidad, impacto, nivel, respuesta, responsable, alerta. Sin inventar severidad no sustentada.", tip: "Pide nivel explícito." },
-    { id: "pr9", cat: "Datos", name: "Lectura de KPI", use: "Interpretar avance", text: "Con los indicadores dados, responde: qué ocurre, qué se desvía, causas posibles, impacto, información faltante y decisiones para el comité. Separa hechos e inferencias.", tip: "No extrapolación sin base." },
-    { id: "pr10", cat: "Presentaciones", name: "Deck directivo 8 slides", use: "Preparar comité", text: "Estructura 8 diapositivas: propósito, estado, desviaciones, riesgos, escenarios, recomendación, decisiones, próximos 14 días. Lenguaje ejecutivo.", tip: "Máximo 4 viñetas por slide." },
-    { id: "pr11", cat: "Decisiones", name: "Comparar escenarios", use: "Evaluar opciones A/B/C", text: "Compara escenarios A/B/C en plazo, costo, comunidad, operación y decisión clave. Recomienda una opción con supuestos y validaciones.", tip: "Exige recomendación argumentada." },
-    { id: "pr12", cat: "Comunicación", name: "Mensaje a comunidad", use: "Informar sin alarmar", text: "Redacta mensaje claro: qué cambia, cuándo, cómo afecta, canal de contacto. Lenguaje sencillo. Sin datos técnicos innecesarios.", tip: "Evita promesas no aprobadas." },
-    { id: "pr13", cat: "Verificación", name: "Auditoría de respuesta", use: "Control de calidad", text: "Revisa el texto generado. Lista: hechos verificables, inferencias, supuestos, datos faltantes y riesgos de malinterpretación.", tip: "Úsalo antes de enviar." },
-    { id: "pr14", cat: "Datos", name: "Priorización de tareas", use: "Ordenar la jornada", text: "Clasifica tareas por urgencia/impacto, propone agenda, marca delegables y las que requieren criterio humano. Explica supuestos.", tip: "Incluye restricciones de tiempo." }
-  ];
+  {
+    "id": "pr15",
+    "cat": "Verificación",
+    "name": "Inventario de archivos",
+    "use": "Antes de analizar: qué puede leer Copilot",
+    "href": "#paso-s2-f0",
+    "where": "Fase 0 · Prepara tu espacio",
+    "text": "Antes de analizar, haz un inventario de los archivos de esta conversación.\n\nTabla: Archivo | ¿Puedes leer su contenido? (Sí / Parcial / No) | Tipo | De qué trata (una línea) | Limitaciones (tablas ilegibles, hojas, imágenes).\n\nNo analices ni concluyas todavía. Si un archivo solo aparece mencionado pero no está cargado, márcalo como NO DISPONIBLE.",
+    "tip": "Úsalo siempre antes de un análisis con varios archivos."
+  },
+  {
+    "id": "pr1",
+    "cat": "Correos",
+    "name": "Análisis de correo",
+    "use": "Extraer hechos, compromisos y vacíos",
+    "href": "#paso-r1",
+    "where": "Reto 1",
+    "text": "Actúa como analista de operaciones. Analiza SOLO el correo que pego al final.\n\nEntrega una tabla Elemento | Hallazgo | Evidencia (cita breve) con: objetivo, hechos verificables, fechas y horas, responsables, compromisos, decisiones pendientes y preguntas sin resolver.\n\nReglas: no inventes datos; si algo no aparece, escribe \"No especificado\"; marca tus interpretaciones con \"Interpretación:\".\n\nAl final, escribe 3 preguntas que debo confirmar con el remitente.\n\nCORREO:\n[pega aquí el correo: De, Para, Asunto, Fecha y texto]",
+    "tip": "Con licencia Microsoft 365 Copilot puedes referenciar el correo con / en lugar de pegarlo."
+  },
+  {
+    "id": "pr2",
+    "cat": "Correos",
+    "name": "Respuesta ejecutiva",
+    "use": "Responder con claridad gerencial",
+    "href": "#paso-r2",
+    "where": "Reto 2",
+    "text": "Actúa como [mi rol] y redacta una respuesta ejecutiva al correo que pego al final, dirigida a [destinatario y cargo].\n\nEstructura: postura o decisión (una línea), impacto, siguiente paso con responsable y fecha, y qué necesito de ellos.\n\nMáximo [120] palabras, tono formal y claro, sin jerga técnica innecesaria. No prometas fechas ni compromisos que no estén en el correo; si falta un dato, déjalo como [por confirmar].\n\nDame también 2 opciones de asunto.\n\nCORREO:\n[pega aquí el correo]",
+    "tip": "Revisa que la respuesta no comprometa nada que no puedas cumplir."
+  },
+  {
+    "id": "pr3",
+    "cat": "Reuniones",
+    "name": "Transcripción a compromisos",
+    "use": "Separar decisiones, propuestas y tareas",
+    "href": "#paso-r3",
+    "where": "Reto 3 · Fase 4",
+    "text": "Actúa como secretario técnico. Usa SOLO la transcripción de [nombre de la reunión] que adjunto o pego al final.\n\n1. Clasifica lo dicho: decisión confirmada, propuesta no aprobada, opinión o preocupación, pregunta sin resolver (tabla Tipo | Contenido | Quién lo dijo).\n2. Matriz de compromisos: Actividad | Responsable | Fecha límite | Estado | Evidencia.\n3. Temas para la próxima reunión.\n\nReglas: una propuesta no es una decisión; no asignes responsables ni fechas que no se digan (\"No especificado\").\n\n[pega aquí la transcripción si no la adjuntaste]",
+    "tip": "En Teams, si la reunión tiene transcripción, puedes usarlo en el panel de Copilot de la reunión."
+  },
+  {
+    "id": "pr4",
+    "cat": "Documentos",
+    "name": "Comparar versiones",
+    "use": "Detectar cambios de significado",
+    "href": "#paso-r5",
+    "where": "Reto 5",
+    "text": "Actúa como analista de control documental. Compara SOLO la versión anterior y la nueva de [nombre del documento] que adjunto.\n\nTabla: Tema | Antes | Ahora | Tipo de cambio (modificado, nuevo, eliminado) | Impacto posible | Validación requerida.\n\nCita la evidencia como «Versión · Sección · fragmento breve». Si hay contradicciones, cita ambas partes y no elijas una. Una propuesta o nota en revisión no es una regla aprobada.\n\nCierra con un resumen de 5 líneas para [audiencia].",
+    "tip": "Adjunta ambas versiones completas; si son largas, trabaja por secciones."
+  },
+  {
+    "id": "pr5",
+    "cat": "Comunicación",
+    "name": "Tres audiencias",
+    "use": "Un mismo hecho para públicos distintos",
+    "href": "#paso-r4",
+    "where": "Reto 4",
+    "text": "Actúa como comunicador técnico. A partir de los hechos que pego al final, redacta tres versiones:\n1. Técnica (especialistas): detalle, datos y controles.\n2. Gerencial (máx. 8 líneas): impacto, riesgo, decisión y plazo.\n3. Comunidad o usuarios: qué pasa, cuándo, cómo afecta y a quién contactar, en lenguaje sencillo.\n\nReglas: los hechos deben ser los mismos en las tres; no afirmes causas no confirmadas; no uses códigos internos en la versión para comunidad.\n\nAl final, una tabla con cada hecho y si aparece en cada versión.\n\nHECHOS:\n[pega aquí la fuente]",
+    "tip": "La tabla final te ayuda a detectar si alguna versión cambió el significado."
+  },
+  {
+    "id": "pr6",
+    "cat": "Proyectos",
+    "name": "Brief de proyecto",
+    "use": "Comprender el alcance con evidencia",
+    "href": "#paso-s2-f2",
+    "where": "Fase 2",
+    "text": "Actúa como consultor en estructuración de proyectos. Usa SOLO el documento adjunto de [proyecto].\n\nConstruye un brief con: objetivo, justificación, alcance incluido, exclusiones, entregables, hitos, supuestos, restricciones, interesados y criterios de aceptación.\n\nPara cada elemento indica la evidencia (sección) y su clasificación: explícito, inferido o no especificado.\n\nTermina con 5 preguntas de validación para el equipo y los 3 vacíos más críticos. No conviertas supuestos en hechos.",
+    "tip": "Ideal al recibir un proyecto nuevo o heredado."
+  },
+  {
+    "id": "pr7",
+    "cat": "Proyectos",
+    "name": "EDT y RACI",
+    "use": "Estructurar el trabajo y los roles",
+    "href": "#paso-s2-f2",
+    "where": "Fase 2 (extensión)",
+    "text": "Actúa como PMO. Con base en el alcance adjunto de [proyecto], propone:\n1. EDT de 2 niveles (entregables y paquetes de trabajo).\n2. Hitos y dependencias principales.\n3. Matriz RACI: Actividad | R | A | C | I, usando roles (no nombres) salvo que aparezcan en la fuente.\n\nMarca como \"Supuesto\" todo lo que no esté en el documento y no fijes fechas que no estén escritas.\n\nCierra con lo que el equipo debe validar antes de usar esta propuesta.",
+    "tip": "Es una propuesta de trabajo: valídala con el equipo antes de comunicarla."
+  },
+  {
+    "id": "pr8",
+    "cat": "Riesgos",
+    "name": "Matriz de riesgos",
+    "use": "Identificar, clasificar y priorizar",
+    "href": "#paso-s2-f6",
+    "where": "Fase 6",
+    "text": "Actúa como especialista en gestión de riesgos. Usa SOLO las fuentes adjuntas de [proyecto].\n\nMatriz: ID | Riesgo (causa → evento → consecuencia) | Categoría | Fuente | Probabilidad | Impacto | Nivel 🔴🟡🟢 | Respuesta sugerida | Responsable sugerido (rol) | Señal de alerta.\n\nJustifica cada nivel con evidencia; si no hay base suficiente, escribe \"Nivel pendiente de validación\".\n\nCierra con el top 5 y la decisión que requiere cada uno.",
+    "tip": "Aceptar o cerrar un riesgo es una decisión humana, no de Copilot."
+  },
+  {
+    "id": "pr9",
+    "cat": "Datos",
+    "name": "Lectura de indicadores",
+    "use": "Interpretar avance, presupuesto y desviaciones",
+    "href": "#paso-s2-f3",
+    "where": "Fase 3",
+    "text": "Actúa como analista de control de proyectos. Con los datos del archivo adjunto (o pegados al final) responde:\n1. Qué está pasando (hechos con cifra y fuente).\n2. Qué se desvía frente a lo planeado y cuánto.\n3. Causas posibles (márcalas como Inferencia).\n4. Impacto en plazo, costo o alcance.\n5. Información que falta.\n6. Decisiones que debería tomar [comité o audiencia].\n\nToda cifra debe indicar hoja o sección de origen; no extrapoles sin base.",
+    "tip": "Verifica siempre los totales directamente en Excel."
+  },
+  {
+    "id": "pr10",
+    "cat": "Presentaciones",
+    "name": "Presentación ejecutiva",
+    "use": "Preparar un comité o una reunión directiva",
+    "href": "#paso-s2-f7",
+    "where": "Fase 7",
+    "text": "Actúa como consultor de comunicación ejecutiva. Con el análisis de esta conversación (o el documento adjunto), prepara el contenido de [8] diapositivas para [audiencia].\n\nPara cada una: Título con mensaje | 3 a 5 viñetas cortas | Dato clave con fuente | Nota del presentador (2 a 3 líneas).\n\nSecuencia sugerida: propósito, estado, desviaciones, riesgos, escenarios, recomendación, decisiones requeridas y próximos pasos.\n\nNo afirmes aprobaciones; marca lo no validado como \"Pendiente de validación\". Si puedes crear archivos, genera también el .pptx.",
+    "tip": "Si Copilot no crea el archivo, pega el contenido en tu plantilla corporativa."
+  },
+  {
+    "id": "pr11",
+    "cat": "Decisiones",
+    "name": "Comparar escenarios",
+    "use": "Evaluar opciones antes de decidir",
+    "href": "#paso-s2-f7",
+    "where": "Fase 7",
+    "text": "Actúa como asesor de decisiones. Compara los escenarios [A, B y C] descritos en las fuentes adjuntas.\n\nTabla: Criterio | A | B | C, con plazo, costo, riesgo, impacto en usuarios u operación y supuestos clave.\n\nLuego recomienda una opción con: razones, condiciones para que funcione, riesgos que acepta y qué se debe validar antes de decidir.\n\nSi un dato no está en las fuentes, escríbelo como \"No especificado\" y no lo estimes. La decisión final la toma [rol o comité].",
+    "tip": "Pide la recomendación, pero decide tú con la evidencia."
+  },
+  {
+    "id": "pr12",
+    "cat": "Comunicación",
+    "name": "Mensaje a comunidad",
+    "use": "Informar sin alarmar",
+    "href": "#paso-r4",
+    "where": "Reto 4",
+    "text": "Redacta un mensaje para [comunidad o usuarios] sobre [situación], con base en los hechos que pego al final.\n\nIncluye: qué va a pasar, cuándo, cómo los afecta, qué deben hacer y a quién contactar.\n\nLenguaje sencillo, tono respetuoso y tranquilo, máximo [120] palabras, sin códigos ni términos técnicos. No prometas fechas, compensaciones ni soluciones que no estén aprobadas.\n\nDame una versión para correo y otra de máximo 300 caracteres para WhatsApp o SMS.\n\nHECHOS:\n[pega aquí]",
+    "tip": "Antes de publicar, confirma que el mensaje está autorizado."
+  },
+  {
+    "id": "pr13",
+    "cat": "Verificación",
+    "name": "Auditoría de respuesta",
+    "use": "Control de calidad antes de usar un resultado",
+    "href": "#uso-responsable",
+    "where": "Uso responsable",
+    "text": "Revisa críticamente la respuesta anterior (o el texto que pego al final) antes de que yo la use.\n\nTabla: Afirmación | Tipo (hecho verificable, cálculo, inferencia, supuesto) | Fuente que la respalda | ¿Verificada? (Sí / No / No es posible).\n\nDespués lista: datos que faltan, posibles errores de interpretación, afirmaciones que suenan a decisión sin serlo y qué debo verificar a mano.\n\nNo corrijas todavía; solo audita.",
+    "tip": "Úsalo antes de enviar cualquier resultado a un comité o cliente."
+  },
+  {
+    "id": "pr14",
+    "cat": "Datos",
+    "name": "Priorización de tareas",
+    "use": "Ordenar la semana con criterio",
+    "href": "#paso-r6",
+    "where": "Reto 6",
+    "text": "Actúa como asistente de planificación. Prioriza SOLO las tareas que pego al final (anonimizadas).\n\nMatriz: Tarea | Límite | Prioridad (P1 crítica a P4 programable) | Por qué | ¿Delegable? | ¿Requiere criterio humano?\n\nCriterios, en este orden: límite, urgencia, impacto, riesgo por retraso y dependencia. No todo puede ser P1.\n\nDespués: agenda para hoy, mañana y el resto de la semana, y alertas de dependencias. No cambies límites ni responsables.\n\nTAREAS:\n[pega aquí la lista]",
+    "tip": "Las decisiones de seguridad, permisos o comités siempre requieren criterio humano."
+  }
+];
 
   let activePromptFilter = "Todos";
 
@@ -12338,16 +12348,22 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     });
   }
 
+  let promptSearch = "";
   function renderPromptLibrary() {
     const grid = document.getElementById("promptLibrary");
-    grid.innerHTML = PROMPTS.filter(p => activePromptFilter === "Todos" || p.cat === activePromptFilter).map(p => {
+    const q = promptSearch.trim().toLowerCase();
+    const list = PROMPTS.filter(p => (activePromptFilter === "Todos" || p.cat === activePromptFilter)
+      && (!q || (p.name + " " + p.use + " " + p.text).toLowerCase().includes(q)));
+    if (!list.length) { grid.innerHTML = `<p class="text-muted">No hay prompts que coincidan con «${esc(promptSearch)}».</p>`; return; }
+    grid.innerHTML = list.map(p => {
       const fav = (state.favorites || []).includes(p.id);
       return `<article class="card prompt-card" data-cat="${p.cat}">
         <span class="badge badge--active">${p.cat}</span>
         <h3>${p.name}</h3>
         <p><strong>Para qué sirve:</strong> ${p.use}</p>
-        <div class="prompt-box" id="lib-${p.id}">${p.text}</div>
-        <p style="font-size:0.85rem;color:var(--text-muted)"><strong>Recomendación:</strong> ${p.tip}</p>
+        <div class="prompt-box" id="lib-${p.id}">${esc(p.text)}</div>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin:0.4rem 0 0"><strong>Recomendación:</strong> ${p.tip}</p>
+        ${p.href ? `<p style="font-size:0.82rem;margin:0.35rem 0 0"><a href="${p.href}">Practicado en: ${p.where} →</a></p>` : ""}
         <div class="prompt-actions">
           <button class="btn btn--sm btn--secondary" data-copy="#lib-${p.id}"><i data-lucide="copy" width="14" height="14"></i> Copiar</button>
           <button class="btn btn--sm btn--secondary fav-btn ${fav ? "is-fav" : ""}" data-fav="${p.id}"><i data-lucide="star" width="14" height="14"></i> ${fav ? "Favorito" : "Favorito"}</button>
@@ -12356,6 +12372,7 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     }).join("");
     if (window.lucide) lucide.createIcons({ nodes: [grid] });
     initCopyButtons();
+    if (typeof attachPromptMeters === "function") attachPromptMeters(grid);
     grid.querySelectorAll("[data-fav]").forEach(btn => {
       btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-fav");
@@ -12370,6 +12387,8 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
   }
 
   function initPromptBuilder() {
+    const search = document.getElementById("promptSearchInput");
+    if (search) search.addEventListener("input", () => { promptSearch = search.value; renderPromptLibrary(); });
     document.getElementById("buildPrompt").addEventListener("click", () => {
       const rol = document.getElementById("pcRol").value.trim();
       const ctx = document.getElementById("pcContexto").value.trim();
@@ -12379,7 +12398,22 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
       const formato = document.getElementById("pcFormato").value.trim();
       const rest = document.getElementById("pcRestricciones").value.trim();
       const verif = document.getElementById("pcVerif").value.trim();
-      const text = `Rol: ${rol}.\nContexto: ${ctx}.\nFuente: ${fuente}.\nTarea: ${tarea}.\nCriterios: ${criterios}.\nFormato: ${formato}.\nRestricciones: ${rest}.\nVerificación: ${verif}.`;
+      const clean = s => s.replace(/[.\s]+$/, "");
+      // Minúscula inicial al insertar a mitad de frase (respeta siglas como PMO o HSE).
+      const lc = s => { s = clean(s); return /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]/.test(s) ? s[0].toLowerCase() + s.slice(1) : s; };
+      const text = [
+        `Actúa como ${lc(rol)}.`,
+        ``,
+        `Contexto: ${clean(ctx)}.`,
+        ``,
+        `Información: usa solo ${lc(fuente)}. ${clean(rest)}.`,
+        ``,
+        `Solicitud: ${clean(tarea)}.`,
+        ``,
+        `Método: ${clean(formato)}. Criterios: ${clean(criterios)}.`,
+        ``,
+        `Antes de responder, verifica que cada afirmación tenga respaldo en las fuentes y marca las inferencias. Si falta un dato: ${lc(verif)}.`
+      ].join("\n");
       document.getElementById("builtPrompt").textContent = text;
       toast("Prompt construido", "wand-2");
     });
@@ -12387,47 +12421,295 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
 
   /* ========== TEMPLATES ========== */
   const TEMPLATES = [
-    { name: "Formato análisis de correo", desc: "Plantilla oficial .docx · solo 14 celdas de análisis", key: "analisis-correo", type: "Word" },
-    { name: "Fuente correos ST-Urb-03", desc: "Word .docx · 4 correos con De/Para/Asunto/Fecha (solo lectura)", key: "cadena-fuente", type: "Word" },
-    { name: "Plantilla llenado cadena", desc: "Word .docx · cronología, cambios, compromisos y 3 audiencias", key: "cadena-correos", type: "Word" },
-    { name: "Fuente transcripción Horizonte", desc: "Word .docx · Transcripción Teams Proyecto Horizonte (solo lectura)", key: "matriz-fuente", type: "Word" },
-    { name: "Matriz de compromisos", desc: "Word .docx · Datos, clasificación, matriz, agenda y difusión", key: "matriz-compromisos", type: "Word" },
-    { name: "Fuente chat WhatsApp ST-14", desc: "Word .docx · Chat O&M SU7 · Hallazgo ST-14 (solo lectura)", key: "tres-audiencias-fuente", type: "Word" },
-    { name: "Tres audiencias", desc: "Word .docx · Técnico, gerencia, comunidad + consistencia", key: "tres-audiencias", type: "Word" },
-    { name: "PRO-OPS-12 v3.1 (PDF)", desc: "Fuente oficial histórica", key: "pro-ops-12-v31-pdf", type: "PDF" },
-    { name: "PRO-OPS-12 v4.0 (PDF)", desc: "Fuente oficial vigente", key: "pro-ops-12-v40-pdf", type: "PDF" },
-    { name: "PRO-OPS-12 v3.1 (Word)", desc: "Respaldo opcional", key: "pro-ops-12-v31-docx", type: "Word" },
-    { name: "PRO-OPS-12 v4.0 (Word)", desc: "Respaldo opcional", key: "pro-ops-12-v40-docx", type: "Word" },
-    { name: "Base priorización P06", desc: "Excel · Diez tareas fuente (no completar)", key: "priorizacion", type: "Excel" },
-    { name: "Priorización P06 (referencia HTML)", desc: "HTML · Referencia de calidad del informe", key: "priorizacion-ref", type: "HTML" },
-    { name: "Práctica personal priorización", desc: "HTML · Lista local anonimizada (se borra al cerrar)", key: "priorizacion-practica", type: "HTML" },
-    { name: "S2 Correo Horizonte (PDF)", desc: "Referencia visual del correo de práctica", key: "s2v2-correo", type: "PDF" },
-    { name: "S2 Alcance Horizonte", desc: "Word · Documento de alcance ficticio", key: "s2v2-alcance", type: "Word" },
-    { name: "S2 Presupuesto y cronograma", desc: "Excel · Datos para validar con Copilot Chat", key: "s2v2-presupuesto", type: "Excel" },
-    { name: "S2 Transcripción reunión", desc: "Word · Decisiones vs propuestas", key: "s2v2-transcripcion", type: "Word" },
-    { name: "S2 Registro inicial de riesgos", desc: "Excel · Riesgos preliminares", key: "s2v2-riesgos", type: "Excel" },
-    { name: "S2 Comentarios interesados", desc: "Word · Comentarios ficticios", key: "s2v2-comentarios", type: "Word" },
-    { name: "S2 Plantilla comité", desc: "PowerPoint · 8 diapositivas", key: "s2v2-pptx", type: "PowerPoint" },
-    { name: "S2 Guía de validación", desc: "PDF · Verificar resultados de Copilot", key: "s2v2-guia", type: "PDF" },
-    { name: "S2 Kit Horizonte (zip)", desc: "Archivos del caso + banco de prompts", key: "s2v2-kit", type: "ZIP" },
-    { name: "S2 Banco de prompts", desc: "Word · Banco profesional Sesión 2", key: "s2v2-banco", type: "Word" },
-    { name: "S2 Guía instructor", desc: "Word · Secuencia sugerida", key: "s2v2-guia-instructor", type: "Word" },
-    { name: "S2 Correo (.eml)", desc: "Mensaje de práctica importable", key: "s2v2-eml", type: "Email" },
-    { name: "Bitácora de validación", desc: "Todas las apps · Control humano de Copilot", key: "bitacora-validacion", type: "Word" }
-  ];
+  {
+    "group": "Sesión 1 · Productividad individual",
+    "items": [
+      {
+        "name": "Formato análisis de correo",
+        "desc": "Plantilla para completar · 14 celdas de análisis",
+        "key": "analisis-correo",
+        "type": "Word",
+        "role": "Plantilla",
+        "href": "#paso-r1",
+        "where": "Reto 1"
+      },
+      {
+        "name": "Fuente correos ST-Urb-03",
+        "desc": "4 correos con De, Para, Asunto y Fecha",
+        "key": "cadena-fuente",
+        "type": "Word",
+        "role": "Fuente",
+        "href": "#paso-r2",
+        "where": "Reto 2"
+      },
+      {
+        "name": "Plantilla cadena de correos",
+        "desc": "Cronología, cambios, compromisos y 3 respuestas",
+        "key": "cadena-correos",
+        "type": "Word",
+        "role": "Plantilla",
+        "href": "#paso-r2",
+        "where": "Reto 2"
+      },
+      {
+        "name": "Fuente transcripción Horizonte",
+        "desc": "Transcripción de Teams del comité operativo",
+        "key": "matriz-fuente",
+        "type": "Word",
+        "role": "Fuente",
+        "href": "#paso-r3",
+        "where": "Reto 3"
+      },
+      {
+        "name": "Matriz de compromisos",
+        "desc": "Datos, clasificación, matriz, agenda y difusión",
+        "key": "matriz-compromisos",
+        "type": "Word",
+        "role": "Plantilla",
+        "href": "#paso-r3",
+        "where": "Reto 3"
+      },
+      {
+        "name": "Fuente chat WhatsApp ST-14",
+        "desc": "Chat O&M · Hallazgo ST-14",
+        "key": "tres-audiencias-fuente",
+        "type": "Word",
+        "role": "Fuente",
+        "href": "#paso-r4",
+        "where": "Reto 4"
+      },
+      {
+        "name": "Tres audiencias",
+        "desc": "Técnica, gerencia y comunidad + consistencia",
+        "key": "tres-audiencias",
+        "type": "Word",
+        "role": "Plantilla",
+        "href": "#paso-r4",
+        "where": "Reto 4"
+      },
+      {
+        "name": "PRO-OPS-12 versión 3.1",
+        "desc": "Procedimiento anterior (PDF)",
+        "key": "pro-ops-12-v31-pdf",
+        "type": "PDF",
+        "role": "Fuente",
+        "href": "#paso-r5",
+        "where": "Reto 5"
+      },
+      {
+        "name": "PRO-OPS-12 versión 4.0",
+        "desc": "Procedimiento vigente (PDF)",
+        "key": "pro-ops-12-v40-pdf",
+        "type": "PDF",
+        "role": "Fuente",
+        "href": "#paso-r5",
+        "where": "Reto 5"
+      },
+      {
+        "name": "PRO-OPS-12 v3.1 (Word)",
+        "desc": "Misma fuente en Word, útil para Copilot en Word",
+        "key": "pro-ops-12-v31-docx",
+        "type": "Word",
+        "role": "Fuente",
+        "href": "#paso-r5",
+        "where": "Reto 5"
+      },
+      {
+        "name": "PRO-OPS-12 v4.0 (Word)",
+        "desc": "Misma fuente en Word, útil para Copilot en Word",
+        "key": "pro-ops-12-v40-docx",
+        "type": "Word",
+        "role": "Fuente",
+        "href": "#paso-r5",
+        "where": "Reto 5"
+      },
+      {
+        "name": "Base de priorización",
+        "desc": "Diez tareas fuente (no completar)",
+        "key": "priorizacion",
+        "type": "Excel",
+        "role": "Fuente",
+        "href": "#paso-r6",
+        "where": "Reto 6"
+      },
+      {
+        "name": "Priorización · referencia HTML",
+        "desc": "Ejemplo de calidad del informe interactivo",
+        "key": "priorizacion-ref",
+        "type": "HTML",
+        "role": "Referencia",
+        "href": "#paso-r6",
+        "where": "Reto 6"
+      },
+      {
+        "name": "Práctica personal de priorización",
+        "desc": "Lista local anonimizada (se borra al cerrar)",
+        "key": "priorizacion-practica",
+        "type": "HTML",
+        "role": "Práctica",
+        "href": "#paso-r6",
+        "where": "Reto 6"
+      }
+    ]
+  },
+  {
+    "group": "Sesión 2 · Proyecto Horizonte",
+    "items": [
+      {
+        "name": "Kit completo Horizonte (.zip)",
+        "desc": "Archivos 01 a 09 del caso en un solo paquete",
+        "key": "s2v2-kit",
+        "type": "ZIP",
+        "role": "Kit",
+        "href": "#sesion2",
+        "where": "Todas las fases"
+      },
+      {
+        "name": "01 Correo de solicitud (PDF)",
+        "desc": "Referencia visual del correo del caso",
+        "key": "s2v2-correo",
+        "type": "PDF",
+        "role": "Fuente",
+        "href": "#paso-s2-f1",
+        "where": "Fase 1"
+      },
+      {
+        "name": "01 Correo de solicitud (.eml)",
+        "desc": "Para importar en Outlook",
+        "key": "s2v2-eml",
+        "type": "Email",
+        "role": "Fuente",
+        "href": "#paso-s2-f1",
+        "where": "Fase 1"
+      },
+      {
+        "name": "02 Alcance",
+        "desc": "Documento de alcance ficticio",
+        "key": "s2v2-alcance",
+        "type": "Word",
+        "role": "Fuente",
+        "href": "#paso-s2-f2",
+        "where": "Fase 2"
+      },
+      {
+        "name": "03 Presupuesto y cronograma",
+        "desc": "Partidas, cronograma y resumen",
+        "key": "s2v2-presupuesto",
+        "type": "Excel",
+        "role": "Fuente",
+        "href": "#paso-s2-f3",
+        "where": "Fase 3"
+      },
+      {
+        "name": "04 Transcripción de la reunión",
+        "desc": "Decisiones frente a propuestas",
+        "key": "s2v2-transcripcion",
+        "type": "Word",
+        "role": "Fuente",
+        "href": "#paso-s2-f4",
+        "where": "Fase 4"
+      },
+      {
+        "name": "05 Registro inicial de riesgos",
+        "desc": "Riesgos preliminares",
+        "key": "s2v2-riesgos",
+        "type": "Excel",
+        "role": "Fuente",
+        "href": "#paso-s2-f6",
+        "where": "Fase 6"
+      },
+      {
+        "name": "06 Comentarios de interesados",
+        "desc": "Comentarios ficticios",
+        "key": "s2v2-comentarios",
+        "type": "Word",
+        "role": "Fuente",
+        "href": "#paso-s2-f6",
+        "where": "Fase 6"
+      },
+      {
+        "name": "07 Plantilla del comité",
+        "desc": "PowerPoint · 8 diapositivas",
+        "key": "s2v2-pptx",
+        "type": "PowerPoint",
+        "role": "Plantilla",
+        "href": "#paso-s2-f7",
+        "where": "Fase 7"
+      },
+      {
+        "name": "08 Guía de validación",
+        "desc": "Cómo verificar los resultados de Copilot",
+        "key": "s2v2-guia",
+        "type": "PDF",
+        "role": "Guía",
+        "href": "#sesion2",
+        "where": "Todas las fases"
+      },
+      {
+        "name": "09 Banco de prompts",
+        "desc": "Prompts profesionales de la sesión",
+        "key": "s2v2-banco",
+        "type": "Word",
+        "role": "Referencia",
+        "href": "#sesion2",
+        "where": "Todas las fases"
+      },
+      {
+        "name": "Guía del instructor",
+        "desc": "Secuencia sugerida de la sesión",
+        "key": "s2v2-guia-instructor",
+        "type": "Word",
+        "role": "Instructor",
+        "href": "#sesion2",
+        "where": "Sesión 2"
+      }
+    ]
+  },
+  {
+    "group": "Copilot Lab",
+    "items": [
+      {
+        "name": "Guía visual de Power Automate",
+        "desc": "Referencia del flujo de la misión 3.3",
+        "key": "lab33-powerautomate",
+        "type": "Imagen",
+        "role": "Guía",
+        "href": "#lab-automatizacion",
+        "where": "Lab 3.3"
+      }
+    ]
+  },
+  {
+    "group": "Para cualquier actividad",
+    "items": [
+      {
+        "name": "Bitácora de validación humana",
+        "desc": "Registro de lo que verificaste antes de usar un resultado de Copilot",
+        "key": "bitacora-validacion",
+        "type": "Word",
+        "role": "Plantilla",
+        "href": "#uso-responsable",
+        "where": "Uso responsable"
+      }
+    ]
+  }
+];
 
   function renderTemplates() {
     const grid = document.getElementById("templatesGrid");
-    grid.innerHTML = TEMPLATES.map((t) => `
-      <article class="card">
-        <div class="card__icon"><i data-lucide="download" width="20" height="20"></i></div>
-        <h3>${t.name}</h3>
-        <p>${t.desc}</p>
-        <p style="margin-top:.5rem"><span class="app-badge">${t.type}</span></p>
-        <div class="btn-group" style="margin-top:.85rem">
-          <button type="button" class="btn btn--sm btn--energy" data-planilla="${t.key}"><i data-lucide="download" width="14" height="14"></i> Descargar planilla</button>
+    grid.classList.remove("grid", "grid-2");
+    grid.innerHTML = TEMPLATES.map(g => `
+      <div class="tpl-group">
+        <h3 class="tpl-group__title">${g.group} <small>${g.items.length} archivo${g.items.length === 1 ? "" : "s"}</small></h3>
+        <div class="tpl-list">
+          ${g.items.map(t => `<div class="tpl-row">
+            <span class="tpl-role tpl-role--${t.role.toLowerCase()}">${t.role}</span>
+            <div class="tpl-row__main"><strong>${t.name}</strong><span>${t.desc} · <span class="app-badge">${t.type}</span></span></div>
+            <a class="tpl-row__where" href="${t.href}">${t.where} →</a>
+            <button type="button" class="btn btn--sm btn--energy" data-planilla="${t.key}" aria-label="Descargar ${t.name}"><i data-lucide="download" width="14" height="14"></i> Descargar</button>
+          </div>`).join("")}
         </div>
-      </article>`).join("");
+      </div>`).join("");
     if (window.lucide) lucide.createIcons({ nodes: [grid] });
     initPlanillaDownloads();
   }
