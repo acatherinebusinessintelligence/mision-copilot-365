@@ -1895,6 +1895,32 @@
     .s2-more[open] { padding-bottom: 1rem; }
     @media (max-width: 900px) { .s2-brief { grid-template-columns: minmax(0, 1fr); } }
 
+    /* Ficha de actividad */
+    .act-sheet {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem;
+      margin: 1.1rem 0 1.25rem; padding: 1rem 1.1rem; border-radius: var(--radius);
+      background: color-mix(in srgb, var(--brand-primary) 6%, var(--bg-elevated));
+      border: 1px solid color-mix(in srgb, var(--brand-primary) 25%, var(--border));
+      color: var(--text);
+    }
+    .act-sheet__goal { grid-column: 1 / -1; display: flex; gap: 0.75rem; align-items: flex-start; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+    .act-sheet__goal p { margin: 0; font-size: 1rem; font-weight: 600; line-height: 1.45; }
+    .act-sheet__time {
+      margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.25rem 0.65rem; border-radius: 999px; font-size: 0.78rem; font-weight: 700; white-space: nowrap;
+      background: var(--brand-accent); color: var(--brand-dark);
+    }
+    .act-sheet__cell small {
+      display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.25rem;
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--brand-primary);
+    }
+    [data-theme="dark"] .act-sheet__cell small { color: var(--brand-accent); }
+    .act-sheet__cell p { margin: 0; font-size: 0.86rem; line-height: 1.45; overflow-wrap: anywhere; }
+    .act-sheet__cell code { font-size: 0.8rem; }
+    .act-sheet__label { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; padding-top: 0.2rem; }
+    @media (max-width: 640px) { .reto__header { flex-wrap: wrap; } .reto__header > span:last-child { margin-left: auto; } }
+    @media (max-width: 760px) { .act-sheet { grid-template-columns: minmax(0, 1fr); } .act-sheet__goal { flex-wrap: wrap; } .act-sheet__time { margin-left: 0; } }
+
     .cs-backdrop { display: none; }
     @media (max-width: 1080px) {
       .cs-layout { grid-template-columns: minmax(0, 1fr); }
@@ -7226,6 +7252,110 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     pr["s2-done"] = S2_FASES.every(k => pr[k]);
     Object.entries(S2_ENTREGABLES).forEach(([e, fases]) => { pr[e] = fases.every(f => pr[f]); });
     document.querySelectorAll('[data-progress^="s2-e"]').forEach(el => { el.checked = !!pr[el.getAttribute("data-progress")]; });
+  }
+
+  /* ========== FICHAS DE ACTIVIDAD ==========
+     Objetivo · tiempo · herramientas · entregable · criterio de éxito.
+     "min" es un TIEMPO ESTIMADO: ajústalo aquí según la duración real en clase. */
+  const ACTIVITY_SHEETS = {
+    "r1": { min: 20, tools: "Outlook · Word · Copilot",
+      goal: "Extraer de un correo operativo los hechos, solicitudes y plazos clave sin inventar datos.",
+      out: "<code>MCP365_P01_Analisis_correo_completado.docx</code> sobre la plantilla oficial.",
+      ok: "La tabla Elemento | Hallazgo | Evidencia tiene los 7 elementos con evidencia del correo; la validación humana la completas tú." },
+    "r2": { min: 25, tools: "Outlook · Word · Copilot",
+      goal: "Reconstruir una cadena de 4 correos: qué cambió, qué se acordó y qué sigue pendiente.",
+      out: "<code>MCP365_P02_Cadena_correos_completado.docx</code> (secciones 1–6).",
+      ok: "Las secciones 1–6 están completas con evidencia de cada correo, y tú cerraste validación y control de calidad." },
+    "r3": { min: 25, tools: "Teams · Word · Copilot",
+      goal: "Convertir la transcripción de una reunión en una matriz de compromisos accionable.",
+      out: "<code>MCP365_P03_Matriz_compromisos_completada.docx</code>.",
+      ok: "Responsables y fechas aparecen solo si la reunión los menciona, y las propuestas no aprobadas quedan separadas en la sección 2." },
+    "r4": { min: 25, tools: "WhatsApp · Word · Copilot",
+      goal: "Comunicar una misma situación a tres audiencias (técnica, ejecutiva y comunitaria) sin alterar los hechos.",
+      out: "<code>MCP365_P04_Tres_audiencias_completado.docx</code>.",
+      ok: "Las tres versiones son coherentes entre sí y ninguna agrega ni cambia hechos del chat." },
+    "r5": { min: 30, tools: "Copilot · PDF · HTML",
+      goal: "Comparar dos versiones de un procedimiento y detectar cambios y sus impactos.",
+      out: "<code>MCP365_P05_Comparacion_documental_completada.html</code> (informe interactivo).",
+      ok: "El HTML abre sin Internet, cada cambio indica la versión de origen y los filtros funcionan; tú completas la validación." },
+    "r6": { min: 30, tools: "Excel · Copilot · HTML",
+      goal: "Priorizar 10 tareas por urgencia, impacto, dependencia y riesgo, y organizar la agenda.",
+      out: "<code>MCP365_P06_Priorizacion_completada.html</code> (informe interactivo).",
+      ok: "Hay agenda para hoy, mañana y viernes, tareas delegables identificadas y el criterio explícito de cada prioridad." },
+    "s2-f0": { min: 10, tools: "OneDrive · Copilot Chat",
+      goal: "Preparar los archivos del caso y verificar que Copilot los reconoce antes de analizar.",
+      out: "Carpeta del caso organizada y archivos cargados en Copilot Chat.",
+      ok: "Copilot nombra correctamente cada archivo cargado y no usas documentos ajenos al caso." },
+    "s2-f1": { min: 35, tools: "Copilot Chat · Word",
+      goal: "Analizar el correo y sus anexos y producir un informe ejecutivo con trazabilidad por archivo.",
+      out: "Informe ejecutivo listo para Word / PDF (primer entregable final).",
+      ok: "Diferenciaste archivo mencionado, seleccionado y analizado; cada hallazgo cita su archivo y lo no accesible queda marcado sin inventar." },
+    "s2-f2": { min: 20, tools: "Copilot Chat · archivo 02",
+      goal: "Estructurar el alcance: objetivos, inclusiones, exclusiones, supuestos y criterios de aceptación.",
+      out: "Matriz de alcance del Proyecto Horizonte.",
+      ok: "Cada elemento se puede rastrear al documento 02 y lo que falta aparece como «No especificado»." },
+    "s2-f3": { min: 25, tools: "Copilot Chat · Excel · archivo 03",
+      goal: "Analizar presupuesto y cronograma, y validar tú mismo las cifras en Excel.",
+      out: "Análisis presupuestal y del cronograma.",
+      ok: "Verificaste en el Excel el total, la mayor partida, las fechas, el número de actividades, las celdas vacías y los duplicados." },
+    "s2-f4": { min: 20, tools: "Copilot Chat · archivo 04",
+      goal: "Separar decisiones, propuestas, tareas, fechas y responsables de la reunión.",
+      out: "Matriz de compromisos y registro de decisiones.",
+      ok: "Ninguna propuesta aparece como decisión; responsables y fechas solo figuran si la transcripción los menciona." },
+    "s2-f5": { min: 25, tools: "Copilot Chat · archivos 02–04",
+      goal: "Cruzar alcance, presupuesto y transcripción para detectar contradicciones y vacíos.",
+      out: "Comparación documental de hallazgos.",
+      ok: "Cada inconsistencia indica tema, archivo de origen y evidencia." },
+    "s2-f6": { min: 25, tools: "Copilot Chat · archivos 02–06",
+      goal: "Consolidar una matriz preliminar de riesgos a partir de las cinco fuentes.",
+      out: "Matriz de riesgos del proyecto.",
+      ok: "Cada riesgo tiene fuente, causa, consecuencia, nivel y señal de alerta, con responsable sugerido por rol." },
+    "s2-f7": { min: 35, tools: "Copilot Chat · PowerPoint · plantilla 07",
+      goal: "Generar la presentación para el comité directivo con la plantilla corporativa.",
+      out: "<code>Presentacion_Comite_Proyecto_Horizonte.pptx</code> (segundo entregable final).",
+      ok: "Son 8 diapositivas en la plantilla 07, las cifras coinciden con el Excel, las decisiones están separadas de las propuestas y hay notas del presentador." },
+    "s2-f8": { min: 15, tools: "Outlook o Copilot Chat",
+      goal: "Redactar el correo ejecutivo al comité con hallazgos, riesgos y decisiones requeridas.",
+      out: "Correo ejecutivo de máximo 250 palabras (tercer entregable final).",
+      ok: "No afirma que el proyecto está aprobado ni inventa compromisos, e incluye asunto, anexos y próxima acción." },
+    "lab-cuaderno": { min: 40, tools: "Microsoft 365 Copilot · Cuadernos",
+      goal: "Reunir las fuentes de Horizonte en un Cuaderno y comprobar cómo cambia la calidad del contexto.",
+      out: "Centro de Conocimiento Horizonte.",
+      ok: "Verificaste la síntesis contra las fuentes y completaste el checkpoint de la misión 3.1." },
+    "lab-agente": { min: 45, tools: "Microsoft 365 Copilot · Agentes",
+      goal: "Configurar un agente PMO con propósito, instrucciones, conocimiento y límites.",
+      out: "Agente «PMO Copilot · Proyecto Horizonte».",
+      ok: "El agente superó las pruebas de función, especialización, límites y preparación para automatización." },
+    "lab-automatizacion": { min: 50, tools: "Outlook · Power Automate · Aprobaciones",
+      goal: "Construir un flujo correo → regla → aprobación humana → envío.",
+      out: "Flujo de Power Automate probado.",
+      ok: "Solo se envía si una persona aprueba, los casos no críticos no disparan acciones y queda trazabilidad." },
+    "lab-reto": { min: 40, tools: "Cuaderno · Agente · Automatización",
+      goal: "Decidir qué componente usar en cada situación y dónde conservar el control humano.",
+      out: "Diseño del sistema de trabajo Horizonte.",
+      ok: "Resolviste los 6 desafíos y justificaste el control humano en las decisiones críticas." }
+  };
+
+  function renderActivitySheets() {
+    Object.entries(ACTIVITY_SHEETS).forEach(([id, s]) => {
+      const host = id.startsWith("lab-")
+        ? document.getElementById(id)
+        : document.querySelector(`article.reto[data-reto="${id}"] > .reto__body`);
+      if (!host || host.querySelector(":scope > .act-sheet")) return;
+      const el = document.createElement("div");
+      el.className = "act-sheet";
+      el.setAttribute("aria-label", "Ficha de la actividad");
+      el.innerHTML = `
+        <div class="act-sheet__goal">
+          <span class="act-sheet__label">Objetivo</span>
+          <p>${s.goal}</p>
+          <span class="act-sheet__time" title="Tiempo estimado"><i data-lucide="clock" width="14" height="14"></i> ~${s.min} min</span>
+        </div>
+        <div class="act-sheet__cell"><small><i data-lucide="wrench" width="13" height="13"></i> Herramientas</small><p>${s.tools}</p></div>
+        <div class="act-sheet__cell"><small><i data-lucide="package" width="13" height="13"></i> Entregable</small><p>${s.out}</p></div>
+        <div class="act-sheet__cell"><small><i data-lucide="check-circle-2" width="13" height="13"></i> Lo lograste si…</small><p>${s.ok}</p></div>`;
+      host.prepend(el);
+    });
   }
 
   function renderPhaseMap() {
@@ -13411,6 +13541,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     initEvalActions();
     initModal();
     updateProgressUI();
+    renderActivitySheets();
     initCourseShell();
     if (window.lucide) lucide.createIcons();
   });
