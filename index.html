@@ -8745,6 +8745,27 @@ No incluyas cifras ni compromisos que no estén en el informe.`,
     note: "Un resumen en audio o una infografía son más fáciles de consumir, pero también simplifican más. Úsalos como complemento del informe validado, nunca como reemplazo."
   });
 
+
+  INNOVATIONS.push({
+    id: "programado", badge: "Nuevo en Copilot", title: "Escalón intermedio: un prompt programado",
+    target: () => {
+      const card = [...document.querySelectorAll("#lab-automatizacion > .card")].find(c => { const t = c.querySelector(":scope > h3"); return t && t.querySelector(".lab31-step-num") && t.textContent.includes("Automatización e IA no son lo mismo"); });
+      return card && { el: card, where: "beforeend" };
+    },
+    intro: "Algunas versiones de Copilot permiten <strong>programar un prompt</strong> para que se ejecute solo (por ejemplo, cada lunes). Es una automatización ligera: la IA <em>resume e informa</em>, pero no ejecuta acciones ni pide aprobaciones.",
+    routes: [
+      { title: "Si tu versión permite programar prompts", steps: ["En Copilot Chat o en un agente como Analyst, busca la opción de programar o repetir un prompt (el nombre puede variar).", "Programa el prompt de abajo para cada lunes a las 8:00.", "Revisa el primer resultado y ajusta el prompt si hace falta."] },
+      { title: "Si no la tiene", steps: ["Crea un recordatorio semanal en Outlook con el prompt en el cuerpo.", "Cada lunes, cópialo en Copilot Chat."] }
+    ],
+    promptLabel: "Prompt para programar",
+    prompt: `Revisa los correos de la última semana con [HORIZONTE] en el asunto y entrégame una tabla: Hallazgo | Criticidad | Remitente | Fecha | ¿Requiere aprobación?
+Marca como PENDIENTE DE VALIDACIÓN lo que no tenga criticidad explícita.
+No envíes nada a nadie: solo infórmame.`,
+    checkTitle: "Piensa la diferencia",
+    check: ["El prompt programado <strong>resume</strong>; el flujo de Power Automate <strong>ejecuta una regla y una acción con aprobación</strong>.", "Para una alerta crítica que debe enviarse con autorización, ¿cuál usarías y por qué?", "¿Qué podría salir mal si el prompt programado enviara correos por su cuenta?"],
+    reveal: { title: "Ver respuesta sugerida", html: "Power Automate: la alerta crítica necesita una <strong>regla determinística</strong> (Criticidad = ALTA), una <strong>aprobación humana</strong> y <strong>trazabilidad</strong>. El prompt programado sirve para mantenerte informado, no para actuar." }
+  });
+
   function renderInnovations() {
     INNOVATIONS.forEach(cfg => {
       if (document.getElementById(`inno-${cfg.id}`)) return;
