@@ -1370,7 +1370,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-11-04-subtitulos-v1"
+APP_CODE_VERSION = "2026-11-04-s1-prompts-esenciales-v1"
 
 
 @app.get("/health")

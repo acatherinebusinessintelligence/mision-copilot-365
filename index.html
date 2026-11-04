@@ -1952,6 +1952,56 @@
     .quiz-card .quiz-score { margin: 1rem 0 0; }
     .quiz-feedback a { font-weight: 700; margin-left: 0.25rem; }
 
+    /* Prompt esencial + rutas alternativas */
+    .pr-routes {
+      margin: 1.25rem 0; padding: 1.1rem 1.15rem; border-radius: var(--radius);
+      border: 2px solid color-mix(in srgb, var(--brand-primary) 45%, var(--border)); background: var(--bg-elevated);
+    }
+    .pr-routes__head { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.35rem; }
+    .pr-routes__head h4 { margin: 0; font-size: 1.05rem; }
+    .pr-badge { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 999px; background: var(--brand-accent); color: var(--brand-dark); }
+    .pr-routes__lead { margin: 0 0 0.75rem; font-size: 0.88rem; color: var(--text-muted); }
+    .pr-seg { display: inline-flex; border: 1px solid var(--border); border-radius: 999px; padding: 3px; gap: 3px; background: var(--surface); margin-bottom: 0.6rem; flex-wrap: wrap; }
+    .pr-seg button { border: 0; background: transparent; padding: 0.35rem 0.85rem; border-radius: 999px; cursor: pointer; font-size: 0.82rem; font-weight: 700; color: var(--text-muted); }
+    .pr-seg button[aria-pressed="true"] { background: var(--brand-primary); color: #fff; }
+    .pr-routes textarea.prompt-box { width: 100%; min-height: 15rem; resize: vertical; }
+    .pr-routes h5 { margin: 1.1rem 0 0.5rem; font-size: 0.92rem; }
+    .pr-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+    .pr-tabs button {
+      border: 1px solid var(--border); background: var(--bg-elevated); color: var(--text); cursor: pointer;
+      padding: 0.45rem 0.8rem; border-radius: 10px; font-size: 0.84rem; font-weight: 700; text-align: left;
+    }
+    .pr-tabs button small { display: block; font-weight: 500; color: var(--text-muted); font-size: 0.72rem; }
+    .pr-tabs button[aria-selected="true"] { border-color: var(--brand-primary); background: color-mix(in srgb, var(--brand-primary) 10%, var(--bg-elevated)); }
+    .pr-panel { display: none; padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); background: var(--surface); font-size: 0.9rem; }
+    .pr-panel.is-active { display: block; }
+    .pr-panel ol { margin: 0; padding-left: 1.2rem; }
+    .pr-panel li { margin-bottom: 0.3rem; }
+    .pr-trouble { margin-top: 0.75rem; border: 1px dashed var(--border); border-radius: var(--radius-sm); padding: 0 0.9rem; }
+    .pr-trouble > summary { cursor: pointer; padding: 0.6rem 0; font-weight: 700; font-size: 0.88rem; }
+    .pr-trouble ul { margin: 0 0 0.75rem; padding-left: 1.1rem; font-size: 0.86rem; }
+    .pr-trouble li { margin-bottom: 0.35rem; }
+    .pr-source { margin: 0.9rem 0 0; padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); background: color-mix(in srgb, var(--brand-accent) 10%, var(--bg-elevated)); border: 1px solid color-mix(in srgb, var(--brand-accent) 45%, var(--border)); }
+    .pr-source__title { display: flex; align-items: center; gap: 0.4rem; margin: 0 0 0.35rem; font-weight: 800; font-size: 0.9rem; }
+    .pr-source ol { margin: 0; padding-left: 1.2rem; font-size: 0.88rem; }
+    .pr-source li { margin-bottom: 0.35rem; }
+    .pr-parts, .pr-extra { margin-top: 0.5rem; }
+    .pr-parts > summary, .pr-extra > summary { cursor: pointer; font-weight: 700; font-size: 0.88rem; padding: 0.4rem 0; display: flex; align-items: center; gap: 0.4rem; }
+    .pr-extra { margin-top: 0.75rem; border: 1px dashed color-mix(in srgb, var(--brand-primary) 40%, var(--border)); border-radius: var(--radius-sm); padding: 0.2rem 0.9rem 0.6rem; }
+    .pr-part { margin: 0.5rem 0; }
+    .pr-part__head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.84rem; }
+    .pr-part__text { width: 100%; font-size: 0.78rem !important; resize: vertical; }
+    .pr-own-note { margin: 0.75rem 0 0; font-size: 0.86rem; color: var(--text-muted); }
+    .adv-prompt { margin: 1rem 0; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 1rem; background: var(--bg-elevated); }
+    .adv-prompt > summary { cursor: pointer; padding: 0.85rem 0; font-weight: 700; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .adv-prompt > summary small { font-weight: 500; color: var(--text-muted); }
+    .adv-prompt[open] { padding-bottom: 0.5rem; }
+    .prompt-meter { display: inline-flex; align-items: center; gap: 0.35rem; margin: 0.15rem 0 0.4rem; font-size: 0.76rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; }
+    .prompt-meter.is-ok { background: color-mix(in srgb, var(--success) 14%, transparent); color: var(--success); }
+    .prompt-meter.is-mid { background: color-mix(in srgb, var(--warning) 18%, transparent); color: #8a6a00; }
+    .prompt-meter.is-long { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); }
+    [data-theme="dark"] .prompt-meter.is-mid { color: var(--brand-accent); }
+
     .cs-backdrop { display: none; }
     @media (max-width: 1080px) {
       .cs-layout { grid-template-columns: minmax(0, 1fr); }
@@ -2201,13 +2251,13 @@
                 <li>Pulsa <strong>Enviar correo del reto a mi bandeja</strong>. Recibirás una copia del correo operativo (De: Laura Méndez · Para: Equipo Zona Norte…). <em>Sin adjuntos:</em> la plantilla se descarga en el reto.</li>
                 <li>Abre <strong>Outlook</strong> y localiza el mensaje con asunto <em>URGENTE · Reprogramación intervención preventivo Circuito N-14</em>.</li>
                 <li>En la plataforma, descarga la <strong>plantilla oficial .docx</strong> (parte del reto) y ábrela en <strong>Word</strong>.</li>
-                <li>En Word, abre <strong>Copilot</strong> sobre ese documento. Pega el prompt del reto y toma el contenido del correo recibido en Outlook (no inventes datos).</li>
-                <li>Copilot debe editar una <strong>copia</strong> del .docx y llenar solo las 14 celdas de Hallazgo y Evidencia.</li>
-                <li>Verifica banner, chips, colores y secciones 1, 8, 9 y 10 intactos; validación humana y control de calidad vacíos.</li>
+                <li>Copia el <strong>prompt esencial</strong> (abajo) y úsalo en la ruta que tengas disponible: Copilot Chat, licencia Microsoft 365 Copilot o Copilot dentro de Word.</li>
+                <li>Lleva la tabla de 7 filas a la sección 2 de la plantilla (columnas Hallazgo y Evidencia).</li>
+                <li>Verifica que el diseño de la plantilla siga intacto y deja vacías la validación humana y el control de calidad: son tuyas.</li>
                 <li>Guarda como <strong>MCP365_P01_Analisis_correo_completado.docx</strong>.</li>
                 <li><strong>Después del caso:</strong> elige un correo real de tu bandeja, ajusta el prompt (campos de abajo) y reutiliza la plantilla cambiando lo necesario para tu ejercicio propio.</li>
               </ol>
-              <p style="margin:0.75rem 0 0;font-size:0.88rem;color:var(--text-muted)">Si Copilot solo ve texto y no el .docx, vuelve a abrir/adjuntar el archivo en Word. No aceptes una reconstrucción del documento.</p>
+              <p style="margin:0.75rem 0 0;font-size:0.88rem;color:var(--text-muted)">Si Copilot no puede editar el .docx no es un error: pide la tabla en el chat y pégala tú en la plantilla. No aceptes que rediseñe el documento.</p>
             </div>
             <div class="btn-group" style="margin-bottom:0.5rem;flex-wrap:wrap;gap:0.5rem">
               <button type="button" class="btn btn--sm btn--primary" id="btnSendReto1Email"><i data-lucide="mail" width="14" height="14"></i> Enviar correo del reto a mi bandeja</button>
@@ -2310,11 +2360,10 @@
             <div class="m365-box">
               <h4><span class="app-badge">Outlook</span> + <span class="app-badge">Word</span> + <span class="app-badge">Copilot</span> Paso a paso</h4>
               <ol>
-                <li>Descarga <strong>fuente</strong> y <strong>plantilla</strong> (dos botones).</li>
-                <li><em>Recomendado:</em> envía los 4 correos a tu bandeja (botones abajo).</li>
-                <li>Usa la <strong>misma forma de acceso a la plantilla</strong> que te funcionó en el Reto 1.</li>
-                <li>Proporciona a Copilot: cadena (Outlook o <code>MCP365_P02_Fuente_correos_ST-Urb-03.docx</code>) + <code>MCP365_P02_Formato_cadena_correos.docx</code> + este prompt.</li>
-                <li>Copilot debe entregar <code>MCP365_P02_Cadena_correos_completado.docx</code> (copia editable de la plantilla, secciones 1–6 llenas).</li>
+                <li>Descarga la <strong>fuente</strong> y la <strong>plantilla</strong> (dos botones). Opcional: envía los 4 correos a tu bandeja.</li>
+                <li>Copia el <strong>prompt esencial</strong> (abajo) y úsalo en la ruta que tengas: Copilot Chat, licencia Microsoft 365 Copilot o Copilot dentro de Word.</li>
+                <li>Comparte la fuente con Copilot: adjunta el archivo, referencia los correos o envíala en partes.</li>
+                <li>Lleva cada sección de la respuesta a la plantilla y guárdala como <code>MCP365_P02_Cadena_correos_completado.docx</code>.</li>
                 <li>Validación humana y control de calidad los completa la persona.</li>
               </ol>
             </div>
@@ -2419,10 +2468,10 @@
             <div class="m365-box">
               <h4><span class="app-badge">Teams</span> + <span class="app-badge">Word</span> + <span class="app-badge">Copilot</span> Paso a paso</h4>
               <ol>
-                <li>Descarga <strong>fuente</strong> y <strong>plantilla</strong> (dos botones).</li>
-                <li>Usa la <strong>misma forma de acceso a la plantilla</strong> que te funcionó en los retos anteriores.</li>
-                <li>Proporciona a Copilot: <code>MCP365_P03_Fuente_transcripcion_Teams_Proyecto_Horizonte.docx</code> + <code>MCP365_P03_Matriz_compromisos_reunion.docx</code> + este prompt.</li>
-                <li>Copilot debe entregar <code>MCP365_P03_Matriz_compromisos_completada.docx</code> (copia de la plantilla; propuestas no aprobadas dentro de la sección 2).</li>
+                <li>Descarga la <strong>fuente</strong> (transcripción) y la <strong>plantilla</strong> (dos botones).</li>
+                <li>Copia el <strong>prompt esencial</strong> (abajo) y úsalo en la ruta que tengas: Copilot Chat, licencia Microsoft 365 Copilot o Copilot dentro de Word.</li>
+                <li>Comparte la transcripción con Copilot: adjunta el archivo o envíala en partes.</li>
+                <li>Lleva cada sección a la plantilla y guárdala como <code>MCP365_P03_Matriz_compromisos_completada.docx</code>.</li>
                 <li>«Validado por», control de calidad y firmas los completa la persona.</li>
               </ol>
             </div>
@@ -2465,10 +2514,10 @@
             <div class="m365-box">
               <h4><span class="app-badge">WhatsApp</span> + <span class="app-badge">Word</span> + <span class="app-badge">Copilot</span> Paso a paso</h4>
               <ol>
-                <li>Descarga <strong>fuente</strong> (chat WhatsApp) y <strong>plantilla</strong> (dos botones).</li>
-                <li>Usa la <strong>misma forma de acceso a la plantilla</strong> que te funcionó en los retos anteriores.</li>
-                <li>Proporciona a Copilot: <code>MCP365_P04_Fuente_chat_WhatsApp_ST14_SU7.docx</code> + <code>MCP365_P04_Comunicacion_tres_audiencias.docx</code> + este prompt.</li>
-                <li>Copilot debe entregar <code>MCP365_P04_Tres_audiencias_completado.docx</code> (tres versiones sin alterar hechos del chat).</li>
+                <li>Descarga la <strong>fuente</strong> (chat de WhatsApp) y la <strong>plantilla</strong> (dos botones).</li>
+                <li>Copia el <strong>prompt esencial</strong> (abajo) y úsalo en la ruta que tengas: Copilot Chat, licencia Microsoft 365 Copilot o Copilot dentro de Word.</li>
+                <li>Comparte el chat con Copilot: adjunta el archivo o envíalo en partes.</li>
+                <li>Lleva cada sección a la plantilla y guárdala como <code>MCP365_P04_Tres_audiencias_completado.docx</code>.</li>
                 <li>Control de calidad y firmas los completa la persona.</li>
               </ol>
             </div>
@@ -2498,7 +2547,7 @@
               <span class="reto__num">5</span>
               <span>
                 <strong>Comparación documental · Cambios e impactos</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Copilot · Informe interactivo de cambios entre dos versiones</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Copilot · Matriz de cambios entre dos versiones de un procedimiento</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -2510,15 +2559,13 @@
           </button>
           <div class="reto__body">
             <div class="m365-box">
-              <h4><span class="app-badge">Copilot</span> + <span class="app-badge">HTML</span> Paso a paso</h4>
+              <h4><span class="app-badge">Copilot</span> + <span class="app-badge">Word</span> Paso a paso <span class="text-muted" style="font-weight:500;font-size:0.85rem">(HTML opcional)</span></h4>
               <ol>
-                <li>Descarga las dos normas oficiales en <strong>PDF</strong>.</li>
-                <li>Adjunta ambos PDF a <strong>Copilot</strong>.</li>
-                <li>Copia el prompt configurable y pégalo en Copilot.</li>
-                <li>Copilot analiza las dos normas y genera un único archivo HTML autocontenido.</li>
-                <li>Descarga o guarda: <code>MCP365_P05_Comparacion_documental_completada.html</code>.</li>
-                <li>Ábrelo en el navegador; verifica contenido, filtros, diseño e interactividad.</li>
-                <li>Completa manualmente la validación humana y el control de calidad.</li>
+                <li>Descarga las dos versiones de <strong>PRO-OPS-12</strong> (PDF; también están en Word).</li>
+                <li>Comparte ambas con Copilot (adjuntas o en partes) y usa el <strong>prompt esencial</strong> (abajo).</li>
+                <li>Lleva la matriz y las tablas a un documento Word: <code>MCP365_P05_Comparacion_documental_completada.docx</code>.</li>
+                <li>Verifica cada evidencia contra los documentos y completa tú la validación humana y el control de calidad.</li>
+                <li><strong>Extra opcional:</strong> convierte el resultado en un informe HTML interactivo con los prompts por turnos.</li>
               </ol>
             </div>
             <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>Descargas obligatorias</strong> (fuentes PDF):</p>
@@ -2547,7 +2594,7 @@
               <span class="reto__num">6</span>
               <span>
                 <strong>Priorización del trabajo</strong>
-                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Excel + Copilot · Agenda priorizada en informe interactivo</span>
+                <span class="text-muted" style="display:block;font-size:0.85rem;color:var(--text-muted)">Excel + Copilot · Matriz de prioridades y agenda de la semana</span>
               </span>
             </span>
             <span style="display:flex;align-items:center;gap:0.75rem">
@@ -2559,18 +2606,13 @@
           </button>
           <div class="reto__body">
             <div class="m365-box">
-              <h4><span class="app-badge">Excel</span> + <span class="app-badge">Copilot</span> + <span class="app-badge">HTML</span> Paso a paso con Copilot</h4>
+              <h4><span class="app-badge">Excel</span> + <span class="app-badge">Copilot</span> Paso a paso <span class="text-muted" style="font-weight:500;font-size:0.85rem">(HTML opcional)</span></h4>
               <ol>
-                <li>Descarga la base oficial con las diez tareas.</li>
-                <li>Abre Copilot Chat y adjunta el archivo Excel. No necesitas modificarlo.</li>
-                <li>Revisa y ajusta los campos configurables del prompt.</li>
-                <li>Copia y ejecuta el prompt completo.</li>
-                <li>Copilot debe clasificar las tareas por urgencia, impacto, dependencia, límite y riesgo por retraso.</li>
-                <li>Debe organizar una agenda para hoy, mañana y viernes; identificar tareas delegables y separar las que requieren criterio humano.</li>
-                <li>No debe inventar fechas, horas, responsables ni dependencias.</li>
-                <li>Descarga o guarda el resultado como: <code>MCP365_P06_Priorizacion_completada.html</code>.</li>
-                <li>Abre el HTML en el navegador y verifica sus filtros, botones y contenido.</li>
-                <li>La validación humana y el control de calidad los completa la persona.</li>
+                <li>Descarga la base con las diez tareas (no la modifiques).</li>
+                <li>Comparte la base con Copilot (adjunta el Excel o envíala en partes) y usa el <strong>prompt esencial</strong> (abajo).</li>
+                <li>Lleva la matriz y la agenda a Word o Excel: <code>MCP365_P06_Priorizacion_completada.docx</code> (o .xlsx).</li>
+                <li>Revisa que no cambien límites ni responsables; las decisiones que requieren criterio humano las tomas tú.</li>
+                <li><strong>Extra opcional:</strong> genera el informe HTML interactivo con los prompts por turnos y compáralo con el HTML de referencia.</li>
               </ol>
             </div>
             <p style="margin:0 0 0.5rem;font-size:0.9rem"><strong>Fuente oficial</strong> (no completar en Excel):</p>
@@ -2584,7 +2626,7 @@
             </div>
             <div class="doc-box">
               <p><strong>Fuente:</strong> <code>MCP365_P06_Base_priorizacion_tareas.xlsx</code> — diez tareas; no la modifiques ni la completes.</p>
-              <p><strong>Entregable:</strong> <code>MCP365_P06_Priorizacion_completada.html</code> — informe HTML interactivo generado por Copilot.</p>
+              <p><strong>Entregable:</strong> matriz de priorización y agenda en Word o Excel (<code>MCP365_P06_Priorizacion_completada.docx</code>). <strong>Extra opcional:</strong> informe HTML interactivo.</p>
               <p class="text-muted" style="font-size:0.88rem;margin:0">La referencia HTML sirve para validar calidad y funcionamiento del curso. No la uses como fuente de análisis en Copilot.</p>
             </div>
             <div class="table-wrap">
@@ -7359,13 +7401,13 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       goal: "Comunicar una misma situación a tres audiencias (técnica, ejecutiva y comunitaria) sin alterar los hechos.",
       out: "<code>MCP365_P04_Tres_audiencias_completado.docx</code>.",
       ok: "Las tres versiones son coherentes entre sí y ninguna agrega ni cambia hechos del chat." },
-    "r5": { min: 30, tools: "Copilot · PDF · HTML",
+    "r5": { min: 30, tools: "Copilot · Word (HTML opcional)",
       goal: "Comparar dos versiones de un procedimiento y detectar cambios y sus impactos.",
-      out: "<code>MCP365_P05_Comparacion_documental_completada.html</code> (informe interactivo).",
-      ok: "El HTML abre sin Internet, cada cambio indica la versión de origen y los filtros funcionan; tú completas la validación." },
-    "r6": { min: 30, tools: "Excel · Copilot · HTML",
+      out: "Matriz comparativa, hallazgos y propuestas no aprobadas en Word (<code>MCP365_P05_Comparacion_documental_completada.docx</code>). Extra: informe HTML.",
+      ok: "Los 12 temas tienen evidencia de cada versión, las contradicciones citan ambas referencias y tú completas la validación." },
+    "r6": { min: 30, tools: "Excel · Copilot · Word (HTML opcional)",
       goal: "Priorizar 10 tareas por urgencia, impacto, dependencia y riesgo, y organizar la agenda.",
-      out: "<code>MCP365_P06_Priorizacion_completada.html</code> (informe interactivo).",
+      out: "Matriz de priorización y agenda en Word o Excel. Extra: informe HTML interactivo.",
       ok: "Hay agenda para hoy, mañana y viernes, tareas delegables identificadas y el criterio explícito de cada prioridad." },
     "s2-f0": { min: 10, tools: "OneDrive · Copilot Chat",
       goal: "Preparar los archivos del caso y verificar que Copilot los reconoce antes de analizar.",
@@ -7420,6 +7462,556 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       out: "Diseño del sistema de trabajo Horizonte.",
       ok: "Resolviste los 6 desafíos y justificaste el control humano en las decisiones críticas." }
   };
+
+  /* ========== PROMPT ESENCIAL + RUTAS ALTERNATIVAS ==========
+     Objetivo: que cada actividad funcione con cualquier licencia o app de Copilot.
+     - Prompt esencial < 2.000 caracteres (límite reportado en algunas licencias).
+     - Rutas: Copilot Chat (cualquiera) · licencia M365 Copilot · Copilot dentro de la app.
+     - El prompt completo configurable se conserva como opción avanzada. */
+  const PROMPT_ROUTES = {
+    r1: {
+      sourceLabel: "el correo",
+      caseLabel: "Con el correo del caso",
+      ownLabel: "Para mi propio correo",
+      prompt: `Actúa como analista de operaciones. Analiza SOLO el correo que aparece al final.
+
+Entrégame una tabla de 3 columnas: Elemento | Hallazgo | Evidencia (cita breve del correo).
+Usa estas 7 filas, en este orden:
+1. Objetivo principal
+2. Hechos verificables
+3. Fechas y horas
+4. Responsables
+5. Compromisos
+6. Decisiones pendientes
+7. Preguntas sin resolver
+
+Reglas:
+- Usa solo lo que dice el correo. No inventes nombres, fechas, cifras ni compromisos.
+- Si un dato no aparece, escribe "No especificado".
+- Máximo dos oraciones por celda.
+- Si algo es una interpretación tuya, empiézalo con "Interpretación:".
+- No llenes validación humana ni control de calidad: eso lo hace la persona.
+
+Después de la tabla, escribe 3 preguntas que debería confirmar con el remitente antes de actuar.
+
+CORREO:
+{{SOURCE}}`,
+      caseSource: `De: Laura Méndez · Coordinación de Campo
+Para: Equipo Zona Norte; Andrés Quintero · Protecciones; Comunicaciones Zona
+Asunto: URGENTE · Reprogramación intervención preventivo Circuito N-14
+
+Buenos días, equipo:
+La intervención de mantenimiento preventivo del Circuito N-14 (Zona Norte), programada para el sábado 21/03/2026 de 07:00 a 15:00, debe moverse al sábado 28/03/2026 en el mismo horario. Motivo: no hay disponibilidad confirmada del personal especialista en protecciones para la fecha original.
+Necesito confirmación de recepción de este mensaje antes del martes 17/03/2026 a las 12:00.
+Responsable técnico designado: Andrés Quintero. La junta de acción comunal reportó, el 12/03, preocupación por ruido en jornada nocturna. Aún no hay decisión formal sobre si la ventana se mantiene diurna o se evalúa nocturna.
+Quedo atenta.
+Laura Méndez · Coordinación de Campo · Ext. 4412`,
+      ownSource: "[PEGA AQUÍ EL CORREO COMPLETO: De, Para, Asunto, Fecha y texto]",
+      routes: [
+        { id: "chat", title: "A · Copilot Chat", hint: "Cualquier licencia · recomendada", steps: [
+          "Abre <strong>Microsoft 365 Copilot Chat</strong> (en Teams, Edge o microsoft365.com/copilot).",
+          "Pega el prompt esencial. Si usas tu propio correo, reemplaza la línea entre corchetes por el correo completo.",
+          "Copia la tabla de la respuesta y pégala en la sección 2 de la plantilla Word. Si se desordena el formato, usa <em>Pegar → Mantener solo texto</em> y pega celda por celda.",
+          "Completa tú la validación humana y el control de calidad." ] },
+        { id: "m365", title: "B · Licencia Microsoft 365 Copilot", hint: "Sin copiar el correo", steps: [
+          "En Copilot Chat, pestaña <strong>Trabajo</strong>, escribe <code>/</code> y selecciona el correo <em>URGENTE · Reprogramación…</em> de tu bandeja.",
+          "Pega el prompt esencial y borra el bloque <em>CORREO</em> del final (Copilot ya tiene el correo referenciado).",
+          "Pide la respuesta en tabla y pégala en la plantilla, igual que en la ruta A." ] },
+        { id: "app", title: "C · Copilot dentro de Word", hint: "Si tu licencia lo incluye", steps: [
+          "Abre la plantilla en Word y haz clic dentro de la tabla de la sección 2.",
+          "Abre <strong>Copilot</strong> en Word y pega el prompt esencial (con el correo incluido).",
+          "Revisa que Copilot no cambie el diseño de la plantilla. Si lo cambia, deshaz (Ctrl+Z) y usa la ruta A." ] }
+      ],
+      trouble: [
+        "<strong>«El mensaje es demasiado largo»:</strong> envía primero solo el correo con la frase <em>«Lee este correo y responde solo: Listo»</em>. Luego envía el prompt sin el bloque CORREO.",
+        "<strong>La respuesta se corta:</strong> escribe <em>«Continúa exactamente desde la fila donde te detuviste»</em>.",
+        "<strong>Copilot inventa o completa datos:</strong> responde <em>«Revisa cada celda: deja solo lo que aparece literalmente en el correo y marca lo demás como No especificado»</em>.",
+        "<strong>No tienes Microsoft 365 Copilot:</strong> puedes practicar en Copilot gratuito (copilot.microsoft.com) <em>solo con este correo ficticio</em>. Nunca pegues ahí correos reales de tu organización."
+      ]
+    }
+  };
+
+  PROMPT_ROUTES.r1.inline = true;
+  PROMPT_ROUTES["r2"] = {
+  "caseLabel": "Con la cadena del caso",
+  "ownLabel": "Para mi propia cadena",
+  "caseRef": "del caso ST-Urb-03 que adjunto (o que te compartí en partes)",
+  "ownRef": "que adjunto o pego a continuación",
+  "sources": [
+    {
+      "key": "r2",
+      "label": "Cadena de correos ST-Urb-03",
+      "planilla": "cadena-fuente",
+      "file": "MCP365_P02_Fuente_correos_ST-Urb-03.docx"
+    }
+  ],
+  "prompt": "Actúa como coordinador de operaciones. Analiza SOLO la cadena de correos {{SOURCE_REF}}.\n\nEntrega 6 secciones, en este orden:\n1. Cronología: tabla Fecha | De | Asunto | Hecho o cambio | Compromiso o pendiente | Evidencia (cita breve). Una fila por correo, del más antiguo al más reciente.\n2. Cambios frente al plan inicial: tabla Tema | Plan inicial | Plan vigente | Quién lo indicó | Pendiente de comunicar. Temas: fecha o ventana; horario o cierre de área; personal o seguridad; comunicación a usuarios.\n3. Compromisos vigentes: tabla Compromiso | Responsable | Origen (correo y fecha) | Estado.\n4. Respuesta técnica para el equipo operativo (máx. 80 palabras).\n5. Respuesta ejecutiva para la gerencia (máx. 60 palabras).\n6. Mensaje para la comunidad (máx. 70 palabras), en lenguaje sencillo.\n\nReglas:\n- Usa solo lo que dicen los correos. Si un dato no aparece, escribe \"No especificado\".\n- Si un correo posterior cambia algo, lo vigente es lo más reciente: muestra el antes y el después.\n- No presentes una propuesta como decisión aprobada.\n- No llenes validación humana ni control de calidad.",
+  "routes": [
+    {
+      "id": "chat",
+      "title": "A · Copilot Chat",
+      "hint": "Cualquier licencia · recomendada",
+      "steps": [
+        "Descarga la fuente con el botón de este reto.",
+        "Abre <strong>Microsoft 365 Copilot Chat</strong> y adjunta el archivo (📎 o <strong>+</strong>). Si no puedes adjuntar, usa «Enviar la fuente en partes».",
+        "Pega el prompt esencial y envíalo.",
+        "Copia cada sección de la respuesta a su lugar en la plantilla <code>MCP365_P02_Formato_cadena_correos.docx</code>.",
+        "Completa tú la validación humana, el control de calidad y las firmas."
+      ]
+    },
+    {
+      "id": "m365",
+      "title": "B · Licencia Microsoft 365 Copilot",
+      "hint": "Sin adjuntar archivos",
+      "steps": [
+        "Guarda la fuente en tu <strong>OneDrive</strong>.",
+        "En Copilot Chat, pestaña <strong>Trabajo</strong>, escribe <code>/</code> y selecciona los 4 correos de tu bandeja (si te los enviaste) o el archivo fuente.",
+        "Pega el prompt esencial y lleva el resultado a la plantilla, igual que en la ruta A."
+      ]
+    },
+    {
+      "id": "app",
+      "title": "C · Copilot dentro de Word",
+      "hint": "Si tu licencia lo incluye",
+      "steps": [
+        "Abre la fuente de correos en Word y abre <strong>Copilot</strong>.",
+        "Pega el prompt esencial: Copilot usará el documento abierto como fuente.",
+        "Copia las secciones a la plantilla. Si Copilot intenta modificar la fuente, deshaz (Ctrl+Z)."
+      ]
+    }
+  ],
+  "trouble": [
+    "<strong>«El mensaje es demasiado largo»:</strong> no pegues la fuente dentro del prompt. Adjunta el archivo o usa «Enviar la fuente en partes».",
+    "<strong>Copilot no acepta archivos:</strong> usa «Enviar la fuente en partes»: cada parte cabe en cualquier licencia.",
+    "<strong>La respuesta se corta:</strong> escribe <em>«Continúa exactamente desde la sección donde te detuviste»</em>.",
+    "<strong>Copilot inventa o completa datos:</strong> responde <em>«Revisa tu respuesta: deja solo lo que aparece en la fuente y marca lo demás como No especificado»</em>.",
+    "<strong>No tienes Microsoft 365 Copilot:</strong> puedes practicar en Copilot gratuito (copilot.microsoft.com) <em>solo con estos datos ficticios</em>. Nunca uses ahí información real de tu organización.",
+    "<strong>Toma como vigente la fecha del primer correo:</strong> recuérdale <em>«El correo del 07/03 aprueba la ventana final: actualiza el plan vigente con ese correo»</em>."
+  ]
+};
+  PROMPT_ROUTES["r3"] = {
+  "caseLabel": "Con la reunión del caso",
+  "ownLabel": "Para mi propia reunión",
+  "caseRef": "del comité operativo del Proyecto Horizonte que adjunto (o que te compartí en partes)",
+  "ownRef": "que adjunto o pego a continuación",
+  "sources": [
+    {
+      "key": "r3",
+      "label": "Transcripción comité operativo Horizonte",
+      "planilla": "matriz-fuente",
+      "file": "MCP365_P03_Fuente_transcripcion_Teams_Proyecto_Horizonte.docx"
+    }
+  ],
+  "prompt": "Actúa como secretario técnico de un comité. Analiza SOLO la transcripción de la reunión {{SOURCE_REF}}.\n\nEntrega 5 secciones, en este orden:\n1. Datos de la reunión: nombre, fecha y hora, facilitador, participantes y objetivo declarado.\n2. Clasificación: tabla Tipo | Contenido | Quién lo dijo. Tipos: Decisión confirmada, Propuesta no aprobada, Opinión o preocupación, Pregunta sin resolver.\n3. Matriz de compromisos (máx. 8 filas): Actividad | Responsable | Fecha límite | Dependencia | Estado | Evidencia. Deja vacía la columna \"Validado por\".\n4. Próxima agenda: 3 temas con Objetivo | Preparación requerida | Dueño.\n5. Resumen para difusión: máximo 5 líneas.\n\nReglas:\n- Una propuesta NO es una decisión hasta que alguien con autoridad la aprueba en la reunión.\n- Incluye solo compromisos asumidos explícitamente.\n- No asignes responsables ni fechas que no se digan: escribe \"No especificado\".\n- Si sobran filas, déjalas vacías: no las rellenes.\n- No llenes control de calidad ni firmas.",
+  "routes": [
+    {
+      "id": "chat",
+      "title": "A · Copilot Chat",
+      "hint": "Cualquier licencia · recomendada",
+      "steps": [
+        "Descarga la fuente con el botón de este reto.",
+        "Abre <strong>Microsoft 365 Copilot Chat</strong> y adjunta el archivo (📎 o <strong>+</strong>). Si no puedes adjuntar, usa «Enviar la fuente en partes».",
+        "Pega el prompt esencial y envíalo.",
+        "Copia cada sección de la respuesta a su lugar en la plantilla <code>MCP365_P03_Matriz_compromisos_reunion.docx</code>.",
+        "Completa tú la validación humana, el control de calidad y las firmas."
+      ]
+    },
+    {
+      "id": "m365",
+      "title": "B · Licencia Microsoft 365 Copilot",
+      "hint": "Sin adjuntar archivos",
+      "steps": [
+        "Guarda la fuente en tu <strong>OneDrive</strong>.",
+        "En Copilot Chat, pestaña <strong>Trabajo</strong>, escribe <code>/</code> y selecciona el archivo.",
+        "Pega el prompt esencial y lleva el resultado a la plantilla, igual que en la ruta A."
+      ]
+    },
+    {
+      "id": "app",
+      "title": "C · Copilot en Teams o Word",
+      "hint": "Si tu licencia lo incluye",
+      "steps": [
+        "<strong>Teams:</strong> si la reunión real fue grabada con transcripción, abre el chat de la reunión → <strong>Resumen</strong> → Copilot, y pega el prompt esencial.",
+        "<strong>Word:</strong> abre la transcripción del caso en Word, abre Copilot y pega el prompt esencial.",
+        "Copia las secciones a la plantilla y revisa cada compromiso contra la transcripción."
+      ]
+    }
+  ],
+  "trouble": [
+    "<strong>«El mensaje es demasiado largo»:</strong> no pegues la fuente dentro del prompt. Adjunta el archivo o usa «Enviar la fuente en partes».",
+    "<strong>Copilot no acepta archivos:</strong> usa «Enviar la fuente en partes»: cada parte cabe en cualquier licencia.",
+    "<strong>La respuesta se corta:</strong> escribe <em>«Continúa exactamente desde la sección donde te detuviste»</em>.",
+    "<strong>Copilot inventa o completa datos:</strong> responde <em>«Revisa tu respuesta: deja solo lo que aparece en la fuente y marca lo demás como No especificado»</em>.",
+    "<strong>No tienes Microsoft 365 Copilot:</strong> puedes practicar en Copilot gratuito (copilot.microsoft.com) <em>solo con estos datos ficticios</em>. Nunca uses ahí información real de tu organización.",
+    "<strong>Convierte una propuesta en decisión:</strong> pide <em>«Muestra la frase exacta en que se aprobó cada decisión; si no existe, muévela a Propuesta no aprobada»</em>."
+  ]
+};
+  PROMPT_ROUTES["r4"] = {
+  "caseLabel": "Con el chat del caso",
+  "ownLabel": "Para mi propio caso",
+  "caseRef": "del hallazgo ST-14 (Subestación Urbana 7) que adjunto (o que te compartí en partes)",
+  "ownRef": "que adjunto o pego a continuación",
+  "sources": [
+    {
+      "key": "r4",
+      "label": "Chat de WhatsApp · Hallazgo ST-14",
+      "planilla": "tres-audiencias-fuente",
+      "file": "MCP365_P04_Fuente_chat_WhatsApp_ST14_SU7.docx"
+    }
+  ],
+  "prompt": "Actúa como comunicador técnico. Usa SOLO el chat de WhatsApp {{SOURCE_REF}}.\n\nEntrega 6 secciones:\n1. Extracto clave: 5 a 7 hechos verificables del chat, con hora o autor.\n2. Versión técnica (especialistas): protocolo, mediciones, hipótesis NO confirmada, controles y criterio de escalamiento.\n3. Versión gerencia (máx. 10 líneas): impacto, riesgo, decisión vigente, plazo y recursos.\n4. Versión comunidad: qué ocurre, cuándo, cómo afecta y a quién contactar, en lenguaje sencillo.\n5. Matriz de consistencia (5 filas): Hecho original | ¿En técnica? | ¿En gerencia? | ¿En comunidad? | ¿Se alteró el significado? | Corrección.\n6. Omisiones: Audiencia | Qué se omitió | Por qué | ¿Riesgo de malentendido?\n\nReglas:\n- Los hechos son los mismos en las tres versiones: cambia solo lenguaje y prioridad.\n- No afirmes causa raíz, \"sensor dañado\" ni \"falla térmica\": son hipótesis.\n- No digas que el aviso a la comunidad ya se publicó si el chat no lo confirma.\n- En la versión comunidad no uses códigos internos (PV-OPS-07, INV-ST14-A, OT-MNT-2026-0417).\n- Si falta un dato, escribe \"No especificado\". No llenes control de calidad ni firmas.",
+  "routes": [
+    {
+      "id": "chat",
+      "title": "A · Copilot Chat",
+      "hint": "Cualquier licencia · recomendada",
+      "steps": [
+        "Descarga la fuente con el botón de este reto.",
+        "Abre <strong>Microsoft 365 Copilot Chat</strong> y adjunta el archivo (📎 o <strong>+</strong>). Si no puedes adjuntar, usa «Enviar la fuente en partes».",
+        "Pega el prompt esencial y envíalo.",
+        "Copia cada sección de la respuesta a su lugar en la plantilla <code>MCP365_P04_Comunicacion_tres_audiencias.docx</code>.",
+        "Completa tú la validación humana, el control de calidad y las firmas."
+      ]
+    },
+    {
+      "id": "m365",
+      "title": "B · Licencia Microsoft 365 Copilot",
+      "hint": "Sin adjuntar archivos",
+      "steps": [
+        "Guarda la fuente en tu <strong>OneDrive</strong>.",
+        "En Copilot Chat, pestaña <strong>Trabajo</strong>, escribe <code>/</code> y selecciona el archivo.",
+        "Pega el prompt esencial y lleva el resultado a la plantilla, igual que en la ruta A."
+      ]
+    },
+    {
+      "id": "app",
+      "title": "C · Copilot dentro de Word",
+      "hint": "Si tu licencia lo incluye",
+      "steps": [
+        "Abre la fuente del chat en Word y abre <strong>Copilot</strong>.",
+        "Pega el prompt esencial: Copilot usará el documento abierto como fuente.",
+        "Copia las versiones a la plantilla y compara cada hecho con el chat."
+      ]
+    }
+  ],
+  "trouble": [
+    "<strong>«El mensaje es demasiado largo»:</strong> no pegues la fuente dentro del prompt. Adjunta el archivo o usa «Enviar la fuente en partes».",
+    "<strong>Copilot no acepta archivos:</strong> usa «Enviar la fuente en partes»: cada parte cabe en cualquier licencia.",
+    "<strong>La respuesta se corta:</strong> escribe <em>«Continúa exactamente desde la sección donde te detuviste»</em>.",
+    "<strong>Copilot inventa o completa datos:</strong> responde <em>«Revisa tu respuesta: deja solo lo que aparece en la fuente y marca lo demás como No especificado»</em>.",
+    "<strong>No tienes Microsoft 365 Copilot:</strong> puedes practicar en Copilot gratuito (copilot.microsoft.com) <em>solo con estos datos ficticios</em>. Nunca uses ahí información real de tu organización.",
+    "<strong>La versión comunidad suena alarmante o técnica:</strong> pide <em>«Reescribe la versión comunidad para un vecino sin formación técnica, sin códigos y sin afirmar causas»</em>."
+  ]
+};
+  PROMPT_ROUTES["r5"] = {
+  "caseLabel": "Con el procedimiento del caso",
+  "ownLabel": "Para mis propios documentos",
+  "caseRef": "que adjunto (o que te compartí en partes)",
+  "ownRef": "que adjunto o pego a continuación",
+  "sources": [
+    {
+      "key": "r5a",
+      "label": "PRO-OPS-12 · Versión 3.1",
+      "planilla": "pro-ops-12-v31-pdf",
+      "file": "PRO-OPS-12_Version_3_1.pdf"
+    },
+    {
+      "key": "r5b",
+      "label": "PRO-OPS-12 · Versión 4.0",
+      "planilla": "pro-ops-12-v40-pdf",
+      "file": "PRO-OPS-12_Version_4_0.pdf"
+    }
+  ],
+  "prompt": "Actúa como analista de control documental. Compara SOLO las dos versiones del procedimiento PRO-OPS-12 {{SOURCE_REF}}: versión 3.1 (vigente hasta el 28/02/2026) y versión 4.0 (vigente desde el 01/03/2026).\n\nEntrega 4 secciones:\n1. Matriz comparativa con estos 12 temas: anticipación a usuarios; autorización de inicio; registro de hallazgos; horario y cierre; clasificación de impacto; confirmación de recursos; criterios de detención; evidencia y trazabilidad; conservación de registros; responsabilidad del contratista; indicadores; régimen de transición.\nColumnas: Tema | V3.1 | V4.0 | Naturaleza (Modificado, Nuevo, Eliminado, Sin cambio) | Impacto | Acción de transición | Prioridad (Alta, Media, Baja).\n2. Nuevos, eliminados y contradicciones: Tipo | Descripción | Evidencia | Riesgo si se ignora | Acción recomendada.\n3. Propuestas no aprobadas: Propuesta | Documento y sección | Por qué no está aprobada | Validación requerida.\n4. Resumen ejecutivo de 5 líneas.\n\nReglas:\n- Cita la evidencia así: V4.0 · Sección 8 · \"fragmento breve\".\n- Si dos disposiciones se contradicen, cita ambas y no elijas una.\n- Una nota o propuesta en revisión no es una regla aprobada.\n- Si un tema no aparece, escribe \"No especificado\".",
+  "routes": [
+    {
+      "id": "chat",
+      "title": "A · Copilot Chat",
+      "hint": "Cualquier licencia · recomendada",
+      "steps": [
+        "Descarga la fuente con el botón de este reto.",
+        "Abre <strong>Microsoft 365 Copilot Chat</strong> y adjunta el archivo (📎 o <strong>+</strong>). Si no puedes adjuntar, usa «Enviar la fuente en partes».",
+        "Pega el prompt esencial y envíalo.",
+        "Copia cada sección de la respuesta a su lugar en un documento Word (<code>MCP365_P05_Comparacion_documental_completada.docx</code>).",
+        "Completa tú la validación humana, el control de calidad y las firmas."
+      ]
+    },
+    {
+      "id": "m365",
+      "title": "B · Licencia Microsoft 365 Copilot",
+      "hint": "Sin adjuntar archivos",
+      "steps": [
+        "Guarda la fuente en tu <strong>OneDrive</strong>.",
+        "En Copilot Chat, pestaña <strong>Trabajo</strong>, escribe <code>/</code> y selecciona las dos versiones del procedimiento.",
+        "Pega el prompt esencial y lleva el resultado a la plantilla, igual que en la ruta A."
+      ]
+    },
+    {
+      "id": "app",
+      "title": "C · Copilot dentro de Word",
+      "hint": "Si tu licencia lo incluye",
+      "steps": [
+        "Abre la versión 4.0 en Word (botón «Word» de este reto) y abre <strong>Copilot</strong>.",
+        "Escribe <code>/</code> y referencia la versión 3.1 guardada en tu OneDrive; luego pega el prompt esencial.",
+        "Si no puedes referenciar el segundo archivo, usa la ruta A con ambos adjuntos."
+      ]
+    }
+  ],
+  "trouble": [
+    "<strong>«El mensaje es demasiado largo»:</strong> no pegues la fuente dentro del prompt. Adjunta el archivo o usa «Enviar la fuente en partes».",
+    "<strong>Copilot no acepta archivos:</strong> usa «Enviar la fuente en partes»: cada parte cabe en cualquier licencia.",
+    "<strong>La respuesta se corta:</strong> escribe <em>«Continúa exactamente desde la sección donde te detuviste»</em>.",
+    "<strong>Copilot inventa o completa datos:</strong> responde <em>«Revisa tu respuesta: deja solo lo que aparece en la fuente y marca lo demás como No especificado»</em>.",
+    "<strong>No tienes Microsoft 365 Copilot:</strong> puedes practicar en Copilot gratuito (copilot.microsoft.com) <em>solo con estos datos ficticios</em>. Nunca uses ahí información real de tu organización.",
+    "<strong>Faltan temas en la matriz:</strong> pide <em>«Completa la matriz con los 12 temas de la lista, aunque alguno sea Sin cambio o No especificado»</em>."
+  ],
+  "extra": {
+    "title": "Extra opcional · Informe HTML interactivo (en 3 turnos)",
+    "intro": "Úsalo solo cuando ya tengas la matriz validada. Dividir el código en turnos evita que la respuesta se corte.",
+    "turns": [
+      {
+        "label": "Turno 1 · Estructura y diseño (sin JavaScript)",
+        "text": "Con la matriz, los hallazgos y las propuestas no aprobadas de tu respuesta anterior, crea el código de un archivo HTML autocontenido: CSS dentro de <style>, sin librerías ni enlaces externos.\nIncluye: encabezado con título y fecha, resumen ejecutivo, la matriz de 12 temas como tabla, tarjetas de hallazgos (nuevo en verde, eliminado en rojo, contradicción en naranja) y la tabla de propuestas no aprobadas.\nPor ahora sin JavaScript. Entrega el código completo en un único bloque."
+      },
+      {
+        "label": "Turno 2 · Interactividad",
+        "text": "Ahora escribe SOLO un bloque <script> para pegar antes de </body> en ese HTML: un buscador que filtre las filas de la matriz, un filtro por Naturaleza (Modificado, Nuevo, Eliminado, Sin cambio) y un botón Imprimir que use window.print(). No repitas el HTML."
+      },
+      {
+        "label": "Turno 3 · Revisión",
+        "text": "Revisa el HTML final contra los dos documentos: lista cualquier dato de la matriz que no tenga evidencia en la versión 3.1 o 4.0. No corrijas nada todavía; solo lista las diferencias."
+      }
+    ],
+    "save": "Para guardar: copia el HTML en el Bloc de notas, pega el <code>&lt;script&gt;</code> antes de <code>&lt;/body&gt;</code> y guarda como <code>MCP365_P05_Comparacion_documental_completada.html</code> (tipo: Todos los archivos). Ábrelo con doble clic."
+  }
+};
+  PROMPT_ROUTES["r6"] = {
+  "caseLabel": "Con las 10 tareas del caso",
+  "ownLabel": "Para mis propias tareas",
+  "caseRef": "que adjunto (o que te compartí en partes)",
+  "ownRef": "que adjunto o pego a continuación (anonimizadas)",
+  "sources": [
+    {
+      "key": "r6",
+      "label": "Base de priorización · 10 tareas",
+      "planilla": "priorizacion",
+      "file": "MCP365_P06_Base_priorizacion_tareas.xlsx"
+    }
+  ],
+  "prompt": "Actúa como asistente de planificación. Usa SOLO las tareas de la base {{SOURCE_REF}}. No cambies tareas, límites ni responsables, y no conviertas \"Hoy\", \"Mañana\" o \"Viernes\" en fechas.\n\nEntrega 4 secciones:\n1. Matriz de priorización: N.º | Tarea | Límite | Responsable | Prioridad (P1 Crítica, P2 Alta, P3 Media, P4 Programable) | Por qué (una línea) | ¿Delegable? (Sí, Parcial, No) | ¿Requiere criterio humano? (Sí, No).\nCriterios, en este orden: límite, urgencia, impacto, riesgo por retraso y dependencia. No todo puede ser P1.\n2. Agenda en tres columnas: Hoy | Mañana | Viernes, respetando los límites escritos.\n3. Delegación: qué puede delegarse, qué no y por qué.\n4. Alertas: dependencias que pueden bloquear tareas críticas.\n\nReglas:\n- Requieren criterio humano: seguridad industrial, permisos ambientales, decisiones de comité, reprogramaciones y comunicación externa.\n- Si falta un dato, escribe \"No especificado\".\n- No llenes validación humana ni control de calidad.",
+  "routes": [
+    {
+      "id": "chat",
+      "title": "A · Copilot Chat",
+      "hint": "Cualquier licencia · recomendada",
+      "steps": [
+        "Descarga la fuente con el botón de este reto.",
+        "Abre <strong>Microsoft 365 Copilot Chat</strong> y adjunta el archivo (📎 o <strong>+</strong>). Si no puedes adjuntar, usa «Enviar la fuente en partes».",
+        "Pega el prompt esencial y envíalo.",
+        "Copia cada sección de la respuesta a su lugar en un documento Word o Excel (<code>MCP365_P06_Priorizacion_completada.docx</code>).",
+        "Completa tú la validación humana, el control de calidad y las firmas."
+      ]
+    },
+    {
+      "id": "m365",
+      "title": "B · Licencia Microsoft 365 Copilot",
+      "hint": "Sin adjuntar archivos",
+      "steps": [
+        "Guarda la fuente en tu <strong>OneDrive</strong>.",
+        "En Copilot Chat, pestaña <strong>Trabajo</strong>, escribe <code>/</code> y selecciona el archivo.",
+        "Pega el prompt esencial y lleva el resultado a la plantilla, igual que en la ruta A."
+      ]
+    },
+    {
+      "id": "app",
+      "title": "C · Copilot dentro de Excel",
+      "hint": "Si tu licencia lo incluye",
+      "steps": [
+        "Abre la base en Excel, selecciona la tabla de tareas y abre <strong>Copilot</strong>.",
+        "Pega el prompt esencial. Copilot en Excel puede responder en el panel; copia las tablas a Word o a una hoja nueva.",
+        "Si Copilot en Excel no está disponible o pide formato de tabla, usa la ruta A."
+      ]
+    }
+  ],
+  "trouble": [
+    "<strong>«El mensaje es demasiado largo»:</strong> no pegues la fuente dentro del prompt. Adjunta el archivo o usa «Enviar la fuente en partes».",
+    "<strong>Copilot no acepta archivos:</strong> usa «Enviar la fuente en partes»: cada parte cabe en cualquier licencia.",
+    "<strong>La respuesta se corta:</strong> escribe <em>«Continúa exactamente desde la sección donde te detuviste»</em>.",
+    "<strong>Copilot inventa o completa datos:</strong> responde <em>«Revisa tu respuesta: deja solo lo que aparece en la fuente y marca lo demás como No especificado»</em>.",
+    "<strong>No tienes Microsoft 365 Copilot:</strong> puedes practicar en Copilot gratuito (copilot.microsoft.com) <em>solo con estos datos ficticios</em>. Nunca uses ahí información real de tu organización.",
+    "<strong>Todo sale como P1:</strong> pide <em>«Reparte las prioridades: máximo 4 tareas en P1 y explica por qué cada una supera a las demás»</em>."
+  ],
+  "extra": {
+    "title": "Extra opcional · Informe HTML interactivo (en 3 turnos)",
+    "intro": "Úsalo cuando ya tengas la matriz y la agenda validadas. Compáralo después con el HTML de referencia del reto.",
+    "turns": [
+      {
+        "label": "Turno 1 · Estructura y diseño (sin JavaScript)",
+        "text": "Con la matriz de priorización y la agenda de tu respuesta anterior, crea el código de un archivo HTML autocontenido: CSS dentro de <style>, sin librerías ni enlaces externos.\nIncluye: encabezado, 4 tarjetas con el conteo de tareas P1 a P4, la matriz como tabla con color por prioridad y la agenda en tres columnas (Hoy, Mañana, Viernes).\nPor ahora sin JavaScript. Entrega el código completo en un único bloque."
+      },
+      {
+        "label": "Turno 2 · Interactividad",
+        "text": "Ahora escribe SOLO un bloque <script> para pegar antes de </body> en ese HTML: botones para filtrar la matriz por prioridad (P1, P2, P3, P4, Todas), un buscador por texto y un botón Imprimir que use window.print(). No repitas el HTML."
+      },
+      {
+        "label": "Turno 3 · Revisión",
+        "text": "Compara el HTML final con las 10 tareas originales: lista cualquier tarea, límite o responsable que haya cambiado. No corrijas nada todavía; solo lista las diferencias."
+      }
+    ],
+    "save": "Para guardar: copia el HTML en el Bloc de notas, pega el <code>&lt;script&gt;</code> antes de <code>&lt;/body&gt;</code> y guarda como <code>MCP365_P06_Priorizacion_completada.html</code> (tipo: Todos los archivos). Ábrelo con doble clic."
+  }
+};
+  const S1_SOURCES = {"r2": "Fuente documental · Cadena de correos ST-Urb-03\nMisión Copilot 365 · ECCO · Universidad Sergio Arboleda\nMCP-365-P02-F\nSolo lectura · 4 correos\nUso: Este archivo es la FUENTE. No es la plantilla de llenado. Ábrelo junto con MCP365_P02_Formato_cadena_correos.docx. Copilot analiza estos correos (De, Para, Asunto, Fecha, cuerpo) y completa solo la plantilla de llenado.\nRegla de evidencia: Al citar, usa siempre: fecha + De + Asunto. Ejemplo: «04/03/2026 · Julián Pardo · Logística de Materiales · RE: adelanto de repuestos · ST-Urb-03».\nCorreos de la cadena (no editar)\nCorreo 1 · 01/03/2026\nDe: Martha Ríos · Planeación de Mantenimiento\nPara: Comunicaciones Zona; Logística de Materiales; Seguridad Industrial\nAsunto: Programación transformador auxiliar ST-Urb-03\nFecha: 01/03/2026\nBuenos días,\nSe confirma el mantenimiento del transformador auxiliar de la subestación ST-Urb-03 para el 12/03/2026, en la ventana 08:00–14:00.\nCompromiso operativo: notificar a usuarios con mínimo 72 horas de anticipación.\nResponsable del aviso: Comunicaciones Zona.\nQuedo pendiente de cualquier novedad de agenda.\nMartha Ríos\nPlaneación de Mantenimiento · Zona Norte\nCorreo 2 · 04/03/2026\nDe: Julián Pardo · Logística de Materiales\nPara: Planeación de Mantenimiento; Comunicaciones Zona; Seguridad Industrial\nAsunto: RE: adelanto de repuestos · ST-Urb-03\nFecha: 04/03/2026\nBuenos días,\nEl proveedor confirma entrega anticipada de los repuestos del transformador auxiliar.\nCon ese adelanto, proponemos mover la ventana de intervención al 10/03/2026 (misma franja preliminar 08:00–14:00).\nPendiente: validar disponibilidad de personal de seguridad industrial para esa fecha antes de comunicar el cambio a la comunidad.\nGracias.\nJulián Pardo\nLogística de Materiales\nCorreo 3 · 06/03/2026\nDe: Carolina Vélez · Seguridad Industrial\nPara: Logística de Materiales; Planeación de Mantenimiento; Comunicaciones Zona\nAsunto: RE: personal 10/03 · ST-Urb-03\nFecha: 06/03/2026\nBuenos días,\nConfirmamos personal de seguridad industrial para el 10/03/2026.\nSolicitamos ampliar el cierre de área hasta las 16:00 para cubrir el retiro de equipos y la inspección final.\nRiesgo señalado: señalización insuficiente si no se refuerza el perímetro antes de las 07:30.\nAgradecemos coordinación con Comunicaciones Zona para el aviso a vecinos.\nQuedo atenta.\nCarolina Vélez\nSeguridad Industrial · Zona Norte\nCorreo 4 · 07/03/2026\nDe: Diego Castaño · Gerencia de Zona Norte\nPara: Comunicaciones Zona; Planeación de Mantenimiento; Seguridad Industrial; Logística de Materiales\nAsunto: Aprobación ventana 10/03 · ST-Urb-03\nFecha: 07/03/2026\nEquipo,\nSe aprueba la intervención del transformador auxiliar ST-Urb-03 el 10/03/2026 con cierre de área hasta las 16:00.\nSolicito:\n1) Mensaje claro a la comunidad con al menos 72 horas de anticipación.\n2) Reporte ejecutivo al cierre de la jornada (alcance, novedades y estado final).\nFavor confirmar recepción.\nDiego Castaño\nGerencia de Zona Norte", "r3": "Ana Rojas\n0:00:04\nBuenos días. Son las nueve de la mañana del 20 de marzo de 2026 y damos inicio al comité operativo del Proyecto Horizonte.\nAna Rojas\n0:00:18\nEl propósito de hoy es revisar las condiciones para el diagnóstico en sitio, los materiales, las autorizaciones y la comunicación previa.\nCarlos Beltrán\n0:01:03\nDe acuerdo. Desde el componente técnico necesito que distingamos lo que ya está confirmado de lo que todavía depende de permisos o accesos.\nSofía Vargas\n0:01:48\nYo traigo el avance de materiales, aunque todavía me falta la confirmación formal de Almacén.\nDiego Pardo\n0:02:31\nY por comunicaciones quisiera revisar si debemos preparar algo para los vecinos antes de la intervención.\nAna Rojas\n0:03:22\nPropongo iniciar el diagnóstico en sitio el 2 de abril.\nCarlos Beltrán\n0:04:16\nEs viable si el acceso al tablero queda liberado.\nCarlos Beltrán\n0:05:11\nMe preocupa que todavía no esté el permiso de trabajo en altura.\nAna Rojas\n0:06:07\nCarlos, ¿ese permiso condiciona el ingreso completo o solamente una parte del diagnóstico?\nCarlos Beltrán\n0:07:03\nCondiciona cualquier actividad que requiera acceso elevado. Podemos revisar otros puntos, pero no deberíamos dar por habilitado todo el diagnóstico sin ese permiso.\nSofía Vargas\n0:08:15\n¿La solicitud del permiso debe salir a nombre del proyecto o del personal técnico que va a ingresar?\nAna Rojas\n0:09:11\nQueda decidido que solicitamos el permiso esta misma semana.\nAna Rojas\n0:10:20\nPara precisar el compromiso, yo radico hoy la solicitud inicial y pido que nos confirmen el trámite antes de cerrar la jornada.\nCarlos Beltrán\n0:11:17\nPerfecto. Aclaro que la autorización de acceso al tablero es otro asunto. Todavía no tenemos identificado quién debe liberarlo.\nAna Rojas\n0:12:04\nEntonces queda abierta la pregunta sobre quién autoriza y coordina ese acceso.\nSofía Vargas\n0:13:06\nPuedo consultar con la administración del sitio y traer el nombre del contacto, pero en este momento no lo tengo especificado.\nAna Rojas\n0:14:12\nDe acuerdo. Sofía, además prepara el listado de materiales para el 28 de marzo.\nSofía Vargas\n0:15:01\nSí. Lo preparo para esa fecha, pero lo marcaré como preliminar mientras Almacén confirma existencias.\nCarlos Beltrán\n0:16:13\nEn el listado deberían aparecer también los instrumentos de medición, los elementos de protección y la señalización necesaria.\nSofía Vargas\n0:17:21\nLos puedo incluir por categoría. Las cantidades todavía no están cerradas porque dependen del alcance definitivo del diagnóstico.\nAna Rojas\n0:18:24\n¿Qué información tenemos hoy sobre el inventario disponible?\nSofía Vargas\n0:19:19\nEl estado del inventario de materiales queda pendiente de confirmación de Almacén. No recibí respuesta antes de esta reunión.\nAna Rojas\n0:20:32\n¿Almacén indicó alguna fecha para responder?\nSofía Vargas\n0:21:26\nNo. Por ahora la fecha de respuesta no está especificada.\nCarlos Beltrán\n0:22:18\nEso puede afectar la viabilidad del 2 de abril si falta algún elemento crítico.\nAna Rojas\n0:23:27\nMi propuesta es conservar el 2 de abril como fecha objetivo, condicionada al permiso, al acceso y a la disponibilidad mínima de materiales.\nCarlos Beltrán\n0:24:31\nCon esas condiciones me parece razonable, pero no lo presentaría todavía como una fecha confirmada.\nAna Rojas\n0:25:42\nCorrecto. El 2 de abril queda como fecha propuesta, no como autorización definitiva de ingreso.\nDiego Pardo\n0:26:35\nSobre la comunicación, sugiero un ensayo de mensaje a vecinos antes de la intervención.\nDiego Pardo\n0:27:44\nLa idea sería revisar tono, claridad y datos básicos antes de enviar cualquier aviso.\nAna Rojas\n0:28:55\n¿Ese ensayo requiere que ya tengamos confirmada la fecha y el horario?\nDiego Pardo\n0:30:06\nPara el ensayo podemos trabajar con campos pendientes. Para el envío real sí necesitamos fecha, horario, alcance y canal de contacto confirmados.\nSofía Vargas\n0:31:15\n¿Propones una reunión adicional para revisar el mensaje o bastaría con circular el borrador?\nDiego Pardo\n0:32:20\nMi propuesta es circular primero un borrador y hacer un ensayo corto con el equipo. Todavía no estoy proponiendo el envío a los vecinos.\nAna Rojas\n0:33:31\nDejo constancia de que esa comunicación aún no está aprobada por Gerencia de Zona.\nDiego Pardo\n0:34:42\nSí. La aprobación de Gerencia de Zona sigue pendiente y no tenemos una fecha de respuesta confirmada.\nAna Rojas\n0:35:58\n¿Sabemos quién dentro de Gerencia de Zona debe dar esa aprobación?\nDiego Pardo\n0:37:06\nNo tengo el nombre de la persona aprobadora. Yo puedo remitir el borrador al canal habitual de Gerencia de Zona el 27 de marzo.\nAna Rojas\n0:38:11\nAprobamos preparar y remitir el borrador para revisión, pero no autorizamos todavía su distribución a usuarios o vecinos.\nCarlos Beltrán\n0:39:26\nNecesito otra precisión. ¿El diagnóstico del 2 de abril se está pensando en la mañana o en la tarde?\nAna Rojas\n0:40:38\nEl horario no está definido. Ese dato queda pendiente.\nSofía Vargas\n0:41:47\nPara gestionar el acceso también necesito saber cuántas personas ingresarían y durante cuánto tiempo.\nCarlos Beltrán\n0:42:51\nLa cantidad de personas todavía depende de la revisión del alcance. No puedo confirmarla hoy.\nCarlos Beltrán\n0:44:03\nComo recomendación técnica, preferiría realizar la inspección con luz de día, pero eso es una opinión y no una decisión del comité.\nAna Rojas\n0:45:16\nQueda registrada como recomendación técnica. El horario seguirá abierto hasta validar acceso y disponibilidad del equipo.\nDiego Pardo\n0:46:24\nTambién necesito una duración estimada para que el mensaje no genere expectativas incorrectas.\nCarlos Beltrán\n0:47:36\nTodavía no puedo dar una duración. Primero debemos cerrar el alcance y revisar las condiciones reales del tablero.\nAna Rojas\n0:48:44\nEntonces definamos qué documento técnico necesitamos antes de confirmar esos datos.\nCarlos Beltrán\n0:49:57\nPuedo preparar una lista de condiciones de ingreso y puntos de verificación. Incluiría acceso, seguridad, instrumentos y evidencias requeridas.\nAna Rojas\n0:51:05\nCarlos, por favor entrega esa lista técnica el 25 de marzo.\nCarlos Beltrán\n0:52:11\nAcepto el compromiso para el 25 de marzo. Si encuentro un requisito adicional, lo dejaré señalado como pendiente de validación.\nSofía Vargas\n0:53:18\n¿Dónde debemos centralizar el listado de materiales y la lista técnica?\nAna Rojas\n0:54:26\nPublíquenlos en el canal del Proyecto Horizonte en Teams para que el equipo trabaje sobre una sola versión.\nAna Rojas\n0:55:34\nSofía, agenda la siguiente reunión para el 4 de abril a las diez de la mañana.\nSofía Vargas\n0:56:41\nDe acuerdo. Enviaré hoy la invitación para el 4 de abril a las diez y dejaré el enlace en el canal del proyecto.\nDiego Pardo\n0:57:48\nEsa reunión sería posterior a la fecha propuesta del diagnóstico. ¿La tomamos como seguimiento y no como aprobación previa?\nAna Rojas\n0:58:38\nSí, será una reunión de seguimiento. La aprobación previa del ingreso tendrá que resolverse por los canales de permiso y acceso.\nCarlos Beltrán\n0:59:14\nEntonces quedan abiertos el responsable del acceso al tablero, la confirmación de inventario, la aprobación del permiso y la aprobación de la comunicación.\nAna Rojas\n0:59:47\nCorrecto. No agregamos más decisiones. Cerramos la reunión a las diez de la mañana. Gracias a todos.", "r4": "Fuente · Chat de WhatsApp · Hallazgo ST-14\nMisión Copilot 365 · ECCO · Universidad Sergio Arboleda\nMCP-365-P04-F\nSolo lectura · Caso ficticio\nUso: Este archivo es la FUENTE. No es la plantilla de llenado. Ábrelo junto con MCP365_P04_Comunicacion_tres_audiencias.docx. Copilot analiza este chat y completa solo la plantilla de tres audiencias.\nAdvertencia: Caso ficticio y anonimizado. El número de la Línea Comunitaria es ficticio y solo se usa para el ejercicio.\nDatos del grupo\nCampo\nInformación\nGrupo\nOperación y Mantenimiento · Subestación Urbana 7\nFecha\nmiércoles, 18 de marzo de 2026\nCaso\nHallazgo ST-14\nParticipantes\nAndrés Molina · Laura Méndez · Felipe Castro · Paula Rincón · Camila Torres · Jorge Salazar\nTranscripción del chat (no editar)\n6:47 a. m. · Andrés Molina\nBuenos días. Inicio turno de operación de 06:00 a 14:00 en la Subestación Urbana 7. Los equipos principales están operando sin alarmas activas y el servicio se encuentra normal.\n7:12 a. m. · Andrés Molina\nDurante la inspección rutinaria encontré una lectura intermitente en el sensor de temperatura ST-14 del tablero de control secundario.\n7:13 a. m. · Andrés Molina\nLa pantalla alterna entre una lectura de 42 °C y el mensaje “sin señal”. La pérdida de lectura dura entre 6 y 12 segundos y luego se recupera.\n7:15 a. m. · Andrés Molina\nAclaro que no se ha presentado disparo, alarma de sobretemperatura ni interrupción del servicio.\n7:16 a. m. · Laura Méndez\nAndrés, activa el protocolo de verificación PV-OPS-07. Por favor, no concluyamos todavía que existe calentamiento real hasta comparar con una medición independiente.\n7:18 a. m. · Andrés Molina\nRecibido. Inicio PV-OPS-07 y registro el hallazgo como ST-14-SU7-180326.\n7:24 a. m. · Andrés Molina\nPrimera medición manual con termómetro infrarrojo: 43,1 °C en el punto asociado al ST-14.\n7:25 a. m. · Andrés Molina\nLos sensores cercanos están estables: ST-13 registra 41,8 °C y ST-15 registra 42,6 °C.\n7:27 a. m. · Andrés Molina\nNo observo olor, humo, decoloración, vibración anormal ni evidencia visible de recalentamiento en el tablero.\n7:30 a. m. · Felipe Castro\nCon esos datos no tenemos evidencia de una condición térmica anormal. La falla podría estar en el sensor, en el conector o en la transmisión de la señal, pero todavía es una hipótesis.\n7:32 a. m. · Felipe Castro\nNo registremos “sensor dañado” como causa confirmada. La causa raíz solo podrá definirse después de revisar conexiones y probar el sensor retirado.\n7:35 a. m. · Laura Méndez\nDe acuerdo. Estado del hallazgo: lectura intermitente confirmada; calentamiento real no evidenciado; causa raíz pendiente.\n7:39 a. m. · Andrés Molina\nSegunda medición manual: 43,4 °C. La lectura se mantiene dentro del rango observado en el tablero.\n7:42 a. m. · Andrés Molina\nRevisé visualmente el cable y el conector accesible sin intervenir el circuito. No se observan daños externos ni conexiones sueltas a simple vista.\n7:45 a. m. · Felipe Castro\nPara revisar terminales internamente debemos aislar el circuito secundario y aplicar el procedimiento de seguridad. Esa actividad no se debe realizar durante la operación rutinaria sin una ventana autorizada.\n7:47 a. m. · Laura Méndez\nEntonces mantengamos el equipo en servicio con seguimiento reforzado. Andrés, registra una medición manual cada dos horas y en cada cambio de turno.\n7:49 a. m. · Andrés Molina\nConfirmado. Haré seguimiento a las 09:30, 11:30 y 13:30 y dejaré el registro para el siguiente turno.\n7:52 a. m. · Jorge Salazar\n¿Existe afectación actual para usuarios o riesgo inmediato de interrupción?\n7:54 a. m. · Laura Méndez\nNo hay afectación actual a usuarios. El servicio continúa normal y no se ha activado ninguna protección.\n7:55 a. m. · Laura Méndez\nCon la información disponible, el impacto se clasifica como bajo, siempre que mantengamos la vigilancia y no aparezca una temperatura real anormal.\n7:58 a. m. · Felipe Castro\nPropongo los siguientes criterios de escalamiento:\n1. Temperatura manual igual o superior a 55 °C.\n2. Pérdida continua de señal durante más de 10 minutos.\n3. Diferencia superior a 8 °C frente a los sensores cercanos.\n4. Activación de alarma, olor, humo o cambio visible en el tablero.\n8:01 a. m. · Jorge Salazar\nAprobados esos criterios para el seguimiento temporal. Si se cumple cualquiera, se debe informar inmediatamente a Operaciones y evaluar adelantar la intervención.\n8:05 a. m. · Laura Méndez\nAbrí la orden de trabajo OT-MNT-2026-0417 para revisión del circuito, reemplazo preventivo del ST-14 y prueba funcional.\n8:08 a. m. · Laura Méndez\nLa intervención queda programada para el domingo 5 de abril de 2026, entre las 09:00 y las 11:00.\n8:10 a. m. · Jorge Salazar\n¿La intervención requiere suspender el servicio?\n8:12 a. m. · Felipe Castro\nNo se tiene prevista una interrupción del servicio. El trabajo se realizará sobre el circuito secundario del sensor, con aislamiento del punto de intervención.\n8:14 a. m. · Felipe Castro\nLa ventana de dos horas incluye preparación, aislamiento, reemplazo, verificación de conexiones, prueba funcional y observación de estabilidad.\n8:17 a. m. · Felipe Castro\nEl reemplazo físico debería tomar aproximadamente 25 minutos. Después necesitamos 15 minutos de señal estable y comparación con medición manual.\n8:20 a. m. · Laura Méndez\nLa ejecución requiere técnico de instrumentación, técnico de operación, elementos de protección personal y autorización de ingreso al área.\n8:23 a. m. · Paula Rincón\nConfirmo que en el almacén central existe una unidad compatible con el ST-14.\n8:24 a. m. · Paula Rincón\nCódigo de inventario: INV-ST14-A. Es la única unidad disponible actualmente.\n8:26 a. m. · Paula Rincón\nPuedo reservarla desde hoy para la orden OT-MNT-2026-0417 y programar su despacho para el viernes 3 de abril antes de las 2:00 p. m.\n8:28 a. m. · Laura Méndez\nPaula, por favor deja la unidad reservada. No se requiere compra adicional para esta intervención.\n8:29 a. m. · Paula Rincón\nReserva confirmada. Responsable de entrega: Almacén Central. Fecha prevista: 3 de abril de 2026, antes de las 2:00 p. m.\n8:33 a. m. · Jorge Salazar\nMantengamos la fecha del 5 de abril mientras las mediciones continúen estables. No considero necesaria una intervención de emergencia con la evidencia actual.\n8:35 a. m. · Jorge Salazar\nRealizaremos una validación de continuidad o “go/no-go” el sábado 4 de abril a las 4:00 p. m. Deben estar confirmados el repuesto, el personal y la autorización de ingreso.\n8:38 a. m. · Laura Méndez\nQueda registrado. Yo consolidaré esas tres confirmaciones y reportaré el resultado de la validación.\n8:42 a. m. · Camila Torres\nPara comunicaciones: ¿debemos informar desde ahora a la comunidad aledaña?\n8:44 a. m. · Jorge Salazar\nNo. En este momento no existe interrupción ni afectación a usuarios. No se autoriza todavía publicar un aviso.\n8:46 a. m. · Laura Méndez\nDurante la intervención se restringirá únicamente el acceso inmediato al tablero. No se prevé cerrar vías, suspender el servicio ni impedir el acceso general al sector.\n8:48 a. m. · Felipe Castro\nLa restricción directa alrededor del tablero se estima en 20 a 25 minutos. El resto de la ventana corresponde a pruebas y observación.\n8:51 a. m. · Camila Torres\nEntendido. Prepararé un borrador preventivo, pero no lo publicaré hasta recibir instrucción de Operaciones.\n8:53 a. m. · Camila Torres\n¿En qué situación debemos activar la comunicación?\n8:55 a. m. · Jorge Salazar\nSi el cierre del área o la restricción de acceso se extiende por más de 30 minutos, Comunicaciones debe emitir el aviso preventivo.\n8:57 a. m. · Jorge Salazar\nTambién se debe informar si cambia la fecha, si aparece una afectación al servicio o si la intervención requiere una restricción adicional para la comunidad.\n9:00 a. m. · Camila Torres\nConfirmado. El aviso incluirá únicamente fecha, franja horaria, posible restricción de acceso, ausencia de corte programado y canal de contacto.\n9:02 a. m. · Camila Torres\nEl canal autorizado para este caso será la Línea Comunitaria 01 8000 000 707, opción 2. Este número es ficticio y se utiliza únicamente para el ejercicio.\n9:30 a. m. · Andrés Molina\nSeguimiento de las 09:30: medición manual de 43,2 °C. El sensor continúa presentando pérdidas breves de señal, pero no hay alarma ni cambio en la operación.\n9:34 a. m. · Felipe Castro\nGracias. Mantener la observación. La intermitencia continúa, pero no hay evidencia nueva que cambie la clasificación de impacto bajo.\n10:05 a. m. · Laura Méndez\nResumen provisional del caso:\n* Hallazgo: lectura intermitente del ST-14.\n* Ubicación: tablero de control secundario de la Subestación Urbana 7.\n* Servicio: normal, sin afectación a usuarios.\n* Protocolo activado: PV-OPS-07.\n* Causa raíz: pendiente de confirmación.\n* Impacto actual: bajo.\n* Repuesto: reservado en Almacén Central.\n* Intervención: 5 de abril, de 09:00 a 11:00.\n* Comunicación externa: no autorizada por ahora.\n10:09 a. m. · Jorge Salazar\nEl resumen es correcto. Para gerencia debemos destacar que no existe afectación, no se requiere compra adicional y el riesgo permanece controlado con monitoreo.\n10:12 a. m. · Jorge Salazar\nTambién debe quedar claro que la decisión vigente es ejecutar el reemplazo preventivo en la ventana programada, salvo que se active un criterio de escalamiento.\n10:16 a. m. · Felipe Castro\nPara el informe técnico incluyan la hipótesis como no confirmada. No afirmar que el sensor está dañado hasta finalizar las pruebas.\n10:20 a. m. · Camila Torres\nPara la comunidad debemos evitar códigos como PV-OPS-07, INV-ST14-A y OT-MNT-2026-0417. No son necesarios para explicar la situación.\n10:22 a. m. · Camila Torres\nTampoco se debe mencionar “falla térmica”, porque las mediciones manuales no muestran sobretemperatura. Podemos hablar de mantenimiento preventivo de un dispositivo de monitoreo.\n11:30 a. m. · Andrés Molina\nSeguimiento de las 11:30: 43,3 °C. Sin alarmas, sin interrupción y sin cambios visibles.\n11:34 a. m. · Laura Méndez\nRecibido. Continúa el seguimiento hasta entregar el turno.\n1:30 p. m. · Andrés Molina\nÚltimo seguimiento del turno: 43,1 °C. El servicio permanece normal. Las pérdidas de señal siguen siendo breves e intermitentes.\n1:36 p. m. · Andrés Molina\nDejo fotografías, mediciones y registro de eventos asociados a la orden OT-MNT-2026-0417 para consulta del siguiente turno.\n1:40 p. m. · Laura Méndez\nGracias. Cierre del reporte del turno:\n* No hubo interrupción del servicio.\n* No se presentó afectación a usuarios.\n* No se confirmó sobretemperatura.\n* El ST-14 quedó bajo monitoreo reforzado.\n* El reemplazo preventivo continúa programado para el 5 de abril.\n* La causa raíz sigue pendiente de confirmación.\n* El aviso a la comunidad solo se emitirá si se cumple alguno de los criterios definidos.", "r5a": "PROCEDIMIENTO OPERATIVO\nPlanificación, ejecución y cierre de intervenciones operativas\nPRO-OPS-12 · Versión 3.1\nCampo\nInformación\nEstado\nVERSIÓN HISTÓRICA - NO VIGENTE\nVigencia\nVigente del 01/03/2024 al 28/02/2026\nFecha de aprobación\n15/02/2024\nÁrea emisora\nDirección de Operaciones y Mantenimiento\nClasificación\nUso interno · Documento ficticio para ejercicio formativo\nNota de uso: Este procedimiento es completamente ficticio. Se diseñó para practicar comparación documental y no sustituye normas, manuales ni procedimientos de una organización real.\nControl del documento\nRol\nNombre ficticio\nResponsabilidad documental\nElaboró\nNatalia Cárdenas · Profesional de Operaciones\nRedacción y consistencia técnica\nRevisó\nElena Ruiz · Coordinadora de Seguridad Operacional\nControles críticos y seguridad\nAprobó\nMiguel Torres · Director de Operaciones\nAutorización de publicación\nHistorial de cambios\nVersión\nVigencia desde\nDescripción del cambio\n2.0\n01/06/2021\nEstandarización del formato de programación.\n3.0\n01/08/2023\nIncorporación de validación de seguridad para actividades de riesgo alto.\n3.1\n01/03/2024\nAjustes de responsables, registro de hallazgos y cierre diario.\nResumen de esta versión: Consolidación del flujo de programación, autorización, ejecución y cierre. Mantiene aviso previo de 48 horas.\nContenido\n1. Objetivo\n2. Alcance\n3. Referencias y jerarquía documental\n4. Definiciones\n5. Roles y responsabilidades\n6. Clasificación de impacto\n7. Planeación y comunicaciones\n8. Autorización de inicio\n9. Ejecución y control\n10. Registro de hallazgos\n11. Cierre y restitución\n12. Gestión documental\n13. Indicadores\n14. Régimen de transición\nAnexo A. Lista de verificación\nAnexo B. Registro mínimo\nAnexo C. Comunicación a usuarios\n1. Objetivo\nEstablecer las condiciones para planear, autorizar, ejecutar, controlar y cerrar intervenciones operativas, manteniendo la seguridad, la continuidad del servicio, la trazabilidad de las decisiones y la comunicación oportuna con las partes interesadas.\n2. Alcance\nAplica a intervenciones operativas programadas sobre infraestructura urbana cuando participe personal propio o contratista y exista posibilidad de indisponibilidad del activo.\nLas emergencias se gestionan por el plan de contingencia vigente. El supervisor puede iniciar una actividad urgente de riesgo bajo y formalizar la autorización posteriormente.\nNo incluye obras civiles mayores ni proyectos de expansión, que se rigen por procedimientos específicos.\n3. Referencias y jerarquía documental\nEste procedimiento se aplica junto con el plan de contingencia, los estándares de seguridad operacional, las instrucciones técnicas del activo y los requisitos contractuales vigentes.\nEn caso de conflicto, prevalecen los requisitos legales y de seguridad aplicables, seguidos por la versión vigente de este procedimiento y, posteriormente, por sus formatos y anexos.\nDocumento relacionado\nUso dentro del procedimiento\nPL-EME-01 Plan de contingencia\nGestión de emergencias, estabilización y recuperación.\nSTD-SST-04 Controles críticos\nTrabajo en altura, energía peligrosa, espacios confinados y acceso restringido.\nMAN-GIO-02 Manual del sistema GIO\nReferencia futura; no obligatorio en esta versión.\nGUI-COM-03 Comunicación comunitaria\nAvisos, actualizaciones y cierre de comunicaciones.\n4. Definiciones\nTérmino\nDefinición\nIntervención operativa\nActividad planificada o urgente que modifica, inspecciona, mantiene o prueba un activo en servicio o disponible para servicio.\nAfectación a usuarios\nCambio temporal en continuidad, calidad, acceso, movilidad o condiciones habituales percibidas por usuarios o comunidad.\nHallazgo\nCondición detectada durante la planeación o ejecución que puede requerir corrección, seguimiento o escalamiento.\nEvidencia\nRegistro verificable que demuestra autorización, ejecución, resultado o cierre de una actividad.\nVentana de trabajo\nPeriodo autorizado para preparación, intervención, pruebas y restitución del área o activo.\n5. Roles y responsabilidades\nRol\nResponsabilidades principales\nCoordinador de Operaciones\nConsolidar el programa semanal, verificar recursos y coordinar avisos a usuarios.\nSupervisor de turno\nAutorizar el inicio, asignar el líder de trabajo y validar el cierre operativo.\nLíder de trabajo\nEjecutar la lista de chequeo, informar hallazgos y entregar evidencias.\nSeguridad y Salud\nRevisar actividades clasificadas como riesgo alto o con trabajo en altura.\nComunicaciones\nEmitir avisos cuando se proyecte interrupción superior a 15 minutos o cierre de acceso público.\nContratista\nCumplir la autorización, portar documentos y reportar desviaciones al líder de trabajo.\n6. Clasificación de impacto\nAntes de autorizar la intervención se debe estimar el impacto sobre seguridad, continuidad, activos, usuarios y comunidad.\nNivel\nCriterio orientador\nTratamiento\nBajo\nSin interrupción prevista y controles rutinarios.\nAutoriza el supervisor de turno.\nMedio\nInterrupción menor o restricción localizada.\nRevisión del coordinador y aviso cuando aplique.\nAlto\nPosible afectación amplia, riesgo crítico o trabajo especial.\nVisto bueno de Seguridad y Jefatura de Operaciones.\n7. Planeación y comunicaciones\nRegistrar la solicitud de intervención con mínimo tres días hábiles de anticipación.\nConfirmar disponibilidad de materiales, herramientas y personal al menos 24 horas antes.\nDefinir ventana, activo, alcance, responsable y posible afectación.\nDiligenciar la evaluación básica de riesgos en el formato F-OPS-12-01.\nNotificar a los usuarios con mínimo 48 horas de anticipación cuando exista afectación prevista.\nHito\nVersión aplicable\nResponsable\nEvidencia mínima\nSolicitud\nT-3 días hábiles\nCoordinación\nSolicitud y alcance\nRecursos\nT-24 horas\nLíder / Almacén\nConfirmación de disponibilidad\nAviso a usuarios\nT-48 horas\nComunicaciones\nMensaje emitido y destinatarios\nRevisión final\nAntes del inicio\nSupervisor\nLista de chequeo\n8. Autorización de inicio\nEl supervisor de turno autoriza el inicio mediante correo, firma en el formato o registro en la bitácora.\nPara actividades urgentes de riesgo bajo se admite autorización verbal, siempre que se documente antes de finalizar el turno.\nLas actividades de riesgo alto requieren visto bueno previo de Seguridad y Salud.\nNo existe una segunda puerta de decisión obligatoria antes del inicio si la autorización inicial continúa vigente.\nRegla de bloqueo: La existencia de una fecha programada no autoriza por sí sola el inicio. Deben cumplirse las condiciones documentales, técnicas y de seguridad aplicables.\n9. Ejecución y control\nRealizar charla previa, delimitar el área y confirmar disponibilidad de equipos de protección.\nRegistrar hora de inicio en la bitácora física o archivo compartido de la sede.\nEjecutar el alcance autorizado y comunicar al supervisor cualquier variación relevante.\nSuspender ante una condición insegura, daño visible o pérdida no prevista del servicio.\nRestituir el activo y retirar la señalización una vez terminadas las pruebas funcionales.\nSituación\nRespuesta mínima\nCambio de alcance\nDetener el punto afectado y solicitar validación del supervisor.\nExtensión de ventana\nInformar a Operaciones y Comunicaciones cuando exista afectación.\nCondición insegura\nSuspender y aplicar controles antes de continuar.\nPérdida de servicio\nActivar contingencia, informar y priorizar recuperación.\n10. Registro y tratamiento de hallazgos\nLos hallazgos se registran en la bitácora de la sede dentro de las 24 horas siguientes.\nEl registro mínimo incluye fecha, activo, descripción, responsable y acción propuesta.\nNo se utiliza una taxonomía obligatoria de severidad. El supervisor determina la prioridad con base en su criterio operativo.\nLas fotografías son recomendadas, pero no obligatorias para hallazgos sin afectación.\n11. Cierre y restitución\nLa ejecución física debe finalizar antes de las 18:00, salvo autorización del jefe de operaciones.\nEl líder de trabajo entrega el formato de cierre y las evidencias antes de finalizar el turno.\nEl supervisor valida el cierre dentro de los dos días hábiles siguientes.\nCuando hubo interrupción informada, Comunicaciones emite cierre del evento si el supervisor lo solicita.\nValidación de cierre\nEvidencia esperada\nActivo\nPrueba funcional, condición final y ausencia de alarmas no previstas.\nÁrea\nRetiro de herramientas, residuos, barreras temporales y control de accesos.\nUsuarios\nConfirmación de normalización o actualización cuando se emitió aviso.\nDocumentación\nRegistro completo, hallazgos vinculados y aprobaciones requeridas.\n12. Gestión documental y conservación\nLos registros deben ser legibles, atribuibles, completos y recuperables durante el periodo definido. No se deben almacenar evidencias operativas únicamente en dispositivos personales o conversaciones informales.\nRegistro\nResponsable\nRepositorio\nRetención\nPrograma semanal\nCoordinador de Operaciones\nCarpeta compartida del área\n2 años\nF-OPS-12-01 Evaluación básica\nLíder de trabajo\nArchivo de sede\n2 años\nBitácora de hallazgos\nSupervisor\nBitácora física o digital local\n2 años\nFormato de cierre\nSupervisor\nCarpeta compartida del área\n2 años\nAvisos a usuarios\nComunicaciones\nCorreo institucional\n1 año\n13. Indicadores y seguimiento\nIndicador\nDefinición\nFrecuencia\nResponsable\nCumplimiento del programa\nIntervenciones ejecutadas / intervenciones programadas\nMensual\nCoordinación de Operaciones\nCierres oportunos\nCierres entregados en el turno / intervenciones ejecutadas\nMensual\nSupervisión\nEventos no previstos\nNúmero de interrupciones no previstas asociadas a intervenciones\nMensual\nJefatura de Operaciones\nLos resultados se revisan en el comité operativo mensual. Las desviaciones repetitivas requieren plan de mejora y responsable definido.\n14. Régimen de transición\nLa versión 3.1 deja de utilizarse para actividades cuya ejecución ocurra desde el 1 de marzo de 2026.\nLos registros cerrados bajo esta versión mantienen su periodo de retención original.\nLas copias impresas deben marcarse como históricas para evitar su uso operativo.\nAcción de transición\nResponsable\nEvidencia esperada\nIdentificar actividades que cambian de versión\nCoordinación de Operaciones\nListado de intervenciones y versión aplicable\nConservar los registros cerrados bajo su regla original\nGestión Documental\nÍndice de expedientes y plazo de retención\nRetirar o marcar copias impresas no vigentes\nResponsables de sede\nRegistro de retiro o sello de copia histórica\nComunicar responsables, fechas y excepciones\nCalidad Operacional\nCircular y constancia de socialización\nAnexo A. Lista de verificación previa\n#\nVerificación\nResultado / observación\n1\nAlcance y activo identificados\n2\nVentana y responsables confirmados\n3\nRecursos confirmados con 24 horas de anticipación\n4\nEvaluación de riesgos completa\n5\nAviso a usuarios emitido con 48 horas cuando aplica\n6\nPermisos y accesos disponibles\n7\nPlan de recuperación o reversa disponible\nNo obligatorio\n8\nAutorización de inicio registrada\n9\nCanales de escalamiento confirmados\n10\nEquipo conoce criterios de detención\nAnexo B. Contenido mínimo del registro de cierre\nCampo\nContenido requerido\nIdentificación\nCódigo, activo, ubicación, fecha, ventana y equipo ejecutor.\nResultado\nTrabajo realizado, pruebas, condición final y desviaciones.\nHallazgos\nDescripción, clasificación cuando aplica, responsable y plazo.\nEvidencias\nFormato, fotografías o archivos vinculados según la versión.\nHorario de cierre\nRegistrar el cierre operativo antes de las 18:00 del día de la intervención.\nAprobación\nNombre, rol, fecha y hora de la validación.\nAnexo C. Contenido mínimo del aviso a usuarios\nElemento\nContenido\nMotivo\nDescripción clara y no técnica de la actividad.\nFecha y horario\nInicio, final estimado y posibles actualizaciones.\nAfectación\nInterrupción, restricción de acceso o cambio esperado.\nRecomendación\nAcción concreta que debe realizar el usuario, si aplica.\nContacto\nCanal institucional autorizado.\nCierre\nConfirmación de normalización cuando la audiencia lo requiera.\nFin del documento: PRO-OPS-12 · Versión 3.1 · Vigente del 01/03/2024 al 28/02/2026", "r5b": "PROCEDIMIENTO OPERATIVO\nPlanificación, ejecución y cierre de intervenciones operativas\nPRO-OPS-12 · Versión 4.0\nCampo\nInformación\nEstado\nVERSIÓN VIGENTE\nVigencia\nVigente desde el 01/03/2026\nFecha de aprobación\n20/02/2026\nÁrea emisora\nDirección de Operaciones, Mantenimiento y Seguridad Operacional\nClasificación\nUso interno · Documento ficticio para ejercicio formativo\nNota de uso: Este procedimiento es completamente ficticio. Se diseñó para practicar comparación documental y no sustituye normas, manuales ni procedimientos de una organización real.\nControl del documento\nRol\nNombre ficticio\nResponsabilidad documental\nElaboró\nNatalia Cárdenas · Profesional de Operaciones\nRedacción y consistencia técnica\nRevisó\nElena Ruiz · Coordinadora de Seguridad Operacional\nControles críticos y seguridad\nAprobó\nMiguel Torres · Director de Operaciones\nAutorización de publicación\nHistorial de cambios\nVersión\nVigencia desde\nDescripción del cambio\n3.1\n01/03/2024\nVersión sustituida. Aviso de 48 horas y registro local.\n4.0\n01/03/2026\nCambio mayor: gestión por riesgo, evidencia digital, aviso de 72 horas y nuevo régimen de cierre.\nResumen de esta versión: Modelo basado en riesgo, autorización digital, doble puerta de decisión, aviso de 72 horas y trazabilidad centralizada.\nContenido\n1. Objetivo\n2. Alcance\n3. Referencias y jerarquía documental\n4. Definiciones\n5. Roles y responsabilidades\n6. Clasificación de impacto\n7. Planeación y comunicaciones\n8. Autorización de inicio\n9. Ejecución y control\n10. Registro de hallazgos\n11. Cierre y restitución\n12. Gestión documental\n13. Indicadores\n14. Régimen de transición\nAnexo A. Lista de verificación\nAnexo B. Registro mínimo\nAnexo C. Comunicación a usuarios\n1. Objetivo\nEstablecer las condiciones para planear, autorizar, ejecutar, controlar y cerrar intervenciones operativas, manteniendo la seguridad, la continuidad del servicio, la trazabilidad de las decisiones y la comunicación oportuna con las partes interesadas.\n2. Alcance\nAplica a intervenciones programadas y urgentes no emergenciales sobre infraestructura urbana, ejecutadas por personal propio o contratista.\nIncluye actividades que puedan afectar continuidad, calidad, acceso público, movilidad, seguridad operacional o percepción de la comunidad.\nLas emergencias se gestionan por el plan de contingencia, pero deben quedar vinculadas al sistema de gestión de intervenciones dentro de las dos horas siguientes a la estabilización.\nNo incluye obras de expansión con licencia independiente, salvo sus interfaces con activos operativos.\n3. Referencias y jerarquía documental\nEste procedimiento se aplica junto con el plan de contingencia, los estándares de seguridad operacional, las instrucciones técnicas del activo y los requisitos contractuales vigentes.\nEn caso de conflicto, prevalecen los requisitos legales y de seguridad aplicables, seguidos por la versión vigente de este procedimiento y, posteriormente, por sus formatos y anexos.\nDocumento relacionado\nUso dentro del procedimiento\nPL-EME-01 Plan de contingencia\nGestión de emergencias, estabilización y recuperación.\nSTD-SST-04 Controles críticos\nTrabajo en altura, energía peligrosa, espacios confinados y acceso restringido.\nMAN-GIO-02 Manual del sistema GIO\nRegistro, autorización, evidencia y conservación digital.\nGUI-COM-03 Comunicación comunitaria\nAvisos, actualizaciones y cierre de comunicaciones.\n4. Definiciones\nTérmino\nDefinición\nIntervención operativa\nActividad planificada o urgente que modifica, inspecciona, mantiene o prueba un activo en servicio o disponible para servicio.\nAfectación a usuarios\nCambio temporal en continuidad, calidad, acceso, movilidad o condiciones habituales percibidas por usuarios o comunidad.\nHallazgo\nCondición detectada durante la planeación o ejecución que puede requerir corrección, seguimiento o escalamiento.\nEvidencia\nRegistro verificable que demuestra autorización, ejecución, resultado o cierre de una actividad.\nVentana de trabajo\nPeriodo autorizado para preparación, intervención, pruebas y restitución del área o activo.\nTérmino adicional\nDefinición\nGo/no-go\nDecisión documentada que confirma si se cumplen las condiciones para iniciar o continuar una intervención.\nPlan de reversa\nSecuencia prevista para regresar el activo y el área a una condición segura cuando no sea posible completar el alcance.\nImpacto comunitario\nPosible cambio en acceso, movilidad, ruido, información o percepción de la comunidad.\n5. Roles y responsabilidades\nRol\nResponsabilidades principales\nGestor de la intervención\nCrear el registro digital, consolidar alcance, recursos, comunicaciones y evidencias.\nJefe de Operaciones\nAprobar la ventana y decidir el go/no-go final para intervenciones de impacto medio o alto.\nSeguridad Operacional\nCoaprobar actividades de impacto medio o alto y aquellas con riesgos críticos definidos.\nLíder de trabajo\nRealizar verificaciones T-24 h y T-30 min, ejecutar el trabajo y registrar evidencias en tiempo real.\nComunicaciones\nEmitir aviso con 72 horas de anticipación y actualizaciones ante cambios o extensiones relevantes.\nCustodio documental\nControlar integridad, acceso, conservación y trazabilidad de registros durante cinco años.\nContratista\nAcreditar competencias, vincular su personal al registro y conservar la trazabilidad de subcontratistas.\n6. Clasificación de impacto\nAntes de autorizar la intervención se debe estimar el impacto sobre seguridad, continuidad, activos, usuarios y comunidad.\nNivel\nCriterio\nAprobación mínima\nSeguimiento\nBajo\nSin interrupción y sin control crítico comprometido.\nOperaciones\nRegistro y cierre normal.\nMedio\nAfectación localizada, acceso público o desviación recuperable.\nOperaciones + Seguridad\nGo/no-go y actualización de cambios.\nAlto\nInterrupción relevante, riesgo crítico o alta exposición comunitaria.\nDirección + Seguridad\nSala de seguimiento y plan de reversa validado.\n7. Planeación y comunicaciones\nCrear la solicitud en el sistema GIO con mínimo siete días calendario de anticipación.\nClasificar impacto operativo, riesgo de seguridad y exposición comunitaria como bajo, medio o alto.\nConfirmar repuestos, herramientas, personal y permisos al menos 48 horas antes.\nCompletar la evaluación de riesgos y el plan de reversa en el registro digital.\nNotificar a usuarios con mínimo 72 horas de anticipación cuando exista interrupción prevista o restricción de acceso público superior a 30 minutos.\nRealizar revisión de continuidad T-24 h y decisión final T-30 min antes de iniciar.\nHito\nVersión aplicable\nResponsable\nEvidencia mínima\nSolicitud\nT-7 días calendario\nGestor\nSolicitud y alcance\nRecursos\nT-48 horas\nLíder / Almacén\nConfirmación de disponibilidad\nAviso a usuarios\nT-72 horas\nComunicaciones\nMensaje emitido y destinatarios\nRevisión final\nT-24 h y T-30 min\nLíder + Jefatura\nLista de chequeo\n8. Autorización de inicio\nToda intervención requiere autorización registrada en GIO. El correo y la mensajería instantánea son evidencia de apoyo, no sustitutos de la autorización.\nLas intervenciones de impacto bajo requieren aprobación del Jefe de Operaciones o su delegado formal.\nLas intervenciones de impacto medio o alto requieren aprobación conjunta de Operaciones y Seguridad Operacional.\nLa autorización verbal solo se admite durante una emergencia declarada y debe formalizarse en el sistema dentro de las dos horas siguientes a la estabilización.\nEl líder de trabajo no inicia si falla una condición del go/no-go, aunque exista aprobación previa de la ventana.\nRegla de bloqueo: La existencia de una fecha programada no autoriza por sí sola el inicio. Deben cumplirse las condiciones documentales, técnicas y de seguridad aplicables.\n9. Ejecución y control\nConfirmar identidad y competencia del equipo mediante el registro digital.\nDelimitar el área, validar controles críticos y registrar la hora real de inicio.\nCapturar evidencia fotográfica inicial, durante hitos definidos y al finalizar.\nActualizar en tiempo real cambios de alcance, afectación o duración estimada.\nDetener la actividad ante pérdida no prevista de servicio, desviación de control crítico, acceso no autorizado o diferencia material frente al alcance aprobado.\nAplicar el plan de reversa cuando la restauración no pueda asegurarse dentro de la ventana.\nSituación\nRespuesta mínima\nCambio de alcance\nActualizar GIO y repetir el go/no-go del alcance modificado.\nExtensión de ventana\nRegistrar nueva estimación y emitir actualización a usuarios cuando corresponda.\nCondición insegura\nSuspender y aplicar controles antes de continuar.\nPérdida de servicio\nActivar contingencia, informar y priorizar recuperación.\n10. Registro y tratamiento de hallazgos\nRegistrar hallazgos en GIO dentro de las dos horas siguientes a su detección.\nClasificar cada hallazgo como crítico, mayor o menor según impacto potencial, urgencia y condición del activo.\nUn hallazgo crítico se comunica a Operaciones y Seguridad dentro de los 15 minutos siguientes.\nEl registro incluye activo, ubicación, fecha y hora, descripción objetiva, evidencia, responsable, acción inmediata y plazo de tratamiento.\nNo se permite cerrar un hallazgo crítico sin evidencia de control temporal y plan de corrección aprobado.\nClasificación\nDescripción\nEscalamiento\nCrítico\nPuede comprometer seguridad, continuidad amplia o integridad del activo.\nMáximo 15 minutos.\nMayor\nRequiere corrección prioritaria o control temporal formal.\nDurante el turno y plan en 24 horas.\nMenor\nNo compromete operación inmediata y admite programación.\nRegistro dentro de 2 horas.\n11. Cierre y restitución\nLa ejecución física programada debe finalizar antes de las 16:00, salvo ventana especial aprobada.\nEl registro de cierre operativo debe quedar completo antes de las 17:00 del mismo día.\nEl líder realiza observación posterior mínima de 30 minutos y documenta estabilidad del activo.\nEl Jefe de Operaciones valida el cierre dentro de las cuatro horas siguientes a la finalización.\nSi se emitió aviso a usuarios, Comunicaciones publica actualización de cierre dentro de los 60 minutos siguientes a la normalización.\nValidación de cierre\nEvidencia esperada\nActivo\nPrueba funcional, condición final y ausencia de alarmas no previstas.\nÁrea\nRetiro de herramientas, residuos, barreras temporales y control de accesos.\nUsuarios\nConfirmación de normalización o actualización cuando se emitió aviso.\nDocumentación\nRegistro completo, hallazgos vinculados y aprobaciones requeridas.\n12. Gestión documental y conservación\nLos registros deben ser legibles, atribuibles, completos y recuperables durante el periodo definido. No se deben almacenar evidencias operativas únicamente en dispositivos personales o conversaciones informales.\nRegistro\nResponsable\nRepositorio\nRetención\nRegistro integral GIO\nGestor de la intervención\nRepositorio central GIO\n5 años\nEvaluación de riesgos y plan de reversa\nSeguridad Operacional\nRepositorio central GIO\n5 años\nEvidencia fotográfica y marcas de tiempo\nLíder de trabajo\nRepositorio central GIO\n5 años\nHallazgos y planes de acción\nJefe de Operaciones\nRepositorio central GIO\n5 años\nAvisos y actualizaciones a usuarios\nComunicaciones\nRepositorio de comunicaciones vinculado\n5 años\nCompetencias de contratistas\nAdministrador de contratos\nRepositorio de proveedores vinculado\n5 años\n13. Indicadores y seguimiento\nIndicador\nDefinición\nFrecuencia\nResponsable\nCumplimiento de aviso\nAvisos emitidos con 72 h / avisos requeridos\nMensual\nComunicaciones\nGo/no-go oportuno\nDecisiones registradas T-30 min / intervenciones\nMensual\nJefatura de Operaciones\nHallazgos registrados en 2 h\nHallazgos oportunos / hallazgos totales\nMensual\nGestión de Activos\nCierre antes de 17:00\nCierres oportunos / intervenciones finalizadas\nMensual\nSupervisión\nReprocesos\nIntervenciones con repetición por evidencia o cierre incompleto\nMensual\nCalidad Operacional\nLos resultados se revisan en el comité operativo mensual. Las desviaciones repetitivas requieren plan de mejora y responsable definido.\n14. Régimen de transición\nLas intervenciones ejecutadas desde el 1 de marzo de 2026 se gestionan con la versión 4.0.\nComo excepción transitoria, un aviso de 48 horas emitido antes del 1 de marzo se considera válido para actividades ejecutadas hasta el 15 de marzo, siempre que no cambien alcance ni afectación.\nTodas las demás condiciones de autorización, go/no-go, evidencia y cierre de la versión 4.0 aplican desde su entrada en vigencia.\nLos formatos locales dejan de admitirse para nuevas intervenciones desde el 1 de abril de 2026.\nCada área debe completar socialización y registro de competencia antes del 15 de marzo de 2026.\nAcción de transición\nResponsable\nEvidencia esperada\nIdentificar actividades que cambian de versión\nCoordinación de Operaciones\nListado de intervenciones y versión aplicable\nConservar los registros cerrados bajo su regla original\nGestión Documental\nÍndice de expedientes y plazo de retención\nRetirar o marcar copias impresas no vigentes\nResponsables de sede\nRegistro de retiro o sello de copia histórica\nComunicar responsables, fechas y excepciones\nCalidad Operacional\nCircular y constancia de socialización\nVerificar competencia para operar en GIO\nJefaturas de área\nRegistro de formación antes del 15/03/2026\nAnexo A. Lista de verificación previa\n#\nVerificación\nResultado / observación\n1\nAlcance y activo identificados\n2\nVentana y responsables confirmados\n3\nRecursos confirmados con 48 horas de anticipación\n4\nEvaluación de riesgos completa\n5\nAviso a usuarios emitido con 72 horas cuando aplica\n6\nPermisos y accesos disponibles\n7\nPlan de recuperación o reversa disponible\n8\nAutorización de inicio registrada\n9\nCanales de escalamiento confirmados\n10\nEquipo conoce criterios de detención\nAnexo B. Contenido mínimo del registro de cierre\nCampo\nContenido requerido\nIdentificación\nCódigo, activo, ubicación, fecha, ventana y equipo ejecutor.\nResultado\nTrabajo realizado, pruebas, condición final y desviaciones.\nHallazgos\nDescripción, clasificación cuando aplica, responsable y plazo.\nEvidencias\nFormato, fotografías o archivos vinculados según la versión.\nHorario de cierre\nRegistrar el cierre operativo antes de las 18:00 del día de la intervención.\nAprobación\nNombre, rol, fecha y hora de la validación.\nAnexo C. Contenido mínimo del aviso a usuarios\nElemento\nContenido\nMotivo\nDescripción clara y no técnica de la actividad.\nFecha y horario\nInicio, final estimado y posibles actualizaciones.\nAfectación\nInterrupción, restricción de acceso o cambio esperado.\nRecomendación\nAcción concreta que debe realizar el usuario, si aplica.\nContacto\nCanal institucional autorizado.\nCierre\nConfirmación de normalización cuando la audiencia lo requiera.\nFin del documento: PRO-OPS-12 · Versión 4.0 · Vigente desde el 01/03/2026", "r6": "MCP-365-P06 · Base para priorización de tareas\nFuente del ejercicio · 10 tareas · Analizar con Copilot · No modificar los datos originales\nObjetivo: priorizar por urgencia, impacto, dependencia, límite y riesgo; proponer agenda sin inventar fechas ni responsables. |  |  |  |  |  |  | \nNúmero | Tarea | Urgencia | Impacto | Dependencia | Límite | Responsable | Riesgo por retraso\n1 | Responder consulta de seguridad industrial sobre señalización N-14 | Alta | Alto | Ninguna | Hoy 11:00 | Coordinador de zona | Alto\n2 | Revisar borrador de cronograma Proyecto Horizonte | Media | Alto | Datos del contratista | Hoy 17:00 | Líder de proyecto | Medio\n3 | Actualizar registro de riesgos (semana 12) | Media | Alto | Informe de campo | Mañana 12:00 | Líder de proyecto | Medio\n4 | Agendar reunión con junta comunal | Alta | Medio | Disponibilidad de sala | Hoy 15:00 | Asistente administrativo | Bajo\n5 | Preparar resumen ejecutivo para comité | Alta | Alto | KPI de avance | Mañana 09:00 | Líder de proyecto | Alto\n6 | Ordenar carpetas SharePoint del expediente | Baja | Bajo | Ninguna | Viernes 17:00 | Practicante | Bajo\n7 | Validar estado de permiso ambiental | Alta | Alto | Área jurídica | Hoy 16:00 | Especialista HSE | Alto\n8 | Redactar mensaje formal a proveedor de equipo principal | Media | Medio | Confirmación de fecha | Hoy 16:00 | Compras | Medio\n9 | Revisar facturas menores de logística | Baja | Bajo | Ninguna | Viernes 12:00 | Finanzas | Bajo\n10 | Definir escenario de reprogramación para comité | Alta | Alto | Análisis de impacto | Mañana 14:00 | Comité directivo | Alto\nRegla de uso\nUsa esta base únicamente como fuente. Copilot debe conservar los límites y responsables escritos. La validación humana y el control de calidad se diligencian después por la persona. |  |  |  |  |  |  | "};
+
+  /* Divide una o varias fuentes en partes que caben en cualquier licencia (< 2.000 caracteres). */
+  function splitSourceParts(srcs, max = 1650) {
+    const chunks = [];
+    srcs.forEach(s => {
+      const lines = (S1_SOURCES[s.key] || "").split("\n");
+      let buf = "";
+      lines.forEach(line => {
+        while (line.length > max) { chunks.push({ label: s.label, text: (buf + line.slice(0, max)).trim() }); buf = ""; line = line.slice(max); }
+        if ((buf + line).length + 1 > max) { chunks.push({ label: s.label, text: buf.trim() }); buf = ""; }
+        buf += line + "\n";
+      });
+      if (buf.trim()) chunks.push({ label: s.label, text: buf.trim() });
+    });
+    const n = chunks.length;
+    return chunks.map((c, i) => `PARTE ${i + 1} DE ${n} · ${c.label}\nNo analices todavía. Responde solo: «Recibido ${i + 1}/${n}».\n\n${c.text}`);
+  }
+
+  function promptMeterClass(n) { return n <= 2000 ? "is-ok" : n <= 4000 ? "is-mid" : "is-long"; }
+  function promptMeterText(n) {
+    const f = n.toLocaleString("es-CO");
+    if (n <= 2000) return `✓ ${f} caracteres · cabe en cualquier licencia de Copilot`;
+    if (n <= 4000) return `⚠ ${f} caracteres · puede superar el límite de algunas licencias (2.000)`;
+    return `⚠ ${f} caracteres · supera el límite de muchas licencias: usa el prompt esencial o divídelo en turnos`;
+  }
+  /* Contador de caracteres en todos los prompts del curso. */
+  function attachPromptMeters(scope = document) {
+    scope.querySelectorAll("textarea.prompt-box, div.prompt-box").forEach(box => {
+      if (box.dataset.meter) return;
+      box.dataset.meter = "1";
+      const m = document.createElement("span");
+      m.className = "prompt-meter";
+      m.setAttribute("aria-live", "polite");
+      box.insertAdjacentElement("beforebegin", m);
+      box._meter = m;
+      if (box.tagName === "TEXTAREA") box.addEventListener("input", () => updatePromptMeter(box));
+    });
+    scope.querySelectorAll("textarea.prompt-box, div.prompt-box").forEach(updatePromptMeter);
+  }
+  function updatePromptMeter(box) {
+    if (!box._meter) return;
+    const text = box.tagName === "TEXTAREA" ? box.value : box.textContent;
+    const n = (text || "").trim().length;
+    box._meter.hidden = n === 0;
+    box._meter.className = "prompt-meter " + promptMeterClass(n);
+    box._meter.textContent = promptMeterText(n);
+  }
+  // Algunos prompts se regeneran por código (sin evento input): refresco liviano de los visibles.
+  setInterval(() => {
+    document.querySelectorAll("textarea.prompt-box, div.prompt-box").forEach(b => { if (b._meter && b.offsetParent) updatePromptMeter(b); });
+  }, 1500);
+
+  function renderPromptRoutes() {
+    Object.entries(PROMPT_ROUTES).forEach(([id, cfg]) => {
+      const body = document.querySelector(`article.reto[data-reto="${id}"] > .reto__body`);
+      if (!body || body.querySelector(".pr-routes")) return;
+      const head = [...body.querySelectorAll("p")].find(el => el.textContent.trim() === "Prompt configurable para Copilot");
+      if (!head) return;
+
+      // 1) Plegar el prompt completo configurable (título → campos → prompt → botones).
+      const adv = document.createElement("details");
+      adv.className = "adv-prompt";
+      adv.innerHTML = `<summary><i data-lucide="sliders-horizontal" width="16" height="16"></i> Prompt completo configurable <small>· avanzado: más largo y detallado, para licencias con límites amplios</small></summary>`;
+      head.parentNode.insertBefore(adv, head);
+      let node = head;
+      while (node) {
+        const next = node.nextElementSibling;
+        adv.appendChild(node);
+        if (node.classList && node.classList.contains("btn-group") && adv.querySelector("textarea.prompt-box")) break;
+        node = next;
+      }
+      head.remove(); // el summary ya lo titula
+
+      // 2) Prompt esencial + rutas.
+      const taId = `pr-${id}`;
+      const parts = cfg.inline ? [] : splitSourceParts(cfg.sources || []);
+      const files = (cfg.sources || []).map(s => `<code>${s.file}</code>`).join(" y ");
+      const sourceHtml = cfg.inline ? "" : `
+        <div class="pr-source" data-pr-case-only>
+          <p class="pr-source__title"><i data-lucide="paperclip" width="15" height="15"></i> Fuente del caso</p>
+          <ol>
+            <li><strong>Recomendado:</strong> adjunta ${files} en Copilot (📎 o <strong>+</strong>) y envía el prompt en el mismo mensaje. Los archivos adjuntos no cuentan para el límite de caracteres.
+              <span class="btn-group" style="display:flex;margin-top:0.4rem;gap:0.4rem">${(cfg.sources || []).map(s => `<button type="button" class="btn btn--sm btn--secondary" data-planilla="${s.planilla}"><i data-lucide="download" width="14" height="14"></i> ${s.label}</button>`).join("")}</span></li>
+            <li><strong>¿Tu Copilot no permite adjuntar archivos?</strong> Envía la fuente en ${parts.length} ${parts.length === 1 ? "mensaje" : "partes"} y después el prompt esencial.</li>
+          </ol>
+          <details class="pr-parts"><summary>Enviar la fuente en ${parts.length} ${parts.length === 1 ? "mensaje" : "partes"}</summary>
+            <p class="pr-routes__lead" style="margin:0.5rem 0">Envía cada parte en orden y espera «Recibido». Cuando termines, envía el prompt esencial.</p>
+            ${parts.map((t, i) => `<div class="pr-part"><div class="pr-part__head"><strong>Parte ${i + 1} de ${parts.length}</strong>
+              <button type="button" class="btn btn--sm btn--ghost" data-copy="#${taId}-p${i + 1}"><i data-lucide="copy" width="14" height="14"></i> Copiar parte ${i + 1}</button></div>
+              <textarea class="prompt-box pr-part__text" id="${taId}-p${i + 1}" readonly rows="5">${esc(t)}</textarea></div>`).join("")}
+          </details>
+        </div>
+        <p class="pr-own-note" data-pr-own-only hidden>Adjunta tu propio documento (anonimizado) o pégalo antes del prompt. Si es largo, divídelo en mensajes que empiecen con <em>«Parte 1 de N… responde solo: Recibido»</em>.</p>`;
+      const ex = cfg.extra;
+      const extraHtml = !ex ? "" : `
+        <details class="pr-extra"><summary><i data-lucide="code-2" width="16" height="16"></i> ${ex.title}</summary>
+          <p class="pr-routes__lead" style="margin:0.5rem 0 0.75rem">${ex.intro}</p>
+          ${ex.turns.map((t, i) => `<div class="pr-part"><div class="pr-part__head"><strong>${t.label}</strong>
+            <button type="button" class="btn btn--sm btn--ghost" data-copy="#${taId}-x${i + 1}"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+            <textarea class="prompt-box pr-part__text" id="${taId}-x${i + 1}" readonly rows="5">${esc(t.text)}</textarea></div>`).join("")}
+          <p class="pr-routes__lead" style="margin:0.5rem 0 0">${ex.save}</p>
+          <p class="pr-routes__lead" style="margin:0.35rem 0 0">Si el código se corta, escribe: <em>«Continúa el código exactamente donde quedó, sin repetir lo anterior»</em>.</p>
+        </details>`;
+      const box = document.createElement("div");
+      box.className = "pr-routes";
+      box.innerHTML = `
+        <div class="pr-routes__head"><h4>Prompt esencial</h4><span class="pr-badge">Funciona en cualquier Copilot</span></div>
+        <p class="pr-routes__lead">Versión corta que cabe en cualquier licencia y app. Cópiala, elige dónde usarla y lleva el resultado a la plantilla.</p>
+        <div class="pr-seg" role="group" aria-label="Fuente del prompt">
+          <button type="button" data-pr-src="case" aria-pressed="true">${cfg.caseLabel}</button>
+          <button type="button" data-pr-src="own" aria-pressed="false">${cfg.ownLabel}</button>
+        </div>
+        <textarea class="prompt-box" id="${taId}" spellcheck="false" aria-label="Prompt esencial"></textarea>
+        <div class="btn-group" style="margin:0.5rem 0 0;gap:0.5rem">
+          <button type="button" class="btn btn--sm btn--primary" data-copy="#${taId}"><i data-lucide="copy" width="16" height="16"></i> Copiar prompt esencial</button>
+        </div>
+        ${sourceHtml}
+        <h5>¿Dónde lo uso? Elige tu ruta</h5>
+        <div class="pr-tabs" role="tablist">
+          ${cfg.routes.map((r, i) => `<button type="button" role="tab" data-pr-tab="${r.id}" aria-selected="${i === 0}">${r.title}<small>${r.hint}</small></button>`).join("")}
+        </div>
+        ${cfg.routes.map((r, i) => `<div class="pr-panel ${i === 0 ? "is-active" : ""}" data-pr-panel="${r.id}" role="tabpanel"><ol>${r.steps.map(s => `<li>${s}</li>`).join("")}</ol></div>`).join("")}
+        <details class="pr-trouble"><summary>¿Algo no funciona? Soluciones rápidas</summary><ul>${cfg.trouble.map(t => `<li>${t}</li>`).join("")}</ul></details>
+        ${extraHtml}`;
+      adv.parentNode.insertBefore(box, adv);
+
+      const ta = box.querySelector("textarea");
+      const fill = (src) => {
+        ta.value = cfg.inline
+          ? cfg.prompt.replace("{{SOURCE}}", src === "own" ? cfg.ownSource : cfg.caseSource)
+          : cfg.prompt.replace("{{SOURCE_REF}}", src === "own" ? cfg.ownRef : cfg.caseRef);
+        box.querySelectorAll("[data-pr-case-only]").forEach(el => { el.hidden = src === "own"; });
+        box.querySelectorAll("[data-pr-own-only]").forEach(el => { el.hidden = src !== "own"; });
+        box.querySelectorAll("[data-pr-src]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.prSrc === src)));
+        ta.rows = Math.min(28, ta.value.split("\n").length + 1);
+        updatePromptMeter(ta);
+      };
+      box.querySelectorAll("[data-pr-src]").forEach(b => b.addEventListener("click", () => fill(b.dataset.prSrc)));
+      box.querySelectorAll("[data-pr-tab]").forEach(b => b.addEventListener("click", () => {
+        box.querySelectorAll("[data-pr-tab]").forEach(x => x.setAttribute("aria-selected", String(x === b)));
+        box.querySelectorAll("[data-pr-panel]").forEach(pn => pn.classList.toggle("is-active", pn.dataset.prPanel === b.dataset.prTab));
+      }));
+      attachPromptMeters(box);
+      fill("case");
+    });
+    attachPromptMeters();
+    initCopyButtons();
+    initPlanillaDownloads();
+    if (window.lucide) lucide.createIcons();
+  }
 
   function renderActivitySheets() {
     Object.entries(ACTIVITY_SHEETS).forEach(([id, s]) => {
@@ -10083,25 +10675,21 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       ["vacio", "Respuesta cuando falte información", "No especificado."]
     ],
     "checklist": [
-      ["r5-c1", "Descargué las dos versiones PDF de PRO-OPS-12"],
-      ["r5-c2", "Adjunté ambos PDF a Copilot"],
-      ["r5-c3", "Copié el prompt completo"],
-      ["r5-c4", "Copilot generó un archivo .html"],
-      ["r5-c5", "El archivo tiene el nombre correcto"],
-      ["r5-c6", "El HTML abre localmente sin Internet"],
-      ["r5-c7", "Los doce temas están en la matriz"],
-      ["r5-c8", "Los filtros y la búsqueda funcionan"],
-      ["r5-c9", "Los indicadores se calculan automáticamente"],
-      ["r5-c10", "Hay sección de propuestas no aprobadas"],
-      ["r5-c11", "Validación humana y control de calidad vacíos"],
-      ["r5-c12", "Diseño legible en escritorio y móvil"],
-      ["r5-c13", "No se inventó información"],
-      ["r5-c14", "Botón Descargar HTML y botón Imprimir (window.print) verificados"],
-      ["r5-c15", "Evidencias sin símbolo § (usan “Sección”)"]
+      ["r5-c1", "Descargué las dos versiones de PRO-OPS-12 (PDF o Word)"],
+      ["r5-c2", "Compartí ambas versiones con Copilot (adjuntas o en partes)"],
+      ["r5-c3", "Usé el prompt esencial (o el completo, si mi licencia lo permite)"],
+      ["r5-c4", "La matriz tiene los 12 temas con evidencia de cada versión"],
+      ["r5-c5", "Las evidencias citan versión y sección (sin símbolo §)"],
+      ["r5-c6", "Las contradicciones citan ambas referencias"],
+      ["r5-c7", "Hay lista de propuestas no aprobadas"],
+      ["r5-c8", "No se inventó información"],
+      ["r5-c9", "Validación humana y control de calidad los completé yo"],
+      ["r5-c10", "Extra opcional: el informe HTML abre sin Internet"],
+      ["r5-c11", "Extra opcional: el buscador y los filtros funcionan"]
     ],
     "practice_title": "Al terminar · Practica con dos versiones propias",
     "practice": "Adapta el prompt a dos versiones anonimizadas de un procedimiento real de tu trabajo. Antes: elimina nombres personales, datos sensibles, credenciales e información contractual reservada; sustituye identificadores internos. El resultado debe ser un nuevo informe HTML comparativo para revisión humana.",
-    "deliverable": "Entregable: MCP365_P05_Comparacion_documental_completada.html (informe HTML autocontenido). Validación humana y control de calidad vacíos para Copilot."
+    "deliverable": "Entregable: MCP365_P05_Comparacion_documental_completada.docx (matriz comparativa, hallazgos y propuestas no aprobadas). Extra opcional: informe HTML interactivo. Validación humana y control de calidad los completa la persona."
   },
   "r6": {
     "id": "r6",
@@ -10134,24 +10722,20 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     "checklist": [
       ["r6-c1", "Descargué la base Excel"],
       ["r6-c2", "Confirmé que contiene diez tareas"],
-      ["r6-c3", "Adjunté el Excel a Copilot"],
-      ["r6-c4", "Copié el prompt completo"],
-      ["r6-c5", "Recibí un HTML completo"],
-      ["r6-c6", "El HTML abre en el navegador"],
+      ["r6-c3", "Compartí la base con Copilot (adjunta o en partes)"],
+      ["r6-c4", "Usé el prompt esencial (o el completo, si mi licencia lo permite)"],
       ["r6-c7", "Se analizaron las diez tareas"],
       ["r6-c8", "Se conservan límites y responsables"],
       ["r6-c9", "La agenda distingue hoy, mañana y viernes"],
       ["r6-c10", "La delegación está clasificada"],
       ["r6-c11", "El criterio humano está identificado"],
-      ["r6-c12", "Los filtros funcionan"],
-      ["r6-c13", "Los botones funcionan"],
-      ["r6-c14", "La validación humana está vacía"],
-      ["r6-c15", "El control de calidad está vacío"],
-      ["r6-c16", "El archivo se llama correctamente"]
+      ["r6-c14", "La validación humana y el control de calidad los completé yo"],
+      ["r6-c5", "Extra opcional: generé el informe HTML"],
+      ["r6-c12", "Extra opcional: los filtros y botones funcionan"]
     ],
     "practice_title": "Al terminar el caso · Práctica personal de priorización",
     "practice": "Después de terminar el caso, abre: <code>MCP365_P06_Practica_personal_priorizacion.html</code>.<br><br>Registra una lista anonimizada de tus tareas del día.<br><br>No incluyas nombres personales, datos de clientes, información contractual reservada, credenciales, datos financieros sensibles ni identificadores internos.<br><br>La herramienta funciona localmente y elimina las tareas al cerrar la pestaña.<br><br>Revisa personalmente la prioridad sugerida, la posibilidad de delegar y las tareas que necesitan criterio humano.",
-    "deliverable": "Entregable del caso: <code>MCP365_P06_Priorizacion_completada.html</code>. Informe HTML interactivo con resumen ejecutivo, agenda sugerida, matriz de priorización, clasificación de delegación y criterio humano. Validación humana y control de calidad vacíos."
+    "deliverable": "Entregable del caso: matriz de priorización y agenda en Word o Excel (<code>MCP365_P06_Priorizacion_completada.docx</code>). Extra opcional: informe HTML interactivo. Validación humana y control de calidad los completa la persona."
   }
 };
 
@@ -13760,6 +14344,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     initModal();
     updateProgressUI();
     renderActivitySheets();
+    renderPromptRoutes();
     initCourseShell();
     if (window.lucide) lucide.createIcons();
   });
