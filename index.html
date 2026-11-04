@@ -8687,6 +8687,57 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     if (window.lucide) lucide.createIcons({ nodes: [card] });
   }
 
+
+  /* ========== NOVEDADES DE COPILOT (2026) · siempre con ruta alternativa ========== */
+  const INNOVATIONS = [];
+  function innovationHtml(cfg) {
+    const pid = `inno-${cfg.id}`;
+    return `<details class="inno" id="${pid}">
+      <summary><span class="inno__badge">${cfg.badge}</span> ${cfg.title}</summary>
+      <p class="inno__lead">${cfg.intro}</p>
+      ${cfg.routes.map(r => `<h5>${r.title}</h5><ol>${r.steps.map(s => `<li>${s}</li>`).join("")}</ol>`).join("")}
+      ${cfg.prompt ? `<div class="pr-part"><div class="pr-part__head"><strong>${cfg.promptLabel || "Prompt"}</strong>
+        <button type="button" class="btn btn--sm btn--primary" data-copy="#${pid}-p"><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+        <textarea class="prompt-box pr-turn" id="${pid}-p" rows="${Math.min(12, cfg.prompt.split("\n").length + 1)}" spellcheck="false">${esc(cfg.prompt)}</textarea></div>` : ""}
+      ${cfg.check ? `<h5>${cfg.checkTitle || "Verifica"}</h5><ul>${cfg.check.map(c => `<li>${c}</li>`).join("")}</ul>` : ""}
+      ${cfg.reveal ? `<details class="pr-trouble"><summary>${cfg.reveal.title}</summary><div style="padding:0 0 0.6rem;font-size:0.88rem">${cfg.reveal.html}</div></details>` : ""}
+      ${cfg.note ? `<p class="inno__note">${cfg.note}</p>` : ""}
+    </details>`;
+  }
+
+  INNOVATIONS.push({
+    id: "analyst", badge: "Nuevo en Copilot", title: "Segunda opinión: audita el razonamiento de la IA (agente Analyst)",
+    target: () => { const b = document.querySelector('article.reto[data-reto="s2-f3"] .s2-turns'); return b && { el: b }; },
+    intro: "El agente <strong>Analyst</strong> razona sobre datos como un analista y muestra cómo llegó a cada cifra. Aquí no basta con que el resultado parezca correcto: vas a auditar el método.",
+    routes: [
+      { title: "Si tienes el agente Analyst", steps: ["En Microsoft 365 Copilot, abre <strong>Agentes → Analyst</strong> (la ubicación puede variar según tu versión).", "Adjunta el archivo 03 y pega el prompt.", "Revisa el cálculo paso a paso que muestra Analyst."] },
+      { title: "Si no lo tienes", steps: ["Usa Copilot Chat con el mismo prompt: pide explícitamente el cálculo paso a paso.", "Compara el razonamiento con lo que ves en Excel."] }
+    ],
+    promptLabel: "Prompt de segunda opinión",
+    prompt: `Con el archivo 03_Presupuesto_y_Cronograma_Horizonte.xlsx:
+1. Calcula el presupuesto total sumando Cantidad × Costo unitario de cada partida y muestra el cálculo paso a paso.
+2. Identifica la partida de mayor costo y su porcentaje del total.
+3. Indica la fecha inicial y final del cronograma.
+4. Compara tus resultados con la hoja Resumen y señala cualquier diferencia.
+Explica tu método en lenguaje sencillo para que yo pueda verificarlo.`,
+    checkTitle: "Audita el razonamiento",
+    check: ["¿Usó todas las partidas o se saltó alguna?", "¿Multiplicó Cantidad × Costo unitario o usó otra columna?", "¿Sus cifras coinciden con las que tú verificaste en Excel?", "Si algo no coincide: ¿el error está en los datos, en el cálculo o en la interpretación?"],
+    reveal: { title: "Ver valores de referencia (después de comparar)", html: "Presupuesto total: <strong>$2.850.000.000</strong> · Partida mayor: <strong>P-003 Módulo de control, $740.000.000 (26,0 %)</strong> · Partidas de criticidad alta: <strong>7</strong> · Cronograma: <strong>18/08/2026 al 05/02/2027</strong>." },
+    note: "<strong>La lección:</strong> la IA puede equivocarse en un paso intermedio y aun así dar un total que parece razonable. Revisar el método es tan importante como revisar el resultado."
+  });
+
+  function renderInnovations() {
+    INNOVATIONS.forEach(cfg => {
+      if (document.getElementById(`inno-${cfg.id}`)) return;
+      const target = cfg.target();
+      if (!target) return;
+      target.el.insertAdjacentHTML(target.where || "afterend", innovationHtml(cfg));
+    });
+    attachPromptMeters();
+    initCopyButtons();
+    if (window.lucide) lucide.createIcons();
+  }
+
   function renderActivitySheets() {
     Object.entries(ACTIVITY_SHEETS).forEach(([id, s]) => {
       const host = id.startsWith("lab-")
@@ -15289,6 +15340,7 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     renderPromptRoutes();
     renderS2Turns();
     renderLabAlternatives();
+    renderInnovations();
     initCourseShell();
     if (window.lucide) lucide.createIcons();
   });
