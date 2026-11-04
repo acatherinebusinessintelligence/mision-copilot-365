@@ -150,27 +150,65 @@ def require_student(view):
     return wrapped
 
 
-def calc_percent_from_payload(payload: dict) -> int:
-    """Misma lógica que calcPercent() del frontend: 24 actividades evaluables."""
+CIERRE_IDEAS = dict([["i1", "Copilot propone; yo verifico, corrijo y decido."], ["i2", "Un buen prompt tiene estructura: PRISM."], ["i3", "Si un prompt es largo, lo divido en turnos."], ["i4", "Toda afirmación debe tener su fuente."], ["i5", "Lo que falta se marca «No especificado», no se inventa."], ["i6", "Una propuesta no es una decisión."], ["i7", "El mismo hecho se adapta a cada audiencia."], ["i8", "Las cifras se verifican en la fuente original."], ["i9", "Adjuntar archivos en lugar de pegarlos."], ["i10", "Cuaderno, agente o automatización: cuándo usar cada uno."], ["i11", "La automatización orquesta; la persona autoriza."], ["i12", "Proteger los datos sensibles antes de usar Copilot."]])
+CIERRE_CAPS = [["comprender", "Comprender"], ["organizar", "Organizar"], ["analizar", "Analizar"], ["comunicar", "Comunicar"], ["planificar", "Planificar"], ["decidir", "Decidir"]]
+ACTIVITY_KEYS = [
+    "reto-r1", "reto-r2", "reto-r3", "reto-r4", "reto-r5", "reto-r6",
+    "s2-f0", "s2-f1", "s2-f2", "s2-f3", "s2-f4", "s2-f5", "s2-f6", "s2-f7", "s2-f8",
+    "lab-3-1", "lab-3-2", "lab-3-3", "lab-3-4",
+    "proyecto-final",
+]
+QUIZ_TOTALS = {"s1": 5, "s2": 6, "lab": 6}
+
+
+def cierre_reflexion_done(payload: dict) -> bool:
+    c = payload.get("cierre") or {}
+    conf = c.get("conf") or {}
+    return bool(c.get("ideas")) and bool(str(c.get("sirvio") or "").strip()) and all(
+        (conf.get(cid) or {}).get("hoy") for cid, _ in CIERRE_CAPS
+    )
+
+
+def activity_progress(payload: dict) -> tuple[float, int, int]:
+    """(avance ponderado, actividades completas, total). Misma lógica que calcPercent() del frontend."""
     progress = payload.get("progress") or {}
-    keys = [
-        "reto-r1", "reto-r2", "reto-r3", "reto-r4", "reto-r5", "reto-r6",
-        "s2-f0", "s2-f1", "s2-f2", "s2-f3", "s2-f4", "s2-f5", "s2-f6", "s2-f7", "s2-f8",
-        "lab-3-1", "lab-3-2", "lab-3-3", "lab-3-4",
-        "proyecto-final",
-    ]
-    done = sum(1 for k in keys if progress.get(k))
+    done = sum(1 for k in ACTIVITY_KEYS if progress.get(k))
     oportunidad = payload.get("oportunidad") or {}
     if any(str(v or "").strip() for v in oportunidad.values()):
         done += 1
+    if cierre_reflexion_done(payload):
+        done += 1
+    complete = done
     quizzes = payload.get("quizzes") or {}
-    quiz_totals = {"s1": 5, "s2": 6, "lab": 6}
-    for qid, n in quiz_totals.items():
+    for qid, n in QUIZ_TOTALS.items():
         st = payload.get("quiz") if qid == "s1" else quizzes.get(qid)
         answered = len((st or {}).get("answers") or {})
         done += min(n, answered) / n
-    total = len(keys) + 1 + len(quiz_totals)  # + desafío entre sesiones + 3 autoevaluaciones
+        complete += 1 if answered >= n else 0
+    total = len(ACTIVITY_KEYS) + 2 + len(QUIZ_TOTALS)  # + desafío + reflexión de cierre + 3 autoevaluaciones
+    return done, complete, total
+
+
+def calc_percent_from_payload(payload: dict) -> int:
+    """25 actividades evaluables (igual que el frontend)."""
+    done, _, total = activity_progress(payload)
     return int(round((done / total) * 100))
+
+
+def cierre_summary(payload: dict) -> dict:
+    c = payload.get("cierre") or {}
+    pf = payload.get("proyecto") or {}
+    conf = c.get("conf") or {}
+    return {
+        "ideas": [CIERRE_IDEAS[i] for i in (c.get("ideas") or []) if i in CIERRE_IDEAS],
+        "idea_ids": [i for i in (c.get("ideas") or []) if i in CIERRE_IDEAS],
+        "sirvio": str(c.get("sirvio") or "").strip(),
+        "dudas": str(c.get("dudas") or "").strip(),
+        "problema": str(pf.get("problema") or "").strip(),
+        "primer_paso": str(pf.get("primerpaso") or "").strip(),
+        "apps": str(pf.get("apps") or "").strip(),
+        "conf": {cid: conf.get(cid) or {} for cid, _ in CIERRE_CAPS},
+    }
 
 
 def send_access_email(to_email: str, name: str, access_key: str) -> tuple[bool, str]:
@@ -1133,6 +1171,8 @@ def admin_home():
             "percent": s["percent"] or 0,
             "updated_at": s["updated_at"],
             "retos": 0,
+            "actividades": 0,
+            "cierre": None,
             "s1": False,
             "s2": False,
             "proyecto": False,
@@ -1153,6 +1193,8 @@ def admin_home():
             summary["s2"] = bool(progress.get("s2-done"))
             summary["proyecto"] = bool(progress.get("proyecto-final"))
             summary["quiz"] = int((payload.get("quiz") or {}).get("score") or 0)
+            summary["actividades"] = activity_progress(payload)[1]
+            summary["cierre"] = cierre_summary(payload)
         rows.append(summary)
 
     requests_pending = db.execute(
@@ -1170,11 +1212,29 @@ def admin_home():
         "promedio": int(round(sum(r["percent"] for r in rows) / len(rows), 0)) if rows else 0,
         "solicitudes": len(requests_pending),
     }
+    # Lo que se llevan y lo que van a hacer (cierre del curso)
+    cierres = [r for r in rows if r.get("cierre") and (r["cierre"]["ideas"] or r["cierre"]["primer_paso"] or r["cierre"]["dudas"])]
+    idea_counts: dict[str, int] = {}
+    for r in cierres:
+        for i in r["cierre"]["idea_ids"]:
+            idea_counts[i] = idea_counts.get(i, 0) + 1
+    top_ideas = sorted(((CIERRE_IDEAS[i], n) for i, n in idea_counts.items()), key=lambda x: -x[1])
+    conf_avg = []
+    for cid, label in CIERRE_CAPS:
+        pares = [r["cierre"]["conf"].get(cid) for r in cierres if r["cierre"]["conf"].get(cid, {}).get("antes") and r["cierre"]["conf"].get(cid, {}).get("hoy")]
+        if pares:
+            antes = sum(p["antes"] for p in pares) / len(pares)
+            hoy = sum(p["hoy"] for p in pares) / len(pares)
+            conf_avg.append({"label": label, "antes": round(antes, 1), "hoy": round(hoy, 1), "delta": round(hoy - antes, 1), "n": len(pares)})
     flash = session.pop("flash", None)
     return render_template(
         "admin.html",
         students=rows,
         stats=stats,
+        cierres=cierres,
+        top_ideas=top_ideas,
+        conf_avg=conf_avg,
+        activity_total=activity_progress({})[2],
         flash=flash,
         requests=requests_pending,
     )
@@ -1370,7 +1430,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-11-04-herramientas-v1"
+APP_CODE_VERSION = "2026-11-04-cierre-compromiso-v1"
 
 
 @app.get("/health")

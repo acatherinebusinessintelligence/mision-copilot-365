@@ -35,6 +35,11 @@
       box-shadow: 0 8px 24px rgba(34,30,64,.06);
     }
     .stat b { display: block; font-size: 1.6rem; color: var(--brand-primary); }
+    .cierre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .cierre-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; }
+    .cierre-list li { display: flex; justify-content: space-between; gap: .75rem; padding: .45rem .6rem; border: 1px solid var(--border); border-radius: 8px; font-size: .88rem; }
+    .cierre-list b { color: var(--brand-primary); }
+    @media (max-width: 800px) { .cierre-grid { grid-template-columns: 1fr; } }
     .stat span { font-size: .8rem; color: var(--muted); font-weight: 600; }
     .grid { display: grid; grid-template-columns: 340px 1fr; gap: 1.25rem; align-items: start; }
     .card {
@@ -182,7 +187,7 @@
               <tr>
                 <th>Estudiante</th>
                 <th>Avance</th>
-                <th>Retos</th>
+                <th>Actividades</th>
                 <th>S1</th>
                 <th>S2</th>
                 <th>Quiz</th>
@@ -209,7 +214,7 @@
                   </div>
                   <div class="muted">{{ s.updated_at or 'Sin sync' }}</div>
                 </td>
-                <td>{{ s.retos }}/6</td>
+                <td>{{ s.actividades }}/{{ activity_total }}</td>
                 <td>{% if s.s1 %}Sí{% else %}—{% endif %}</td>
                 <td>{% if s.s2 %}Sí{% else %}—{% endif %}</td>
                 <td>{{ s.quiz }}/5</td>
@@ -235,6 +240,49 @@
         </div>
       </section>
     </div>
+
+    <section class="card" style="margin-top:1.25rem;">
+      <h2>Lo que se llevan y lo que van a hacer</h2>
+      {% if not cierres %}
+        <p class="muted">Aún no hay reflexiones de cierre. Aparecen cuando los estudiantes completan «Lo que me llevo» y «Mi plan de acción».</p>
+      {% else %}
+        <p class="muted">{{ cierres|length }} estudiante(s) con reflexión o plan registrado.</p>
+        <div class="cierre-grid">
+          <div>
+            <h3>Ideas que más les sirvieron</h3>
+            <ul class="cierre-list">
+              {% for idea, n in top_ideas %}<li><span>{{ idea }}</span><b>{{ n }}</b></li>{% endfor %}
+            </ul>
+          </div>
+          <div>
+            <h3>Confianza promedio (1 a 5)</h3>
+            <table>
+              <thead><tr><th>Capacidad</th><th>Antes</th><th>Hoy</th><th>Cambio</th></tr></thead>
+              <tbody>
+                {% for c in conf_avg %}<tr><td>{{ c.label }}</td><td>{{ c.antes }}</td><td>{{ c.hoy }}</td><td><strong>{% if c.delta > 0 %}+{% endif %}{{ c.delta }}</strong></td></tr>{% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <h3 style="margin-top:1.25rem">Compromisos y dudas</h3>
+        <div style="overflow:auto">
+          <table>
+            <thead><tr><th>Estudiante</th><th>Va a mejorar</th><th>Primer paso</th><th>Lo que más le sirvió</th><th>Dudas</th></tr></thead>
+            <tbody>
+              {% for r in cierres %}
+              <tr>
+                <td><strong>{{ r.name }}</strong><br><span class="muted">{{ r.cierre.apps }}</span></td>
+                <td>{{ r.cierre.problema or '—' }}</td>
+                <td>{{ r.cierre.primer_paso or '—' }}</td>
+                <td>{{ r.cierre.sirvio or '—' }}</td>
+                <td>{{ r.cierre.dudas or '—' }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    </section>
   </div>
   <script>
     // Auto-refresco suave cada 60s para ver progreso en línea

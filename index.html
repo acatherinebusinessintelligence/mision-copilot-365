@@ -249,6 +249,7 @@
     }
     .section-dark > .container { position: relative; z-index: 2; }
     .section-dark .text-muted, .section-dark .lead { color: #c5c0dc; }
+    .section-dark .card .text-muted, .section-dark .card .lead { color: var(--text-muted); }
     .section-kicker {
       display: inline-flex; align-items: center; gap: 0.4rem;
       font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
@@ -2019,6 +2020,36 @@
     .tpl-role--kit { background: var(--brand-primary); color: #fff; }
     [data-theme="dark"] .tpl-role--fuente { color: #c9c2ff; }
     @media (max-width: 760px) { .tpl-row { grid-template-columns: 1fr; gap: 0.4rem; } .tpl-role { justify-self: start; } }
+    .reflect-card { margin: 1.25rem 0; }
+    .reflect-card h3 { display: flex; align-items: center; gap: 0.5rem; font-size: 1.05rem; }
+    .conf-grid { display: grid; gap: 0.4rem; }
+    .conf-head, .conf-row { display: grid; grid-template-columns: 130px 1fr 1fr 48px; gap: 0.75rem; align-items: center; }
+    .conf-head span { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+    .conf-row { padding: 0.4rem 0; border-top: 1px solid var(--border); }
+    .conf-scale { display: flex; gap: 0.25rem; }
+    .conf-scale button { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-elevated); color: var(--text); font-weight: 700; cursor: pointer; }
+    .conf-scale button[aria-checked="true"] { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+    .conf-delta { font-weight: 800; font-size: 0.9rem; color: var(--text-muted); text-align: center; }
+    .conf-delta.is-up { color: var(--success); }
+    .idea-grid { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .idea-chip { border: 1px solid var(--border); background: var(--bg-elevated); color: var(--text); border-radius: 999px; padding: 0.45rem 0.85rem; font-size: 0.86rem; cursor: pointer; text-align: left; }
+    .idea-chip.is-on { background: var(--brand-accent); border-color: var(--brand-accent); color: var(--brand-dark); font-weight: 700; }
+    .idea-chip:disabled { opacity: 0.45; cursor: not-allowed; }
+    .reflect-status { margin: 0.75rem 0 0; font-size: 0.88rem; font-weight: 700; color: var(--text-muted); }
+    .reflect-status.is-done { color: var(--success); }
+    .plan-block { margin: 1.25rem 0 0.6rem; font-size: 1rem; color: var(--brand-primary); }
+    [data-theme="dark"] .plan-block { color: #c9c2ff; }
+    .plan-block:first-child { margin-top: 0; }
+    .plan-first input { border: 2px solid var(--brand-accent) !important; }
+    .plan-prefill { margin: 0 0 1rem; padding: 0.85rem 1rem; border-radius: var(--radius-sm); background: color-mix(in srgb, var(--brand-accent) 14%, var(--bg-elevated)); border: 1px solid color-mix(in srgb, var(--brand-accent) 55%, var(--border)); }
+    .plan-prefill p { margin: 0 0 0.5rem; }
+    .commit-card { border-left: 5px solid var(--brand-accent); margin: 1.25rem 0; }
+    .commit-card h3 { display: flex; align-items: center; gap: 0.5rem; }
+    .commit-row { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 0.75rem; padding: 0.45rem 0; border-top: 1px solid var(--border); }
+    .commit-row span { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); }
+    .commit-row p, .commit-row ul { margin: 0; }
+    .commit-row ul { padding-left: 1.1rem; }
+    @media (max-width: 700px) { .conf-head, .conf-row { grid-template-columns: 1fr; } .conf-head { display: none; } .commit-row { grid-template-columns: 1fr; } }
     .pr-own-note { margin: 0.75rem 0 0; font-size: 0.86rem; color: var(--text-muted); }
     .adv-prompt { margin: 1rem 0; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 1rem; background: var(--bg-elevated); }
     .adv-prompt > summary { cursor: pointer; padding: 0.85rem 0; font-weight: 700; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
@@ -7100,8 +7131,18 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     <!-- ========== 9. EVALUACIÓN ========== -->
     <section id="evaluacion" class="section-dark" aria-labelledby="evalTitle">
       <div class="container">
-        <p class="section-kicker">Seguimiento</p>
-        <h2 class="section-title" id="evalTitle">Evaluación y seguimiento</h2>
+        <p class="section-kicker">Cierre · 3 de 3</p>
+        <h2 class="section-title" id="evalTitle">Mi compromiso y certificado</h2>
+        <div class="card commit-card" id="commitCard" style="color:var(--text)"></div>
+        <div class="card" style="margin:1.25rem 0;color:var(--text);text-align:center">
+          <p style="margin:0 0 0.5rem">Recorriste el camino desde la productividad individual hasta la preparación de decisiones de proyecto con Microsoft Copilot y Microsoft 365.</p>
+          <p style="margin:0"><strong>Recuerda:</strong> Copilot acelera el análisis; tú aportas el criterio, el contexto de tu organización y la responsabilidad de la decisión.</p>
+          <div class="btn-group" style="justify-content:center;margin-top:1rem">
+            <a class="btn btn--sm btn--secondary" href="#uso-responsable">Repasar uso responsable</a>
+            <a class="btn btn--sm btn--secondary" href="#prompts">Ir al kit de prompts</a>
+          </div>
+        </div>
+        <h3 style="margin:2rem 0 0.5rem">Mi progreso</h3>
         <div class="grid grid-3" style="margin:1.5rem 0">
           <div class="card kpi"><div class="kpi__value" id="statRetos">0</div><div class="kpi__label">Actividades completadas</div></div>
           <div class="card kpi"><div class="kpi__value" id="statFavs">0</div><div class="kpi__label">Prompts favoritos</div></div>
@@ -7124,62 +7165,100 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
           <p>Se reconoce la participación formativa en la experiencia Misión Copilot 365.</p>
           <p class="meta">Participante: <span id="certName">Profesional en formación</span></p>
           <p class="meta">Avance: <span id="certPct">0%</span> · Fecha: <span id="certDate"></span></p>
+          <p class="meta">Mi compromiso: <span id="certCommit">—</span></p>
           <p class="meta">Este certificado no constituye acreditación oficial ni evidencia de cumplimiento normativo.</p>
         </div>
       </div>
     </section>
 
-    <!-- ========== 10. PROYECTO FINAL ========== -->
+    <!-- ========== 10. CIERRE · MI PLAN DE ACCIÓN ========== -->
     <section id="proyecto-final" aria-labelledby="pfTitle">
       <div class="container">
-        <p class="section-kicker">Proyecto final personal</p>
-        <h2 class="section-title" id="pfTitle">Mi caso de uso de Copilot</h2>
+        <p class="section-kicker">Cierre · 2 de 3</p>
+        <h2 class="section-title" id="pfTitle">Lo que voy a hacer: mi plan de acción</h2>
+        <p class="lead">Convierte lo aprendido en una mejora real de tu trabajo. Empieza pequeño: una tarea, un prompt y un primer paso esta semana.</p>
+
+        <div class="plan-prefill" id="planPrefill" hidden></div>
+
         <form class="card" id="proyectoForm">
+          <h3 class="plan-block">1 · La tarea que voy a mejorar</h3>
           <div class="form-grid cols-2">
-            <div class="field"><label for="pfProblema">Problema</label><textarea id="pfProblema" name="problema"></textarea></div>
-            <div class="field"><label for="pfArea">Área</label><input id="pfArea" name="area" /></div>
-            <div class="field"><label for="pfUsuarios">Usuarios</label><input id="pfUsuarios" name="usuarios" /></div>
-            <div class="field"><label for="pfEntrada">Información de entrada</label><textarea id="pfEntrada" name="entrada"></textarea></div>
-            <div class="field"><label for="pfTarea">Tarea actual</label><textarea id="pfTarea" name="tarea"></textarea></div>
-            <div class="field"><label for="pfEsperado">Resultado esperado</label><textarea id="pfEsperado" name="esperado"></textarea></div>
-            <div class="field"><label for="pfApps">Aplicaciones Microsoft 365</label><input id="pfApps" name="apps" placeholder="Outlook, Teams, Word, Excel, PowerPoint..." /></div>
-            <div class="field"><label for="pfPrompt">Prompt principal</label><textarea id="pfPrompt" name="prompt"></textarea></div>
-            <div class="field"><label for="pfVal">Validación humana</label><textarea id="pfVal" name="validacion"></textarea></div>
-            <div class="field"><label for="pfRiesgos">Riesgos</label><textarea id="pfRiesgos" name="riesgos"></textarea></div>
-            <div class="field"><label for="pfInd">Indicadores</label><input id="pfInd" name="indicadores" /></div>
-            <div class="field"><label for="pf30">Plan 30 días</label><textarea id="pf30" name="d30"></textarea></div>
-            <div class="field"><label for="pf60">Plan 60 días</label><textarea id="pf60" name="d60"></textarea></div>
-            <div class="field"><label for="pf90">Plan 90 días</label><textarea id="pf90" name="d90"></textarea></div>
+            <div class="field" style="grid-column:1/-1"><label for="pfProblema">Tarea o problema real</label><textarea id="pfProblema" name="problema" rows="2" placeholder="Ej. Preparar el informe semanal de avance para mi jefe"></textarea></div>
+            <div class="field"><label for="pfTarea">Cómo lo hago hoy y cuánto tiempo me toma</label><textarea id="pfTarea" name="tarea" rows="2"></textarea></div>
+            <div class="field"><label for="pfEsperado">Resultado que espero</label><textarea id="pfEsperado" name="esperado" rows="2"></textarea></div>
+            <div class="field"><label for="pfArea">Área o proceso</label><input id="pfArea" name="area" /></div>
+            <div class="field"><label for="pfUsuarios">Quiénes se benefician</label><input id="pfUsuarios" name="usuarios" /></div>
           </div>
+
+          <h3 class="plan-block">2 · Cómo lo haré con Copilot</h3>
+          <div class="form-grid cols-2">
+            <div class="field"><label for="pfApps">Herramientas que usaré</label><input id="pfApps" name="apps" list="pfAppsList" placeholder="Copilot Chat, Outlook, Word, Excel, Teams…" />
+              <datalist id="pfAppsList"><option value="Copilot Chat"><option value="Copilot Chat + Outlook"><option value="Copilot Chat + Word"><option value="Copilot Chat + Excel"><option value="Copilot en Teams"><option value="Cuaderno de Copilot"><option value="Agente de Copilot"><option value="Power Automate"></datalist></div>
+            <div class="field"><label for="pfEntrada">Información que necesito (fuentes)</label><input id="pfEntrada" name="entrada" placeholder="Ej. Excel de avance, correos del contratista" /></div>
+            <div class="field" style="grid-column:1/-1"><label for="pfKit">Prompt del kit que voy a adaptar</label>
+              <div style="display:flex;gap:0.5rem;flex-wrap:wrap"><select id="pfKit" name="kitprompt" style="flex:1;min-width:220px"></select>
+              <button type="button" class="btn btn--sm btn--secondary" id="pfUseKit"><i data-lucide="clipboard-paste" width="14" height="14"></i> Usarlo como base</button></div></div>
+            <div class="field" style="grid-column:1/-1"><label for="pfPrompt">Mi prompt adaptado</label><textarea id="pfPrompt" name="prompt" rows="6" placeholder="Elige un prompt del kit y adáptalo a tu tarea: completa los [corchetes]."></textarea></div>
+          </div>
+
+          <h3 class="plan-block">3 · Mi plan en el tiempo</h3>
+          <div class="form-grid cols-2">
+            <div class="field plan-first" style="grid-column:1/-1"><label for="pfPrimer">Mi primer paso esta semana (qué y cuándo)</label><input id="pfPrimer" name="primerpaso" placeholder="Ej. El jueves pruebo el prompt con el informe de esta semana" /></div>
+            <div class="field"><label for="pf30">En 30 días</label><textarea id="pf30" name="d30" rows="2"></textarea></div>
+            <div class="field"><label for="pf60">En 60 días</label><textarea id="pf60" name="d60" rows="2"></textarea></div>
+            <div class="field"><label for="pf90">En 90 días</label><textarea id="pf90" name="d90" rows="2"></textarea></div>
+            <div class="field"><label for="pfInd">Cómo sabré que funcionó</label><textarea id="pfInd" name="indicadores" rows="2" placeholder="Ej. Paso de 3 horas a 1 hora por informe"></textarea></div>
+          </div>
+
+          <h3 class="plan-block">4 · Uso responsable</h3>
+          <div class="form-grid cols-2">
+            <div class="field"><label for="pfVal">Qué validaré yo antes de usar el resultado</label><textarea id="pfVal" name="validacion" rows="2"></textarea></div>
+            <div class="field"><label for="pfRiesgos">Riesgos y datos que no debo cargar</label><textarea id="pfRiesgos" name="riesgos" rows="2"></textarea></div>
+            <div class="field" style="grid-column:1/-1"><label for="pfCompartir">Con quién lo comparto o quién me apoya</label><input id="pfCompartir" name="compartir" /></div>
+          </div>
+
           <label class="principle" style="margin-top:1rem;cursor:pointer">
             <input type="checkbox" data-progress="proyecto-final" id="pfDone" />
-            <span>Marcar proyecto final como completado</span>
+            <span><strong>Mi plan de acción está listo</strong> (al menos la tarea, el prompt y mi primer paso).</span>
           </label>
           <div class="btn-group" style="margin-top:1rem">
             <button type="button" class="btn btn--primary" id="pfSave"><i data-lucide="save" width="16" height="16"></i> Guardar</button>
           </div>
           <div class="preview-panel" id="pfPreview" aria-live="polite">
-            <h3>Vista previa automática</h3>
+            <h3>Mi plan en una página</h3>
             <p class="text-muted">Completa el formulario para ver el resumen.</p>
           </div>
         </form>
       </div>
     </section>
 
-    <!-- ========== 11. CIERRE ========== -->
+    <!-- ========== 11. CIERRE · LO QUE ME LLEVO ========== -->
     <section id="cierre" class="section-dark" aria-labelledby="cierreTitle">
       <div class="container">
-        <p class="section-kicker">Cierre</p>
-        <h2 class="section-title" id="cierreTitle">Cierre de la experiencia</h2>
+        <p class="section-kicker">Cierre · 1 de 3</p>
+        <h2 class="section-title" id="cierreTitle">Lo que me llevo del curso</h2>
+        <p class="lead">Antes de planear, mira el camino recorrido. Tu reflexión alimenta tu plan de acción y tu compromiso final.</p>
 
-        <div class="card" style="margin-top:1.5rem;color:var(--text);text-align:center">
-          <p>Has recorrido el camino desde la productividad individual hasta la preparación de decisiones de proyecto con Microsoft Copilot y Microsoft 365.</p>
-          <p><strong>Recuerda:</strong> Copilot acelera el análisis; tú aportas el criterio, el contexto organizacional y la responsabilidad de la decisión.</p>
-          <div class="btn-group" style="justify-content:center;margin-top:1rem">
-            <a class="btn btn--primary" href="#evaluacion">Ver mi progreso</a>
-            <a class="btn btn--secondary" href="#uso-responsable">Repasar uso responsable</a>
-            <a class="btn btn--secondary" href="#inicio">Volver al inicio</a>
+        <div class="card reflect-card" style="color:var(--text)">
+          <h3><i data-lucide="trending-up" width="20" height="20"></i> ¿Cómo cambió tu confianza?</h3>
+          <p class="text-muted" style="font-size:0.9rem;margin:0 0 0.75rem">Califica de 1 (poca) a 5 (mucha) tu confianza para hacer cada tarea con Copilot, antes del curso y hoy.</p>
+          <div class="conf-grid" id="confGrid"></div>
+        </div>
+
+        <div class="card reflect-card" style="color:var(--text)">
+          <h3><i data-lucide="lightbulb" width="20" height="20"></i> Las ideas que más me sirvieron</h3>
+          <p class="text-muted" style="font-size:0.9rem;margin:0 0 0.75rem">Elige hasta 3.</p>
+          <div class="idea-grid" id="ideaGrid"></div>
+        </div>
+
+        <div class="card reflect-card" style="color:var(--text)">
+          <h3><i data-lucide="message-square-quote" width="20" height="20"></i> En mis palabras</h3>
+          <div class="form-grid cols-2">
+            <div class="field" style="grid-column:1/-1"><label for="rfSirvio">La idea o práctica que más me sirvió y por qué</label><textarea id="rfSirvio" data-cierre="sirvio" rows="3" placeholder="Ej. Dividir el prompt en turnos: antes Copilot me rechazaba los prompts largos…"></textarea></div>
+            <div class="field"><label for="rfCambio">Algo que ya hago distinto (o haré) gracias al curso</label><textarea id="rfCambio" data-cierre="cambio" rows="3"></textarea></div>
+            <div class="field"><label for="rfDudas">Lo que todavía me genera dudas</label><textarea id="rfDudas" data-cierre="dudas" rows="3" placeholder="Tu instructor verá estas dudas para retomarlas."></textarea></div>
           </div>
+          <p class="reflect-status" id="reflectStatus" aria-live="polite"></p>
         </div>
       </div>
     </section>
@@ -7225,6 +7304,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     favorites: [],
     quiz: { answers: {}, score: 0 },
     quizzes: {},
+    cierre: {},
     path: {},
     oportunidad: {},
     proyecto: {},
@@ -7354,7 +7434,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
   }
 
   /* ========== PROGRESO ========== */
-  /* Fuente única del avance: 24 actividades evaluables (misma lista en app.py → calc_percent_from_payload). */
+  /* Fuente única del avance: 25 actividades evaluables (misma lista en app.py → calc_percent_from_payload). */
   const S1_RETOS = ["reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6"];
   const S2_FASES = ["s2-f0","s2-f1","s2-f2","s2-f3","s2-f4","s2-f5","s2-f6","s2-f7","s2-f8"];
   const ACTIVITY_GROUPS = [
@@ -7369,7 +7449,9 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       { key: "lab-3-3", title: "3.3 Automatización", href: "#lab-automatizacion" },
       { key: "lab-3-4", title: "3.4 Reto integrador", href: "#lab-reto" },
       { key: "quiz-lab", title: "Autoevaluación · Copilot Lab", href: "#autoeval-lab" }] },
-    { id: "final", title: "Proyecto final", items: [{ key: "proyecto-final", title: "Mi caso de uso de Copilot", href: "#proyecto-final" }] }
+    { id: "final", title: "Cierre", items: [
+      { key: "cierre-reflexion", title: "Lo que me llevo", href: "#cierre" },
+      { key: "proyecto-final", title: "Mi plan de acción", href: "#proyecto-final" }] }
   ];
   const ALL_ACTIVITIES = ACTIVITY_GROUPS.flatMap(g => g.items);
   // Entregables de Sesión 2 → fases de las que salen (se marcan solos).
@@ -7385,6 +7467,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
   const QUIZ_TOTALS = { s1: 5, s2: 6, lab: 6 };
   function activityDone(key) {
     if (key.startsWith("quiz-")) { const id = key.slice(5); return quizAnswered(id) >= QUIZ_TOTALS[id]; }
+    if (key === "cierre-reflexion") return cierreReflexionDone();
     if (key === "desafio") return Object.values(state.oportunidad || {}).some(v => String(v || "").trim());
     return !!state.progress[key];
   }
@@ -8347,6 +8430,180 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     if (window.lucide) lucide.createIcons();
   }
 
+
+  /* ========== CIERRE · LO QUE ME LLEVO, PLAN Y COMPROMISO ========== */
+  const CIERRE_IDEAS = [["i1", "Copilot propone; yo verifico, corrijo y decido."], ["i2", "Un buen prompt tiene estructura: PRISM."], ["i3", "Si un prompt es largo, lo divido en turnos."], ["i4", "Toda afirmación debe tener su fuente."], ["i5", "Lo que falta se marca «No especificado», no se inventa."], ["i6", "Una propuesta no es una decisión."], ["i7", "El mismo hecho se adapta a cada audiencia."], ["i8", "Las cifras se verifican en la fuente original."], ["i9", "Adjuntar archivos en lugar de pegarlos."], ["i10", "Cuaderno, agente o automatización: cuándo usar cada uno."], ["i11", "La automatización orquesta; la persona autoriza."], ["i12", "Proteger los datos sensibles antes de usar Copilot."]];
+  const CIERRE_CAPS = [["comprender", "Comprender"], ["organizar", "Organizar"], ["analizar", "Analizar"], ["comunicar", "Comunicar"], ["planificar", "Planificar"], ["decidir", "Decidir"]];
+  function cierreState() {
+    state.cierre = state.cierre || {};
+    state.cierre.conf = state.cierre.conf || {};
+    state.cierre.ideas = state.cierre.ideas || [];
+    return state.cierre;
+  }
+  function cierreReflexionDone() {
+    const c = state.cierre || {};
+    const conf = c.conf || {};
+    return (c.ideas || []).length >= 1 && String(c.sirvio || "").trim().length > 0
+      && CIERRE_CAPS.every(([id]) => conf[id] && conf[id].hoy);
+  }
+
+  function renderReflection() {
+    const c = cierreState();
+    const grid = document.getElementById("confGrid");
+    if (grid) {
+      grid.innerHTML = `<div class="conf-head"><span></span><span>Antes del curso</span><span>Hoy</span><span></span></div>` +
+        CIERRE_CAPS.map(([id, label]) => {
+          const v = c.conf[id] || {};
+          const scale = (when) => `<div class="conf-scale" role="radiogroup" aria-label="${label} · ${when === "antes" ? "antes" : "hoy"}">${[1, 2, 3, 4, 5].map(n =>
+            `<button type="button" role="radio" aria-checked="${v[when] === n}" data-conf="${id}" data-when="${when}" data-val="${n}">${n}</button>`).join("")}</div>`;
+          const delta = v.antes && v.hoy ? v.hoy - v.antes : null;
+          return `<div class="conf-row"><strong>${label}</strong>${scale("antes")}${scale("hoy")}<span class="conf-delta ${delta > 0 ? "is-up" : ""}">${delta === null ? "" : (delta > 0 ? "+" + delta : delta)}</span></div>`;
+        }).join("");
+      grid.querySelectorAll("[data-conf]").forEach(b => b.addEventListener("click", () => {
+        const id = b.dataset.conf;
+        c.conf[id] = c.conf[id] || {};
+        c.conf[id][b.dataset.when] = +b.dataset.val;
+        saveState();
+        renderReflection();
+      }));
+    }
+    const ideas = document.getElementById("ideaGrid");
+    if (ideas) {
+      ideas.innerHTML = CIERRE_IDEAS.map(([id, text]) => {
+        const on = c.ideas.includes(id);
+        const full = !on && c.ideas.length >= 3;
+        return `<button type="button" class="idea-chip ${on ? "is-on" : ""}" data-idea="${id}" aria-pressed="${on}" ${full ? "disabled" : ""}>${on ? "✓ " : ""}${text}</button>`;
+      }).join("");
+      ideas.querySelectorAll("[data-idea]").forEach(b => b.addEventListener("click", () => {
+        const id = b.dataset.idea;
+        c.ideas = c.ideas.includes(id) ? c.ideas.filter(x => x !== id) : [...c.ideas, id].slice(0, 3);
+        saveState();
+        renderReflection();
+      }));
+    }
+    document.querySelectorAll("[data-cierre]").forEach(el => {
+      if (!el.dataset.bound) {
+        el.dataset.bound = "1";
+        el.value = c[el.dataset.cierre] || "";
+        el.addEventListener("input", () => { c[el.dataset.cierre] = el.value; saveState(); updateReflectStatus(); });
+      }
+    });
+    updateReflectStatus();
+  }
+  function updateReflectStatus() {
+    const st = document.getElementById("reflectStatus");
+    if (!st) return;
+    const done = cierreReflexionDone();
+    st.classList.toggle("is-done", done);
+    st.textContent = done ? "✓ Reflexión completa. Continúa con tu plan de acción." : "Para completar: califica tu confianza de hoy en las 6 capacidades, elige al menos una idea y escribe la que más te sirvió.";
+  }
+
+  function initPlan() {
+    const sel = document.getElementById("pfKit");
+    if (sel && !sel.options.length) {
+      sel.innerHTML = `<option value="">— Elige un prompt del kit —</option>` + PROMPTS.map(pr => `<option value="${pr.id}">${esc(pr.cat)} · ${esc(pr.name)}</option>`).join("");
+      sel.value = (state.proyecto || {}).kitprompt || "";
+    }
+    const use = document.getElementById("pfUseKit");
+    if (use && !use.dataset.bound) {
+      use.dataset.bound = "1";
+      use.addEventListener("click", () => {
+        const pr = PROMPTS.find(x => x.id === sel.value);
+        const ta = document.getElementById("pfPrompt");
+        if (!pr) { toast("Primero elige un prompt del kit", "info"); return; }
+        if (ta.value.trim() && !confirm("¿Reemplazar tu prompt actual por el del kit?")) return;
+        ta.value = pr.text;
+        ta.dispatchEvent(new Event("input", { bubbles: true }));
+        toast("Prompt del kit copiado: completa los [corchetes]", "clipboard-paste");
+      });
+    }
+    // Precargar desde "Mi oportunidad Copilot" (entre sesiones)
+    const box = document.getElementById("planPrefill");
+    const op = state.oportunidad || {};
+    const pf = state.proyecto || {};
+    const hasOp = Object.values(op).some(v => String(v || "").trim());
+    const planEmpty = !Object.values(pf).some(v => String(v || "").trim());
+    if (box) {
+      box.hidden = !(hasOp && planEmpty);
+      if (!box.hidden) {
+        box.innerHTML = `<p><strong>Ya empezaste este plan.</strong> Entre sesiones registraste una oportunidad: <em>«${esc(op.tarea || op.proceso || "tu oportunidad Copilot")}»</em>.</p>
+          <button type="button" class="btn btn--sm btn--primary" id="pfPrefillBtn"><i data-lucide="import" width="14" height="14"></i> Usar esos datos como punto de partida</button>`;
+        document.getElementById("pfPrefillBtn").addEventListener("click", () => {
+          const form = document.getElementById("proyectoForm");
+          const map = { problema: op.tarea, tarea: [op.proceso, op.tiempo].filter(Boolean).join(" · "), entrada: op.info,
+            esperado: op.resultado, validacion: op.validacion, riesgos: op.riesgo, indicadores: op.indicador };
+          Object.entries(map).forEach(([k, v]) => { const el = form.elements.namedItem(k); if (el && !el.value.trim() && v) el.value = v; });
+          state.proyecto = readForm(form);
+          saveState();
+          updateProyectoPreview();
+          box.hidden = true;
+          toast("Datos de tu oportunidad cargados", "import");
+        });
+        if (window.lucide) lucide.createIcons({ nodes: [box] });
+      }
+    }
+  }
+
+  function commitmentData() {
+    const c = state.cierre || {};
+    const pf = state.proyecto || {};
+    return {
+      ideas: (c.ideas || []).map(id => (CIERRE_IDEAS.find(x => x[0] === id) || [])[1]).filter(Boolean),
+      problema: pf.problema, primer: pf.primerpaso, d90: pf.d90, ind: pf.indicadores, val: pf.validacion,
+      apps: pf.apps, sirvio: c.sirvio
+    };
+  }
+  function renderCommitment() {
+    const card = document.getElementById("commitCard");
+    if (!card) return;
+    const d = commitmentData();
+    const cert = document.getElementById("certCommit");
+    if (cert) cert.textContent = d.primer ? d.primer : "—";
+    if (!d.ideas.length && !d.primer && !d.problema) {
+      card.innerHTML = `<h3><i data-lucide="flag" width="20" height="20"></i> Mi compromiso</h3>
+        <p class="text-muted" style="margin:0">Se arma solo con tu reflexión y tu plan. Completa <a href="#cierre">Lo que me llevo</a> y <a href="#proyecto-final">Mi plan de acción</a>.</p>`;
+    } else {
+      const row = (label, v) => v ? `<div class="commit-row"><span>${label}</span><p>${esc(v)}</p></div>` : "";
+      card.innerHTML = `<h3><i data-lucide="flag" width="20" height="20"></i> Mi compromiso</h3>
+        ${d.ideas.length ? `<div class="commit-row"><span>Del curso me llevo</span><ul>${d.ideas.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>` : ""}
+        ${row("Voy a mejorar", d.problema)}
+        ${row("Con", d.apps)}
+        ${row("Mi primer paso esta semana", d.primer)}
+        ${row("En 90 días", d.d90)}
+        ${row("Sabré que funcionó cuando", d.ind)}
+        ${row("Antes de usar un resultado, validaré", d.val)}
+        <div class="btn-group" style="margin-top:0.75rem">
+          <button type="button" class="btn btn--sm btn--primary" id="commitCopy"><i data-lucide="copy" width="14" height="14"></i> Copiar mi compromiso</button>
+          <button type="button" class="btn btn--sm btn--secondary" id="commitDownload"><i data-lucide="download" width="14" height="14"></i> Descargar mi plan (Word)</button>
+        </div>`;
+      const plain = () => [
+        "MI COMPROMISO CON COPILOT",
+        d.ideas.length ? "Del curso me llevo:\n- " + d.ideas.join("\n- ") : "",
+        d.problema ? "Voy a mejorar: " + d.problema : "",
+        d.apps ? "Con: " + d.apps : "",
+        d.primer ? "Mi primer paso esta semana: " + d.primer : "",
+        d.d90 ? "En 90 días: " + d.d90 : "",
+        d.ind ? "Sabré que funcionó cuando: " + d.ind : "",
+        d.val ? "Antes de usar un resultado, validaré: " + d.val : ""
+      ].filter(Boolean).join("\n\n");
+      card.querySelector("#commitCopy").addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(plain()); toast("Compromiso copiado"); } catch { toast("No se pudo copiar", "alert-triangle"); }
+      });
+      card.querySelector("#commitDownload").addEventListener("click", () => {
+        const pf = state.proyecto || {};
+        const li = (k, v) => v ? `<tr><td style="width:32%"><strong>${k}</strong></td><td>${esc(v).replace(/\n/g, "<br>")}</td></tr>` : "";
+        const html = `<h2>Lo que me llevo</h2><ul>${d.ideas.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+          ${d.sirvio ? `<p><strong>Lo que más me sirvió:</strong> ${esc(d.sirvio)}</p>` : ""}
+          <h2>Mi plan de acción</h2><table>${li("Tarea a mejorar", pf.problema)}${li("Cómo lo hago hoy", pf.tarea)}${li("Resultado esperado", pf.esperado)}
+          ${li("Herramientas", pf.apps)}${li("Fuentes", pf.entrada)}${li("Mi prompt", pf.prompt)}${li("Primer paso esta semana", pf.primerpaso)}
+          ${li("30 días", pf.d30)}${li("60 días", pf.d60)}${li("90 días", pf.d90)}${li("Indicador", pf.indicadores)}
+          ${li("Validación humana", pf.validacion)}${li("Riesgos y datos que no cargaré", pf.riesgos)}${li("Apoyo", pf.compartir)}</table>`;
+        downloadWord("Mi_plan_de_accion_Copilot.doc", "Mi plan de acción con Copilot", "MCP-365-PLAN", "Microsoft 365 Copilot", html);
+      });
+    }
+    if (window.lucide) lucide.createIcons({ nodes: [card] });
+  }
+
   function renderActivitySheets() {
     Object.entries(ACTIVITY_SHEETS).forEach(([id, s]) => {
       const host = id.startsWith("lab-")
@@ -8450,6 +8707,7 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     renderSessionStatus();
     renderPhaseMap();
     renderRespStatus();
+    renderCommitment();
     renderEvalModules();
     csRefresh();
   }
@@ -11591,17 +11849,19 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     const form = document.getElementById("proyectoForm");
     const d = readForm(form);
     const preview = document.getElementById("pfPreview");
-    preview.innerHTML = `<h3>Vista previa automática</h3>
+    const kit = PROMPTS.find(x => x.id === d.kitprompt);
+    preview.innerHTML = `<h3>Mi plan en una página</h3>
       <dl>
-        <dt>Problema</dt><dd>${esc(d.problema) || "—"}</dd>
-        <dt>Área / usuarios</dt><dd>${esc(d.area) || "—"} · ${esc(d.usuarios) || "—"}</dd>
-        <dt>Resultado esperado</dt><dd>${esc(d.esperado) || "—"}</dd>
-        <dt>Apps M365</dt><dd>${esc(d.apps) || "—"}</dd>
-        <dt>Prompt principal</dt><dd>${esc(d.prompt) || "—"}</dd>
-        <dt>Validación humana</dt><dd>${esc(d.validacion) || "—"}</dd>
+        <dt>Tarea a mejorar</dt><dd>${esc(d.problema) || "—"}</dd>
+        <dt>Hoy · resultado esperado</dt><dd>${esc(d.tarea) || "—"} → ${esc(d.esperado) || "—"}</dd>
+        <dt>Herramientas y prompt base</dt><dd>${esc(d.apps) || "—"}${kit ? " · " + esc(kit.name) : ""}</dd>
+        <dt>Mi primer paso esta semana</dt><dd><strong>${esc(d.primerpaso) || "—"}</strong></dd>
         <dt>Plan 30 / 60 / 90</dt>
         <dd><strong>30:</strong> ${esc(d.d30) || "—"}<br><strong>60:</strong> ${esc(d.d60) || "—"}<br><strong>90:</strong> ${esc(d.d90) || "—"}</dd>
+        <dt>Cómo sabré que funcionó</dt><dd>${esc(d.indicadores) || "—"}</dd>
+        <dt>Validación humana</dt><dd>${esc(d.validacion) || "—"}</dd>
       </dl>`;
+    renderCommitment();
   }
   function esc(s) {
     return String(s || "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c]));
@@ -14365,11 +14625,11 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
         { sel: "#prompts", title: "Biblioteca de prompts" },
         { sel: "#recursos", title: "Planillas para descargar" }
       ] },
-    { id: "cierre", title: "Cierre", sub: "Proyecto final y progreso", icon: "flag",
+    { id: "cierre", title: "Cierre", sub: "Lo que me llevo y lo que haré", icon: "flag",
       steps: [
-        { sel: "#proyecto-final", title: "Proyecto final · Mi caso de uso", key: "proyecto-final" },
-        { sel: "#cierre", title: "Cierre de la experiencia" },
-        { sel: "#evaluacion", title: "Mi progreso y certificado" }
+        { sel: "#cierre", title: "Lo que me llevo", done: () => activityDone("cierre-reflexion") },
+        { sel: "#proyecto-final", title: "Lo que voy a hacer · Mi plan", key: "proyecto-final" },
+        { sel: "#evaluacion", title: "Mi compromiso y certificado" }
       ] }
   ];
 
@@ -14900,6 +15160,8 @@ Después del correo, agrega una lista de 5 puntos para la validación humana ant
     renderQuiz();
     initOportunidad();
     initProyecto();
+    initPlan();
+    renderReflection();
     initAvanceFields();
     // Montar prompts de Sesión 1/2 antes de widgets opcionales (evita que un null rompa el boot)
     initReto1EmailSend();
