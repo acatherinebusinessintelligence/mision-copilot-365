@@ -8726,6 +8726,25 @@ Explica tu método en lenguaje sencillo para que yo pueda verificarlo.`,
     note: "<strong>La lección:</strong> la IA puede equivocarse en un paso intermedio y aun así dar un total que parece razonable. Revisar el método es tan importante como revisar el resultado."
   });
 
+
+  INNOVATIONS.push({
+    id: "multiformato", badge: "Nuevo en Copilot", title: "Briefing multiformato: el informe en audio e infografía",
+    target: () => { const b = document.querySelector('article.reto[data-reto="s2-f8"] .s2-turns'); return b && { el: b }; },
+    intro: "Copilot ya puede convertir un informe en <strong>resumen en audio</strong> (tipo pódcast) o en <strong>infografía</strong>. Es la idea de «adaptar el mensaje a cada audiencia», ahora en distintos formatos: un directivo puede escucharlo camino a la reunión.",
+    routes: [
+      { title: "Si tu versión lo permite", steps: ["<strong>Agente Researcher:</strong> al terminar un informe, conviértelo en PowerPoint, PDF, infografía o resumen en audio.", "<strong>Cuaderno de Copilot:</strong> con el informe como referencia, usa la opción de crear un resumen en audio o una infografía.", "<strong>Word:</strong> con el informe ejecutivo abierto, busca en Copilot la opción de crear un resumen en audio.", "Verifica que el idioma sea español (la disponibilidad varía por idioma y versión)."] },
+      { title: "Si no lo tienes", steps: ["Usa Copilot Chat con el prompt de abajo para obtener el guion de audio y la infografía en texto.", "Si quieres, graba tú el audio con el guion: el valor está en la síntesis, no en la herramienta."] }
+    ],
+    promptLabel: "Prompt alternativo (cualquier licencia)",
+    prompt: `Con el informe ejecutivo del Proyecto Horizonte (adjunto o de esta conversación), escribe:
+1. Un guion de audio de 2 minutos para miembros del comité que lo escucharán en camino a la reunión: tono conversacional, 3 mensajes clave, los 3 riesgos principales y las decisiones requeridas.
+2. Una infografía de una página en texto: título, 4 bloques con cifras clave y una alerta.
+No incluyas cifras ni compromisos que no estén en el informe.`,
+    checkTitle: "Verifica qué se perdió al resumir",
+    check: ["¿El audio presenta alguna propuesta como si fuera una decisión aprobada?", "¿Las cifras del audio y la infografía coinciden con el informe?", "¿Quedó claro qué decisiones se le piden al comité?", "¿Qué información importante se omitió y en qué formato debería ir?"],
+    note: "Un resumen en audio o una infografía son más fáciles de consumir, pero también simplifican más. Úsalos como complemento del informe validado, nunca como reemplazo."
+  });
+
   function renderInnovations() {
     INNOVATIONS.forEach(cfg => {
       if (document.getElementById(`inno-${cfg.id}`)) return;
