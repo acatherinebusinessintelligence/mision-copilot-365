@@ -974,7 +974,7 @@ S2_PRISM = {
                         "no lo trates como analizado."
                     ),
                     solicitud=(
-                        "Produce el documento ejecutivo definitivo del Caso 1 con este orden:\n"
+                        "Produce el documento ejecutivo definitivo de la Fase 1 (análisis documental) con este orden:\n"
                         "A) Portada e inventario de fuentes (mencionado / seleccionado / analizado / no accesible).\n"
                         "B) Análisis individual de cada fuente accesible (alcance; presupuesto y cronograma; "
                         "transcripción; riesgos; comentarios; correo como marco de entregables).\n"
