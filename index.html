@@ -1949,6 +1949,9 @@
     .resp-reminder.is-done { background: color-mix(in srgb, var(--success) 10%, var(--bg-elevated)); border-color: color-mix(in srgb, var(--success) 35%, var(--border)); color: var(--text-muted); }
     @media (max-width: 900px) { .resp-groups { grid-template-columns: minmax(0, 1fr); } }
 
+    .quiz-card .quiz-score { margin: 1rem 0 0; }
+    .quiz-feedback a { font-weight: 700; margin-left: 0.25rem; }
+
     .cs-backdrop { display: none; }
     @media (max-width: 1080px) {
       .cs-layout { grid-template-columns: minmax(0, 1fr); }
@@ -5057,6 +5060,14 @@ Tono: ejecutivo, claro y prudente.</div>
           <i data-lucide="shield-check" width="18" height="18"></i>
           <span><strong>Cierre.</strong> Copilot acelera la organización y la propuesta. Ningún entregable de esta sesión se considera listo para comité sin validación humana de cifras, fechas, responsables, riesgos y decisiones.</span>
         </div>
+
+        <!-- AUTOEVALUACIÓN SESIÓN 2 -->
+        <div class="card quiz-card" id="autoeval-s2" style="margin-top:2rem">
+          <h3>Autoevaluación · Sesión 2</h3>
+          <p class="lead" style="font-size:1rem">6 preguntas de situación. Retroalimentación inmediata con enlace a la actividad que conviene repasar.</p>
+          <div data-quiz="s2"></div>
+          <p class="quiz-score"><strong>Puntaje:</strong> <span data-quiz-score="s2">0</span> / 6</p>
+        </div>
       </div>
     </section>
 
@@ -6951,6 +6962,15 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
           </div>
         </div>
 
+
+        <!-- AUTOEVALUACIÓN COPILOT LAB -->
+        <div class="card quiz-card" id="autoeval-lab" style="margin-top:2rem;color:var(--text)">
+          <h3>Autoevaluación · Copilot Lab</h3>
+          <p class="lead" style="font-size:1rem">6 preguntas de situación. Retroalimentación inmediata con enlace a la actividad que conviene repasar.</p>
+          <div data-quiz="lab"></div>
+          <p class="quiz-score"><strong>Puntaje:</strong> <span data-quiz-score="lab">0</span> / 6</p>
+        </div>
+
       </div>
     </section>
 
@@ -7130,6 +7150,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     progress: {},
     favorites: [],
     quiz: { answers: {}, score: 0 },
+    quizzes: {},
     path: {},
     oportunidad: {},
     proyecto: {},
@@ -7259,19 +7280,21 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
   }
 
   /* ========== PROGRESO ========== */
-  /* Fuente única del avance: 22 actividades evaluables (misma lista en app.py → calc_percent_from_payload). */
+  /* Fuente única del avance: 24 actividades evaluables (misma lista en app.py → calc_percent_from_payload). */
   const S1_RETOS = ["reto-r1","reto-r2","reto-r3","reto-r4","reto-r5","reto-r6"];
   const S2_FASES = ["s2-f0","s2-f1","s2-f2","s2-f3","s2-f4","s2-f5","s2-f6","s2-f7","s2-f8"];
   const ACTIVITY_GROUPS = [
     { id: "s1", title: "Sesión 1 · Productividad individual",
       items: [...S1_RETOS.map(k => ({ key: k, href: "#paso-" + k.slice(5) })), { key: "quiz-s1", title: "Autoevaluación", href: "#autoeval" }] },
     { id: "desafio", title: "Entre sesiones", items: [{ key: "desafio", title: "Mi oportunidad Copilot", href: "#desafio" }] },
-    { id: "s2", title: "Sesión 2 · Proyecto Horizonte", items: S2_FASES.map(k => ({ key: k, href: "#paso-" + k })) },
+    { id: "s2", title: "Sesión 2 · Proyecto Horizonte",
+      items: [...S2_FASES.map(k => ({ key: k, href: "#paso-" + k })), { key: "quiz-s2", title: "Autoevaluación · Sesión 2", href: "#autoeval-s2" }] },
     { id: "lab", title: "Copilot Lab", items: [
       { key: "lab-3-1", title: "3.1 Cuaderno", href: "#lab-cuaderno" },
       { key: "lab-3-2", title: "3.2 Agente PMO", href: "#lab-agente" },
       { key: "lab-3-3", title: "3.3 Automatización", href: "#lab-automatizacion" },
-      { key: "lab-3-4", title: "3.4 Reto integrador", href: "#lab-reto" }] },
+      { key: "lab-3-4", title: "3.4 Reto integrador", href: "#lab-reto" },
+      { key: "quiz-lab", title: "Autoevaluación · Copilot Lab", href: "#autoeval-lab" }] },
     { id: "final", title: "Proyecto final", items: [{ key: "proyecto-final", title: "Mi caso de uso de Copilot", href: "#proyecto-final" }] }
   ];
   const ALL_ACTIVITIES = ACTIVITY_GROUPS.flatMap(g => g.items);
@@ -7281,9 +7304,13 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     "s2-e6": ["s2-f5"], "s2-e7": ["s2-f6"], "s2-e8": ["s2-f7"], "s2-e9": ["s2-f8"], "s2-e10": S2_FASES.slice(1)
   };
 
-  function quizAnswered() { return Object.keys((state.quiz && state.quiz.answers) || {}).length; }
+  function quizAnswered(id = "s1") {
+    const st = id === "s1" ? state.quiz : (state.quizzes || {})[id];
+    return Object.keys((st && st.answers) || {}).length;
+  }
+  const QUIZ_TOTALS = { s1: 5, s2: 6, lab: 6 };
   function activityDone(key) {
-    if (key === "quiz-s1") return quizAnswered() >= 5;
+    if (key.startsWith("quiz-")) { const id = key.slice(5); return quizAnswered(id) >= QUIZ_TOTALS[id]; }
     if (key === "desafio") return Object.values(state.oportunidad || {}).some(v => String(v || "").trim());
     return !!state.progress[key];
   }
@@ -7298,8 +7325,8 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
   function nextActivity() { return ALL_ACTIVITIES.find(i => !activityDone(i.key)) || null; }
 
   function calcPercent() {
-    const done = ALL_ACTIVITIES.filter(i => i.key !== "quiz-s1" && activityDone(i.key)).length
-      + Math.min(5, quizAnswered()) / 5;
+    const done = ALL_ACTIVITIES.filter(i => !i.key.startsWith("quiz-") && activityDone(i.key)).length
+      + Object.entries(QUIZ_TOTALS).reduce((acc, [id, n]) => acc + Math.min(n, quizAnswered(id)) / n, 0);
     return Math.round((done / ALL_ACTIVITIES.length) * 100);
   }
 
@@ -7487,7 +7514,8 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     document.getElementById("statFavs").textContent = (state.favorites || []).length;
     const sesiones = [state.progress["s1-done"], state.progress["s2-done"]].filter(Boolean).length;
     document.getElementById("statSesiones").textContent = sesiones;
-    document.getElementById("statQuiz").textContent = (state.quiz.score || 0) + "/5";
+    const qs = [state.quiz, (state.quizzes || {}).s2, (state.quizzes || {}).lab].reduce((a, s) => a + ((s && s.score) || 0), 0);
+    document.getElementById("statQuiz").textContent = qs + "/" + (QUIZ_TOTALS.s1 + QUIZ_TOTALS.s2 + QUIZ_TOTALS.lab);
     document.getElementById("statFinal").textContent = state.progress["proyecto-final"] ? "Sí" : "No";
     document.getElementById("statPct").textContent = pct + "%";
     document.getElementById("certPct").textContent = pct + "%";
@@ -10420,78 +10448,184 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       q: "¿Copilot puede tomar la decisión final en un proyecto de alto impacto?",
       options: ["Sí, si el prompt es detallado", "No; la decisión permanece en personas responsables", "Solo si hay consenso en el chat"],
       answer: 1,
-      feedback: "Correcto. Copilot apoya el análisis; la decisión final es humana."
+      feedback: "Correcto. Copilot apoya el análisis; la decisión final es humana.",
+      why: "La decisión de alto impacto siempre es humana: Copilot solo apoya el análisis.",
+      ref: "#uso-responsable", refLabel: "Uso responsable"
     },
     {
       q: "¿Qué debe hacer el usuario cuando falta información?",
       options: ["Pedir a Copilot que complete con supuestos sin marcarlos", "Indicar ‘no especificado’ y formular preguntas de validación", "Omitir el tema"],
       answer: 1,
-      feedback: "Correcto. No inventes: señala vacíos y valida."
+      feedback: "Correcto. No inventes: señala vacíos y valida.",
+      why: "Nunca rellenes vacíos con supuestos ocultos: marca «no especificado» y pregunta.",
+      ref: "#paso-r1", refLabel: "Reto 1 · Comprender una solicitud"
     },
     {
       q: "¿Cuál es la diferencia entre resumir y analizar?",
       options: ["Ninguna", "Resumir condensa; analizar interpreta relaciones, riesgos y vacíos con evidencia", "Analizar siempre es más corto"],
       answer: 1,
-      feedback: "Correcto. Analizar exige criterio y trazabilidad."
+      feedback: "Correcto. Analizar exige criterio y trazabilidad.",
+      why: "Resumir condensa; analizar exige relacionar, detectar impactos y citar evidencia.",
+      ref: "#paso-r5", refLabel: "Reto 5 · Comparación documental"
     },
     {
       q: "¿Por qué debe indicarse la audiencia en el prompt?",
       options: ["Para embellecer el texto", "Para adaptar lenguaje, detalle y prioridades del mensaje", "No es necesario"],
       answer: 1,
-      feedback: "Correcto. La audiencia define tono, extensión y foco."
+      feedback: "Correcto. La audiencia define tono, extensión y foco.",
+      why: "La audiencia cambia el tono, el nivel de detalle y lo que se prioriza.",
+      ref: "#paso-r4", refLabel: "Reto 4 · Tres audiencias"
     },
     {
       q: "¿Qué información no debe cargarse sin autorización?",
       options: ["Plantillas genéricas", "Datos sensibles, personales o confidenciales sin permiso", "Indicadores públicos de la capacitación"],
       answer: 1,
-      feedback: "Correcto. Protege confidencialidad y respeta permisos."
+      feedback: "Correcto. Protege confidencialidad y respeta permisos.",
+      why: "Los datos sensibles o confidenciales requieren autorización antes de cargarse.",
+      ref: "#uso-responsable", refLabel: "Uso responsable"
     }
   ];
 
-  function renderQuiz() {
-    const box = document.getElementById("quizContainer");
-    box.innerHTML = QUIZ.map((item, qi) => `
+  /* Autoevaluaciones de Sesión 2 y Copilot Lab (mismo motor que la Sesión 1). */
+  const QUIZ_BANK = {
+    s2: [
+      { q: "En el método PRISM, ¿qué define la «I · Información»?",
+        options: ["El tono y la extensión del informe", "Los archivos autorizados, las fuentes prohibidas y cómo tratar lo que falta", "La persona o rol que debe asumir Copilot"],
+        answer: 1, feedback: "Correcto. Información = qué fuentes puede usar Copilot y qué hacer con los vacíos.",
+        why: "Persona es el rol; Método es el formato. Información delimita las fuentes y el tratamiento de faltantes.",
+        ref: "#sesion2", refLabel: "Método PRISM" },
+      { q: "Copilot afirma que analizó los 6 anexos del correo, pero tú solo cargaste 3. ¿Qué haces?",
+        options: ["Confías: Copilot tiene acceso al correo completo", "Le pides que complete lo faltante con supuestos razonables", "Pides el inventario mencionado / seleccionado / analizado y marcas los archivos no accesibles"],
+        answer: 2, feedback: "Correcto. Un archivo mencionado no es un archivo analizado: exige trazabilidad por archivo.",
+        why: "Si un archivo no fue cargado, Copilot no puede haberlo analizado. Pide el inventario y marca lo no accesible sin inventar.",
+        ref: "#paso-s2-f1", refLabel: "Fase 1 · Análisis documental" },
+      { q: "Copilot reporta el presupuesto total a partir del Excel. Antes de ponerlo en el informe…",
+        options: ["Lo verificas tú directamente en el archivo Excel", "Le pides a Copilot que confirme su propio cálculo", "Lo redondeas para que se vea más ejecutivo"],
+        answer: 0, feedback: "Correcto. Toda cifra que llegue al comité se valida en la fuente original.",
+        why: "Copilot puede leer mal una tabla; que confirme su propio cálculo no es una validación independiente.",
+        ref: "#paso-s2-f3", refLabel: "Fase 3 · Presupuesto y cronograma" },
+      { q: "En la reunión alguien dice: «Propongo iniciar obras en marzo». ¿Cómo se registra?",
+        options: ["Como decisión confirmada con fecha de marzo", "Como propuesta no aprobada, sin fecha confirmada", "No se registra porque no es una decisión"],
+        answer: 1, feedback: "Correcto. Una propuesta no se convierte en decisión, pero sí debe quedar registrada.",
+        why: "Convertir una propuesta en decisión inventa un compromiso; omitirla pierde información para el comité.",
+        ref: "#paso-s2-f4", refLabel: "Fase 4 · Transcripción" },
+      { q: "El alcance incluye un entregable que no tiene partida en el presupuesto. Esto es…",
+        options: ["Un error de Copilot que hay que ignorar", "Un detalle menor que se resuelve después", "Una inconsistencia entre fuentes que se reporta con la evidencia de ambos archivos"],
+        answer: 2, feedback: "Correcto. Cruzar fuentes sirve justamente para encontrar estos vacíos y documentarlos.",
+        why: "Es un hallazgo del cruce de fuentes: indica tema, archivos de origen y evidencia de cada uno.",
+        ref: "#paso-s2-f5", refLabel: "Fase 5 · Comparar fuentes" },
+      { q: "¿Qué debe hacer el correo ejecutivo final al comité?",
+        options: ["Resumir hallazgos, riesgos y decisiones requeridas sin afirmar aprobación ni inventar compromisos", "Afirmar que el proyecto quedó aprobado para transmitir confianza", "Adjuntar la presentación sin texto adicional"],
+        answer: 0, feedback: "Correcto. Tono ejecutivo y prudente: informa, prioriza y pide decisiones.",
+        why: "El proyecto no está aprobado; el correo prepara la decisión del comité, no la toma.",
+        ref: "#paso-s2-f8", refLabel: "Fase 8 · Correo ejecutivo" }
+    ],
+    lab: [
+      { q: "Necesitas que Copilot trabaje durante semanas sobre las mismas 5 fuentes del proyecto. ¿Qué usas?",
+        options: ["Un prompt nuevo, pegando los archivos cada vez", "Un Cuaderno con las fuentes reunidas en un contexto común", "Un flujo de Power Automate"],
+        answer: 1, feedback: "Correcto. El Cuaderno organiza el conocimiento y mantiene el contexto.",
+        why: "Repetir prompts pierde contexto; la automatización orquesta acciones, no organiza conocimiento.",
+        ref: "#lab-cuaderno", refLabel: "3.1 Cuaderno" },
+      { q: "¿Qué agrega un agente frente a un Cuaderno?",
+        options: ["Un comportamiento especializado: propósito, instrucciones, conocimiento y límites", "Más espacio de almacenamiento", "El envío automático de correos"],
+        answer: 0, feedback: "Correcto. El agente especializa cómo trabaja Copilot, no solo qué sabe.",
+        why: "El Cuaderno responde «qué conocimiento»; el agente responde «qué función cumple y cómo se comporta».",
+        ref: "#lab-agente", refLabel: "3.2 Agente PMO" },
+      { q: "Al PMO Copilot le preguntan algo fuera de su propósito. Un buen agente…",
+        options: ["Responde de todas formas para ser útil", "Inventa una respuesta breve", "Reconoce el límite y lo indica con claridad"],
+        answer: 2, feedback: "Correcto. Un agente vale por su consistencia con su propósito y sus límites.",
+        why: "Responder fuera de su propósito rompe la especialización y aumenta el riesgo de errores.",
+        ref: "#lab-agente", refLabel: "3.2 Agente PMO · Límites" },
+      { q: "En el flujo 3.3, la condición «¿Criticidad = ALTA?»…",
+        options: ["Debe resolverla la IA para ser más inteligente", "Es una regla determinística: no necesita IA y es predecible y auditable", "Se puede eliminar porque la persona revisa todo"],
+        answer: 1, feedback: "Correcto. No todo necesita IA: una regla clara se automatiza directamente.",
+        why: "Cuando la decisión se expresa como regla clara, automatizarla es más predecible y auditable que usar IA.",
+        ref: "#lab-automatizacion", refLabel: "3.3 Automatización" },
+      { q: "Llega un hallazgo crítico. ¿Cuándo sale el correo de alerta?",
+        options: ["De inmediato, sin intervención", "Solo después de que una persona lo aprueba", "Nunca: los hallazgos críticos no se comunican"],
+        answer: 1, feedback: "Correcto. La automatización orquesta; la persona autoriza.",
+        why: "Una alerta crítica no debe enviarse sola: el control humano decide la siguiente acción.",
+        ref: "#lab-automatizacion", refLabel: "3.3 Automatización · Control humano" },
+      { q: "¿Qué idea resume mejor el Copilot Lab?",
+        options: ["La IA puede reemplazar a la PMO", "Conviene automatizar todo lo posible", "El valor está en saber cuándo usar cada componente y dónde conservar el control humano"],
+        answer: 2, feedback: "Correcto. Cuaderno, Agente y Automatización cumplen roles distintos dentro de un sistema.",
+        why: "Ninguna herramienta reemplaza a otra ni al criterio humano: se combinan según la necesidad.",
+        ref: "#copilot-lab", refLabel: "Mapa del laboratorio" }
+    ]
+  };
+
+  // Orden de opciones variado por pregunta (la respuesta guardada sigue siendo el índice original).
+  function quizOrder(qi, n) {
+    const k = (qi * 2 + 1) % n;
+    return [...Array(n).keys()].map(i => (i + k) % n);
+  }
+  function quizState(id) {
+    if (id === "s1") return state.quiz;
+    state.quizzes = state.quizzes || {};
+    state.quizzes[id] = state.quizzes[id] || { answers: {}, score: 0 };
+    return state.quizzes[id];
+  }
+  function quizItems(id) { return id === "s1" ? QUIZ : (QUIZ_BANK[id] || []); }
+
+  function mountQuiz(id, box, namePrefix, scoreEls) {
+    const items = quizItems(id);
+    const st = quizState(id);
+    box.innerHTML = items.map((item, qi) => `
       <div class="quiz-q" data-qi="${qi}">
         <strong>${qi + 1}. ${item.q}</strong>
         <div class="quiz-options">
-          ${item.options.map((opt, oi) => `
+          ${quizOrder(qi, item.options.length).map(oi => `
             <label class="quiz-option" data-qi="${qi}" data-oi="${oi}">
-              <input type="radio" name="quiz-${qi}" value="${oi}" ${state.quiz.answers[qi] === oi ? "checked" : ""} />
-              <span>${opt}</span>
+              <input type="radio" name="${namePrefix}-${qi}" value="${oi}" ${st.answers[qi] === oi ? "checked" : ""} />
+              <span>${item.options[oi]}</span>
             </label>`).join("")}
         </div>
-        <div class="quiz-feedback" id="qf-${qi}"></div>
+        <div class="quiz-feedback"></div>
       </div>`).join("");
+
+    const paint = (qi) => {
+      const item = items[qi];
+      const oi = st.answers[qi];
+      if (oi === undefined) return;
+      const q = box.querySelector(`.quiz-q[data-qi="${qi}"]`);
+      q.querySelectorAll(".quiz-option").forEach(o => {
+        const idx = +o.getAttribute("data-oi");
+        o.classList.toggle("is-correct", idx === item.answer);
+        o.classList.toggle("is-wrong", idx === oi && oi !== item.answer);
+      });
+      const fb = q.querySelector(".quiz-feedback");
+      const ok = oi === item.answer;
+      fb.innerHTML = ok
+        ? esc(item.feedback)
+        : esc(item.why || "Revisa este punto.") + (item.ref ? ` <a href="${item.ref}">Repasar: ${esc(item.refLabel || "actividad")} →</a>` : "");
+      fb.classList.add("is-visible");
+      fb.style.color = ok ? "var(--success)" : "var(--danger)";
+    };
+    const updateScore = () => {
+      st.score = items.reduce((acc, it, i) => acc + (st.answers[i] === it.answer ? 1 : 0), 0);
+      scoreEls().forEach(el => { el.textContent = st.score; });
+    };
 
     box.querySelectorAll("input[type=radio]").forEach(input => {
       input.addEventListener("change", () => {
-        const qi = +input.name.split("-")[1];
-        const oi = +input.value;
-        state.quiz.answers[qi] = oi;
-        const item = QUIZ[qi];
-        const feedback = document.getElementById(`qf-${qi}`);
-        const options = box.querySelectorAll(`.quiz-option[data-qi="${qi}"]`);
-        options.forEach(o => o.classList.remove("is-correct", "is-wrong"));
-        options.forEach(o => {
-          const idx = +o.getAttribute("data-oi");
-          if (idx === item.answer) o.classList.add("is-correct");
-          else if (idx === oi && oi !== item.answer) o.classList.add("is-wrong");
-        });
-        feedback.textContent = oi === item.answer ? item.feedback : "Revisa el principio de supervisión humana y no invención.";
-        feedback.classList.add("is-visible");
-        feedback.style.color = oi === item.answer ? "var(--success)" : "var(--danger)";
-        state.quiz.score = QUIZ.reduce((acc, it, i) => acc + (state.quiz.answers[i] === it.answer ? 1 : 0), 0);
-        document.getElementById("quizScore").textContent = state.quiz.score;
+        const qi = +input.closest(".quiz-q").getAttribute("data-qi");
+        st.answers[qi] = +input.value;
+        paint(qi);
+        updateScore();
         saveState();
       });
     });
+    Object.keys(st.answers || {}).forEach(qi => paint(+qi));
+    updateScore();
+  }
 
-    // restore visuals
-    Object.entries(state.quiz.answers || {}).forEach(([qi, oi]) => {
-      const input = box.querySelector(`input[name="quiz-${qi}"][value="${oi}"]`);
-      if (input) input.dispatchEvent(new Event("change"));
+  function renderQuiz() {
+    const s1 = document.getElementById("quizContainer");
+    if (s1) mountQuiz("s1", s1, "quiz", () => [document.getElementById("quizScore")].filter(Boolean));
+    ["s2", "lab"].forEach(id => {
+      const box = document.querySelector(`[data-quiz="${id}"]`);
+      if (box) mountQuiz(id, box, "quiz-" + id, () => [...document.querySelectorAll(`[data-quiz-score="${id}"]`)]);
     });
-    document.getElementById("quizScore").textContent = state.quiz.score || 0;
   }
 
   /* ========== OPORTUNIDAD / PROYECTO ========== */
@@ -11470,6 +11604,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
         porcentaje: calcPercent() + "%",
         progreso: state.progress,
         quiz: state.quiz,
+        autoevaluaciones: state.quizzes,
         favoritos: state.favorites,
         ruta: state.path,
         fecha: new Date().toISOString()
@@ -13021,7 +13156,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       section: "#sesion1", retos: true,
       introTitle: "Introducción y método de trabajo",
       outroTitle: "Autoevaluación",
-      outroDone: () => Object.keys((state.quiz && state.quiz.answers) || {}).length >= 5 },
+      outroDone: () => activityDone("quiz-s1") },
     { id: "desafio", title: "Entre sesiones", sub: "Mi oportunidad Copilot", icon: "lightbulb",
       steps: [
         { sel: "#desafio", title: "Mi oportunidad Copilot",
@@ -13031,10 +13166,12 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       section: "#sesion2", retos: true,
       introTitle: "Caso, archivos y metodología",
       outroTitle: "Constructor PRISM y entregables",
+      extra: [{ sel: "#autoeval-s2", title: "Autoevaluación", key: "quiz-s2" }],
       outroDone: () => ["s2-e1","s2-e2","s2-e3","s2-e4","s2-e5","s2-e6","s2-e7","s2-e8","s2-e9","s2-e10"].every(k => state.progress[k]) },
     { id: "lab", title: "Copilot Lab", sub: "Cuaderno · Agente · Automatización", icon: "flask-conical",
       section: "#copilot-lab",
       introTitle: "Mapa del laboratorio",
+      extra: [{ sel: "#autoeval-lab", title: "Autoevaluación", key: "quiz-lab" }],
       parts: [
         { sel: "#lab-cuaderno", title: "3.1 Cuaderno · Centro de conocimiento", key: "lab-3-1" },
         { sel: "#lab-agente", title: "3.2 Agente PMO Copilot", key: "lab-3-2" },
@@ -13115,7 +13252,9 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
         const firstTop = kids.indexOf(topOf(stepDefs[0].el));
         const lastTop = kids.indexOf(topOf(stepDefs[stepDefs.length - 1].el));
         const intro = kids.slice(i, firstTop);
-        const outro = kids.slice(lastTop + 1);
+        const extras = (m.extra || []).map(x => ({ ...x, el: document.querySelector(x.sel) })).filter(x => x.el);
+        const extraTops = extras.map(x => topOf(x.el));
+        const outro = kids.slice(lastTop + 1).filter(k => !extraTops.includes(k));
 
         if (intro.length) {
           push({ title: m.introTitle || "Introducción", anchorId: sec.id, section: sec, parts: intro, inner: true, intro: true, done: null });
@@ -13133,6 +13272,8 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
           push({ title: m.outroTitle || "Cierre", anchorId: csEnsureId(outro[0], sec.id + "-cierre"), section: sec,
                  parts: outro, inner: true, done: m.outroDone || null });
         }
+        extras.forEach(x => push({ title: x.title, anchorId: x.el.id, section: sec, parts: [topOf(x.el)], inner: true,
+                                   done: () => activityDone(x.key) }));
       }
       if (mod.steps.length) CS.modules.push(mod);
     });

@@ -151,7 +151,7 @@ def require_student(view):
 
 
 def calc_percent_from_payload(payload: dict) -> int:
-    """Misma lógica que calcPercent() del frontend: 22 actividades evaluables."""
+    """Misma lógica que calcPercent() del frontend: 24 actividades evaluables."""
     progress = payload.get("progress") or {}
     keys = [
         "reto-r1", "reto-r2", "reto-r3", "reto-r4", "reto-r5", "reto-r6",
@@ -163,9 +163,13 @@ def calc_percent_from_payload(payload: dict) -> int:
     oportunidad = payload.get("oportunidad") or {}
     if any(str(v or "").strip() for v in oportunidad.values()):
         done += 1
-    answered = len((payload.get("quiz") or {}).get("answers") or {})
-    done += min(5, answered) / 5
-    total = len(keys) + 2  # + autoevaluación + desafío entre sesiones
+    quizzes = payload.get("quizzes") or {}
+    quiz_totals = {"s1": 5, "s2": 6, "lab": 6}
+    for qid, n in quiz_totals.items():
+        st = payload.get("quiz") if qid == "s1" else quizzes.get(qid)
+        answered = len((st or {}).get("answers") or {})
+        done += min(n, answered) / n
+    total = len(keys) + 1 + len(quiz_totals)  # + desafío entre sesiones + 3 autoevaluaciones
     return int(round((done / total) * 100))
 
 
@@ -1366,7 +1370,7 @@ def api_admin_students():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-11-04-uso-responsable-v1"
+APP_CODE_VERSION = "2026-11-04-autoevaluaciones-v1"
 
 
 @app.get("/health")
