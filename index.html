@@ -9878,6 +9878,10 @@ Tono cercano y realista; máximo 200 palabras.`,
     let d;
     try {
       const r = await fetch(`/api/pulse/${encodeURIComponent(qid)}`, { credentials: "same-origin" });
+      if (!(r.headers.get("content-type") || "").includes("json")) {
+        meta.innerHTML = `<span>El servidor aún no tiene activas las votaciones (respondió ${r.status}). En PythonAnywhere pulsa Web → Reload y revisa que /health diga la versión nueva.</span>`;
+        return;
+      }
       d = await r.json();
       if (r.status === 401) {
         meta.innerHTML = `<span>La sesión venció. Vuelve a entrar para ver los votos.</span>`;
