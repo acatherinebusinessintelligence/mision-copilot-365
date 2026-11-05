@@ -2216,6 +2216,93 @@
     @media (max-width: 760px) { .sp-card__grid { grid-template-columns: 1fr; } }
     @media (prefers-reduced-motion: reduce) { .sp-card.is-in { animation: none; } .sp-roll.is-rolling svg { animation: none; } }
 
+
+    /* ========== PRESENTACIÓN POR MÓDULO ========== */
+    .cs-present { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--brand-primary); background: var(--brand-primary); color: #fff; font: inherit; font-weight: 700; font-size: 0.82rem; padding: 0.45rem 0.8rem; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+    .cs-present:hover { filter: brightness(1.1); }
+    .cs-present svg { width: 16px; height: 16px; }
+    @media (max-width: 700px) { .cs-present span { display: none; } }
+    .deck { position: fixed; inset: 0; z-index: 1800; display: none; flex-direction: column; color: #fff;
+      background: radial-gradient(1200px 600px at 85% 10%, rgba(74,61,166,0.55), transparent 60%), linear-gradient(160deg, #221e40 0%, #1a1733 100%); }
+    .deck.is-open { display: flex; }
+    .deck__bars { position: absolute; left: 0; right: 0; top: 0; height: 6px; background: linear-gradient(90deg, var(--brand-primary) 0 40%, var(--brand-accent) 40% 60%, var(--brand-primary) 60%); }
+    .deck__stage { flex: 1; display: grid; place-items: center; padding: 2.5rem clamp(1.25rem, 5vw, 5rem) 1rem; overflow: auto; }
+    .deck__slide { width: min(1180px, 100%); }
+    .deck__slide.is-in { animation: deckIn 0.45s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes deckIn { from { opacity: 0; transform: translateY(18px); } }
+    .deck__kicker { font-size: clamp(0.8rem, 1.2vw, 0.95rem); font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand-accent); margin: 0 0 0.6rem; }
+    .deck h2 { font-size: clamp(1.8rem, 4.2vw, 3.4rem); line-height: 1.08; margin: 0 0 0.8rem; color: #fff; letter-spacing: -0.02em; }
+    .deck__sub { font-size: clamp(1.05rem, 1.9vw, 1.45rem); color: rgba(255,255,255,0.82); margin: 0 0 1.5rem; max-width: 60ch; }
+    .deck__meta { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .deck__meta span { border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 0.4rem 0.9rem; font-weight: 700; font-size: 0.92rem; }
+    .deck__meta span:first-child { background: var(--brand-accent); color: #221e40; border-color: var(--brand-accent); }
+    .deck__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; }
+    .deck__card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 18px; padding: 1.15rem 1.2rem; animation: deckIn 0.5s ease both; }
+    .deck__card svg { width: 30px; height: 30px; color: var(--brand-accent); }
+    .deck__card h3 { font-size: clamp(1.02rem, 1.5vw, 1.2rem); margin: 0.6rem 0 0.3rem; color: #fff; }
+    .deck__card p { margin: 0; color: rgba(255,255,255,0.78); font-size: clamp(0.88rem, 1.2vw, 1rem); line-height: 1.45; }
+    .deck__agenda { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; counter-reset: ag; }
+    .deck__agenda.is-two { grid-template-columns: 1fr 1fr; column-gap: 1.5rem; }
+    .deck__agenda li { counter-increment: ag; display: grid; grid-template-columns: 2.1rem 1fr auto; gap: 0.75rem; align-items: center; padding: 0.55rem 0.8rem; border-radius: 12px; background: rgba(255,255,255,0.06); animation: deckIn 0.45s ease both; }
+    .deck__agenda li::before { content: counter(ag); display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 50%; background: var(--brand-primary); font-weight: 800; }
+    .deck__agenda strong { display: block; font-size: clamp(0.92rem, 1.3vw, 1.08rem); }
+    .deck__agenda small { display: block; color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-top: 0.1rem; }
+    .deck__agenda em { font-style: normal; font-weight: 800; color: var(--brand-accent); white-space: nowrap; font-size: 0.92rem; }
+    .deck__agenda.is-two small { display: none; }
+    .deck__total { margin: 1rem 0 0; font-weight: 700; color: rgba(255,255,255,0.85); }
+    .deck__checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.8rem; }
+    .deck__checks li { display: flex; gap: 0.9rem; align-items: center; font-size: clamp(1.05rem, 1.9vw, 1.4rem); font-weight: 600; padding: 0.9rem 1.1rem; border-radius: 14px; background: rgba(255,255,255,0.07); animation: deckIn 0.45s ease both; }
+    .deck__checks li::before { content: "✓"; display: grid; place-items: center; flex: 0 0 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--brand-accent); color: #221e40; font-weight: 900; }
+    .deck__pulse { display: grid; gap: 0.6rem; max-width: 900px; }
+    .deck__opt { display: grid; grid-template-columns: minmax(180px, 36%) 1fr 5.5rem; gap: 1rem; align-items: center; font-size: clamp(0.98rem, 1.5vw, 1.15rem); }
+    .deck__opt button { all: unset; cursor: pointer; padding: 0.55rem 0.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.28); font-weight: 700; }
+    .deck__opt button:hover, .deck__opt button:focus-visible { border-color: var(--brand-accent); }
+    .deck__opt button[aria-pressed="true"] { background: var(--brand-accent); color: #221e40; border-color: var(--brand-accent); }
+    .deck__opt .lbl { font-weight: 700; }
+    .deck__opt .trk { height: 22px; border-left: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; }
+    .deck__opt .trk i { display: block; height: 22px; border-radius: 0 4px 4px 0; background: var(--brand-accent); min-width: 2px; transition: width 0.6s ease; }
+    .deck__opt b { text-align: right; font-variant-numeric: tabular-nums; }
+    .deck__pulse-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-top: 1rem; color: rgba(255,255,255,0.8); }
+    .deck__btn { display: inline-flex; align-items: center; gap: 0.45rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: #fff; font: inherit; font-weight: 700; padding: 0.6rem 1rem; border-radius: 12px; cursor: pointer; text-decoration: none; }
+    .deck__btn:hover { border-color: var(--brand-accent); text-decoration: none; color: #fff; }
+    .deck__btn--hot { background: var(--brand-accent); color: #221e40; border-color: var(--brand-accent); }
+    .deck__btn--hot:hover { color: #221e40; filter: brightness(1.05); }
+    .deck__btn svg { width: 18px; height: 18px; }
+    .deck__live { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 800; color: var(--brand-accent); }
+    .deck__live::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #3ddc84; animation: deckPing 1.6s infinite; }
+    @keyframes deckPing { 0% { box-shadow: 0 0 0 0 rgba(61,220,132,0.6); } 70% { box-shadow: 0 0 0 10px rgba(61,220,132,0); } 100% { box-shadow: 0 0 0 0 rgba(61,220,132,0); } }
+    .deck__timer { font-size: clamp(4.5rem, 14vw, 10rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin: 0.5rem 0 1rem; }
+    .deck__timer.is-low { color: var(--brand-accent); }
+    .deck__timer.is-zero { animation: deckFlash 0.8s steps(1) 6; }
+    @keyframes deckFlash { 50% { opacity: 0.25; } }
+    .deck__row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+    .deck__ctrl { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.7rem clamp(1rem, 3vw, 2rem); border-top: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.18); flex-wrap: wrap; }
+    .deck__ctrl .deck__row span { font-weight: 700; font-variant-numeric: tabular-nums; min-width: 4.5rem; text-align: center; }
+    .deck__dots { display: flex; gap: 0.35rem; }
+    .deck__dots button { all: unset; cursor: pointer; width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+    .deck__dots button.is-on { background: var(--brand-accent); width: 26px; border-radius: 6px; }
+    .deck__mini { font-weight: 800; color: var(--brand-accent); font-variant-numeric: tabular-nums; }
+    .deck__note { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin: 1rem 0 0; }
+    @media (max-width: 760px) { .deck__agenda.is-two { grid-template-columns: 1fr; } .deck__opt { grid-template-columns: 1fr 1fr 4rem; } }
+    @media (prefers-reduced-motion: reduce) { .deck__slide.is-in, .deck__card, .deck__agenda li, .deck__checks li { animation: none; } }
+    .presenter-chip { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--brand-accent); color: #221e40; font-weight: 800; font-size: 0.8rem; padding: 0.4rem 0.8rem; border-radius: 999px; }
+    .presenter-chip a { color: #221e40; text-decoration: underline; }
+    .presenter-chip[hidden] { display: none; }
+    /* Votación en vivo en la pantalla del estudiante */
+    .live-pulse { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 300; width: min(380px, calc(100% - 2rem)); background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border); border-top: 4px solid var(--brand-accent); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,0.3); padding: 1rem 1.1rem; animation: deckIn 0.45s ease both; }
+    .live-pulse[hidden] { display: none; }
+    .live-pulse__head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--brand-primary); }
+    [data-theme="dark"] .live-pulse__head { color: var(--brand-accent); }
+    .live-pulse__head button { all: unset; cursor: pointer; font-size: 1.1rem; line-height: 1; padding: 0.1rem 0.35rem; border-radius: 6px; color: var(--text-muted); }
+    .live-pulse h4 { margin: 0.45rem 0 0.7rem; font-size: 1rem; }
+    .live-pulse__opts { display: grid; gap: 0.4rem; }
+    .live-pulse__opts button { text-align: left; border: 1px solid var(--border); background: var(--surface); color: var(--text); font: inherit; font-weight: 600; padding: 0.6rem 0.75rem; border-radius: 10px; cursor: pointer; }
+    .live-pulse__opts button:hover { border-color: var(--brand-primary); }
+    .live-pulse__opts button[aria-pressed="true"] { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+    .live-pulse__thanks { margin: 0.7rem 0 0; font-size: 0.86rem; color: var(--text-muted); }
+    .live-pulse-pill { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 300; border: 0; background: var(--brand-accent); color: #221e40; font: inherit; font-weight: 800; padding: 0.65rem 1rem; border-radius: 999px; cursor: pointer; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+    .live-pulse-pill[hidden] { display: none; }
+
     .cs-backdrop { display: none; }
     @media (max-width: 1080px) {
       .cs-layout { grid-template-columns: minmax(0, 1fr); }
@@ -2282,6 +2369,7 @@
         </ul>
       </nav>
       <div class="nav__actions">
+        <div class="presenter-chip" id="presenterChip" hidden>Modo instructora · <a href="/admin/en-vivo" target="_blank" rel="noopener">Clase en vivo ↗</a></div>
         <div class="user-chip" id="userChip" hidden>
           <span id="userChipName">Estudiante</span>
           <a class="user-chip__out" href="/logout" title="Cerrar sesión">Salir</a>
@@ -7542,6 +7630,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
   const SYNC_DEBOUNCE_MS = 800;
   let syncTimer = null;
   let serverMode = false;
+  let presenterMode = false;
   let currentStudent = null;
 
   const defaultState = () => ({
@@ -7625,6 +7714,14 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       }
       if (!me.ok) return;
       const meData = await me.json();
+      if (meData.admin) {
+        // Instructora: ve el curso completo, presenta y abre votaciones; su avance no se guarda en el servidor.
+        presenterMode = true;
+        document.body.classList.add("is-presenter");
+        const pc = document.getElementById("presenterChip");
+        if (pc) pc.hidden = false;
+        return;
+      }
       serverMode = true;
       currentStudent = meData.student;
       const chip = document.getElementById("userChip");
@@ -9383,6 +9480,368 @@ Tono cercano y realista; máximo 200 palabras.`,
     const roll = document.getElementById("spRoll");
     if (roll) roll.addEventListener("click", sorpresaShuffle);
     document.querySelectorAll("[data-sp-random]").forEach(a => a.addEventListener("click", () => setTimeout(sorpresaShuffle, 500)));
+  }
+
+
+  /* ========== PRESENTACIÓN POR MÓDULO ========== */
+  const DECKS = {
+    bienvenida: {
+      kicker: "Bienvenida", title: "Misión Copilot 365", sub: "De la productividad individual a la gestión inteligente de proyectos, con un caso ficticio del sector energético.",
+      meta: ["2 sesiones en vivo", "Copilot Lab", "Plan de acción y certificado"],
+      agendaTitle: "La ruta completa del curso",
+      agendaFrom: "course",
+      how: [
+        ["key-round", "Entra con tu clave", "La recibiste por correo. Tu avance se guarda solo en tu cuenta y lo retomas donde quedaste."],
+        ["panel-left", "Navega por módulos", "El menú de la izquierda muestra cada módulo y sus pasos; el ✓ marca lo que ya completaste."],
+        ["clipboard-list", "Cada actividad tiene ficha", "Objetivo, tiempo estimado, herramientas, entregable y «lo lograste si…»."],
+        ["copy", "Copia → Copilot → verifica", "Copias el prompt, lo usas en Copilot en otra pestaña y validas el resultado contra la fuente."]
+      ],
+      work: [
+        ["monitor", "Dos ventanas", "El curso a un lado y Copilot al otro: pantalla dividida o dos monitores."],
+        ["repeat", "El ciclo de cada módulo", "Presento (5 min) → trabajas con cronómetro → compartimos hallazgos y dudas."],
+        ["message-circle", "El chat es tu aliado", "Escribe 🙋 si te atascas y comparte allí lo que encontró Copilot."],
+        ["eye", "Te acompaño en vivo", "Veo tu avance y lo que escribes en la plataforma para ayudarte a tiempo. No veo tus conversaciones con Copilot."]
+      ],
+      success: ["Sabes moverte por módulos y pasos", "Conoces las reglas de uso responsable", "Tienes Copilot abierto y listo en otra pestaña"],
+      minutes: 10
+    },
+    s1: {
+      kicker: "Sesión 1", title: "Productividad individual", sub: "Correos, reuniones, chats, documentos y prioridades: de la información dispersa a la acción.",
+      meta: ["Nivel 1 · Asistente personal", "Outlook · Teams · Word · Excel"],
+      how: [
+        ["mail", "Un caso por reto", "Cada reto trae su fuente ficticia: un correo, una transcripción, un chat o un documento."],
+        ["wand-2", "Prompt guiado", "Usa el prompt del reto. Si tu licencia limita los caracteres, envíalo por partes."],
+        ["file-check-2", "Plantilla oficial", "Pegas el resultado en la plantilla de Word y completas tú la validación humana."],
+        ["check-circle-2", "Marca y avanza", "Al terminar, marca el reto como completado. Al final, la autoevaluación."]
+      ],
+      work: [
+        ["user", "Individual, con apoyo", "Cada persona resuelve su reto; yo acompaño desde el panel en vivo."],
+        ["timer", "Bloques de 20 a 30 minutos", "Un reto por bloque, con cronómetro en pantalla."],
+        ["share-2", "Socializamos", "Al cerrar cada bloque, dos personas cuentan qué encontró Copilot y qué tuvieron que corregir."],
+        ["shield-check", "Regla de oro", "Nada sale de Copilot sin que lo verifiques contra la fuente."]
+      ],
+      success: ["Extraes hechos, plazos y compromisos sin inventar datos", "Adaptas un mismo mensaje a distintas audiencias", "Priorizas tareas con criterios explícitos"],
+      minutes: 25
+    },
+    desafio: {
+      kicker: "Entre sesiones", title: "Mi oportunidad Copilot", sub: "Encuentra en tu propio trabajo la tarea en la que Copilot te ahorraría más tiempo.",
+      meta: ["Trabajo autónomo", "Se retoma en la Sesión 2"],
+      how: [
+        ["search", "Observa tu semana", "Identifica una tarea repetitiva que te quite tiempo."],
+        ["list-checks", "Descríbela", "Qué haces hoy, cuánto tardas y qué fuentes usas."],
+        ["lightbulb", "Imagina el prompt", "Cómo te ayudaría Copilot y qué tendrías que verificar."]
+      ],
+      work: [
+        ["home", "A tu ritmo", "Lo completas antes de la Sesión 2."],
+        ["lock", "Sin datos sensibles", "Describe la tarea; no pegues información confidencial."],
+        ["users", "Lo compartimos", "Abriremos la Sesión 2 con dos o tres oportunidades del grupo."]
+      ],
+      success: ["Tienes una tarea concreta y medible", "Sabes qué fuentes usaría Copilot", "Sabes cómo verificarías el resultado"],
+      minutes: 10
+    },
+    s2: {
+      kicker: "Sesión 2", title: "Proyecto Horizonte · método PRISM", sub: "Analiza un proyecto completo como lo haría una PMO: alcance, presupuesto, reuniones, riesgos e informe ejecutivo.",
+      meta: ["Nivel 3 · Gestión de proyectos", "9 fases · 10 entregables"],
+      how: [
+        ["folder-open", "Un kit de archivos", "Correo, alcance, presupuesto y cronograma en Excel, transcripción y riesgos del proyecto ficticio."],
+        ["layers", "Método PRISM", "Persona, Realidad, Información, Solicitud, Método y Verificación."],
+        ["messages-square", "Por turnos", "Primero el contexto (P·R·I), luego la solicitud (S·M) y al final el entregable."],
+        ["calculator", "Verificas tú", "Cifras y fechas se comprueban en el Excel; una propuesta no es una decisión."]
+      ],
+      work: [
+        ["users-round", "Individual o en parejas", "En parejas, una persona opera Copilot y la otra verifica; cambian en cada fase."],
+        ["timer", "Fases con cronómetro", "Cada fase tiene su tiempo; nos sincronizamos en los hitos."],
+        ["share-2", "Puesta en común", "¿Todos encontraron lo mismo? ¿Quién detectó una inconsistencia?"],
+        ["eye", "Te acompaño en vivo", "Desde el panel veo en qué fase va cada uno."]
+      ],
+      success: ["Cada hallazgo cita su archivo", "Lo que falta queda como «No especificado»", "El informe ejecutivo está listo para el comité"],
+      minutes: 30
+    },
+    lab: {
+      kicker: "Copilot Lab", title: "Cuaderno · Agente · Automatización", sub: "Del prompt al sistema de trabajo: un centro de conocimiento, un asistente especializado y un flujo con aprobación humana.",
+      meta: ["4 laboratorios", "Rutas alternativas para cada licencia"],
+      how: [
+        ["notebook-pen", "3.1 Cuaderno", "Un centro de conocimiento con las fuentes del proyecto."],
+        ["bot", "3.2 Agente PMO", "Un asistente con instrucciones y fuentes fijas."],
+        ["workflow", "3.3 Automatización", "Un flujo que avisa y pide aprobación antes de actuar."],
+        ["puzzle", "3.4 Reto integrador", "Eliges la herramienta correcta para cada necesidad."]
+      ],
+      work: [
+        ["key", "Según tu licencia", "Si no tienes una función, cada laboratorio trae su ruta alternativa."],
+        ["list-ordered", "Paso a paso", "Cada laboratorio está dividido en pantallas: avanza a tu ritmo."],
+        ["hand", "Pide ayuda", "Si un menú no aparece igual en tu cuenta, avísame por el chat."]
+      ],
+      success: ["Sabes cuándo usar cuaderno, agente o automatización", "Tu agente responde solo con sus fuentes", "La automatización deja la decisión a una persona"],
+      minutes: 30
+    },
+    herramientas: {
+      kicker: "Herramientas", title: "Prompts, técnicas y planillas", sub: "Tu caja de herramientas para seguir usando Copilot después del curso.",
+      meta: ["Biblioteca PRISM", "10 técnicas avanzadas", "Escenarios por rol"],
+      how: [
+        ["book-open", "Biblioteca", "Constructor PRISM y kit de prompts; marca tus favoritos."],
+        ["dices", "Prompts que sorprenden", "Pre-mortem, mesa de expertos, comité escéptico y más."],
+        ["briefcase", "Escenarios por rol", "Operación y mantenimiento, PMO, HSE, comunicaciones y finanzas."],
+        ["download", "Planillas", "Todos los archivos del curso, ordenados por sesión."]
+      ],
+      work: [
+        ["dices", "Ronda sorpresa", "Cada persona pulsa «Sorpréndeme», prueba la técnica y comparte el resultado más curioso."],
+        ["star", "Arma tu kit", "Guarda tres favoritos que usarás la próxima semana."]
+      ],
+      success: ["Probaste al menos dos técnicas nuevas", "Tienes tres prompts favoritos guardados", "Encontraste un escenario de tu rol"],
+      minutes: 15
+    },
+    cierre: {
+      kicker: "Cierre", title: "Lo que me llevo y lo que haré", sub: "Convierte lo aprendido en un plan concreto para tu trabajo.",
+      meta: ["Reflexión", "Plan de acción", "Certificado"],
+      how: [
+        ["heart", "Lo que me llevo", "Elige tus ideas clave y compara tu confianza antes y hoy."],
+        ["target", "Lo que voy a hacer", "Una tarea real, el prompt que usarás y tu primer paso esta semana."],
+        ["award", "Compromiso y certificado", "Descarga tu compromiso y tu certificado."]
+      ],
+      work: [
+        ["pen-line", "Diez minutos en silencio", "Cada persona completa su reflexión y su plan."],
+        ["bar-chart-3", "Resultados del grupo", "Veremos juntos la gráfica del grupo: avance, confianza y lo que se llevan."],
+        ["mic", "Ronda final", "Cada persona comparte su primer paso en una frase."]
+      ],
+      success: ["Tu plan tiene una tarea, un prompt y un primer paso con fecha", "Sabes cómo medirás si funcionó", "Descargaste tu certificado"],
+      minutes: 15
+    }
+  };
+  const DECK = { mod: null, slides: [], i: 0, timer: { total: 0, left: 0, running: false, h: null }, poll: null };
+  const stripTags = h => { const d = document.createElement("div"); d.innerHTML = h || ""; return d.textContent.trim(); };
+
+  function deckAgenda(modId) {
+    const cfg = DECKS[modId];
+    if (cfg.agendaFrom === "course") {
+      return CS.modules.filter(m => m.id !== "bienvenida").map(m => ({ t: m.title, d: m.sub, min: null, n: m.steps.length }));
+    }
+    const mod = CS.modules.find(m => m.id === modId);
+    return (mod ? mod.steps : []).map(st => {
+      const key = st.reto ? st.reto.getAttribute("data-reto") : st.anchorId;
+      const sh = ACTIVITY_SHEETS[key];
+      return { t: st.title, d: sh ? stripTags(sh.goal) : "", min: sh ? sh.min : null };
+    });
+  }
+
+  function buildDeck(modId) {
+    const c = DECKS[modId];
+    const ag = deckAgenda(modId);
+    const total = ag.reduce((a, x) => a + (x.min || 0), 0);
+    const cards = list => `<div class="deck__cards">${list.map(([ic, t, d], i) => `<div class="deck__card" style="animation-delay:${i * 0.08}s"><i data-lucide="${ic}"></i><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join("")}</div>`;
+    const slides = [];
+    slides.push({ name: "Portada", html: `<p class="deck__kicker">${esc(c.kicker)} · Presentación del módulo</p><h2>${esc(c.title)}</h2><p class="deck__sub">${esc(c.sub)}</p>
+      <div class="deck__meta">${total ? `<span>≈ ${total} min de trabajo</span>` : ""}${c.meta.map(m => `<span>${esc(m)}</span>`).join("")}</div>` });
+    slides.push({ name: "Qué vamos a hacer", html: `<p class="deck__kicker">${esc(c.kicker)}</p><h2>${esc(c.agendaTitle || "¿Qué vamos a hacer?")}</h2>
+      <ol class="deck__agenda ${ag.length > 6 ? "is-two" : ""}">${ag.map((x, i) => `<li style="animation-delay:${i * 0.05}s"><div><strong>${esc(x.t)}</strong>${x.d ? `<small>${esc(x.d)}</small>` : ""}</div><em>${x.min ? "~" + x.min + " min" : x.n ? x.n + (x.n === 1 ? " paso" : " pasos") : ""}</em></li>`).join("")}</ol>
+      ${total ? `<p class="deck__total">Tiempo estimado: ≈ ${total} minutos${total >= 60 ? ` (${Math.floor(total / 60)} h ${total % 60 ? (total % 60) + " min" : ""})` : ""}.</p>` : ""}` });
+    slides.push({ name: "Cómo funciona", html: `<p class="deck__kicker">${esc(c.kicker)}</p><h2>¿Cómo funciona?</h2>${cards(c.how)}` });
+    slides.push({ name: "Cómo trabajaremos", html: `<p class="deck__kicker">${esc(c.kicker)} · clase en línea</p><h2>¿Cómo vamos a trabajar?</h2>${cards(c.work)}` });
+    slides.push({ name: "Pulso del grupo", pulse: modId, html: `<p class="deck__kicker">Pulso del grupo · votación en vivo</p><h2 id="deckPulseQ">Cargando la pregunta…</h2><div class="deck__pulse" id="deckPulse"></div><div class="deck__pulse-meta" id="deckPulseMeta"></div>` });
+    slides.push({ name: "Lo lograste si…", html: `<p class="deck__kicker">${esc(c.kicker)}</p><h2>Lo lograste si…</h2><ul class="deck__checks">${c.success.map((x, i) => `<li style="animation-delay:${i * 0.1}s">${esc(x)}</li>`).join("")}</ul>` });
+    const first = (CS.modules.find(m => m.id === modId) || { steps: [] }).steps[modId === "bienvenida" ? 1 : 0];
+    slides.push({ name: "Manos a la obra", timer: true, html: `<p class="deck__kicker">${esc(c.kicker)}</p><h2>¡Manos a la obra!</h2>
+      <div class="deck__timer" id="deckTimer" aria-live="off">00:00</div>
+      <div class="deck__row" style="margin-bottom:1rem">${[5, 10, 15, 20, 30].map(m => `<button type="button" class="deck__btn" data-deck-min="${m}">${m} min</button>`).join("")}
+        <button type="button" class="deck__btn" data-deck-add="-60" aria-label="Restar un minuto">−1</button><button type="button" class="deck__btn" data-deck-add="60" aria-label="Sumar un minuto">+1</button></div>
+      <div class="deck__row"><button type="button" class="deck__btn deck__btn--hot" id="deckTimerGo"><i data-lucide="play"></i> Iniciar cronómetro</button>
+        ${first ? `<button type="button" class="deck__btn" id="deckGoFirst"><i data-lucide="arrow-right"></i> Ir a: ${esc(first.title)}</button>` : ""}
+        ${modId === "cierre" && presenterMode ? `<a class="deck__btn" href="/admin/resultados" target="_blank" rel="noopener"><i data-lucide="bar-chart-3"></i> Ver resultados del grupo ↗</a>` : ""}</div>` });
+    return { slides, first, minutes: c.minutes };
+  }
+
+  function openDeck(modId) {
+    if (!DECKS[modId]) return;
+    let el = document.getElementById("deck");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "deck"; el.className = "deck";
+      el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-label", "Presentación del módulo");
+      el.innerHTML = `<div class="deck__bars" aria-hidden="true"></div><div class="deck__stage"><div class="deck__slide" id="deckSlide"></div></div>
+        <div class="deck__ctrl">
+          <div class="deck__row"><button type="button" class="deck__btn" id="deckPrev" aria-label="Diapositiva anterior"><i data-lucide="chevron-left"></i></button><span id="deckCount"></span><button type="button" class="deck__btn" id="deckNext" aria-label="Diapositiva siguiente"><i data-lucide="chevron-right"></i></button></div>
+          <div class="deck__dots" id="deckDots"></div>
+          <div class="deck__row"><span class="deck__mini" id="deckMini"></span><button type="button" class="deck__btn" id="deckFull"><i data-lucide="maximize"></i> Pantalla completa</button><button type="button" class="deck__btn" id="deckClose"><i data-lucide="x"></i> Cerrar</button></div>
+        </div>`;
+      document.body.appendChild(el);
+      el.querySelector("#deckPrev").addEventListener("click", () => deckShow(DECK.i - 1));
+      el.querySelector("#deckNext").addEventListener("click", () => deckShow(DECK.i + 1));
+      el.querySelector("#deckClose").addEventListener("click", closeDeck);
+      el.querySelector("#deckFull").addEventListener("click", () => {
+        if (document.fullscreenElement) document.exitFullscreen(); else if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+      });
+      document.addEventListener("keydown", e => {
+        if (!el.classList.contains("is-open") || e.altKey || e.ctrlKey || e.metaKey) return;
+        if (e.target.closest("input, textarea, select")) return;
+        if (e.key === " " && e.target.closest("button, a")) return;
+        if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); deckShow(DECK.i + 1); }
+        else if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); deckShow(DECK.i - 1); }
+        else if (e.key === "Home") deckShow(0);
+        else if (e.key === "End") deckShow(DECK.slides.length - 1);
+        else if (e.key === "Escape" && !document.fullscreenElement) closeDeck();
+        else if (e.key.toLowerCase() === "f") el.querySelector("#deckFull").click();
+      });
+    }
+    const built = buildDeck(modId);
+    if (DECK.mod !== modId) { deckTimerSet(built.minutes * 60); }
+    DECK.mod = modId; DECK.slides = built.slides; DECK.first = built.first;
+    el.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    deckShow(0);
+    el.querySelector("#deckNext").focus();
+  }
+  function closeDeck() {
+    const el = document.getElementById("deck");
+    if (!el) return;
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    el.classList.remove("is-open");
+    document.body.style.overflow = "";
+    clearInterval(DECK.poll); DECK.poll = null;
+    const b = document.getElementById("csPresent"); if (b) b.focus();
+  }
+
+  function deckShow(i) {
+    i = Math.max(0, Math.min(DECK.slides.length - 1, i));
+    DECK.i = i;
+    const sl = DECK.slides[i];
+    const box = document.getElementById("deckSlide");
+    box.innerHTML = sl.html;
+    box.classList.remove("is-in"); void box.offsetWidth; box.classList.add("is-in");
+    document.getElementById("deckCount").textContent = `${i + 1} / ${DECK.slides.length}`;
+    document.getElementById("deckDots").innerHTML = DECK.slides.map((s, k) => `<button type="button" class="${k === i ? "is-on" : ""}" aria-label="${k + 1}. ${esc(s.name)}" title="${esc(s.name)}" data-k="${k}"></button>`).join("");
+    document.querySelectorAll("#deckDots [data-k]").forEach(b => b.addEventListener("click", () => deckShow(+b.dataset.k)));
+    document.getElementById("deckPrev").disabled = i === 0;
+    document.getElementById("deckNext").disabled = i === DECK.slides.length - 1;
+    clearInterval(DECK.poll); DECK.poll = null;
+    if (sl.pulse) { deckPulseLoad(sl.pulse); DECK.poll = setInterval(() => deckPulseLoad(sl.pulse), 3000); }
+    if (sl.timer) {
+      box.querySelectorAll("[data-deck-min]").forEach(b => b.addEventListener("click", () => { deckTimerSet(+b.dataset.deckMin * 60); }));
+      box.querySelectorAll("[data-deck-add]").forEach(b => b.addEventListener("click", () => { deckTimerSet(Math.max(0, DECK.timer.left + +b.dataset.deckAdd), true); }));
+      document.getElementById("deckTimerGo").addEventListener("click", deckTimerToggle);
+      const go = document.getElementById("deckGoFirst");
+      if (go) go.addEventListener("click", () => { closeDeck(); if (DECK.first) csGo(DECK.first, null, false); });
+    }
+    deckTimerPaint();
+    if (window.lucide) lucide.createIcons({ nodes: [document.getElementById("deck")] });
+  }
+
+  /* Pulso: la instructora abre la votación; los estudiantes votan desde su pantalla. */
+  async function deckPulseLoad(qid) {
+    const qEl = document.getElementById("deckPulseQ"), box = document.getElementById("deckPulse"), meta = document.getElementById("deckPulseMeta");
+    if (!box) return;
+    if (!serverMode && !presenterMode) {
+      clearInterval(DECK.poll); DECK.poll = null;
+      qEl.textContent = "Votación en vivo";
+      box.innerHTML = `<p class="deck__sub" style="margin:0">La votación funciona en la versión en línea del curso: cada estudiante vota desde su pantalla y aquí aparecen los resultados al instante.</p>`;
+      meta.innerHTML = "";
+      return;
+    }
+    let d;
+    try { const r = await fetch(`/api/pulse/${qid}`, { credentials: "same-origin" }); d = await r.json(); } catch { return; }
+    if (!d || !d.ok || !document.getElementById("deckPulse")) return;
+    qEl.textContent = d.question;
+    const max = Math.max(1, ...d.counts);
+    box.innerHTML = d.options.map((o, k) => {
+      const pct = d.total ? Math.round(100 * d.counts[k] / d.total) : 0;
+      const label = presenterMode ? `<span class="lbl">${esc(o)}</span>` : `<button type="button" data-vote="${k}" aria-pressed="${d.mine === k}">${esc(o)}</button>`;
+      return `<div class="deck__opt">${label}<span class="trk"><i style="width:${(d.counts[k] / max) * 100}%"></i></span><b>${d.counts[k]} · ${pct}%</b></div>`;
+    }).join("");
+    box.querySelectorAll("[data-vote]").forEach(b => b.addEventListener("click", async () => { await pulseVote(qid, +b.dataset.vote); deckPulseLoad(qid); }));
+    meta.innerHTML = presenterMode
+      ? `${d.active ? `<span class="deck__live">Votación abierta en las pantallas</span><button type="button" class="deck__btn" id="deckPulseClose">Cerrar votación</button>` : `<button type="button" class="deck__btn deck__btn--hot" id="deckPulseOpen"><i data-lucide="radio"></i> Abrir votación en las pantallas</button>`}
+         <span>${d.total} ${d.total === 1 ? "voto" : "votos"}</span><button type="button" class="deck__btn" id="deckPulseReset">Reiniciar votos</button>`
+      : `<span>${d.total} ${d.total === 1 ? "voto" : "votos"}${d.mine != null ? " · ya votaste (puedes cambiar tu voto)" : " · elige una opción"}</span>`;
+    const post = (url, body) => fetch(url, { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) });
+    const op = document.getElementById("deckPulseOpen"), cl = document.getElementById("deckPulseClose"), rs = document.getElementById("deckPulseReset");
+    if (op) op.addEventListener("click", async () => { await post("/api/admin/pulse/active", { qid }); deckPulseLoad(qid); });
+    if (cl) cl.addEventListener("click", async () => { await post("/api/admin/pulse/active", { qid: "" }); deckPulseLoad(qid); });
+    if (rs) rs.addEventListener("click", async () => { if (confirm("¿Borrar los votos de esta pregunta?")) { await post(`/api/admin/pulse/${qid}/reset`); deckPulseLoad(qid); } });
+    if (window.lucide) lucide.createIcons({ nodes: [meta] });
+  }
+
+  /* Cronómetro de la diapositiva final */
+  function deckTimerSet(sec, keepRunning) {
+    const t = DECK.timer;
+    t.left = sec; if (!keepRunning) { t.total = sec; t.running = false; clearInterval(t.h); t.h = null; }
+    deckTimerPaint();
+  }
+  function deckTimerToggle() {
+    const t = DECK.timer;
+    if (t.running) { t.running = false; clearInterval(t.h); t.h = null; }
+    else {
+      if (t.left <= 0) t.left = t.total || 600;
+      t.running = true;
+      t.h = setInterval(() => {
+        t.left = Math.max(0, t.left - 1);
+        if (t.left === 0) { t.running = false; clearInterval(t.h); t.h = null; deckBeep(); const el = document.getElementById("deckTimer"); if (el) { el.classList.remove("is-zero"); void el.offsetWidth; el.classList.add("is-zero"); } }
+        deckTimerPaint();
+      }, 1000);
+    }
+    deckTimerPaint();
+  }
+  function deckTimerPaint() {
+    const t = DECK.timer;
+    const mm = String(Math.floor(t.left / 60)).padStart(2, "0"), ss = String(t.left % 60).padStart(2, "0");
+    const el = document.getElementById("deckTimer");
+    if (el) { el.textContent = `${mm}:${ss}`; el.classList.toggle("is-low", t.left > 0 && t.left <= 60); }
+    const go = document.getElementById("deckTimerGo");
+    if (go) { go.innerHTML = t.running ? `<i data-lucide="pause"></i> Pausar` : `<i data-lucide="play"></i> ${t.left < t.total && t.left > 0 ? "Continuar" : "Iniciar cronómetro"}`; if (window.lucide) lucide.createIcons({ nodes: [go] }); }
+    const mini = document.getElementById("deckMini");
+    if (mini) mini.textContent = t.running && !(DECK.slides[DECK.i] || {}).timer ? `⏱ ${mm}:${ss}` : "";
+  }
+  function deckBeep() {
+    try {
+      const ac = new (window.AudioContext || window.webkitAudioContext)();
+      [0, 0.35, 0.7].forEach(at => { const o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = 880; o.connect(g); g.connect(ac.destination); g.gain.setValueAtTime(0.18, ac.currentTime + at); g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + at + 0.3); o.start(ac.currentTime + at); o.stop(ac.currentTime + at + 0.3); });
+    } catch { /* sin audio */ }
+  }
+
+  /* ========== CLASE EN VIVO (estudiante): presencia y votación ========== */
+  let liveLastStep = null, livePulse = null, livePulseHidden = null;
+  async function pulseVote(qid, answer) {
+    try {
+      const r = await fetch("/api/pulse", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ qid, answer }) });
+      const d = await r.json();
+      if (d.ok) { if (livePulse && livePulse.qid === qid) { livePulse.mine = answer; renderLivePulse(); } toast("¡Voto registrado!"); }
+    } catch { toast("No se pudo registrar el voto", "alert-triangle"); }
+  }
+  function renderLivePulse() {
+    let card = document.getElementById("livePulse"), pill = document.getElementById("livePulsePill");
+    if (!card) {
+      card = document.createElement("div"); card.id = "livePulse"; card.className = "live-pulse"; card.setAttribute("role", "dialog"); card.setAttribute("aria-label", "Votación en vivo"); card.hidden = true;
+      pill = document.createElement("button"); pill.id = "livePulsePill"; pill.type = "button"; pill.className = "live-pulse-pill"; pill.hidden = true; pill.textContent = "📊 Votación abierta";
+      pill.addEventListener("click", () => { livePulseHidden = null; renderLivePulse(); });
+      document.body.append(card, pill);
+    }
+    const p = livePulse;
+    if (!p) { card.hidden = true; pill.hidden = true; return; }
+    if (livePulseHidden === p.qid) { card.hidden = true; pill.hidden = false; return; }
+    pill.hidden = true; card.hidden = false;
+    card.innerHTML = `<div class="live-pulse__head"><span>📊 Votación en vivo</span><button type="button" id="livePulseMin" aria-label="Minimizar votación">–</button></div>
+      <h4>${esc(p.question)}</h4>
+      <div class="live-pulse__opts">${p.options.map((o, k) => `<button type="button" data-k="${k}" aria-pressed="${p.mine === k}">${esc(o)}</button>`).join("")}</div>
+      ${p.mine != null ? `<p class="live-pulse__thanks">¡Gracias! Mira los resultados en la pantalla compartida. Puedes cambiar tu voto mientras la votación siga abierta.</p>` : ""}`;
+    card.querySelectorAll("[data-k]").forEach(b => b.addEventListener("click", () => pulseVote(p.qid, +b.dataset.k)));
+    card.querySelector("#livePulseMin").addEventListener("click", () => { livePulseHidden = p.qid; renderLivePulse(); });
+  }
+  async function livePing() {
+    if (!serverMode || document.hidden) return;
+    const st = CS.current;
+    liveLastStep = st ? st.anchorId : null;
+    try {
+      const r = await fetch("/api/live/ping", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ step: st ? st.anchorId : "", title: st ? st.title : "", module: st ? st.module.title : "" }) });
+      if (!r.ok) return;
+      const d = await r.json();
+      const prev = livePulse ? livePulse.qid + ":" + livePulse.mine : "";
+      livePulse = d.pulse;
+      if ((livePulse ? livePulse.qid + ":" + livePulse.mine : "") !== prev) renderLivePulse();
+    } catch { /* sin conexión: se reintenta */ }
+  }
+  function initLiveClass() {
+    setInterval(livePing, 10000);
+    setInterval(() => { if (CS.current && CS.current.anchorId !== liveLastStep) livePing(); }, 1500);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) livePing(); });
+    setTimeout(livePing, 1200);
   }
 
   function renderActivitySheets() {
@@ -15648,6 +16107,7 @@ Tono cercano y realista; máximo 200 palabras.`,
       <div class="cs-bar__inner">
         <div class="cs-crumb"><small id="csCrumbMod"></small><strong id="csCrumbStep"></strong></div>
         <div class="cs-dots" id="csDots" aria-label="Pasos del módulo"></div>
+        <button type="button" class="cs-present" id="csPresent" title="Presentación del módulo (qué haremos, cómo funciona, cómo trabajaremos)"><i data-lucide="presentation"></i><span>Presentación</span></button>
         <div class="cs-bar__nav">
           <button type="button" class="cs-iconbtn" id="csPrev" aria-label="Paso anterior"><i data-lucide="chevron-left" width="18" height="18"></i></button>
           <button type="button" class="cs-iconbtn" id="csNext" aria-label="Paso siguiente"><i data-lucide="chevron-right" width="18" height="18"></i></button>
@@ -15655,6 +16115,7 @@ Tono cercano y realista; máximo 200 palabras.`,
       </div>`;
     main.prepend(bar);
     document.getElementById("csPrev").addEventListener("click", () => csGoRelative(-1));
+    document.getElementById("csPresent").addEventListener("click", () => CS.current && openDeck(CS.current.module.id));
     document.getElementById("csNext").addEventListener("click", () => csGoRelative(1));
 
     const toggle = document.createElement("button");
@@ -15994,6 +16455,7 @@ Tono cercano y realista; máximo 200 palabras.`,
     initSorpresa();
     initCourseShell();
     initHeroLive();
+    initLiveClass();
     if (window.lucide) lucide.createIcons();
   });
   </script>

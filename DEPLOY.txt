@@ -100,3 +100,22 @@ E) SEGURIDAD
   .env y data/mision.db públicamente. Ya se eliminó. Como pudo estar expuesta,
   cambia ADMIN_PASSWORD, FLASK_SECRET_KEY, SMTP_APP_PASSWORD (revoca la
   contraseña de aplicación en Google) y EMAIL_WEBHOOK_SECRET (también en el script).
+
+F) CLASE EN VIVO (cuenta de administración)
+===========================================
+Abre dos pestañas con tu sesión de administración:
+1. /presentar  -> el curso en modo instructora. En cada módulo, botón
+   «Presentación» (barra superior): portada, qué vamos a hacer (agenda con
+   tiempos), cómo funciona, cómo trabajaremos, pulso del grupo, «lo lograste
+   si…» y cronómetro. Teclas: flechas, F (pantalla completa), Esc (cerrar).
+   En la diapositiva «Pulso del grupo» pulsa «Abrir votación en las
+   pantallas»: a cada estudiante le aparece la pregunta y los resultados se
+   actualizan solos. Ciérrala al terminar (se cierra sola a los 20 minutos).
+2. /admin/en-vivo -> quién está conectado, en qué paso va cada uno, mapa de
+   las 25 actividades y, al hacer clic en un nombre, lo que ha escrito en la
+   plataforma (no sus conversaciones con Copilot).
+Al final: /admin/resultados -> gráfica del grupo sin nombres (avance por
+módulo, autoevaluaciones, confianza antes/hoy, ideas, votaciones y primeros
+pasos). Botón «Proyectar» para pantalla completa.
+Las tablas nuevas (presence, pulse_votes, app_settings) se crean solas al
+recargar la web app; no hay que migrar nada.

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase en vivo · Misión Copilot 365</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand-primary: #4a3da6; --brand-accent: #ffec00; --brand-dark: #221e40;
+      --bg: #f4f3f9; --surface: #fff; --text: #221e40; --muted: #5a5a72; --border: #d5d2e6; --grid: #ebe9f3;
+      --ok: #1e8a57; --warn: #b7791f;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Montserrat, system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    header { background: var(--brand-dark); color: #fff; border-bottom: 3px solid var(--brand-primary); padding: .8rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    header img { height: 40px; background: #223342; border-radius: 6px; padding: 3px 8px; }
+    header h1 { font-size: 1rem; margin: 0; }
+    header small { color: rgba(255,255,255,.65); }
+    nav.links { display: flex; gap: .4rem; flex-wrap: wrap; }
+    nav.links a { color: #fff; text-decoration: none; font-weight: 700; font-size: .85rem; padding: .45rem .8rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); }
+    nav.links a:hover, nav.links a.is-on { background: var(--brand-accent); color: var(--brand-dark); border-color: var(--brand-accent); }
+    .wrap { width: min(1500px, calc(100% - 2rem)); margin: 1.25rem auto 3rem; }
+    .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .85rem; margin-bottom: 1rem; }
+    .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: .9rem 1rem; }
+    .kpi span { display: block; font-size: .8rem; font-weight: 600; color: var(--muted); }
+    .kpi b { display: block; font-size: 1.9rem; font-weight: 700; margin-top: .15rem; }
+    .kpi small { color: var(--muted); font-size: .78rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: 1rem; }
+    .card h2 { font-size: 1rem; margin: 0 0 .75rem; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; align-items: center; margin-bottom: .75rem; font-size: .88rem; }
+    .toolbar input[type=search] { padding: .5rem .7rem; border: 1px solid var(--border); border-radius: 10px; font: inherit; min-width: 220px; }
+    .toolbar label { display: inline-flex; gap: .4rem; align-items: center; font-weight: 600; }
+    .live-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(30,138,87,.5); animation: ping 1.8s infinite; }
+    .live-dot.is-off { background: #b9b6cc; animation: none; }
+    @keyframes ping { 70% { box-shadow: 0 0 0 7px rgba(30,138,87,0); } 100% { box-shadow: 0 0 0 0 rgba(30,138,87,0); } }
+    .muted { color: var(--muted); }
+    .where { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .5rem; }
+    .where div { border: 1px solid var(--border); border-radius: 10px; padding: .55rem .7rem; }
+    .where b { font-size: 1.35rem; display: block; }
+    .where span { font-size: .78rem; color: var(--muted); font-weight: 600; }
+    .where .names { display: block; font-size: .74rem; color: var(--text); margin-top: .2rem; font-weight: 500; }
+    .table-wrap { overflow: auto; max-height: 70vh; border: 1px solid var(--border); border-radius: 10px; }
+    table.map { border-collapse: separate; border-spacing: 0; font-size: .8rem; min-width: 100%; }
+    table.map th, table.map td { border-bottom: 1px solid var(--grid); padding: .35rem .3rem; text-align: center; white-space: nowrap; background: var(--surface); }
+    table.map thead th { position: sticky; top: 0; z-index: 2; font-size: .72rem; color: var(--muted); }
+    table.map thead tr:nth-child(2) th { top: 27px; }
+    table.map th.grp { border-left: 2px solid var(--border); color: var(--text); font-weight: 800; }
+    table.map td.first-of-grp, table.map th.first-of-grp { border-left: 2px solid var(--border); }
+    table.map .who { position: sticky; left: 0; z-index: 1; text-align: left; min-width: 250px; max-width: 300px; }
+    table.map thead .who { z-index: 3; }
+    .who button { all: unset; cursor: pointer; font-weight: 700; display: inline-flex; gap: .45rem; align-items: center; }
+    .who button:hover, .who button:focus-visible { color: var(--brand-primary); text-decoration: underline; }
+    .who small { display: block; color: var(--muted); font-size: .72rem; white-space: normal; margin-top: .1rem; }
+    .cell { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; font-size: .72rem; font-weight: 800; }
+    .cell.done { background: var(--ok); color: #fff; }
+    .cell.part { background: #e3f1ea; color: var(--ok); }
+    .cell.none { background: #f1f0f6; color: #b9b6cc; }
+    .cell.here { outline: 2px solid var(--brand-accent); outline-offset: 1px; }
+    .pct { font-weight: 700; min-width: 48px; }
+    .legend { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .78rem; color: var(--muted); margin-top: .6rem; }
+    .legend span { display: inline-flex; align-items: center; gap: .35rem; }
+    .pulse-box { display: grid; gap: .35rem; }
+    .pbar { display: grid; grid-template-columns: minmax(140px, 260px) 1fr 70px; gap: .6rem; align-items: center; font-size: .85rem; }
+    .pbar i { display: block; height: 16px; border-radius: 0 4px 4px 0; background: var(--brand-primary); min-width: 2px; transition: width .5s ease; }
+    .pbar b { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+    .drawer { position: fixed; inset: 0 0 0 auto; width: min(560px, 100%); background: var(--surface); box-shadow: -20px 0 60px rgba(0,0,0,.25); transform: translateX(100%); transition: transform .3s ease; z-index: 20; display: flex; flex-direction: column; }
+    .drawer.is-open { transform: none; }
+    .drawer header { position: sticky; top: 0; }
+    .drawer .body { padding: 1rem 1.2rem 2rem; overflow: auto; }
+    .drawer h3 { font-size: .92rem; margin: 1.2rem 0 .5rem; color: var(--brand-primary); }
+    .drawer dl { margin: 0; }
+    .drawer dt { font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-top: .6rem; }
+    .drawer dd { margin: .2rem 0 0; white-space: pre-wrap; font-size: .86rem; background: #f7f6fc; border-radius: 8px; padding: .5rem .6rem; }
+    .drawer button.close { background: none; border: 1px solid rgba(255,255,255,.4); color: #fff; border-radius: 8px; padding: .35rem .7rem; font: inherit; font-weight: 700; cursor: pointer; }
+    .stamp { font-size: .78rem; color: var(--muted); }
+    @media (max-width: 900px) { .kpis { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;align-items:center;gap:.85rem;">
+      <img src="/logo.png" alt="ECCO · Universidad Sergio Arboleda" />
+      <div><h1>Clase en vivo · Misión Copilot 365</h1><small>Se actualiza sola cada 8 segundos</small></div>
+    </div>
+    <nav class="links" aria-label="Secciones del panel">
+      <a href="/admin">Estudiantes y claves</a>
+      <a href="/admin/en-vivo" class="is-on" aria-current="page">En vivo</a>
+      <a href="/admin/resultados">Resultados del grupo</a>
+      <a href="/presentar" target="_blank" rel="noopener">Abrir curso para presentar ↗</a>
+      <a href="/logout">Salir</a>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <div class="kpis">
+      <div class="kpi"><span>Conectados ahora</span><b id="kOnline">–</b><small id="kOnlineSub"></small></div>
+      <div class="kpi"><span>Avance promedio (quienes empezaron)</span><b id="kAvg">–</b><small id="kAvgSub"></small></div>
+      <div class="kpi"><span>Actividades completadas por el grupo</span><b id="kDone">–</b><small id="kDoneSub"></small></div>
+      <div class="kpi"><span>Votación abierta</span><b id="kPulse" style="font-size:1.05rem;line-height:1.3">Ninguna</b><small id="kPulseSub">Ábrela desde la presentación del módulo</small></div>
+    </div>
+
+    <section class="card" id="pulseCard" hidden>
+      <h2><span class="live-dot"></span> Votación en vivo: <span id="pulseQ"></span></h2>
+      <div class="pulse-box" id="pulseBars"></div>
+    </section>
+
+    <section class="card">
+      <h2>¿Dónde está el grupo ahora?</h2>
+      <div class="where" id="where"></div>
+    </section>
+
+    <section class="card">
+      <h2>Mapa de avance por actividad</h2>
+      <div class="toolbar">
+        <input type="search" id="q" placeholder="Buscar estudiante…" aria-label="Buscar estudiante" />
+        <label><input type="checkbox" id="onlyOnline" /> Solo conectados</label>
+        <label><input type="checkbox" id="pause" /> Pausar actualización</label>
+        <span class="stamp" id="stamp"></span>
+      </div>
+      <div class="table-wrap"><table class="map" id="map"></table></div>
+      <div class="legend">
+        <span><span class="cell done">✓</span> Completada</span>
+        <span><span class="cell part">½</span> Autoevaluación en curso</span>
+        <span><span class="cell none">·</span> Pendiente</span>
+        <span><span class="cell none here">·</span> Paso en el que está ahora</span>
+        <span>Haz clic en un nombre para ver lo que ha escrito en la plataforma.</span>
+      </div>
+    </section>
+  </div>
+
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerTitle">
+    <header><h1 id="drawerTitle" style="font-size:1rem;margin:0">Trabajo del estudiante</h1><button type="button" class="close" id="drawerClose">Cerrar</button></header>
+    <div class="body" id="drawerBody"></div>
+  </aside>
+
+  {% raw %}<script>
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  // Paso del curso (anchorId) → actividad del mapa, para resaltar dónde está cada uno.
+  const STEP_TO_KEY = { "autoeval": "quiz-s1", "desafio": "desafio", "autoeval-s2": "quiz-s2", "lab-cuaderno": "lab-3-1", "lab-agente": "lab-3-2",
+    "lab-automatizacion": "lab-3-3", "lab-reto": "lab-3-4", "autoeval-lab": "quiz-lab", "cierre": "cierre-reflexion", "proyecto-final": "proyecto-final" };
+  function stepKey(step) {
+    if (!step) return null;
+    if (STEP_TO_KEY[step]) return STEP_TO_KEY[step];
+    let m = step.match(/^paso-(r\d)$/); if (m) return "reto-" + m[1];
+    m = step.match(/^paso-(s2-f\d)$/); if (m) return m[1];
+    return null;
+  }
+  const ago = s => s == null ? "sin conexión aún" : s < 60 ? "hace instantes" : s < 3600 ? `hace ${Math.round(s / 60)} min` : s < 86400 ? `hace ${Math.round(s / 3600)} h` : `hace ${Math.round(s / 86400)} d`;
+  let data = null;
+
+  async function load() {
+    if (document.getElementById("pause").checked) return;
+    try {
+      const r = await fetch("/api/admin/live", { credentials: "same-origin" });
+      if (r.status === 401) { location.href = "/admin/login"; return; }
+      data = await r.json();
+      render();
+      document.getElementById("stamp").textContent = "Actualizado " + new Date().toLocaleTimeString("es-CO");
+    } catch (e) {
+      document.getElementById("stamp").textContent = "Sin conexión con el servidor; reintentando…";
+    }
+  }
+
+  function render() {
+    const st = data.students;
+    const online = st.filter(s => s.online);
+    const started = st.filter(s => s.percent > 0);
+    document.getElementById("kOnline").textContent = online.length;
+    document.getElementById("kOnlineSub").textContent = `de ${st.length} estudiantes activos`;
+    document.getElementById("kAvg").textContent = started.length ? Math.round(started.reduce((a, s) => a + s.percent, 0) / started.length) + "%" : "–";
+    document.getElementById("kAvgSub").textContent = `${started.length} con avance`;
+    document.getElementById("kDone").textContent = st.reduce((a, s) => a + s.complete, 0);
+    document.getElementById("kDoneSub").textContent = `${data.total_activities} actividades por persona`;
+
+    const p = data.pulse;
+    document.getElementById("pulseCard").hidden = !p;
+    document.getElementById("kPulse").textContent = p ? p.question : "Ninguna";
+    document.getElementById("kPulseSub").textContent = p ? `${p.total} votos de ${online.length} conectados` : "Ábrela desde la presentación del módulo";
+    if (p) {
+      document.getElementById("pulseQ").textContent = p.question;
+      const max = Math.max(1, ...p.counts);
+      document.getElementById("pulseBars").innerHTML = p.options.map((o, i) => `<div class="pbar"><span>${esc(o)}</span><span><i style="width:${(p.counts[i] / max) * 100}%"></i></span><b>${p.counts[i]} · ${p.total ? Math.round(100 * p.counts[i] / p.total) : 0}%</b></div>`).join("");
+    }
+
+    // Dónde está el grupo (módulo actual de quienes están conectados)
+    const byMod = {};
+    online.forEach(s => { const m = s.module || "Sin ubicar"; (byMod[m] = byMod[m] || []).push(s.name.split(" ")[0]); });
+    const mods = Object.entries(byMod).sort((a, b) => b[1].length - a[1].length);
+    document.getElementById("where").innerHTML = mods.length
+      ? mods.map(([m, names]) => `<div><b>${names.length}</b><span>${esc(m)}</span><span class="names">${esc(names.join(", "))}</span></div>`).join("")
+      : `<p class="muted" style="margin:0">Nadie conectado en este momento. Cuando los estudiantes abran el curso aparecerán aquí.</p>`;
+
+    // Mapa
+    const q = document.getElementById("q").value.trim().toLowerCase();
+    const only = document.getElementById("onlyOnline").checked;
+    const rows = st.filter(s => (!q || s.name.toLowerCase().includes(q)) && (!only || s.online));
+    const cols = data.columns;
+    let h = `<thead><tr><th class="who" rowspan="2">Estudiante</th><th rowspan="2">Avance</th>${cols.map(g => `<th class="grp" colspan="${g.cols.length}">${esc(g.title)}</th>`).join("")}</tr>`;
+    h += `<tr>${cols.map(g => g.cols.map((c, i) => `<th class="${i === 0 ? "first-of-grp" : ""}">${esc(c.label)}</th>`).join("")).join("")}</tr></thead><tbody>`;
+    h += rows.map(s => {
+      const here = s.online ? stepKey(s.step) : null;
+      const where = s.step_title ? `${esc(s.module || "")} · ${esc(s.step_title)}` : "";
+      return `<tr><td class="who"><button type="button" data-id="${s.id}" aria-label="Ver trabajo de ${esc(s.name)}"><span class="live-dot ${s.online ? "" : "is-off"}" title="${s.online ? "Conectado" : "Desconectado"}"></span>${esc(s.name)}</button>
+        <small>${s.online ? "En: " + where : esc(ago(s.seen_ago)) + (where ? " · último paso: " + where : "")}</small></td>
+        <td class="pct">${s.percent}%</td>
+        ${cols.map(g => g.cols.map((c, i) => {
+          const v = s.done[c.key];
+          const cls = v === true ? "done" : v ? "part" : "none";
+          const txt = v === true ? "✓" : v ? Math.round(v * 100) + "%" : "·";
+          const tip = `${g.title} · ${c.label}: ${v === true ? "completada" : v ? "en curso" : "pendiente"}`;
+          return `<td class="${i === 0 ? "first-of-grp" : ""}"><span class="cell ${cls} ${here === c.key ? "here" : ""}" title="${esc(tip)}" style="${v && v !== true ? "font-size:.58rem" : ""}">${txt}</span></td>`;
+        }).join("")).join("")}</tr>`;
+    }).join("");
+    h += "</tbody>";
+    document.getElementById("map").innerHTML = rows.length ? h : `<tbody><tr><td class="muted" style="padding:1rem">No hay estudiantes que coincidan.</td></tr></tbody>`;
+  }
+
+  async function openWork(id) {
+    const d = document.getElementById("drawer"), body = document.getElementById("drawerBody");
+    body.innerHTML = `<p class="muted">Cargando…</p>`;
+    d.classList.add("is-open"); d.setAttribute("aria-hidden", "false");
+    document.getElementById("drawerClose").focus();
+    const r = await fetch(`/api/admin/student/${id}/work`, { credentials: "same-origin" });
+    const w = await r.json();
+    document.getElementById("drawerTitle").textContent = w.name || "Trabajo del estudiante";
+    const s = data && data.students.find(x => x.id === id);
+    const quiz = s ? Object.entries(s.quiz).filter(([, v]) => v != null).map(([k, v]) => `${{ s1: "Sesión 1", s2: "Sesión 2", lab: "Lab" }[k]}: ${v}%`).join(" · ") : "";
+    body.innerHTML = (s ? `<p class="muted" style="margin:0 0 .25rem">Avance ${s.percent}% · ${s.complete} de ${data.total_activities} actividades${quiz ? " · Autoevaluaciones: " + quiz : ""}</p>` : "")
+      + `<p class="muted" style="font-size:.8rem;margin:0 0 .5rem">Textos que escribió en la plataforma. No incluye sus conversaciones con Copilot.</p>`
+      + (w.sections && w.sections.length ? w.sections.map(sec => `<h3>${esc(sec.titulo)}</h3><dl>${sec.items.map(it => `<dt>${esc(it.campo)}</dt><dd>${esc(it.texto)}</dd>`).join("")}</dl>`).join("")
+        : `<p>Aún no ha escrito nada en los campos de la plataforma.</p>`);
+  }
+  function closeWork() { const d = document.getElementById("drawer"); d.classList.remove("is-open"); d.setAttribute("aria-hidden", "true"); }
+
+  document.getElementById("map").addEventListener("click", e => { const b = e.target.closest("[data-id]"); if (b) openWork(+b.dataset.id); });
+  document.getElementById("drawerClose").addEventListener("click", closeWork);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeWork(); });
+  ["q", "onlyOnline"].forEach(id => document.getElementById(id).addEventListener("input", () => data && render()));
+  load();
+  setInterval(load, 8000);
+  </script>{% endraw %}
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resultados del grupo · Misión Copilot 365</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand-primary: #4a3da6; --brand-accent: #ffec00; --brand-dark: #221e40;
+      --bg: #f4f3f9; --surface: #fff; --text: #221e40; --muted: #5a5a72; --border: #d5d2e6; --grid: #ebe9f3;
+      --s-hoy: #4a3da6; --s-antes: #e0a800;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Montserrat, system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    header { background: var(--brand-dark); color: #fff; border-bottom: 3px solid var(--brand-primary); padding: .8rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    header img { height: 40px; background: #223342; border-radius: 6px; padding: 3px 8px; }
+    header h1 { font-size: 1rem; margin: 0; }
+    nav.links { display: flex; gap: .4rem; flex-wrap: wrap; }
+    nav.links a, nav.links button { color: #fff; text-decoration: none; font: inherit; font-weight: 700; font-size: .85rem; padding: .45rem .8rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); background: none; cursor: pointer; }
+    nav.links a:hover, nav.links a.is-on, nav.links button:hover { background: var(--brand-accent); color: var(--brand-dark); border-color: var(--brand-accent); }
+    .wrap { width: min(1400px, calc(100% - 2rem)); margin: 1.5rem auto 3rem; }
+    .title { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .title h2 { font-size: clamp(1.5rem, 3vw, 2.3rem); margin: 0; }
+    .title p { margin: .25rem 0 0; color: var(--muted); }
+    .stamp { font-size: .8rem; color: var(--muted); }
+    .hero { display: grid; grid-template-columns: 1.2fr repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+    .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.1rem 1.25rem; }
+    .tile span { display: block; font-size: .85rem; font-weight: 600; color: var(--muted); }
+    .tile b { display: block; font-size: 2.2rem; font-weight: 700; margin-top: .2rem; }
+    .tile.hero-fig { background: var(--brand-dark); color: #fff; border-color: var(--brand-dark); }
+    .tile.hero-fig span { color: rgba(255,255,255,.75); }
+    .tile.hero-fig b { font-size: 3.6rem; line-height: 1.05; }
+    .tile.hero-fig .meter { height: 8px; border-radius: 999px; background: rgba(255,255,255,.18); margin-top: .7rem; overflow: hidden; }
+    .tile.hero-fig .meter i { display: block; height: 100%; background: var(--brand-accent); border-radius: 999px; transition: width .6s ease; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.1rem 1.25rem; }
+    .card h3 { margin: 0; font-size: 1.05rem; }
+    .card .sub { margin: .2rem 0 .9rem; font-size: .82rem; color: var(--muted); }
+    .card.wide { grid-column: 1 / -1; }
+    /* Barras horizontales: una sola línea base, extremo redondeado 4px, grosor 18px */
+    .bars { display: grid; gap: .55rem; }
+    .bar { display: grid; grid-template-columns: minmax(120px, 34%) 1fr; gap: .75rem; align-items: center; font-size: .88rem; }
+    .bar .lab { line-height: 1.25; }
+    .bar .track { position: relative; border-left: 1px solid var(--border); padding: 3px 0; display: flex; align-items: center; gap: .5rem; }
+    .bar .fill { height: 18px; border-radius: 0 4px 4px 0; background: var(--brand-primary); min-width: 2px; transition: width .6s ease; }
+    .bar .val { font-weight: 700; font-size: .85rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .bar.pair .track { flex-direction: column; align-items: stretch; gap: 2px; }
+    .bar.pair .row { display: flex; align-items: center; gap: .5rem; }
+    .bar.pair .fill { height: 14px; }
+    .fill.antes { background: var(--s-antes); }
+    .fill.hoy { background: var(--s-hoy); }
+    .legend { display: flex; gap: 1.1rem; font-size: .82rem; color: var(--muted); margin: -.4rem 0 .8rem; }
+    .legend span { display: inline-flex; align-items: center; gap: .4rem; }
+    .legend i { width: 14px; height: 10px; border-radius: 2px; display: inline-block; }
+    .axis { display: grid; grid-template-columns: minmax(120px, 34%) 1fr; gap: .75rem; font-size: .72rem; color: var(--muted); margin-top: .35rem; }
+    .axis div { display: flex; justify-content: space-between; }
+    .pulses { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem 1.5rem; }
+    .pulses h4 { font-size: .9rem; margin: 0 0 .5rem; }
+    .pulses .bar { grid-template-columns: minmax(110px, 42%) 1fr; font-size: .82rem; }
+    .pulses .fill { height: 14px; }
+    .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: .75rem; }
+    .quotes blockquote { margin: 0; padding: .8rem 1rem; border-radius: 12px; background: #f7f6fc; border-left: 4px solid var(--brand-accent); font-size: .92rem; }
+    details.tbl { margin-top: .8rem; font-size: .82rem; }
+    details.tbl summary { cursor: pointer; color: var(--brand-primary); font-weight: 700; }
+    details.tbl table { border-collapse: collapse; margin-top: .5rem; width: 100%; }
+    details.tbl th, details.tbl td { border-bottom: 1px solid var(--grid); padding: .3rem .4rem; text-align: left; }
+    details.tbl td.n { text-align: right; font-variant-numeric: tabular-nums; }
+    .empty { color: var(--muted); font-size: .9rem; margin: 0; }
+    #tip { position: fixed; pointer-events: none; background: var(--brand-dark); color: #fff; font-size: .8rem; padding: .4rem .6rem; border-radius: 8px; opacity: 0; transition: opacity .12s; z-index: 50; max-width: 280px; }
+    [data-tip] { cursor: default; }
+    body.present header { display: none; }
+    body.present .wrap { width: min(1600px, calc(100% - 3rem)); }
+    @media (max-width: 900px) { .grid, .hero { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;align-items:center;gap:.85rem;">
+      <img src="/logo.png" alt="ECCO · Universidad Sergio Arboleda" />
+      <h1>Resultados del grupo · Misión Copilot 365</h1>
+    </div>
+    <nav class="links" aria-label="Secciones del panel">
+      <a href="/admin">Estudiantes y claves</a>
+      <a href="/admin/en-vivo">En vivo</a>
+      <a href="/admin/resultados" class="is-on" aria-current="page">Resultados del grupo</a>
+      <button type="button" id="present">Proyectar (pantalla completa)</button>
+      <a href="/logout">Salir</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="title">
+      <div><h2>Así nos fue en la Misión Copilot 365</h2><p id="subtitle">Resultados del grupo, sin nombres.</p></div>
+      <span class="stamp" id="stamp"></span>
+    </div>
+
+    <section class="hero" aria-label="Cifras principales">
+      <div class="tile hero-fig"><span>Avance promedio del grupo</span><b id="hAvg">–</b><div class="meter"><i id="hAvgBar" style="width:0"></i></div></div>
+      <div class="tile"><span>Participantes</span><b id="hN">–</b></div>
+      <div class="tile"><span>Actividades completadas</span><b id="hDone">–</b></div>
+      <div class="tile"><span>Técnicas de prompts probadas</span><b id="hTech">–</b></div>
+    </section>
+
+    <div class="grid">
+      <section class="card"><h3>Avance por módulo</h3><p class="sub">Porcentaje promedio de actividades completadas en cada módulo.</p><div id="cModules"></div></section>
+      <section class="card"><h3>Autoevaluaciones</h3><p class="sub">Porcentaje promedio de aciertos de quienes completaron cada una.</p><div id="cQuiz"></div></section>
+      <section class="card"><h3>Confianza: antes del curso y hoy</h3><p class="sub">Promedio de autoevaluación de 1 a 5 en cada capacidad.</p><div id="cConf"></div></section>
+      <section class="card"><h3>Lo que se llevan</h3><p class="sub">Ideas clave que más eligieron en el cierre.</p><div id="cIdeas"></div></section>
+      <section class="card wide"><h3>Pulso del grupo</h3><p class="sub">Respuestas de las votaciones en vivo de cada módulo.</p><div id="cPulses"></div></section>
+      <section class="card wide"><h3>Lo que vamos a hacer · primeros pasos</h3><p class="sub">Compromisos escritos en «Mi plan» (anónimos).</p><div id="cSteps"></div></section>
+    </div>
+  </main>
+  <div id="tip" role="status" aria-live="polite"></div>
+
+  {% raw %}<script>
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const fmt = n => Number(n).toLocaleString("es-CO");
+
+  // Barras de una serie. max = escala fija (100 para %), unit = sufijo del valor.
+  function bars(items, { max, unit = "", note } = {}) {
+    if (!items.length) return `<p class="empty">Aún no hay datos.</p>`;
+    const top = max || Math.max(1, ...items.map(i => i.value || 0));
+    const body = items.map(i => {
+      const v = i.value == null ? null : i.value;
+      const tip = `${i.label}: ${v == null ? "sin datos" : fmt(v) + unit}${note && i[note] != null ? ` (${i[note]} personas)` : ""}`;
+      return `<div class="bar" data-tip="${esc(tip)}"><span class="lab">${esc(i.label)}</span><span class="track">
+        <span class="fill" style="width:${v == null ? 0 : Math.max(0.5, (v / top) * 100) * 0.85}%"></span><span class="val">${v == null ? "—" : fmt(v) + unit}</span></span></div>`;
+    }).join("");
+    const table = `<details class="tbl"><summary>Ver como tabla</summary><table><thead><tr><th>Categoría</th><th>Valor</th>${note ? "<th>Personas</th>" : ""}</tr></thead><tbody>${items.map(i => `<tr><td>${esc(i.label)}</td><td class="n">${i.value == null ? "—" : fmt(i.value) + unit}</td>${note ? `<td class="n">${i[note] ?? ""}</td>` : ""}</tr>`).join("")}</tbody></table></details>`;
+    return `<div class="bars">${body}</div>${table}`;
+  }
+
+  // Dos series (antes / hoy), misma escala 1–5, leyenda + valor en cada extremo.
+  function pairBars(items) {
+    if (!items.length) return `<p class="empty">Aparecerá cuando el grupo complete «Lo que me llevo».</p>`;
+    const w = v => Math.max(0.5, (v / 5) * 100) * 0.85;
+    return `<div class="legend"><span><i style="background:var(--s-antes)"></i>Antes del curso</span><span><i style="background:var(--s-hoy)"></i>Hoy</span></div>
+      <div class="bars">${items.map(i => `<div class="bar pair" data-tip="${esc(`${i.label}: antes ${i.antes} → hoy ${i.hoy} (${i.n} personas)`)}"><span class="lab">${esc(i.label)}</span><span class="track">
+        <span class="row"><span class="fill antes" style="width:${w(i.antes)}%"></span><span class="val">${i.antes}</span></span>
+        <span class="row"><span class="fill hoy" style="width:${w(i.hoy)}%"></span><span class="val">${i.hoy}</span></span></span></div>`).join("")}</div>
+      <div class="axis"><span></span><div><span>0</span><span>5</span></div></div>
+      <details class="tbl"><summary>Ver como tabla</summary><table><thead><tr><th>Capacidad</th><th>Antes</th><th>Hoy</th><th>Cambio</th><th>Personas</th></tr></thead><tbody>${items.map(i => `<tr><td>${esc(i.label)}</td><td class="n">${i.antes}</td><td class="n">${i.hoy}</td><td class="n">${(i.hoy - i.antes >= 0 ? "+" : "") + (i.hoy - i.antes).toFixed(1)}</td><td class="n">${i.n}</td></tr>`).join("")}</tbody></table></details>`;
+  }
+
+  async function load() {
+    try {
+      const r = await fetch("/api/admin/results", { credentials: "same-origin" });
+      if (r.status === 401) { location.href = "/admin/login"; return; }
+      const d = await r.json();
+      document.getElementById("hAvg").textContent = d.participants ? d.avg_percent + "%" : "–";
+      document.getElementById("hAvgBar").style.width = (d.avg_percent || 0) + "%";
+      document.getElementById("hN").textContent = d.participants;
+      document.getElementById("hDone").textContent = fmt(d.activities_done);
+      document.getElementById("hTech").textContent = fmt(d.techniques);
+      document.getElementById("subtitle").textContent = `${d.participants} de ${d.enrolled} estudiantes con avance · resultados sin nombres.`;
+      document.getElementById("cModules").innerHTML = bars(d.modules, { max: 100, unit: "%" });
+      document.getElementById("cQuiz").innerHTML = bars(d.quizzes.filter(q => q.n), { max: 100, unit: "%", note: "n" });
+      document.getElementById("cConf").innerHTML = pairBars(d.confidence);
+      document.getElementById("cIdeas").innerHTML = bars(d.ideas, { unit: "" });
+      const pulses = d.pulses.filter(p => p.total);
+      document.getElementById("cPulses").innerHTML = pulses.length
+        ? `<div class="pulses">${pulses.map(p => `<div><h4>${esc(p.question)} <span class="stamp">(${p.total} votos)</span></h4>${bars(p.options.map((o, i) => ({ label: o, value: p.total ? Math.round(100 * p.counts[i] / p.total) : 0 })), { max: 100, unit: "%" })}</div>`).join("")}</div>`
+        : `<p class="empty">Aún no hay votaciones. Ábrelas desde la diapositiva «Pulso del grupo» de cada presentación.</p>`;
+      document.getElementById("cSteps").innerHTML = d.first_steps.length
+        ? `<div class="quotes">${d.first_steps.map(s => `<blockquote>«${esc(s.texto)}»</blockquote>`).join("")}</div>`
+        : `<p class="empty">Aparecerán cuando el grupo complete «Lo que voy a hacer · Mi plan».</p>`;
+      document.getElementById("stamp").textContent = "Actualizado " + new Date().toLocaleTimeString("es-CO");
+    } catch (e) {
+      document.getElementById("stamp").textContent = "Sin conexión; reintentando…";
+    }
+  }
+
+  // Tooltip al pasar el mouse por cada barra.
+  const tip = document.getElementById("tip");
+  document.addEventListener("mousemove", e => {
+    const t = e.target.closest("[data-tip]");
+    if (!t) { tip.style.opacity = 0; return; }
+    tip.textContent = t.dataset.tip;
+    tip.style.left = Math.min(e.clientX + 14, innerWidth - 300) + "px";
+    tip.style.top = (e.clientY + 14) + "px";
+    tip.style.opacity = 1;
+  });
+  document.getElementById("present").addEventListener("click", () => {
+    document.body.classList.add("present");
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+  });
+  document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement) document.body.classList.remove("present"); });
+  load();
+  setInterval(load, 15000);
+  </script>{% endraw %}
+</body>
+</html>

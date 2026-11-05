@@ -12,6 +12,7 @@ import secrets
 import smtplib
 import sqlite3
 import string
+import time
 from datetime import datetime, timezone
 from email.message import EmailMessage
 from functools import wraps
@@ -90,6 +91,30 @@ def init_db():
             FOREIGN KEY(student_id) REFERENCES students(id) ON DELETE CASCADE
         );
 
+        CREATE TABLE IF NOT EXISTS presence (
+            student_id INTEGER PRIMARY KEY,
+            step TEXT,
+            title TEXT,
+            module TEXT,
+            seen_at REAL NOT NULL,
+            FOREIGN KEY(student_id) REFERENCES students(id) ON DELETE CASCADE
+        );
+
+        CREATE TABLE IF NOT EXISTS pulse_votes (
+            student_id INTEGER NOT NULL,
+            qid TEXT NOT NULL,
+            answer INTEGER NOT NULL,
+            created_at TEXT NOT NULL,
+            PRIMARY KEY (student_id, qid),
+            FOREIGN KEY(student_id) REFERENCES students(id) ON DELETE CASCADE
+        );
+
+        CREATE TABLE IF NOT EXISTS app_settings (
+            key TEXT PRIMARY KEY,
+            value TEXT,
+            updated_at REAL
+        );
+
         CREATE TABLE IF NOT EXISTS access_requests (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
@@ -160,6 +185,35 @@ ACTIVITY_KEYS = [
 ]
 QUIZ_TOTALS = {"s1": 5, "s2": 6, "lab": 6}
 
+# Columnas del mapa de avance (mismo orden que ACTIVITY_GROUPS del frontend).
+LIVE_COLUMNS = [
+    ("s1", "Sesión 1", [("reto-r1", "R1"), ("reto-r2", "R2"), ("reto-r3", "R3"), ("reto-r4", "R4"), ("reto-r5", "R5"), ("reto-r6", "R6"), ("quiz-s1", "Eval")]),
+    ("desafio", "Entre sesiones", [("desafio", "Mi oportunidad")]),
+    ("s2", "Sesión 2", [("s2-f0", "F0"), ("s2-f1", "F1"), ("s2-f2", "F2"), ("s2-f3", "F3"), ("s2-f4", "F4"), ("s2-f5", "F5"), ("s2-f6", "F6"), ("s2-f7", "F7"), ("s2-f8", "F8"), ("quiz-s2", "Eval")]),
+    ("lab", "Copilot Lab", [("lab-3-1", "3.1"), ("lab-3-2", "3.2"), ("lab-3-3", "3.3"), ("lab-3-4", "3.4"), ("quiz-lab", "Eval")]),
+    ("cierre", "Cierre", [("cierre-reflexion", "Me llevo"), ("proyecto-final", "Mi plan")]),
+]
+
+# Votaciones en vivo (una por módulo). El orden de las opciones es el índice guardado.
+PULSES = {
+    "bienvenida": ("¿Cuánto tiempo a la semana dedicas a buscar información, resumir correos o preparar informes?",
+                   ["Menos de 2 horas", "Entre 2 y 5 horas", "Entre 5 y 10 horas", "Más de 10 horas"]),
+    "s1": ("¿Qué tarea te quita más tiempo hoy?",
+           ["Leer y responder correos", "Preparar actas y resúmenes", "Organizar pendientes", "Redactar informes"]),
+    "desafio": ("¿Qué tan claro tienes en qué tarea de tu trabajo usarías Copilot?",
+                ["Muy claro", "Tengo una idea", "Aún no lo sé"]),
+    "s2": ("¿Qué es lo más difícil al revisar un proyecto con muchos documentos?",
+           ["Encontrar la información", "Detectar inconsistencias", "Priorizar los riesgos", "Explicarlo al comité"]),
+    "lab": ("¿Qué te gustaría automatizar primero?",
+            ["Reportes periódicos", "Seguimiento de compromisos", "Consultas sobre documentos", "Alertas y notificaciones"]),
+    "herramientas": ("¿Qué técnica quieres probar primero?",
+                     ["Pre-mortem", "Mesa de expertos", "Comité escéptico", "Ensayo de conversación difícil"]),
+    "cierre": ("Después del curso, ¿qué tan seguro te sientes usando Copilot en tu trabajo?",
+               ["Muy seguro", "Seguro", "Algo inseguro", "Necesito más práctica"]),
+}
+PULSE_TTL_S = 20 * 60  # una votación abierta se cierra sola a los 20 minutos
+ONLINE_S = 90          # "conectado" si envió señal en el último minuto y medio
+
 
 def cierre_reflexion_done(payload: dict) -> bool:
     c = payload.get("cierre") or {}
@@ -187,6 +241,74 @@ def activity_progress(payload: dict) -> tuple[float, int, int]:
         complete += 1 if answered >= n else 0
     total = len(ACTIVITY_KEYS) + 2 + len(QUIZ_TOTALS)  # + desafío + reflexión de cierre + 3 autoevaluaciones
     return done, complete, total
+
+
+def activity_done_map(payload: dict) -> dict:
+    """Estado de cada actividad del mapa: True (completa), fracción 0-1 (autoevaluación parcial) o False."""
+    progress = payload.get("progress") or {}
+    out: dict = {}
+    for _, _, cols in LIVE_COLUMNS:
+        for key, _ in cols:
+            if key.startswith("quiz-"):
+                qid = key[5:]
+                st = payload.get("quiz") if qid == "s1" else (payload.get("quizzes") or {}).get(qid)
+                answered = len((st or {}).get("answers") or {})
+                n = QUIZ_TOTALS[qid]
+                out[key] = True if answered >= n else (round(answered / n, 2) if answered else False)
+            elif key == "desafio":
+                out[key] = any(str(v or "").strip() for v in (payload.get("oportunidad") or {}).values())
+            elif key == "cierre-reflexion":
+                out[key] = cierre_reflexion_done(payload)
+            else:
+                out[key] = bool(progress.get(key))
+    return out
+
+
+def quiz_scores(payload: dict) -> dict:
+    """Porcentaje de aciertos de cada autoevaluación completa (None si no la terminó)."""
+    out = {}
+    for qid, n in QUIZ_TOTALS.items():
+        st = payload.get("quiz") if qid == "s1" else (payload.get("quizzes") or {}).get(qid)
+        st = st or {}
+        if len(st.get("answers") or {}) >= n:
+            out[qid] = round(100 * int(st.get("score") or 0) / n)
+        else:
+            out[qid] = None
+    return out
+
+
+WORK_SECTIONS = [
+    ("avance", "Sesión 1 · notas y resultados"),
+    ("oportunidad", "Entre sesiones · Mi oportunidad Copilot"),
+    ("s2Notes", "Sesión 2 · Proyecto Horizonte"),
+    ("lab33", "Copilot Lab · automatización"),
+    ("proyecto", "Cierre · Mi plan"),
+]
+
+
+def student_work(payload: dict) -> list[dict]:
+    """Textos escritos por el estudiante en la plataforma (no incluye sus conversaciones con Copilot)."""
+    sections = []
+    for key, label in WORK_SECTIONS:
+        data = payload.get(key) or {}
+        if not isinstance(data, dict):
+            continue
+        items = []
+        for k, v in data.items():
+            if isinstance(v, str) and v.strip():
+                items.append({"campo": k.replace("_", " ").replace("-", " "), "texto": v.strip()[:2000]})
+        if items:
+            sections.append({"titulo": label, "items": items})
+    c = cierre_summary(payload)
+    cierre_items = []
+    if c["ideas"]:
+        cierre_items.append({"campo": "ideas que se lleva", "texto": " · ".join(c["ideas"])})
+    for campo, k in (("qué le sirvió", "sirvio"), ("dudas", "dudas")):
+        if c[k]:
+            cierre_items.append({"campo": campo, "texto": c[k][:2000]})
+    if cierre_items:
+        sections.append({"titulo": "Cierre · Lo que me llevo", "items": cierre_items})
+    return sections
 
 
 def calc_percent_from_payload(payload: dict) -> int:
@@ -939,8 +1061,11 @@ def horizonte_portal():
 # ---------------------------------------------------------------------------
 
 @app.get("/api/me")
-@require_student
 def api_me():
+    if session.get("is_admin") and not session.get("student_id"):
+        return jsonify({"ok": True, "admin": True, "student": None})
+    if not session.get("student_id"):
+        return jsonify({"ok": False, "error": "Sesión requerida"}), 401
     return jsonify(
         {
             "ok": True,
@@ -1427,10 +1552,284 @@ def api_admin_students():
 
 
 # ---------------------------------------------------------------------------
+# Clase en vivo: presencia, votaciones y panel de la instructora
+# ---------------------------------------------------------------------------
+
+def _active_pulse(db) -> str | None:
+    row = db.execute("SELECT value, updated_at FROM app_settings WHERE key = 'active_pulse'").fetchone()
+    if not row or not row["value"] or row["value"] not in PULSES:
+        return None
+    if time.time() - (row["updated_at"] or 0) > PULSE_TTL_S:
+        return None
+    return row["value"]
+
+
+def _pulse_results(db, qid: str) -> dict:
+    question, options = PULSES[qid]
+    counts = [0] * len(options)
+    for r in db.execute("SELECT answer, COUNT(*) AS n FROM pulse_votes WHERE qid = ? GROUP BY answer", (qid,)):
+        if 0 <= r["answer"] < len(options):
+            counts[r["answer"]] = r["n"]
+    return {"qid": qid, "question": question, "options": options, "counts": counts, "total": sum(counts)}
+
+
+@app.post("/api/live/ping")
+@require_student
+def api_live_ping():
+    """Señal de presencia del estudiante (paso actual) y consulta de votación abierta."""
+    data = request.get_json(silent=True) or {}
+    clip = lambda v, n: str(v or "")[:n]
+    db = get_db()
+    db.execute(
+        """
+        INSERT INTO presence (student_id, step, title, module, seen_at) VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(student_id) DO UPDATE SET step = excluded.step, title = excluded.title,
+            module = excluded.module, seen_at = excluded.seen_at
+        """,
+        (session["student_id"], clip(data.get("step"), 80), clip(data.get("title"), 160), clip(data.get("module"), 80), time.time()),
+    )
+    db.commit()
+    qid = _active_pulse(db)
+    pulse = None
+    if qid:
+        mine = db.execute("SELECT answer FROM pulse_votes WHERE student_id = ? AND qid = ?", (session["student_id"], qid)).fetchone()
+        question, options = PULSES[qid]
+        pulse = {"qid": qid, "question": question, "options": options, "mine": mine["answer"] if mine else None}
+    return jsonify({"ok": True, "pulse": pulse})
+
+
+@app.post("/api/pulse")
+@require_student
+def api_pulse_vote():
+    data = request.get_json(silent=True) or {}
+    qid = str(data.get("qid") or "")
+    try:
+        answer = int(data.get("answer"))
+    except (TypeError, ValueError):
+        answer = -1
+    if qid not in PULSES or not 0 <= answer < len(PULSES[qid][1]):
+        return jsonify({"ok": False, "error": "Votación no válida"}), 400
+    db = get_db()
+    db.execute(
+        """
+        INSERT INTO pulse_votes (student_id, qid, answer, created_at) VALUES (?, ?, ?, ?)
+        ON CONFLICT(student_id, qid) DO UPDATE SET answer = excluded.answer, created_at = excluded.created_at
+        """,
+        (session["student_id"], qid, answer, utc_now()),
+    )
+    db.commit()
+    return jsonify({"ok": True, **_pulse_results(db, qid), "mine": answer})
+
+
+@app.get("/api/pulse/<qid>")
+def api_pulse_results(qid: str):
+    if not (session.get("is_admin") or session.get("student_id")):
+        return jsonify({"ok": False, "error": "Sesión requerida"}), 401
+    if qid not in PULSES:
+        return jsonify({"ok": False, "error": "No existe"}), 404
+    db = get_db()
+    out = _pulse_results(db, qid)
+    out["active"] = _active_pulse(db) == qid
+    if session.get("student_id"):
+        mine = db.execute("SELECT answer FROM pulse_votes WHERE student_id = ? AND qid = ?", (session["student_id"], qid)).fetchone()
+        out["mine"] = mine["answer"] if mine else None
+    return jsonify({"ok": True, **out})
+
+
+@app.post("/api/admin/pulse/active")
+@require_admin
+def api_admin_pulse_active():
+    """Abre (qid) o cierra (qid vacío) la votación que ven los estudiantes en su pantalla."""
+    qid = str((request.get_json(silent=True) or {}).get("qid") or "")
+    if qid and qid not in PULSES:
+        return jsonify({"ok": False, "error": "No existe"}), 404
+    db = get_db()
+    db.execute(
+        "INSERT INTO app_settings (key, value, updated_at) VALUES ('active_pulse', ?, ?) "
+        "ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at",
+        (qid, time.time()),
+    )
+    db.commit()
+    return jsonify({"ok": True, "active": qid or None})
+
+
+@app.post("/api/admin/pulse/<qid>/reset")
+@require_admin
+def api_admin_pulse_reset(qid: str):
+    if qid not in PULSES:
+        return jsonify({"ok": False, "error": "No existe"}), 404
+    db = get_db()
+    db.execute("DELETE FROM pulse_votes WHERE qid = ?", (qid,))
+    db.commit()
+    return jsonify({"ok": True, **_pulse_results(db, qid)})
+
+
+@app.get("/presentar")
+@require_admin
+def admin_course():
+    """El curso completo en modo instructora (presentaciones y votaciones, sin guardar avance)."""
+    return send_from_directory(BASE_DIR, "index.html")
+
+
+@app.get("/admin/en-vivo")
+@require_admin
+def admin_live():
+    return render_template("live.html", columns=LIVE_COLUMNS)
+
+
+@app.get("/admin/resultados")
+@require_admin
+def admin_results():
+    return render_template("results.html")
+
+
+def _live_rows(db) -> list[dict]:
+    now = time.time()
+    rows = db.execute(
+        """
+        SELECT s.id, s.name, s.email, s.active, p.payload, p.percent, p.updated_at,
+               pr.step, pr.title AS step_title, pr.module, pr.seen_at
+        FROM students s
+        LEFT JOIN progress p ON p.student_id = s.id
+        LEFT JOIN presence pr ON pr.student_id = s.id
+        WHERE s.active = 1
+        ORDER BY s.name COLLATE NOCASE
+        """
+    ).fetchall()
+    out = []
+    for r in rows:
+        try:
+            payload = json.loads(r["payload"] or "{}")
+        except json.JSONDecodeError:
+            payload = {}
+        ago = int(now - r["seen_at"]) if r["seen_at"] else None
+        out.append({
+            "id": r["id"],
+            "name": r["name"],
+            "percent": r["percent"] or 0,
+            "done": activity_done_map(payload),
+            "complete": activity_progress(payload)[1],
+            "quiz": quiz_scores(payload),
+            "cierre": cierre_summary(payload),
+            "sorpresa": sum(1 for v in (payload.get("sorpresa") or {}).values() if v),
+            "step": r["step"],
+            "step_title": r["step_title"],
+            "module": r["module"],
+            "seen_ago": ago,
+            "online": ago is not None and ago <= ONLINE_S,
+        })
+    return out
+
+
+@app.get("/api/admin/live")
+@require_admin
+def api_admin_live():
+    db = get_db()
+    students = _live_rows(db)
+    for s in students:
+        s.pop("cierre", None)
+    columns = [{"id": gid, "title": title, "cols": [{"key": k, "label": lab} for k, lab in cols]} for gid, title, cols in LIVE_COLUMNS]
+    active = _active_pulse(db)
+    return jsonify({
+        "ok": True,
+        "columns": columns,
+        "students": students,
+        "total_activities": activity_progress({})[2],
+        "pulse": _pulse_results(db, active) if active else None,
+    })
+
+
+@app.get("/api/admin/student/<int:student_id>/work")
+@require_admin
+def api_admin_student_work(student_id: int):
+    db = get_db()
+    row = db.execute(
+        "SELECT s.name, p.payload FROM students s LEFT JOIN progress p ON p.student_id = s.id WHERE s.id = ?",
+        (student_id,),
+    ).fetchone()
+    if not row:
+        return jsonify({"ok": False, "error": "No existe"}), 404
+    try:
+        payload = json.loads(row["payload"] or "{}")
+    except json.JSONDecodeError:
+        payload = {}
+    return jsonify({"ok": True, "name": row["name"], "sections": student_work(payload)})
+
+
+@app.get("/api/admin/results")
+@require_admin
+def api_admin_results():
+    db = get_db()
+    rows = _live_rows(db)
+    started = [r for r in rows if r["percent"] > 0]
+    n = len(started)
+
+    def avg(vals):
+        vals = [v for v in vals if v is not None]
+        return round(sum(vals) / len(vals)) if vals else None
+
+    modules = []
+    for gid, title, cols in LIVE_COLUMNS:
+        keys = [k for k, _ in cols]
+        if n:
+            frac = sum(
+                sum(1 if r["done"][k] is True else (r["done"][k] or 0) for k in keys) / len(keys)
+                for r in started
+            ) / n
+        else:
+            frac = 0
+        modules.append({"id": gid, "label": title, "value": round(100 * frac)})
+
+    activities = []
+    for gid, title, cols in LIVE_COLUMNS:
+        for k, lab in cols:
+            activities.append({"key": k, "label": f"{title} · {lab}", "done": sum(1 for r in started if r["done"][k] is True)})
+
+    quizzes = [{"id": q, "label": {"s1": "Sesión 1", "s2": "Sesión 2", "lab": "Copilot Lab"}[q],
+                "value": avg([r["quiz"][q] for r in started]),
+                "n": sum(1 for r in started if r["quiz"][q] is not None)} for q in QUIZ_TOTALS]
+
+    conf = []
+    for cid, label in CIERRE_CAPS:
+        pares = [r["cierre"]["conf"].get(cid) for r in started
+                 if (r["cierre"]["conf"].get(cid) or {}).get("antes") and (r["cierre"]["conf"].get(cid) or {}).get("hoy")]
+        if pares:
+            conf.append({"label": label,
+                         "antes": round(sum(p["antes"] for p in pares) / len(pares), 1),
+                         "hoy": round(sum(p["hoy"] for p in pares) / len(pares), 1),
+                         "n": len(pares)})
+
+    idea_counts: dict[str, int] = {}
+    for r in started:
+        for i in r["cierre"]["idea_ids"]:
+            idea_counts[i] = idea_counts.get(i, 0) + 1
+    ideas = sorted(({"label": CIERRE_IDEAS[i], "value": v} for i, v in idea_counts.items()), key=lambda x: -x["value"])[:6]
+
+    pasos = [{"texto": r["cierre"]["primer_paso"]}
+             for r in started if r["cierre"]["primer_paso"]]
+
+    return jsonify({
+        "ok": True,
+        "participants": n,
+        "enrolled": len(rows),
+        "avg_percent": avg([r["percent"] for r in started]) or 0,
+        "activities_done": sum(r["complete"] for r in started),
+        "techniques": sum(r["sorpresa"] for r in started),
+        "modules": modules,
+        "activities": activities,
+        "quizzes": quizzes,
+        "confidence": conf,
+        "ideas": ideas,
+        "pulses": [_pulse_results(db, q) for q in PULSES],
+        "first_steps": pasos[:12],
+    })
+
+
+# ---------------------------------------------------------------------------
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-11-04-portada-viva-v1"
+APP_CODE_VERSION = "2026-11-04-clase-en-vivo-v1"
 
 
 @app.get("/health")
