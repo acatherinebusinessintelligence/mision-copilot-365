@@ -9838,20 +9838,59 @@ Tono cercano y realista; máximo 200 palabras.`,
     if (window.lucide) lucide.createIcons({ nodes: [document.getElementById("deck")] });
   }
 
+  /* Misma lista que PULSES en app.py. La pregunta se pinta aunque el servidor no responda. */
+  const PULSE_BANK = {
+    bienvenida: ["¿Cuánto tiempo a la semana dedicas a buscar información, resumir correos o preparar informes?", ["Menos de 2 horas", "Entre 2 y 5 horas", "Entre 5 y 10 horas", "Más de 10 horas"]],
+    s1: ["¿Qué tarea te quita más tiempo hoy?", ["Leer y responder correos", "Preparar actas y resúmenes", "Organizar pendientes", "Redactar informes"]],
+    desafio: ["¿Qué tan claro tienes en qué tarea de tu trabajo usarías Copilot?", ["Muy claro", "Tengo una idea", "Aún no lo sé"]],
+    s2: ["¿Qué es lo más difícil al revisar un proyecto con muchos documentos?", ["Encontrar la información", "Detectar inconsistencias", "Priorizar los riesgos", "Explicarlo al comité"]],
+    s2b: ["¿Qué es lo más difícil al presentar ante un comité?", ["Resumir sin perder lo importante", "Respaldar cada cifra", "Pedir una decisión concreta", "Responder preguntas difíciles"]],
+    "parada-biblioteca": ["¿Para qué usarías primero un prompt del kit?", ["Correos", "Actas y compromisos", "Informes", "Riesgos y decisiones"]],
+    "parada-escenarios": ["¿En qué área aplicarías primero Copilot?", ["Operación y mantenimiento", "Gestión de proyectos (PMO)", "HSE", "Comunicaciones", "Finanzas"]],
+    lab: ["¿Qué te gustaría automatizar primero?", ["Reportes periódicos", "Seguimiento de compromisos", "Consultas sobre documentos", "Alertas y notificaciones"]],
+    herramientas: ["¿Qué técnica quieres probar primero?", ["Pre-mortem", "Mesa de expertos", "Comité escéptico", "Ensayo de conversación difícil"]],
+    cierre: ["Después del curso, ¿qué tan seguro te sientes usando Copilot en tu trabajo?", ["Muy seguro", "Seguro", "Algo inseguro", "Necesito más práctica"]]
+  };
+
   /* Pulso: la instructora abre la votación; los estudiantes votan desde su pantalla. */
   async function deckPulseLoad(qid) {
     const qEl = document.getElementById("deckPulseQ"), box = document.getElementById("deckPulse"), meta = document.getElementById("deckPulseMeta");
-    if (!box) return;
-    if (!serverMode && !presenterMode) {
+    if (!box || !qEl) return;
+    const bank = PULSE_BANK[qid];
+    if (!bank) {
       clearInterval(DECK.poll); DECK.poll = null;
-      qEl.textContent = "Votación en vivo";
-      box.innerHTML = `<p class="deck__sub" style="margin:0">La votación funciona en la versión en línea del curso: cada estudiante vota desde su pantalla y aquí aparecen los resultados al instante.</p>`;
+      qEl.textContent = "No hay pregunta para este módulo.";
+      box.innerHTML = "";
       meta.innerHTML = "";
       return;
     }
+    if (!serverMode && !presenterMode) {
+      clearInterval(DECK.poll); DECK.poll = null;
+      qEl.textContent = bank[0];
+      box.innerHTML = bank[1].map(o => `<div class="deck__opt"><span class="lbl">${esc(o)}</span></div>`).join("");
+      meta.innerHTML = `<span>Abre el curso en línea, con la sesión iniciada, para votar y ver los resultados.</span>`;
+      return;
+    }
+    qEl.textContent = bank[0];
+    if (!box.innerHTML.trim()) {
+      box.innerHTML = bank[1].map(o => `<div class="deck__opt"><span class="lbl">${esc(o)}</span><span class="trk"><i style="width:0%"></i></span><b>0 · 0%</b></div>`).join("");
+    }
     let d;
-    try { const r = await fetch(`/api/pulse/${qid}`, { credentials: "same-origin" }); d = await r.json(); } catch { return; }
-    if (!d || !d.ok || !document.getElementById("deckPulse")) return;
+    try {
+      const r = await fetch(`/api/pulse/${encodeURIComponent(qid)}`, { credentials: "same-origin" });
+      d = await r.json();
+      if (r.status === 401) {
+        meta.innerHTML = `<span>La sesión venció. Vuelve a entrar para ver los votos.</span>`;
+        return;
+      }
+    } catch {
+      meta.innerHTML = `<span>No llega la conexión. La pregunta ya está; los votos se actualizarán al reconectar.</span>`;
+      return;
+    }
+    if (!d || !d.ok || !document.getElementById("deckPulse")) {
+      if (meta && (!d || !d.ok)) meta.innerHTML = `<span>${esc((d && d.error) || "No se pudieron cargar los votos.")}</span>`;
+      return;
+    }
     qEl.textContent = d.question;
     const max = Math.max(1, ...d.counts);
     box.innerHTML = d.options.map((o, k) => {

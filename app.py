@@ -1836,7 +1836,7 @@ def api_admin_results():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-11-04-pasos-y-paradas-v1"
+APP_CODE_VERSION = "2026-11-04-pulso-v1"
 
 
 @app.get("/health")
