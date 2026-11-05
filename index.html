@@ -2094,6 +2094,128 @@
     .prompt-meter.is-long { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); }
     [data-theme="dark"] .prompt-meter.is-mid { color: var(--brand-accent); }
 
+
+    /* ========== PORTADA VIVA ========== */
+    .hero__title .hl-shine {
+      background: linear-gradient(100deg, var(--brand-light) 0%, var(--brand-light) 40%, var(--brand-accent) 50%, var(--brand-light) 60%, var(--brand-light) 100%);
+      background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: hlShine 6s ease-in-out infinite;
+    }
+    @keyframes hlShine { 0%, 55% { background-position: 100% 0; } 85%, 100% { background-position: 0 0; } }
+    .hero-surprise {
+      display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 0.9rem;
+      color: var(--brand-accent); font-weight: 700; font-size: 0.92rem; text-decoration: none;
+      border-bottom: 1px dashed rgba(255,236,0,0.5); padding-bottom: 0.1rem;
+    }
+    .hero-surprise:hover { text-decoration: none; border-bottom-style: solid; }
+    .hero-surprise svg { transition: transform 0.5s ease; }
+    .hero-surprise:hover svg { transform: rotate(180deg); }
+    .hero-live { position: relative; aspect-ratio: 1 / 1; max-width: 460px; width: 100%; margin-inline: auto; }
+    .hero-live .hl-glow { position: absolute; inset: 8%; border-radius: 50%; background: radial-gradient(circle, rgba(74,61,166,0.55), rgba(74,61,166,0) 70%); }
+    .hl-net { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .hl-net path { fill: none; stroke: rgba(255,236,0,0.55); stroke-width: 0.45; stroke-dasharray: 1.4 2.4; animation: hlFlow 1.6s linear infinite; transition: opacity 0.6s ease; }
+    .hl-net circle { fill: rgba(255,255,255,0.12); }
+    @keyframes hlFlow { to { stroke-dashoffset: -7.6; } }
+    .hero-live.is-absorb .hl-net path, .hero-live.is-answer .hl-net path { opacity: 0; }
+    .hl-chip {
+      position: absolute; left: var(--x); top: var(--y); transform: translate(var(--tx, -50%), -50%);
+      display: flex; align-items: center; gap: 0.45rem; white-space: nowrap;
+      background: rgba(34,30,64,0.9); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+      padding: 0.55rem 0.75rem; font-size: 0.8rem; font-weight: 700; color: var(--brand-light);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      transition: left 0.85s cubic-bezier(.6,-0.2,.4,1) var(--d), top 0.85s cubic-bezier(.6,-0.2,.4,1) var(--d), opacity 0.6s ease var(--d), transform 0.85s ease var(--d);
+      animation: hlChipIn 0.6s ease both var(--d);
+    }
+    .hl-chip svg { width: 16px; height: 16px; color: var(--brand-accent); }
+    @keyframes hlChipIn { from { opacity: 0; transform: translate(var(--tx, -50%), -30%) scale(0.9); } }
+    .hero-live.is-absorb .hl-chip, .hero-live.is-answer .hl-chip { left: 50%; top: 50%; opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+    .hl-core {
+      position: absolute; left: 50%; top: 50%; width: 26%; aspect-ratio: 1 / 1; transform: translate(-50%, -50%);
+      border-radius: 22px; display: grid; place-items: center; color: #fff; z-index: 2;
+      background: linear-gradient(145deg, var(--brand-dark), var(--brand-primary));
+      border: 2px solid rgba(255,236,0,0.4); box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+      transition: top 0.7s ease, width 0.7s ease;
+    }
+    .hl-core svg { width: 44%; height: 44%; }
+    .hl-core::before {
+      content: ""; position: absolute; inset: -9px; border-radius: 28px; padding: 3px;
+      background: conic-gradient(from var(--hl-a, 0deg), transparent 0 55%, var(--brand-accent) 80%, transparent 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .hero-live.is-absorb .hl-core::before { opacity: 1; animation: hlSpin 0.9s linear infinite; }
+    .hero-live.is-absorb .hl-core { animation: hlBeat 0.45s ease-in-out infinite alternate; }
+    @keyframes hlSpin { to { transform: rotate(360deg); } }
+    @keyframes hlBeat { to { box-shadow: 0 0 0 10px rgba(255,236,0,0.12), 0 18px 40px rgba(0,0,0,0.35); } }
+    .hero-live.is-answer .hl-core { top: 15%; width: 19%; }
+    .hl-win {
+      position: absolute; left: 0; right: 0; bottom: 2%; top: 33%; z-index: 3;
+      display: flex; flex-direction: column; gap: 0.5rem; padding: 0.8rem 0.95rem;
+      background: rgba(255,255,255,0.97); color: #221e40; border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4); border-top: 4px solid var(--brand-accent);
+      opacity: 0; transform: translateY(18px) scale(0.97); transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: none;
+    }
+    .hero-live.is-answer .hl-win { opacity: 1; transform: none; }
+    .hl-win__head > span:first-child { display: inline-flex; align-items: center; gap: 0.35rem; }
+    .hl-win__head { display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: #4a3da6; }
+    .hl-dots { display: flex; gap: 0.3rem; }
+    .hl-dots i { width: 7px; height: 7px; border-radius: 50%; background: #d8d4ef; display: block; transition: background 0.3s, width 0.3s; }
+    .hl-dots i.is-on { background: #4a3da6; width: 18px; border-radius: 4px; }
+    .hl-prompt { font-size: 0.84rem; line-height: 1.4; background: #f1effa; border-radius: 10px 10px 10px 2px; padding: 0.5rem 0.65rem; min-height: 2.9em; }
+    .hl-prompt b { color: #4a3da6; }
+    .hl-caret { display: inline-block; width: 2px; height: 1em; background: #4a3da6; vertical-align: -2px; margin-left: 1px; animation: hlBlink 0.8s steps(1) infinite; }
+    @keyframes hlBlink { 50% { opacity: 0; } }
+    .hl-out { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; }
+    .hl-out li { font-size: 0.82rem; font-weight: 600; display: flex; gap: 0.45rem; align-items: center; padding: 0.3rem 0.5rem; border-radius: 8px; background: #f7f6fc; opacity: 0; transform: translateX(-8px); transition: opacity 0.35s ease, transform 0.35s ease; }
+    .hl-out li.is-on { opacity: 1; transform: none; }
+    .hl-out li span:first-child { width: 1.3em; text-align: center; flex: 0 0 auto; }
+    .hl-human { margin-top: auto; align-self: flex-start; font-size: 0.72rem; font-weight: 800; color: #221e40; background: var(--brand-accent); border-radius: 999px; padding: 0.2rem 0.65rem; opacity: 0; transition: opacity 0.4s ease; }
+    .hl-human.is-on { opacity: 1; }
+    @media (max-width: 520px) {
+      .hl-chip { font-size: 0.7rem; padding: 0.4rem 0.55rem; }
+      .hl-prompt, .hl-out li { font-size: 0.74rem; }
+      .hl-win { top: 30%; padding: 0.6rem 0.7rem; gap: 0.35rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero__title .hl-shine { animation: none; background-position: 100% 0; }
+      .hl-net path, .hl-caret { animation: none; }
+    }
+
+    /* ========== PROMPTS QUE SORPRENDEN ========== */
+    .sp-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin: 1.25rem 0 1rem; }
+    .sp-roll { font-size: 1rem; padding: 0.8rem 1.3rem; }
+    .sp-roll svg { transition: transform 0.6s ease; }
+    .sp-roll.is-rolling svg { animation: hlSpin 0.5s linear infinite; }
+    .sp-count { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
+    .sp-count strong { color: var(--brand-primary); }
+    [data-theme="dark"] .sp-count strong { color: var(--brand-accent); }
+    .sp-bar { flex: 1 1 160px; max-width: 240px; height: 8px; border-radius: 999px; background: var(--surface); overflow: hidden; border: 1px solid var(--border); }
+    .sp-bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent)); transition: width 0.5s ease; }
+    .sp-deck { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.5rem; margin-bottom: 1.25rem; }
+    .sp-chip { position: relative; display: flex; align-items: center; gap: 0.5rem; text-align: left; border: 1px solid var(--border); background: var(--bg-elevated); color: var(--text); padding: 0.65rem 0.75rem; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 0.85rem; transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease; }
+    .sp-chip svg { width: 18px; height: 18px; flex: 0 0 auto; color: var(--brand-primary); }
+    [data-theme="dark"] .sp-chip svg { color: var(--brand-accent); }
+    .sp-chip:hover { border-color: var(--brand-primary); transform: translateY(-2px); }
+    .sp-chip[aria-pressed="true"] { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+    .sp-chip[aria-pressed="true"] svg { color: var(--brand-accent); }
+    .sp-chip.is-flash { background: var(--brand-accent); border-color: var(--brand-accent); color: #221e40; transform: scale(1.04); }
+    .sp-chip.is-flash svg { color: #221e40; }
+    .sp-chip .sp-done { margin-left: auto; font-size: 0.8rem; color: var(--success); }
+    .sp-chip[aria-pressed="true"] .sp-done { color: var(--brand-accent); }
+    .sp-card { border-top: 4px solid var(--brand-accent); }
+    .sp-card.is-in { animation: spIn 0.5s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes spIn { from { opacity: 0; transform: perspective(900px) rotateX(-10deg) translateY(14px); } }
+    .sp-card__badge { display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; background: var(--brand-primary); color: #fff; }
+    .sp-card h3 { display: flex; align-items: center; gap: 0.55rem; margin: 0.5rem 0 0.35rem; font-size: 1.3rem; }
+    .sp-card__why { color: var(--text-muted); margin: 0 0 0.9rem; }
+    .sp-card__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1.25rem; margin-top: 0.75rem; font-size: 0.88rem; }
+    .sp-card__grid h4 { font-size: 0.85rem; margin: 0 0 0.3rem; display: flex; align-items: center; gap: 0.35rem; }
+    .sp-card__grid ul { margin: 0; padding-left: 1.1rem; }
+    .sp-card__grid p { margin: 0; }
+    .sp-tried[aria-pressed="true"] { background: var(--success); border-color: var(--success); color: #fff; }
+    @media (max-width: 760px) { .sp-card__grid { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .sp-card.is-in { animation: none; } .sp-roll.is-rolling svg { animation: none; } }
+
     .cs-backdrop { display: none; }
     @media (max-width: 1080px) {
       .cs-layout { grid-template-columns: minmax(0, 1fr); }
@@ -2187,27 +2309,30 @@
       <div class="container hero__grid">
         <div>
           <p class="section-kicker"><i data-lucide="zap" width="14" height="14"></i> Capacitación empresarial · Caso académico</p>
-          <h1 class="hero__title" id="heroTitle">Misión Copilot 365</h1>
+          <h1 class="hero__title" id="heroTitle">Misión <span class="hl-shine">Copilot 365</span></h1>
           <p class="hero__subtitle">De la productividad individual a la gestión inteligente de proyectos</p>
           <p class="lead">Descubre cómo convertir información dispersa en decisiones, planes de acción y resultados empresariales con Microsoft Copilot.</p>
           <div class="btn-group" style="margin-top:1.5rem">
             <a class="btn btn--primary" href="#mision"><i data-lucide="play" width="18" height="18"></i> Iniciar misión</a>
             <a class="btn btn--secondary" href="#ruta"><i data-lucide="route" width="18" height="18"></i> Ver ruta de aprendizaje</a>
           </div>
+          <a class="hero-surprise" href="#sorpresa" data-sp-random="1"><i data-lucide="dices" width="18" height="18"></i> Sorpréndeme: prueba un prompt que no conocías</a>
           <p class="disclaimer disclaimer--info" style="margin-top:1.5rem">
             <i data-lucide="info" width="18" height="18"></i>
             <span>Experiencia formativa ficticia para el sector energético. No representa operaciones, datos ni empresas reales.</span>
           </p>
         </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="hero-orb hero-orb--1"></div>
-          <div class="hero-orb hero-orb--2"></div>
-          <div class="hero-orb hero-orb--3"></div>
-          <div class="hero-core"><i data-lucide="bot"></i></div>
-          <div class="hero-card hero-card--a"><i data-lucide="file-text"></i> Documentos</div>
-          <div class="hero-card hero-card--b"><i data-lucide="bar-chart-3"></i> Datos</div>
-          <div class="hero-card hero-card--c"><i data-lucide="users"></i> Colaboración</div>
-          <div class="hero-card hero-card--d"><i data-lucide="lightbulb"></i> Decisiones</div>
+        <div class="hero-live" id="heroLive" aria-hidden="true">
+          <div class="hl-glow"></div>
+          <svg class="hl-net" id="hlNet" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+          <div id="hlChips"></div>
+          <div class="hl-core"><i data-lucide="bot"></i></div>
+          <div class="hl-win">
+            <div class="hl-win__head"><span><i data-lucide="sparkles" width="13" height="13"></i> Copilot · <span id="hlLabel">Correo y reuniones</span></span><span class="hl-dots" id="hlDots"></span></div>
+            <div class="hl-prompt" id="hlPrompt"></div>
+            <ul class="hl-out" id="hlOut"></ul>
+            <span class="hl-human" id="hlHuman">✓ Tú verificas · tú decides</span>
+          </div>
         </div>
       </div>
     </section>
@@ -7190,6 +7315,22 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       </div>
     </section>
 
+    <!-- ========== 7b. PROMPTS QUE SORPRENDEN ========== -->
+    <section id="sorpresa" aria-labelledby="spTitle">
+      <div class="container">
+        <p class="section-kicker">Herramientas</p>
+        <h2 class="section-title" id="spTitle">Prompts que sorprenden</h2>
+        <p class="lead">Diez técnicas avanzadas que cambian la conversación con la IA: en lugar de pedir una respuesta, haces que Copilot te entreviste, critique tu borrador, debata o imagine que el proyecto fracasó. Todas tienen menos de 1.500 caracteres y funcionan en Copilot Chat con cualquier licencia.</p>
+        <div class="sp-top">
+          <button type="button" class="btn btn--primary sp-roll" id="spRoll"><i data-lucide="dices" width="20" height="20"></i> Sorpréndeme</button>
+          <span class="sp-count" id="spCount" aria-live="polite"></span>
+          <span class="sp-bar" aria-hidden="true"><span id="spBar" style="width:0"></span></span>
+        </div>
+        <div class="sp-deck" id="spDeck" role="toolbar" aria-label="Técnicas de prompts"></div>
+        <article class="card sp-card" id="spCard" aria-live="polite"></article>
+      </div>
+    </section>
+
     <!-- ========== 8. KIT ========== -->
     <section id="recursos" aria-labelledby="recursosTitle">
       <div class="container">
@@ -7409,6 +7550,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
     quiz: { answers: {}, score: 0 },
     quizzes: {},
     cierre: {},
+    sorpresa: {},
     path: {},
     oportunidad: {},
     proyecto: {},
@@ -8964,6 +9106,283 @@ No envíes nada a nadie: solo infórmame.`,
     attachPromptMeters(grid);
     initCopyButtons();
     if (window.lucide) lucide.createIcons({ nodes: [tabs, grid] });
+  }
+
+
+  /* ========== PORTADA VIVA ========== */
+  const HERO_SCENES = [
+    { label: "Correo y reuniones",
+      chips: [["mail", "34 correos sin leer"], ["file-text", "Acta del comité"], ["message-square", "Chat de Teams"], ["calendar", "5 reuniones"]],
+      prompt: "Resume los compromisos de esta semana y quién responde por cada uno.",
+      out: [["✅", "5 compromisos, cada uno con responsable"], ["⚠️", "2 vencen el viernes"], ["✉️", "Borrador de correo listo para revisar"]] },
+    { label: "Proyecto Horizonte",
+      chips: [["sheet", "Presupuesto.xlsx"], ["calendar-range", "Cronograma"], ["shield-alert", "Matriz de riesgos"], ["files", "Actas de obra"]],
+      prompt: "Actúa como PMO: dame los 3 riesgos prioritarios y la evidencia de cada uno.",
+      out: [["🔴", "Riesgo crítico, citado del acta"], ["🟡", "Partida P-003: 26 % del presupuesto"], ["🧭", "Decisión propuesta para el comité"]] },
+    { label: "Operación y HSE",
+      chips: [["clipboard-list", "Reporte de turno"], ["camera", "Fotos de campo"], ["list-checks", "Checklist"], ["book-open", "Procedimiento"]],
+      prompt: "Convierte el reporte de turno en 3 lecciones aprendidas para la cuadrilla.",
+      out: [["💡", "3 lecciones en lenguaje sencillo"], ["👷", "Responsable y fecha por acción"], ["🔎", "Marcado: pendiente de validación HSE"]] }
+  ];
+  const HL_POS = [[17, 17], [80, 22], [16, 76], [82, 72]];
+
+  function initHeroLive() {
+    const stage = document.getElementById("heroLive");
+    if (!stage) return;
+    const $ = id => document.getElementById(id);
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let idx = 0, token = 0, running = false;
+    const wait = (ms, t) => new Promise(r => setTimeout(() => r(t === token), ms));
+    $("hlDots").innerHTML = HERO_SCENES.map(() => "<i></i>").join("");
+
+    function paint(sc, full) {
+      $("hlLabel").textContent = sc.label;
+      $("hlDots").querySelectorAll("i").forEach((d, i) => d.classList.toggle("is-on", i === idx));
+      $("hlChips").innerHTML = sc.chips.map((c, i) => {
+        const [x, y] = HL_POS[i];
+        return `<div class="hl-chip" style="--x:${x}%;--y:${y}%;--tx:${x < 50 ? -22 : -78}%;--d:${i * 0.12}s"><i data-lucide="${c[0]}"></i> ${esc(c[1])}</div>`;
+      }).join("");
+      $("hlNet").innerHTML = HL_POS.map(([x, y]) => `<path d="M${x} ${y} Q ${(x + 50) / 2 + (y > 50 ? 8 : -8)} ${(y + 50) / 2} 50 50"/><circle cx="${x}" cy="${y}" r="1.2"/>`).join("");
+      $("hlPrompt").innerHTML = full ? `<b>Tú:</b> ${esc(sc.prompt)}` : "<b>Tú:</b> ";
+      $("hlOut").innerHTML = sc.out.map(o => `<li class="${full ? "is-on" : ""}"><span>${o[0]}</span><span>${esc(o[1])}</span></li>`).join("");
+      $("hlHuman").classList.toggle("is-on", !!full);
+      if (window.lucide) lucide.createIcons({ nodes: [$("hlChips")] });
+    }
+
+    async function play(t) {
+      while (t === token) {
+        const sc = HERO_SCENES[idx];
+        stage.classList.remove("is-absorb", "is-answer");
+        paint(sc, false);
+        if (!await wait(2200, t)) return;
+        stage.classList.add("is-absorb");
+        if (!await wait(1300, t)) return;
+        stage.classList.remove("is-absorb");
+        stage.classList.add("is-answer");
+        if (!await wait(500, t)) return;
+        const pr = $("hlPrompt");
+        for (let i = 1; i <= sc.prompt.length; i++) {
+          pr.innerHTML = `<b>Tú:</b> ${esc(sc.prompt.slice(0, i))}<span class="hl-caret"></span>`;
+          if (!await wait(32, t)) return;
+        }
+        pr.innerHTML = `<b>Tú:</b> ${esc(sc.prompt)}`;
+        for (const li of $("hlOut").querySelectorAll("li")) {
+          if (!await wait(520, t)) return;
+          li.classList.add("is-on");
+        }
+        if (!await wait(450, t)) return;
+        $("hlHuman").classList.add("is-on");
+        if (!await wait(3400, t)) return;
+        stage.classList.remove("is-answer");
+        if (!await wait(600, t)) return;
+        idx = (idx + 1) % HERO_SCENES.length;
+      }
+    }
+    function start() { if (running) return; running = true; play(++token); }
+    function stop() { if (!running) return; running = false; token++; }
+    if (reduce) { stage.classList.add("is-answer"); paint(HERO_SCENES[1], true); idx = 1; $("hlDots").querySelectorAll("i").forEach((d, i) => d.classList.toggle("is-on", i === 1)); return; }
+    const visible = () => !document.hidden && stage.offsetParent !== null && stage.getBoundingClientRect().bottom > 0 && stage.getBoundingClientRect().top < innerHeight;
+    const check = () => (visible() ? start() : stop());
+    document.addEventListener("visibilitychange", check);
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("hashchange", () => setTimeout(check, 300));
+    setInterval(check, 1500);
+    check();
+  }
+
+  /* ========== PROMPTS QUE SORPRENDEN ========== */
+  const SORPRESAS = [
+    { id: "entrevista", icon: "message-circle-question", name: "Entrevístame primero", type: "Interacción invertida",
+      why: "En vez de adivinar, Copilot te hace preguntas antes de responder. El resultado se ajusta a tu caso real y descubres información que no habías considerado.",
+      prompt: `Quiero preparar [el informe semanal del Proyecto Horizonte para el comité].
+Antes de escribir nada, entrevístame: hazme una pregunta a la vez (máximo 5) sobre el objetivo, la audiencia, los datos disponibles y el formato. Espera mi respuesta antes de hacer la siguiente.
+Cuando termines, resume lo que entendiste en 5 viñetas y pregúntame si es correcto. Solo después redacta el borrador.
+Si te falta un dato, no lo inventes: márcalo como «Pendiente de confirmar».`,
+      use: "Cualquier entregable del curso: el informe de la Fase 8 (Sesión 2) o tu plan del Cierre.",
+      look: ["¿Las preguntas te hicieron pensar en algo que habías olvidado?", "¿El borrador final es más preciso que si lo hubieras pedido directamente?"],
+      alt: "Si Copilot hace todas las preguntas juntas, responde: «Una pregunta a la vez, por favor». Si empieza a redactar sin preguntar, insiste: «Antes de escribir, entrevístame»." },
+    { id: "premortem", icon: "hourglass", name: "Pre-mortem", type: "Anticipar el fracaso",
+      why: "Una técnica de gestión de proyectos: imaginar que el proyecto ya fracasó y explicar por qué. Rompe el optimismo del plan y revela los riesgos que nadie se atreve a mencionar.",
+      prompt: `Actúa como gerente de proyectos con experiencia en el sector energético.
+Imagina que es [febrero de 2027] y el [Proyecto Horizonte] fracasó: se entregó tarde, costó más de lo previsto y el cliente quedó insatisfecho.
+Con base solo en [los archivos adjuntos]:
+1. Escribe la «historia del fracaso» en 5 líneas.
+2. Lista las 5 causas más probables, cada una con la evidencia del archivo que la sugiere.
+3. Para cada causa, propón una señal de alerta temprana y una acción preventiva que podamos tomar hoy.
+Formato: tabla Causa | Evidencia (archivo) | Señal de alerta | Acción preventiva.
+Separa los hechos de tus inferencias.`,
+      use: "Los archivos del Proyecto Horizonte (Sesión 2): actas, presupuesto y matriz de riesgos.",
+      look: ["¿Aparecen riesgos que no estaban en la matriz de riesgos?", "¿Cada causa tiene evidencia real o es una suposición?"],
+      alt: "Sin archivos: pega en el chat un resumen de 10 líneas de tu proyecto. Si la tabla sale cortada, pide «solo las 3 causas principales»." },
+    { id: "mesa", icon: "users", name: "Mesa de expertos", type: "Varias perspectivas",
+      why: "Copilot simula varios roles que opinan y debaten. Ves la misma decisión desde finanzas, seguridad y operación en un solo paso, como en un comité real.",
+      prompt: `Simula una mesa de trabajo con 3 expertos que analizan [la propuesta de adelantar 4 semanas la puesta en marcha del Proyecto Horizonte]:
+- Directora financiera: costos y flujo de caja.
+- Líder HSE: seguridad y cumplimiento.
+- Jefe de operaciones: continuidad del servicio.
+Ronda 1: cada uno da su opinión en 3 líneas, citando [los archivos adjuntos] cuando sea posible.
+Ronda 2: cada uno responde a la objeción más fuerte de otro experto.
+Cierre: resume en qué están de acuerdo, en qué no y qué información le falta al comité para decidir.
+No inventes cifras: si un experto necesita un dato que no está, debe decirlo.`,
+      use: "Una decisión real de tu área o la Fase 6 del Proyecto Horizonte.",
+      look: ["¿Los expertos realmente discrepan o todos dicen lo mismo?", "¿La lista de «información que falta» te sirve para preparar la reunión?"],
+      alt: "Si la respuesta es muy larga, pide primero solo la Ronda 1 y luego «continúa con la Ronda 2». Cambia los roles por los de tu comité real." },
+    { id: "esceptico", icon: "shield-alert", name: "El comité escéptico", type: "Pon a prueba tu borrador",
+      why: "Antes de presentar, pídele a Copilot que ataque tu propuesta. Llegas a la reunión con las respuestas a las preguntas difíciles ya preparadas.",
+      prompt: `Voy a presentar este borrador al comité: [pega tu propuesta, correo o resumen].
+Actúa como el miembro más escéptico y exigente del comité.
+1. Formula las 5 objeciones o preguntas más difíciles que me harías, de la más fuerte a la más débil.
+2. Para cada una, indica qué parte del borrador la provoca.
+3. Sugiere cómo responderla con evidencia y qué dato debería tener a mano.
+4. Al final, califica la solidez del borrador de 1 a 5 y dime la única mejora que más subiría la calificación.
+Sé directo, pero profesional.`,
+      use: "El informe ejecutivo de la Fase 8 (Sesión 2) o el correo que redactaste en la Sesión 1.",
+      look: ["¿Alguna objeción te tomó por sorpresa?", "¿La mejora sugerida es concreta y aplicable?"],
+      alt: "Si no quieres pegar el documento completo, pega solo el resumen ejecutivo (menos de 1.000 caracteres)." },
+    { id: "niveles", icon: "layers", name: "Explícalo en 3 niveles", type: "Adaptar a la audiencia",
+      why: "Un mismo tema explicado para tres audiencias. Te muestra qué es esencial y qué es detalle, y te deja tres mensajes listos para usar.",
+      prompt: `Explica [el estado actual del Proyecto Horizonte según los archivos adjuntos] en tres niveles:
+1. Para una persona que acaba de ingresar a la empresa: 4 líneas, sin siglas ni jerga.
+2. Para el gerente general: 30 segundos de lectura, centrado en impacto, riesgo y decisión requerida.
+3. Para el equipo técnico: hitos, dependencias y pendientes, en viñetas.
+Usa la misma información en los tres niveles; no agregues datos que no estén en las fuentes.
+Al final, dime qué idea aparece en los tres niveles: ese es el mensaje central.`,
+      use: "Cualquier informe de tu trabajo o los archivos de la Sesión 2.",
+      look: ["¿El mensaje central coincide con lo que tú consideras más importante?", "¿El nivel 1 se entiende sin conocer el proyecto?"],
+      alt: "Funciona también sin archivos con un tema técnico: «Explica qué es un transformador de potencia en tres niveles»." },
+    { id: "meta", icon: "wand-2", name: "El prompt que crea prompts", type: "Metaprompt",
+      why: "Le pides a Copilot que diseñe el prompt por ti. Es la forma más rápida de llevar PRISM a una tarea nueva y, de paso, aprender cómo piensa la IA.",
+      prompt: `Ayúdame a escribir el mejor prompt posible para esta tarea: [describe la tarea; por ejemplo: «preparar el acta de la reunión semanal a partir de mis notas»].
+1. Hazme hasta 4 preguntas para entender el objetivo, la audiencia, las fuentes y el formato esperado.
+2. Con mis respuestas, escribe el prompt con esta estructura: Persona, Realidad (contexto), Información (fuentes y qué hacer si falta un dato), Solicitud, Método (formato) y Verificación.
+3. El prompt debe tener menos de 1.500 caracteres para que funcione en cualquier versión de Copilot.
+4. Explica en 3 viñetas por qué cada parte mejora el resultado.`,
+      use: "La tarea que elegiste en «Mi oportunidad Copilot» (entre sesiones).",
+      look: ["¿El prompt generado es mejor que el que habrías escrito tú?", "Guárdalo: es reutilizable cada semana."],
+      alt: "Si Copilot entrega el prompt sin preguntar, responde tú las 4 preguntas en un segundo mensaje y pídele que lo ajuste." },
+    { id: "ciegos", icon: "eye-off", name: "¿Qué no estoy viendo?", type: "Puntos ciegos",
+      why: "La IA responde lo que preguntas; esta técnica le pide que te diga lo que no preguntaste. Es ideal antes de cerrar un análisis o tomar una decisión.",
+      prompt: `Este es mi análisis o decisión: [pega tu conclusión o resume tu plan en 5 líneas].
+Actúa como un consultor externo que revisa mi trabajo con mirada fresca.
+1. ¿Qué 5 preguntas haría un experto que yo no me hice?
+2. ¿Qué supuestos doy por ciertos? Clasifícalos como dato verificado, inferencia o suposición.
+3. ¿Qué parte interesada no estoy considerando y cómo la afecta mi decisión?
+4. ¿Qué información adicional cambiaría mi conclusión?
+No reescribas mi análisis; solo señala lo que falta.`,
+      use: "Después de la Fase 6 (priorización) o de cualquier decisión importante.",
+      look: ["¿Alguna pregunta cambia tu conclusión?", "¿Cuántos de tus «datos» eran en realidad suposiciones?"],
+      alt: "Úsalo después de cualquier respuesta de Copilot: «¿Qué supuestos hiciste en tu respuesta anterior y cómo los verifico?»." },
+    { id: "ensayo", icon: "mic", name: "Ensayo de conversación difícil", type: "Juego de roles",
+      why: "Practica una conversación tensa antes de tenerla: Copilot interpreta a la otra persona y al final te da retroalimentación. Es entrenamiento sin riesgo.",
+      prompt: `Quiero practicar una conversación difícil. Es un ejercicio de capacitación.
+Interpreta a [un contratista molesto porque su pago lleva 30 días de retraso]. Yo soy [el coordinador del proyecto].
+Reglas:
+- Responde como lo haría esa persona: con objeciones realistas, sin ser ofensivo.
+- Una sola intervención por turno; espera mi respuesta.
+- Si escribo «PAUSA», sal del personaje y dame retroalimentación.
+- Después de 5 turnos, termina y evalúa mi desempeño en empatía, claridad y compromiso concreto (de 1 a 5 cada uno), con un ejemplo de mejor respuesta.
+Empieza tú con la primera queja.`,
+      use: "Una conversación que tengas pendiente: un cliente, un proveedor, tu equipo o tu jefe.",
+      look: ["¿Lograste cerrar con un compromiso concreto?", "¿La retroalimentación te dejó una frase que puedas usar en la vida real?"],
+      alt: "Cambia el personaje por tu caso: un usuario que reclama por una interrupción del servicio, un jefe que pide recortar el presupuesto o un equipo desmotivado." },
+    { id: "formatos", icon: "shuffle", name: "Un informe, cinco formatos", type: "Cambio radical de formato",
+      why: "El mismo contenido en formatos que nadie espera. Descubres cuál comunica mejor y obtienes piezas listas para el correo, Teams o la presentación.",
+      prompt: `Toma [el informe adjunto o el texto que pego abajo] y conviértelo en estos 5 formatos:
+1. Titular de periódico (máximo 12 palabras).
+2. Mensaje de Teams de 280 caracteres para el equipo.
+3. Semáforo de 3 líneas: 🟢 lo que va bien, 🟡 lo que preocupa y 🔴 lo urgente.
+4. Una sola pregunta para el comité que obligue a tomar una decisión.
+5. Una analogía cotidiana que explique la situación a alguien que no conoce el proyecto.
+Usa solo la información del texto; no agregues cifras.
+[Pega aquí el texto si no adjuntas un archivo]`,
+      use: "El informe de la Fase 8 (Sesión 2) o 10 líneas de cualquier informe tuyo.",
+      look: ["¿Qué formato comunicó mejor el mensaje?", "¿El semáforo coincide con tu propia evaluación?"],
+      alt: "Si un formato no te sirve, cámbialo por otro: guion de video de 30 segundos, pregunta de encuesta o lista de verificación." },
+    { id: "futuro", icon: "mail-open", name: "Carta desde el futuro", type: "Visión y compromiso",
+      why: "Tu «yo» de dentro de 6 meses te escribe contando qué cambió al usar Copilot. Convierte la intención en un plan concreto: es el mejor cierre del curso.",
+      prompt: `Escribe una carta que me envía mi «yo» del futuro, dentro de 6 meses.
+Contexto: trabajo como [tu cargo] en el sector energético y voy a usar Copilot para [la tarea que elegiste en tu plan; por ejemplo: preparar los informes semanales].
+La carta debe:
+1. Contar qué cambió en mi forma de trabajar y cuánto tiempo calculo que ahorré (marca la cifra como estimación).
+2. Mencionar un error que evité por verificar las respuestas de la IA.
+3. Recordarme una regla de uso responsable que nunca debo romper.
+4. Terminar con el primer paso que debo dar mañana.
+Tono cercano y realista; máximo 200 palabras.`,
+      use: "Lo que escribiste en «Lo que voy a hacer · Mi plan» del Cierre.",
+      look: ["¿El primer paso es algo que puedes hacer mañana de verdad?", "Guarda la carta y vuelve a leerla dentro de 6 meses."],
+      alt: "Si prefieres algo más formal, pide «un correo para mi jefe con mi plan de uso de Copilot» en lugar de la carta." }
+  ];
+  let spCurrent = SORPRESAS[0].id;
+
+  function renderSorpresa(animate) {
+    const deck = document.getElementById("spDeck"), card = document.getElementById("spCard");
+    if (!deck || !card) return;
+    state.sorpresa = state.sorpresa || {};
+    const tried = SORPRESAS.filter(t => state.sorpresa[t.id]).length;
+    document.getElementById("spCount").innerHTML = `Has probado <strong>${tried} de ${SORPRESAS.length}</strong> técnicas${tried === SORPRESAS.length ? " · ¡las dominas todas! 🏆" : ""}`;
+    document.getElementById("spBar").style.width = `${(tried / SORPRESAS.length) * 100}%`;
+    deck.innerHTML = SORPRESAS.map(t => `<button type="button" class="sp-chip" data-sp="${t.id}" aria-pressed="${t.id === spCurrent}"><i data-lucide="${t.icon}"></i><span>${esc(t.name)}</span>${state.sorpresa[t.id] ? '<span class="sp-done" aria-label="probada">✓</span>' : ""}</button>`).join("");
+    const t = SORPRESAS.find(x => x.id === spCurrent);
+    const n = SORPRESAS.indexOf(t) + 1;
+    card.innerHTML = `
+      <span class="sp-card__badge">Técnica ${n} de ${SORPRESAS.length} · ${esc(t.type)}</span>
+      <h3><i data-lucide="${t.icon}" width="22" height="22"></i> ${esc(t.name)}</h3>
+      <p class="sp-card__why">${esc(t.why)}</p>
+      <div class="prompt-box" id="spPrompt">${esc(t.prompt)}</div>
+      <div class="btn-group" style="gap:0.4rem;margin:0.6rem 0 0">
+        <button type="button" class="btn btn--sm btn--primary" data-copy="#spPrompt"><i data-lucide="copy" width="14" height="14"></i> Copiar prompt</button>
+        <button type="button" class="btn btn--sm btn--secondary sp-tried" id="spTried" aria-pressed="${!!state.sorpresa[t.id]}"><i data-lucide="${state.sorpresa[t.id] ? "check-circle-2" : "circle"}" width="14" height="14"></i> ${state.sorpresa[t.id] ? "Ya lo probé" : "Marcar como probado"}</button>
+      </div>
+      <div class="sp-card__grid">
+        <div><h4><i data-lucide="target" width="15" height="15"></i> Pruébalo con</h4><p>${esc(t.use)} Completa los [corchetes] con tu caso.</p></div>
+        <div><h4><i data-lucide="eye" width="15" height="15"></i> Qué observar</h4><ul>${t.look.map(l => `<li>${esc(l)}</li>`).join("")}</ul></div>
+      </div>
+      <details class="pr-trouble" style="margin-top:0.75rem"><summary>Si no funciona como esperas · alternativa</summary><div style="padding:0 0 0.6rem;font-size:0.88rem">${esc(t.alt)}</div></details>`;
+    if (animate) { card.classList.remove("is-in"); void card.offsetWidth; card.classList.add("is-in"); }
+    deck.querySelectorAll("[data-sp]").forEach(b => b.addEventListener("click", () => { spCurrent = b.dataset.sp; renderSorpresa(true); }));
+    document.getElementById("spTried").addEventListener("click", () => {
+      state.sorpresa[t.id] = !state.sorpresa[t.id];
+      saveState();
+      renderSorpresa(false);
+      if (state.sorpresa[t.id]) toast("Técnica marcada como probada");
+    });
+    attachPromptMeters(card);
+    initCopyButtons();
+    if (window.lucide) lucide.createIcons({ nodes: [deck, card] });
+  }
+
+  let spRolling = false;
+  async function sorpresaShuffle() {
+    if (spRolling) return;
+    const deck = document.getElementById("spDeck"), btn = document.getElementById("spRoll");
+    if (!deck) return;
+    state.sorpresa = state.sorpresa || {};
+    const pending = SORPRESAS.filter(t => !state.sorpresa[t.id] && t.id !== spCurrent);
+    const pool = pending.length ? pending : SORPRESAS.filter(t => t.id !== spCurrent);
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduce) {
+      spRolling = true; btn && btn.classList.add("is-rolling");
+      const chips = [...deck.querySelectorAll("[data-sp]")];
+      const target = SORPRESAS.indexOf(pick);
+      const steps = chips.length * 2 + target;
+      let delay = 45;
+      for (let i = 0; i <= steps; i++) {
+        chips.forEach((c, j) => c.classList.toggle("is-flash", j === i % chips.length));
+        await new Promise(r => setTimeout(r, delay));
+        if (i > steps - 8) delay += 40;
+      }
+      spRolling = false; btn && btn.classList.remove("is-rolling");
+    }
+    spCurrent = pick.id;
+    renderSorpresa(true);
+  }
+
+  function initSorpresa() {
+    renderSorpresa(false);
+    const roll = document.getElementById("spRoll");
+    if (roll) roll.addEventListener("click", sorpresaShuffle);
+    document.querySelectorAll("[data-sp-random]").forEach(a => a.addEventListener("click", () => setTimeout(sorpresaShuffle, 500)));
   }
 
   function renderActivitySheets() {
@@ -14982,9 +15401,10 @@ No envíes nada a nadie: solo infórmame.`,
         { sel: "#lab-reto", title: "3.4 Reto integrador", key: "lab-3-4",
           locked: () => !!document.querySelector("#lab-reto.lab-card--locked") }
       ] },
-    { id: "herramientas", title: "Herramientas", sub: "Prompts, escenarios y planillas", icon: "wrench",
+    { id: "herramientas", title: "Herramientas", sub: "Prompts, técnicas y planillas", icon: "wrench",
       steps: [
         { sel: "#prompts", title: "Biblioteca de prompts" },
+        { sel: "#sorpresa", title: "Prompts que sorprenden" },
         { sel: "#escenarios", title: "Escenarios por rol" },
         { sel: "#recursos", title: "Planillas para descargar" }
       ] },
@@ -15571,7 +15991,9 @@ No envíes nada a nadie: solo infórmame.`,
     renderS2Turns();
     renderLabAlternatives();
     renderInnovations();
+    initSorpresa();
     initCourseShell();
+    initHeroLive();
     if (window.lucide) lucide.createIcons();
   });
   </script>
