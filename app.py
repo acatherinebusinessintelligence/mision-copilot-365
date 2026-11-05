@@ -187,10 +187,11 @@ QUIZ_TOTALS = {"s1": 5, "s2": 6, "lab": 6}
 
 # Columnas del mapa de avance (mismo orden que ACTIVITY_GROUPS del frontend).
 LIVE_COLUMNS = [
-    ("s1", "Sesión 1", [("reto-r1", "R1"), ("reto-r2", "R2"), ("reto-r3", "R3"), ("reto-r4", "R4"), ("reto-r5", "R5"), ("reto-r6", "R6"), ("quiz-s1", "Eval")]),
-    ("desafio", "Entre sesiones", [("desafio", "Mi oportunidad")]),
-    ("s2", "Sesión 2", [("s2-f0", "F0"), ("s2-f1", "F1"), ("s2-f2", "F2"), ("s2-f3", "F3"), ("s2-f4", "F4"), ("s2-f5", "F5"), ("s2-f6", "F6"), ("s2-f7", "F7"), ("s2-f8", "F8"), ("quiz-s2", "Eval")]),
-    ("lab", "Copilot Lab", [("lab-3-1", "3.1"), ("lab-3-2", "3.2"), ("lab-3-3", "3.3"), ("lab-3-4", "3.4"), ("quiz-lab", "Eval")]),
+    ("s1", "Paso 1", [("reto-r1", "R1"), ("reto-r2", "R2"), ("reto-r3", "R3"), ("reto-r4", "R4"), ("reto-r5", "R5"), ("reto-r6", "R6"), ("quiz-s1", "Eval")]),
+    ("desafio", "Entre pasos", [("desafio", "Mi oportunidad")]),
+    ("s2", "Paso 2", [("s2-f0", "F0"), ("s2-f1", "F1"), ("s2-f2", "F2"), ("s2-f3", "F3"), ("s2-f4", "F4")]),
+    ("s2b", "Paso 3", [("s2-f5", "F5"), ("s2-f6", "F6"), ("s2-f7", "F7"), ("s2-f8", "F8"), ("quiz-s2", "Eval")]),
+    ("lab", "Paso 4 · Lab", [("lab-3-1", "3.1"), ("lab-3-2", "3.2"), ("lab-3-3", "3.3"), ("lab-3-4", "3.4"), ("quiz-lab", "Eval")]),
     ("cierre", "Cierre", [("cierre-reflexion", "Me llevo"), ("proyecto-final", "Mi plan")]),
 ]
 
@@ -204,6 +205,12 @@ PULSES = {
                 ["Muy claro", "Tengo una idea", "Aún no lo sé"]),
     "s2": ("¿Qué es lo más difícil al revisar un proyecto con muchos documentos?",
            ["Encontrar la información", "Detectar inconsistencias", "Priorizar los riesgos", "Explicarlo al comité"]),
+    "s2b": ("¿Qué es lo más difícil al presentar ante un comité?",
+            ["Resumir sin perder lo importante", "Respaldar cada cifra", "Pedir una decisión concreta", "Responder preguntas difíciles"]),
+    "parada-biblioteca": ("¿Para qué usarías primero un prompt del kit?",
+                          ["Correos", "Actas y compromisos", "Informes", "Riesgos y decisiones"]),
+    "parada-escenarios": ("¿En qué área aplicarías primero Copilot?",
+                          ["Operación y mantenimiento", "Gestión de proyectos (PMO)", "HSE", "Comunicaciones", "Finanzas"]),
     "lab": ("¿Qué te gustaría automatizar primero?",
             ["Reportes periódicos", "Seguimiento de compromisos", "Consultas sobre documentos", "Alertas y notificaciones"]),
     "herramientas": ("¿Qué técnica quieres probar primero?",
@@ -278,10 +285,10 @@ def quiz_scores(payload: dict) -> dict:
 
 
 WORK_SECTIONS = [
-    ("avance", "Sesión 1 · notas y resultados"),
-    ("oportunidad", "Entre sesiones · Mi oportunidad Copilot"),
-    ("s2Notes", "Sesión 2 · Proyecto Horizonte"),
-    ("lab33", "Copilot Lab · automatización"),
+    ("avance", "Paso 1 · notas y resultados"),
+    ("oportunidad", "Entre pasos · Mi oportunidad Copilot"),
+    ("s2Notes", "Pasos 2 y 3 · Proyecto Horizonte"),
+    ("lab33", "Paso 4 · Copilot Lab · automatización"),
     ("proyecto", "Cierre · Mi plan"),
 ]
 
@@ -1785,7 +1792,7 @@ def api_admin_results():
         for k, lab in cols:
             activities.append({"key": k, "label": f"{title} · {lab}", "done": sum(1 for r in started if r["done"][k] is True)})
 
-    quizzes = [{"id": q, "label": {"s1": "Sesión 1", "s2": "Sesión 2", "lab": "Copilot Lab"}[q],
+    quizzes = [{"id": q, "label": {"s1": "Paso 1", "s2": "Proyecto Horizonte", "lab": "Copilot Lab"}[q],
                 "value": avg([r["quiz"][q] for r in started]),
                 "n": sum(1 for r in started if r["quiz"][q] is not None)} for q in QUIZ_TOTALS]
 
@@ -1829,7 +1836,7 @@ def api_admin_results():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-11-04-clase-en-vivo-v1"
+APP_CODE_VERSION = "2026-11-04-pasos-y-paradas-v1"
 
 
 @app.get("/health")

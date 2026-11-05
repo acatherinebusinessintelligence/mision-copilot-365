@@ -104,7 +104,8 @@ E) SEGURIDAD
 F) CLASE EN VIVO (cuenta de administración)
 ===========================================
 Abre dos pestañas con tu sesión de administración:
-1. /presentar  -> el curso en modo instructora. En cada módulo, botón
+1. /presentar  -> el curso en modo instructora. En cada paso, parada de
+   herramientas, cierre y compendio, botón
    «Presentación» (barra superior): portada, qué vamos a hacer (agenda con
    tiempos), cómo funciona, cómo trabajaremos, pulso del grupo, «lo lograste
    si…» y cronómetro. Teclas: flechas, F (pantalla completa), Esc (cerrar).

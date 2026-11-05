@@ -225,7 +225,7 @@
     const w = await r.json();
     document.getElementById("drawerTitle").textContent = w.name || "Trabajo del estudiante";
     const s = data && data.students.find(x => x.id === id);
-    const quiz = s ? Object.entries(s.quiz).filter(([, v]) => v != null).map(([k, v]) => `${{ s1: "Sesión 1", s2: "Sesión 2", lab: "Lab" }[k]}: ${v}%`).join(" · ") : "";
+    const quiz = s ? Object.entries(s.quiz).filter(([, v]) => v != null).map(([k, v]) => `${{ s1: "Paso 1", s2: "Horizonte", lab: "Lab" }[k]}: ${v}%`).join(" · ") : "";
     body.innerHTML = (s ? `<p class="muted" style="margin:0 0 .25rem">Avance ${s.percent}% · ${s.complete} de ${data.total_activities} actividades${quiz ? " · Autoevaluaciones: " + quiz : ""}</p>` : "")
       + `<p class="muted" style="font-size:.8rem;margin:0 0 .5rem">Textos que escribió en la plataforma. No incluye sus conversaciones con Copilot.</p>`
       + (w.sections && w.sections.length ? w.sections.map(sec => `<h3>${esc(sec.titulo)}</h3><dl>${sec.items.map(it => `<dt>${esc(it.campo)}</dt><dd>${esc(it.texto)}</dd>`).join("")}</dl>`).join("")
