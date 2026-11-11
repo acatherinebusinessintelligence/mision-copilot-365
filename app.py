@@ -424,6 +424,26 @@ Proyecto Horizonte · caso académico ficticio
     return subject, body
 
 
+# Las 3 pruebas del libro paso a paso del Lab 3.3 (ALTA aprobada, ALTA rechazada, normal).
+LAB33_TEST_EMAILS = {
+    "lab33-1": (
+        "[HORIZONTE] Falla en cadena de frío – bodega norte",
+        "Criticidad: ALTA\n\nTemperatura fuera de rango por más de 2 horas.\n\n"
+        "Prueba 1 del Laboratorio 3.3 · responde la aprobación con Aprobar.\n",
+    ),
+    "lab33-2": (
+        "[HORIZONTE] Retraso de proveedor – lote 45",
+        "CRITICIDAD : Alta\n\nEl proveedor reporta 3 días de retraso.\n\n"
+        "Prueba 2 del Laboratorio 3.3 · responde la aprobación con Rechazar.\n",
+    ),
+    "lab33-3": (
+        "[HORIZONTE] Actualización de inventario",
+        "Criticidad: BAJA\n\nConteo semanal sin novedades.\n\n"
+        "Prueba 3 del Laboratorio 3.3 · no debe llegar ninguna aprobación.\n",
+    ),
+}
+
+
 def _s2_horizonte_email_content() -> tuple[str, str]:
     subject = "SOLICITUD DE ANÁLISIS | Proyecto Horizonte"
     body = """Buenos días,
@@ -578,6 +598,10 @@ def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: s
         subject, body = _s2_horizonte_email_content()
         return subject, body, "Laura Méndez · Dirección de Infraestructura"
 
+    if reto_id in LAB33_TEST_EMAILS:
+        subject, body = LAB33_TEST_EMAILS[reto_id]
+        return subject, body, "Laboratorio 3.3 · Proyecto Horizonte"
+
     if reto_id in ("lab33", "lab-33", "powerautomate", "pa33"):
         subject, body = _lab33_horizonte_email_content()
         return subject, body, "Laboratorio 3.3 · Proyecto Horizonte"
@@ -601,7 +625,7 @@ def get_reto_email_content(reto_id: str, to_email: str, name: str, smtp_email: s
 
 
 def list_reto_email_ids() -> list[str]:
-    return ["r1", "r2", "r2-all", "s2", "lab33"] + [p["id"] for p in get_reto_r2_parts()]
+    return ["r1", "r2", "r2-all", "s2", "lab33", *LAB33_TEST_EMAILS] + [p["id"] for p in get_reto_r2_parts()]
 
 
 def _send_email_smtp(to_email: str, subject: str, body: str, from_display: str) -> tuple[bool, str]:
@@ -1836,7 +1860,7 @@ def api_admin_results():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-11-04-pulso-v1"
+APP_CODE_VERSION = "2026-11-11-lab33-libro-v1"
 
 
 @app.get("/health")

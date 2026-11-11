@@ -1449,6 +1449,21 @@
     }
     .lab33-guide-map li strong { color: var(--text); }
     .lab33-guide-map li span { color: var(--text-muted); font-size: 0.85rem; }
+    .lab33-copy { position: relative; margin: 0.6rem 0; }
+    .lab33-copy__tag { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem; }
+    .lab33-copy pre { margin: 0; background: #0f1b33; color: #e6edf7; padding: 0.75rem 0.85rem; padding-right: 6.5rem; border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; font-family: Consolas, "Cascadia Code", Menlo, monospace; font-size: 0.82rem; line-height: 1.5; }
+    .lab33-copy .btn { position: absolute; top: 1.55rem; right: 0.4rem; background: #fff; }
+    .lab33-cfg { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 0.9rem; }
+    .lab33-cfg th, .lab33-cfg td { border-bottom: 1px solid var(--border, #d9e1ec); padding: 0.4rem 0.55rem; text-align: left; vertical-align: top; }
+    .lab33-cfg th { width: 38%; font-weight: 600; color: var(--text); }
+    .lab33-cfg td { color: var(--text-muted); }
+    .lab33-book-ref { font-size: 0.82rem; color: var(--text-muted); margin: 0 0 0.6rem; }
+    .lab33-tests { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; margin: 0.75rem 0; }
+    .lab33-tests > div { border: 1px solid var(--border, #d9e1ec); border-radius: 10px; padding: 0.7rem 0.8rem; font-size: 0.86rem; }
+    .lab33-tests > div > strong:first-child { display: block; margin-bottom: 0.25rem; }
+    .lab33-tests code { white-space: normal; }
+    .lab33-tests .btn { margin-top: 0.5rem; width: 100%; justify-content: center; }
+    @media (max-width: 860px) { .lab33-tests { grid-template-columns: 1fr; } }
     .lab33-route {
       border: 1px solid var(--border); border-radius: var(--radius-sm);
       padding: 0.9rem 1rem; background: var(--bg-elevated);
@@ -6600,50 +6615,46 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
           <div class="card" id="lab33MaterialApoyo">
             <p class="lab-badge" style="margin:0 0 0.45rem">Material de apoyo</p>
             <h3 style="margin-top:0">Construye el flujo paso a paso</h3>
-            <p style="color:var(--text-muted)">Descarga la referencia visual del flujo que construirás en Power Automate. Úsala durante el ejercicio para comparar cada acción, condición y ruta con el resultado esperado.</p>
-            <div class="lab-chain" aria-label="Uso del material" style="max-width:16rem;margin:0.85rem auto">
-              <div class="lab-chain__node"><strong>📥 Descarga</strong></div>
+            <p style="color:var(--text-muted)">El <strong>libro paso a paso</strong> es la guía oficial de este laboratorio: 20 hojas con capturas, cada configuración y las expresiones listas para copiar. Ábrelo en otra pestaña y trabaja con Power Automate al lado. Las tarjetas de abajo siguen los mismos pasos y explican el <em>porqué</em> de cada uno.</p>
+            <div class="lab-chain" aria-label="Cómo usar el material" style="max-width:16rem;margin:0.85rem auto">
+              <div class="lab-chain__node"><strong>📥 Prepara</strong><span>Sube la plantilla de trazabilidad</span></div>
               <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>⚙️ Construye</strong></div>
+              <div class="lab-chain__node"><strong>⚙️ Construye</strong><span>Los 11 pasos del libro</span></div>
               <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>🧪 Prueba</strong></div>
+              <div class="lab-chain__node"><strong>🧪 Prueba</strong><span>Los 3 correos de prueba</span></div>
               <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>✓ Compara</strong></div>
+              <div class="lab-chain__node"><strong>✓ Compara</strong><span>Historial y filas en Excel</span></div>
             </div>
             <div class="btn-group" style="margin:0.85rem 0 0.35rem;flex-wrap:wrap">
-              <button type="button" class="btn btn--primary" data-reto-email="lab33">
-                <i data-lucide="mail" width="16" height="16"></i> Enviar correo de prueba [HORIZONTE] a mi bandeja
-              </button>
-              <button type="button" class="btn btn--secondary" data-planilla="lab33-powerautomate">
-                <i data-lucide="download" width="16" height="16"></i> Descargar guía visual de Power Automate
-              </button>
-              <a class="btn btn--sm btn--ghost" href="/planillas/Powerautomate.png" download="Powerautomate.png">
-                <i data-lucide="image" width="14" height="14"></i> Enlace directo
+              <a class="btn btn--primary" href="/planillas/MCP365_Lab33_Libro_Power_Automate.html" target="_blank" rel="noopener">
+                <i data-lucide="book-open" width="16" height="16"></i> Abrir el libro paso a paso
               </a>
+              <button type="button" class="btn btn--secondary" data-planilla="lab33-trazabilidad">
+                <i data-lucide="sheet" width="16" height="16"></i> Descargar Horizonte_Trazabilidad.xlsx
+              </button>
+              <button type="button" class="btn btn--sm btn--ghost" data-planilla="lab33-powerautomate">
+                <i data-lucide="image" width="14" height="14"></i> Guía visual (imagen)
+              </button>
             </div>
-            <p id="retoEmailStatus-lab33" data-reto-email-hint style="margin:0 0 0.35rem;font-size:0.88rem;color:var(--text-muted)">El correo llega a tu bandeja con asunto <strong>[HORIZONTE]</strong> y el texto <strong>Criticidad: ALTA</strong>, para disparar el flujo de Power Automate.</p>
-            <p style="margin:0 0 0.85rem;font-size:0.85rem;color:var(--text-muted)">Referencia visual · Proyecto Horizonte · Laboratorio 3.3</p>
-            <p style="margin:0 0 0.45rem;font-weight:600">Vista previa del resultado esperado</p>
-            <figure class="lab33-guide-preview">
-              <a href="/planillas/Powerautomate.png" target="_blank" rel="noopener noreferrer" title="Ampliar guía visual">
-                <img src="/planillas/Powerautomate.png" alt="Guía visual del flujo Power Automate · Laboratorio 3.3 Proyecto Horizonte" width="1200" height="1600" loading="lazy" />
-              </a>
-            </figure>
-            <p style="margin:0.85rem 0 0;color:var(--text-muted);font-size:0.92rem">Esta imagen muestra cómo debe quedar la estructura general del flujo. No reemplaza el ejercicio: construye cada acción siguiendo los pasos del laboratorio y utiliza esta referencia para validar el resultado.</p>
-            <p class="lab32-quote" style="margin:0.85rem 0">NO COPIES SOLO EL RESULTADO. COMPRENDE QUÉ HACE CADA PASO.</p>
-            <p style="margin:0 0 0.45rem;font-weight:600">Correspondencia con el flujo</p>
-            <ol class="lab33-guide-map" aria-label="Acciones del flujo y su rol">
-              <li><strong>1. Cuando llega un nuevo correo electrónico (V3)</strong><span>→ Evento</span></li>
-              <li><strong>2. HTML a texto</strong><span>→ Preparación del contenido</span></li>
-              <li><strong>3. RutaHallazgo</strong><span>→ Variable de control</span></li>
-              <li><strong>4. Condición</strong><span>→ Detectar “Criticidad: ALTA”</span></li>
-              <li><strong>5. True</strong><span>→ ALERTA_CRITICA</span></li>
-              <li><strong>6. False</strong><span>→ REGISTRO_NORMAL</span></li>
-              <li><strong>7. Iniciar y esperar una aprobación</strong><span>→ Control humano</span></li>
-              <li><strong>8. Condición 1</strong><span>→ Resultado = Approve</span></li>
-              <li><strong>9. True</strong><span>→ Enviar correo electrónico (V2)</span></li>
-              <li><strong>10. False</strong><span>→ No enviar</span></li>
+            <p class="disclaimer disclaimer--info" style="margin:0.85rem 0">
+              <i data-lucide="info" width="18" height="18"></i>
+              <span><strong>Antes de empezar (5 min):</strong> sube <code>Horizonte_Trazabilidad.xlsx</code> a la raíz de tu OneDrive institucional sin cambiar el nombre del archivo, de la tabla <code>Registro</code> ni de sus columnas. Desactiva cualquier otro flujo que vigile correos con <code>[HORIZONTE]</code>. Luego crea un <strong>Flujo de nube automatizado</strong> llamado <code>Horizonte - Gestión de hallazgos</code>.</span>
+            </p>
+            <p style="margin:0 0 0.45rem;font-weight:600">Los 11 pasos del flujo</p>
+            <ol class="lab33-guide-map" aria-label="Pasos del flujo y su rol">
+              <li><strong>1. Cuando llega un nuevo correo electrónico (V3)</strong><span>→ Evento · filtro [HORIZONTE] + condición anti-bucle</span></li>
+              <li><strong>2. Html a texto</strong><span>→ Preparar el contenido</span></li>
+              <li><strong>3. RutaHallazgo</strong><span>→ Variable de ruta (vacía)</span></li>
+              <li><strong>4. Variable Decision</strong><span>→ Variable de trazabilidad (NO_REQUIERE)</span></li>
+              <li><strong>5. Criticidad ALTA</strong><span>→ Regla: ¿el texto dice “Criticidad: ALTA”?</span></li>
+              <li><strong>6. Ruta crítica / Ruta normal</strong><span>→ ALERTA_CRITICA o REGISTRO_NORMAL</span></li>
+              <li><strong>7. Aprobacion humana</strong><span>→ Control humano (espera hasta 2 días)</span></li>
+              <li><strong>8. Registrar decision</strong><span>→ Qué se decidió y quién</span></li>
+              <li><strong>9. Aprobado</strong><span>→ Resultado = Approve</span></li>
+              <li><strong>10. Enviar alerta aprobada</strong><span>→ Acción, solo si se aprobó</span></li>
+              <li><strong>11. Registrar trazabilidad</strong><span>→ Fila en Excel para todos los casos</span></li>
             </ol>
+            <p class="lab32-quote" style="margin:0.85rem 0 0">NO COPIES SOLO EL RESULTADO. COMPRENDE QUÉ HACE CADA PASO.</p>
           </div>
 
           <div class="card">
@@ -6657,7 +6668,11 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
               <li><strong style="color:var(--text)">Carpeta:</strong> Bandeja de entrada</li>
               <li><strong style="color:var(--text)">Filtro de asunto:</strong> <code>[HORIZONTE]</code></li>
             </ul>
-            <p style="color:var(--text-muted);font-size:0.92rem">El filtro evita ejecutar el flujo para todos los correos.</p>
+            <p class="lab33-book-ref">Libro · Paso 1 de 11</p>
+            <p style="color:var(--text-muted);font-size:0.92rem">El filtro evita ejecutar el flujo para todos los correos. Elige el conector <strong>Office 365 Outlook</strong>, no Outlook.com (ese es para cuentas personales).</p>
+            <p style="margin:0.6rem 0 0.2rem;font-size:0.92rem"><strong>Configuración → Condiciones del desencadenador → + Agregar</strong>. Evita que el flujo se active con su propio correo de salida:</p>
+            <div class="lab33-copy"><span class="lab33-copy__tag">Condición del desencadenador</span><pre>@not(contains(toLower(triggerOutputs()?['body/subject']), 'alerta aprobada'))</pre><button type="button" class="btn btn--sm btn--ghost" data-lab33-copy><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin:0">Esta condición solo se guarda cuando el flujo ya tiene una acción: revísala después del paso 2.</p>
             <p style="font-weight:600;margin:0.85rem 0 0.45rem">Selecciona cuál es el EVENTO del flujo:</p>
             <div class="lab31-choices" role="group" aria-label="Selección de evento">
               <button type="button" class="lab31-choice" data-lab33-event="A"><strong>A</strong> Criticidad ALTA</button>
@@ -6673,8 +6688,9 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
 
           <div class="card">
             <h3 style="margin-top:0"><span class="lab31-step-num">2</span> Del correo al texto procesable</h3>
-            <p style="margin:0 0 0.45rem"><strong>Acción:</strong> Conversión de contenido · “HTML a texto”</p>
-            <p style="color:var(--text-muted)"><strong>Entrada:</strong> cuerpo del correo recibido.</p>
+            <p style="margin:0 0 0.45rem"><strong>Acción:</strong> Conversión de contenido · “Html a texto”</p>
+            <p class="lab33-book-ref">Libro · Paso 2 de 11</p>
+            <p style="color:var(--text-muted)"><strong>Entrada:</strong> en <em>Contenido</em>, usa el rayito ⚡ y elige <strong>Cuerpo</strong> del correo. No elijas <em>Vista previa del cuerpo</em>: solo trae un fragmento. Deja el nombre <code>Html a texto</code>, porque las expresiones lo usan así. Ahora ya puedes <strong>Guardar</strong>.</p>
             <p style="color:var(--text-muted)">El cuerpo de un correo puede contener HTML. Antes de evaluar su contenido lo convertimos a texto.</p>
             <div class="lab-chain" aria-label="HTML a texto" style="max-width:18rem;margin:0.85rem auto 0">
               <div class="lab-chain__node"><strong>📧 Cuerpo HTML</strong></div>
@@ -6689,26 +6705,29 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">3</span> Prepara la ruta del hallazgo</h3>
-            <p style="margin:0 0 0.45rem"><strong>Acción:</strong> Variables · “Inicializar variable”</p>
-            <ul style="margin:0.5rem 0 0.75rem;padding-left:1.2rem;color:var(--text-muted);font-size:0.92rem">
-              <li><strong style="color:var(--text)">Nombre:</strong> <code>RutaHallazgo</code></li>
-              <li><strong style="color:var(--text)">Tipo:</strong> Cadena</li>
-              <li><strong style="color:var(--text)">Valor inicial:</strong> vacío</li>
-            </ul>
-            <p style="color:var(--text-muted)">La variable almacenará posteriormente una de dos rutas:</p>
+            <h3 style="margin-top:0"><span class="lab31-step-num">3</span> Prepara la ruta y la decisión</h3>
+            <p class="lab33-book-ref">Libro · Pasos 3 y 4 de 11</p>
+            <p style="margin:0 0 0.45rem"><strong>Acción:</strong> Variables · “Inicializar variable” (dos veces, en el tronco principal)</p>
+            <table class="lab33-cfg">
+              <tr><th>Paso 3 · <code>RutaHallazgo</code></th><td>Tipo Cadena · valor <strong>vacío</strong>. La regla decide la ruta.</td></tr>
+              <tr><th>Paso 4 · <code>Decision</code></th><td>Tipo Cadena · valor <code>NO_REQUIERE</code>. Guarda qué pasó; si nadie tuvo que aprobar, queda así.</td></tr>
+            </table>
+            <p style="color:var(--text-muted);font-size:0.9rem">“Inicializar variable” no se puede poner dentro de una condición: siempre va arriba, antes de usarla. <code>RutaHallazgo</code> almacenará después una de dos rutas:</p>
             <div class="lab33-condition" style="margin-top:0.75rem">
               <div class="lab33-condition__if"><strong>ALERTA_CRITICA</strong><span>Ruta de atención crítica</span></div>
               <div class="lab33-condition__else"><strong>REGISTRO_NORMAL</strong><span>Sin alerta crítica</span></div>
             </div>
             <ul class="check-list" style="margin:0.85rem 0 0">
-              <li><label><input type="checkbox" data-progress="lab33-var" /> Inicialicé o comprendí la variable RutaHallazgo.</label></li>
+              <li><label><input type="checkbox" data-progress="lab33-var" /> Inicialicé las variables RutaHallazgo y Decision.</label></li>
             </ul>
           </div>
 
           <div class="card">
             <h3 style="margin-top:0"><span class="lab31-step-num">4</span> ¿Cuándo requiere atención crítica?</h3>
-            <p style="margin:0 0 0.45rem"><strong>Condición real:</strong> Contenido de texto <strong>CONTIENE</strong> <code>Criticidad: ALTA</code></p>
+            <p class="lab33-book-ref">Libro · Pasos 5 y 6 de 11</p>
+            <p style="margin:0 0 0.45rem"><strong>Condición</strong> renombrada <code>Criticidad ALTA</code>: primer valor con <strong>fx</strong>, operador <em>es igual que</em>, segundo valor <code>true</code> también con <strong>fx</strong>.</p>
+            <div class="lab33-copy"><span class="lab33-copy__tag">Primer valor (fx)</span><pre>contains(replace(toLower(body('Html_a_texto')), ' ', ''), 'criticidad:alta')</pre><button type="button" class="btn btn--sm btn--ghost" data-lab33-copy><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+            <p style="color:var(--text-muted);font-size:0.9rem">Pasa el texto a minúsculas y le quita los espacios antes de buscar: detecta igual “Criticidad: ALTA”, “criticidad:alta” o “CRITICIDAD : Alta”. Si escribes <code>true</code> como texto normal, la condición falla. En cada rama, <strong>Establecer variable</strong> con el ⊕ de dentro de esa rama:</p>
             <p style="color:var(--text-muted)">Esta decisión NO necesita IA porque la regla está definida explícitamente.</p>
             <div class="lab33-condition">
               <div class="lab33-condition__if">
@@ -6739,11 +6758,21 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
 
           <div class="card lab33-hitl">
             <h3 style="margin-top:0"><span class="lab31-step-num">5</span> Una alerta crítica no debe enviarse sola</h3>
-            <p style="color:var(--text-muted)">En la rama TRUE → ALERTA_CRITICA se agrega la acción real:</p>
+            <p class="lab33-book-ref">Libro · Pasos 7 y 8 de 11</p>
+            <p style="color:var(--text-muted)">En la rama TRUE, debajo de <em>Ruta crítica</em>, se agrega la acción real:</p>
             <div class="lab33-event-box">
               <strong>Aprobaciones estándar</strong>
-              <p>“Iniciar y esperar una aprobación” · Tipo: Aprobar o rechazar — primero en responder</p>
+              <p>“Iniciar y esperar una aprobación” · renómbrala <code>Aprobacion humana</code>, sin tilde, para que su nombre interno sea <code>Aprobacion_humana</code>.</p>
             </div>
+            <table class="lab33-cfg">
+              <tr><th>Tipo</th><td>Aprobar o rechazar: primero en responder</td></tr>
+              <tr><th>Título</th><td><code>ALERTA CRÍTICA | Proyecto Horizonte</code></td></tr>
+              <tr><th>Asignado a</th><td>Correos institucionales separados por <code>;</code> (para probar, el tuyo). Una cuenta externa no puede responder.</td></tr>
+              <tr><th>Detalles</th><td>Remitente, Asunto, Ruta y el texto del hallazgo con el rayito ⚡, dejando una línea en blanco entre renglones (el libro trae la plantilla para copiar).</td></tr>
+              <tr><th>Configuración · Tiempo de espera</th><td><code>P2D</code> (2 días)</td></tr>
+            </table>
+            <p style="margin:0.6rem 0 0.2rem;font-size:0.92rem">Paso 8 · debajo, <strong>Establecer variable</strong> <code>Decision</code> (renombrar <code>Registrar decision</code>) con este valor en <strong>fx</strong>. Guarda, por ejemplo, <code>Approve · Ana Pérez</code>:</p>
+            <div class="lab33-copy"><span class="lab33-copy__tag">Valor (fx) · pégala completa</span><pre>concat(outputs('Aprobacion_humana')?['body/outcome'], ' · ', coalesce(first(outputs('Aprobacion_humana')?['body/responses'])?['responder']?['displayName'], first(outputs('Aprobacion_humana')?['body/responses'])?['responder']?['email'], 'sin nombre'))</pre><button type="button" class="btn btn--sm btn--ghost" data-lab33-copy><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
             <p style="color:var(--text-muted);margin:0.75rem 0">El flujo se detiene y espera una decisión humana.</p>
             <div class="lab-chain" aria-label="Human in the loop" style="max-width:20rem;margin:0.5rem auto">
               <div class="lab-chain__node"><strong>⚠️ ALERTA_CRITICA</strong></div>
@@ -6766,7 +6795,9 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
 
           <div class="card">
             <h3 style="margin-top:0"><span class="lab31-step-num">6</span> La decisión humana controla la siguiente acción</h3>
-            <p style="margin:0 0 0.45rem"><strong>Segunda condición:</strong> Resultado <strong>ES IGUAL A</strong> <code>Approve</code></p>
+            <p class="lab33-book-ref">Libro · Paso 9 de 11</p>
+            <p style="margin:0 0 0.45rem"><strong>Segunda condición</strong>, renombrada <code>Aprobado</code>, debajo de <em>Registrar decision</em>: ⚡ <strong>Resultado</strong> (de Aprobacion humana) <strong>es igual que</strong> <code>Approve</code>, escrito como texto normal.</p>
+            <p style="color:var(--text-muted);font-size:0.9rem">El resultado siempre viene en inglés, aunque Power Automate esté en español. Si escribes “Aprobar”, la condición nunca se cumple.</p>
             <div class="lab33-condition">
               <div class="lab33-condition__if"><strong>TRUE</strong><span>Continuar con el envío</span></div>
               <div class="lab33-condition__else"><strong>FALSE</strong><span>No enviar</span></div>
@@ -6782,11 +6813,19 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
 
           <div class="card">
             <h3 style="margin-top:0"><span class="lab31-step-num">7</span> Solo ahora puede salir la comunicación</h3>
-            <p style="color:var(--text-muted)">En la rama TRUE de la condición de aprobación:</p>
+            <p class="lab33-book-ref">Libro · Paso 10 de 11</p>
+            <p style="color:var(--text-muted)">En la rama TRUE de <code>Aprobado</code> (la rama False se deja vacía: el rechazo queda en la trazabilidad):</p>
             <div class="lab33-event-box">
               <strong>Office 365 Outlook</strong>
-              <p>“Enviar un correo electrónico (V2)”</p>
+              <p>“Enviar un correo electrónico (V2)” · renómbralo <code>Enviar alerta aprobada</code> · Importancia Alta</p>
             </div>
+            <p style="margin:0.6rem 0 0.2rem;font-size:0.92rem"><strong>Asunto:</strong> escribe <code>Horizonte · Alerta aprobada |</code> y agrega con <strong>fx</strong>:</p>
+            <div class="lab33-copy"><span class="lab33-copy__tag">Asunto · parte final (fx)</span><pre>replace(triggerOutputs()?['body/subject'], '[HORIZONTE]', '')</pre><button type="button" class="btn btn--sm btn--ghost" data-lab33-copy><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+            <p class="disclaimer disclaimer--danger" style="margin:0.6rem 0">
+              <i data-lucide="alert-triangle" width="18" height="18"></i>
+              <span><strong>El correo de salida nunca lleva la etiqueta que dispara el flujo.</strong> Si el asunto conserva <code>[HORIZONTE]</code>, el correo que envía el flujo lo vuelve a activar y se crea un bucle.</span>
+            </p>
+            <p style="color:var(--text-muted);font-size:0.9rem"><strong>Cuerpo:</strong> la variable <code>Decision</code> y la ficha <strong>Cuerpo</strong> del correo original, que conserva el formato.</p>
             <p style="margin:0.75rem 0 0.45rem;color:var(--text-muted)">El correo de salida solo se ejecuta cuando se cumplen todos estos controles:</p>
             <div class="lab-chain" aria-label="Cadena de control" style="max-width:16rem;margin:0.5rem auto">
               <div class="lab-chain__node"><strong>[HORIZONTE]</strong><span>✓</span></div>
@@ -6827,34 +6866,37 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
 
           <div class="card">
             <h3 style="margin-top:0"><span class="lab31-step-num">9</span> ¿Qué deberíamos registrar?</h3>
-            <p class="lab-badge lab-badge--soon" style="margin:0 0 0.5rem">Evolución recomendada</p>
-            <p style="color:var(--text-muted)">Esta parte se presenta como evolución del flujo. No se afirma que ya esté implementada en el entorno de prueba.</p>
-            <p style="margin:0.65rem 0 0.35rem;font-weight:600">Registrar:</p>
-            <ul style="margin:0 0 0.75rem;padding-left:1.2rem;color:var(--text-muted);font-size:0.92rem">
-              <li>Fecha</li>
-              <li>ID del hallazgo</li>
-              <li>RutaHallazgo</li>
-              <li>Resultado de aprobación</li>
-              <li>Aprobador</li>
-              <li>Fecha de decisión</li>
-              <li>Estado del envío</li>
-            </ul>
-            <p style="margin:0 0 0.35rem;font-weight:600">Estados sugeridos:</p>
-            <div class="lab31-files" style="margin-bottom:0.75rem">
-              <div class="lab31-file"><strong>APROBADO_Y_ENVIADO</strong></div>
-              <div class="lab31-file"><strong>RECHAZADO_NO_ENVIADO</strong></div>
-              <div class="lab31-file"><strong>REGISTRO_NORMAL</strong></div>
+            <p class="lab33-book-ref">Libro · Paso 11 de 11</p>
+            <p style="color:var(--text-muted)">El último paso escribe una fila en <code>Horizonte_Trazabilidad.xlsx</code> por <strong>cada</strong> correo: crítico aprobado, crítico rechazado y normal. Por eso va <strong>fuera</strong> de la condición principal, con el ⊕ de más abajo.</p>
+            <div class="lab33-event-box">
+              <strong>Excel Online (Business)</strong>
+              <p>“Agregar una fila a una tabla” · renómbralo <code>Registrar trazabilidad</code> · OneDrive for Business → <code>/Horizonte_Trazabilidad.xlsx</code> → tabla <code>Registro</code></p>
             </div>
-            <p style="font-weight:600;margin:0 0 0.45rem">¿Qué elementos aportan trazabilidad? (marca los que aplicarían)</p>
+            <table class="lab33-cfg">
+              <tr><th>Fecha</th><td><strong>fx</strong> · hora de Colombia (expresión de abajo)</td></tr>
+              <tr><th>Remitente</th><td>⚡ De</td></tr>
+              <tr><th>Asunto</th><td>⚡ Asunto</td></tr>
+              <tr><th>Ruta</th><td>⚡ RutaHallazgo</td></tr>
+              <tr><th>Decision</th><td>⚡ Decision</td></tr>
+            </table>
+            <div class="lab33-copy"><span class="lab33-copy__tag">Fecha (fx)</span><pre>convertTimeZone(triggerOutputs()?['body/receivedDateTime'], 'UTC', 'SA Pacific Standard Time', 'yyyy-MM-dd HH:mm')</pre><button type="button" class="btn btn--sm btn--ghost" data-lab33-copy><i data-lucide="copy" width="14" height="14"></i> Copiar</button></div>
+            <p style="color:var(--text-muted);font-size:0.9rem"><strong>Configuración → Ejecutar después de:</strong> marca las cuatro opciones (es correcto, ha fallado, se ha omitido, ha agotado el tiempo de espera). Así el registro se guarda aunque la aprobación venza.</p>
+            <p style="margin:0.65rem 0 0.35rem;font-weight:600">Lo que queda en cada fila (Ruta · Decision):</p>
+            <div class="lab31-files" style="margin-bottom:0.75rem">
+              <div class="lab31-file"><strong>ALERTA_CRITICA · Approve · nombre</strong></div>
+              <div class="lab31-file"><strong>ALERTA_CRITICA · Reject · nombre</strong></div>
+              <div class="lab31-file"><strong>REGISTRO_NORMAL · NO_REQUIERE</strong></div>
+            </div>
+            <p style="font-weight:600;margin:0 0 0.45rem">¿Qué datos registra tu flujo? (marca los que configuraste)</p>
             <ul class="check-list" style="margin:0 0 0.75rem">
               <li><label><input type="checkbox" data-lab33-trace-item="fecha" /> Fecha</label></li>
               <li><label><input type="checkbox" data-lab33-trace-item="ruta" /> RutaHallazgo</label></li>
-              <li><label><input type="checkbox" data-lab33-trace-item="resultado" /> Resultado de aprobación</label></li>
-              <li><label><input type="checkbox" data-lab33-trace-item="aprobador" /> Aprobador</label></li>
-              <li><label><input type="checkbox" data-lab33-trace-item="envio" /> Estado del envío</label></li>
+              <li><label><input type="checkbox" data-lab33-trace-item="resultado" /> Resultado de aprobación (Decision)</label></li>
+              <li><label><input type="checkbox" data-lab33-trace-item="aprobador" /> Quién aprobó (Decision)</label></li>
+              <li><label><input type="checkbox" data-lab33-trace-item="envio" /> Remitente y asunto del correo</label></li>
             </ul>
             <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab33-trazabilidad" /> Identifiqué los datos que deberían quedar registrados.</label></li>
+              <li><label><input type="checkbox" data-progress="lab33-trazabilidad" /> Configuré el registro en Excel para todos los casos.</label></li>
             </ul>
           </div>
 
@@ -6895,7 +6937,18 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
 
           <div class="card">
             <h3 style="margin-top:0"><span class="lab31-step-num">11</span> Prueba antes de confiar</h3>
-            <p style="color:var(--text-muted);margin:0 0 0.85rem">Asocia cada caso con el resultado esperado (basado en la prueba real del flujo).</p>
+            <p class="lab33-book-ref">Libro · Parte 4 · Las 3 pruebas</p>
+            <p style="color:var(--text-muted);margin:0 0 0.5rem"><strong>Guardar → Probar → Manualmente → Probar.</strong> Luego envía cada correo, <strong>uno a la vez</strong>, y espera a que termine la ejecución. Los botones envían a tu bandeja el correo exacto de cada prueba.</p>
+            <div class="lab33-tests">
+              <div><strong>Prueba 1 · ALTA aprobada</strong><code>Criticidad: ALTA</code><br>Responde: <strong>Aprobar</strong>.<br>Esperado: llega la alerta · fila <code>ALERTA_CRITICA · Approve</code>.
+                <button type="button" class="btn btn--sm btn--secondary" data-reto-email="lab33-1"><i data-lucide="mail" width="14" height="14"></i> Enviar prueba 1</button></div>
+              <div><strong>Prueba 2 · ALTA rechazada</strong><code>CRITICIDAD : Alta</code><br>Responde: <strong>Rechazar</strong>.<br>Esperado: no sale correo · fila <code>ALERTA_CRITICA · Reject</code>.
+                <button type="button" class="btn btn--sm btn--secondary" data-reto-email="lab33-2"><i data-lucide="mail" width="14" height="14"></i> Enviar prueba 2</button></div>
+              <div><strong>Prueba 3 · Normal</strong><code>Criticidad: BAJA</code><br>No debe llegar aprobación.<br>Esperado: fila <code>REGISTRO_NORMAL · NO_REQUIERE</code>.
+                <button type="button" class="btn btn--sm btn--secondary" data-reto-email="lab33-3"><i data-lucide="mail" width="14" height="14"></i> Enviar prueba 3</button></div>
+            </div>
+            <p id="retoEmailStatus-lab33" data-reto-email-hint style="margin:0 0 0.5rem;font-size:0.86rem;color:var(--text-muted)">Control del bucle: cuando llegue la alerta de la prueba 1, revisa el historial de ejecuciones. Ese correo no debe generar una ejecución nueva. No uses «Volver a enviar»: para repetir, envía un correo nuevo.</p>
+            <p style="color:var(--text-muted);margin:0.85rem 0 0.85rem">Comprueba la lógica: asocia cada caso con el resultado que debe dar el flujo.</p>
             <div class="lab34-auto-row" data-lab33-case="A">
               <p><strong>Caso A.</strong> Correo [HORIZONTE] + Criticidad: ALTA</p>
               <select data-lab33-case-sel="A" aria-label="Resultado caso A">
@@ -6951,42 +7004,45 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
             <pre class="lab33-schema lab33-flow-tree" aria-label="Diagrama del flujo Power Automate">INICIO
   │
   ▼
-📧 Nuevo correo [HORIZONTE]
+📧 1. Nuevo correo [HORIZONTE]
+     (no reacciona a "alerta aprobada")
   │
   ▼
-🔤 HTML a texto
+🔤 2. Html a texto
   │
   ▼
-📦 Inicializar RutaHallazgo
+📦 3. RutaHallazgo = (vacío)
+📦 4. Decision = NO_REQUIERE
   │
   ▼
-◇ ¿Contiene "Criticidad: ALTA"?
+◇ 5. ¿Criticidad ALTA?
   │
   ├── NO
   │    ↓
-  │  RutaHallazgo = REGISTRO_NORMAL
-  │    ↓
-  │   FIN
+  │  6. RutaHallazgo = REGISTRO_NORMAL
   │
   └── SÍ
        ↓
-     RutaHallazgo = ALERTA_CRITICA
+     6. RutaHallazgo = ALERTA_CRITICA
        ↓
-     👤 Iniciar y esperar aprobación
+     👤 7. Aprobacion humana (P2D)
        ↓
-     ◇ ¿Resultado = Approve?
+     📝 8. Decision = Approve/Reject · nombre
+       ↓
+     ◇ 9. ¿Resultado = Approve?
        │
-       ├── NO
-       │    ↓
-       │  NO ENVIAR
-       │    ↓
-       │   FIN
+       ├── NO → no se envía
        │
        └── SÍ
             ↓
-          📧 Enviar correo (V2)
-            ↓
-           FIN</pre>
+          📧 10. Enviar alerta aprobada
+                 (asunto sin [HORIZONTE])
+  │
+  ▼  (fuera de la condición: todos los casos)
+📊 11. Registrar trazabilidad → Excel
+  │
+  ▼
+ FIN</pre>
             <ul class="check-list" style="margin:0.85rem 0 0">
               <li><label><input type="checkbox" data-progress="lab33-flujo" /> Revisé el diagrama completo del flujo.</label></li>
             </ul>
@@ -7962,7 +8018,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       ok: "El agente superó las pruebas de función, especialización, límites y preparación para automatización." },
     "lab-automatizacion": { min: 50, tools: "Outlook · Power Automate · Aprobaciones (o reglas de Outlook + Aprobaciones de Teams)",
       goal: "Construir un flujo correo → regla → aprobación humana → envío.",
-      out: "Flujo de Power Automate probado, o la ruta alternativa con reglas de Outlook y Aprobaciones de Teams.",
+      out: "Flujo de Power Automate probado con los 3 casos, con captura del historial de ejecuciones y del Excel con las tres filas (o la ruta alternativa con reglas de Outlook y Aprobaciones de Teams).",
       ok: "Solo se envía si una persona aprueba, los casos no críticos no disparan acciones y queda trazabilidad." },
     "lab-reto": { min: 40, tools: "Cuaderno · Agente · Automatización",
       goal: "Decidir qué componente usar en cada situación y dónde conservar el control humano.",
@@ -13540,6 +13596,11 @@ Tono cercano y realista; máximo 200 palabras.`,
       "01_Correo_Solicitud_Proyecto_Horizonte.eml"
     ),
 
+    "lab33-trazabilidad": () => downloadStaticFile(
+      "planillas/Horizonte_Trazabilidad.xlsx",
+      "Horizonte_Trazabilidad.xlsx"
+    ),
+
     "lab33-powerautomate": () => downloadStaticFile(
       "planillas/Powerautomate.png",
       "Powerautomate.png"
@@ -14355,6 +14416,15 @@ Tono cercano y realista; máximo 200 palabras.`,
   {
     "group": "Paso 4 · Copilot Lab",
     "items": [
+      {
+        "name": "Plantilla de trazabilidad (Excel)",
+        "desc": "Tabla Registro que llena el flujo de la misión 3.3",
+        "key": "lab33-trazabilidad",
+        "type": "Excel",
+        "role": "Plantilla",
+        "href": "#lab-automatizacion",
+        "where": "Lab 3.3"
+      },
       {
         "name": "Guía visual de Power Automate",
         "desc": "Referencia del flujo de la misión 3.3",
@@ -15951,7 +16021,17 @@ Tono cercano y realista; máximo 200 palabras.`,
     updateProgressUI();
   }
 
+  function lab33CopyInit() {
+    document.querySelectorAll("[data-lab33-copy]").forEach(b => b.addEventListener("click", () => {
+      const t = b.parentNode.querySelector("pre").innerText;
+      const done = () => { b.innerHTML = "✓ Copiado"; setTimeout(() => { b.innerHTML = '<i data-lucide="copy" width="14" height="14"></i> Copiar'; if (window.lucide) lucide.createIcons(); }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, () => {});
+      else { const ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done(); } catch (e) {} ta.remove(); }
+    }));
+  }
+
   function initLab33() {
+    lab33CopyInit();
     const root = document.getElementById("lab-automatizacion");
     if (!root || root.dataset.boundLab33) return;
     root.dataset.boundLab33 = "1";
