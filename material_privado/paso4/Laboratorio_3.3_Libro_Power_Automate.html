@@ -140,9 +140,9 @@ nav.bottom .pos{flex:1;text-align:center;color:var(--muted);font-size:14px}
     <span class="n" style="background:var(--green)">📝 Queda registro</span>
   </div>
   <div class="grid3">
-    <div class="card"><span class="icon i-var">1</span><h4>Copilot como asistente</h4><p>Lo que ya practicaron: redactar, resumir, analizar dentro de Outlook, Word, Excel y Teams.</p></div>
-    <div class="card"><span class="icon i-trigger">2</span><h4>Automatización (hoy · 3.3)</h4><p>Las piezas para actuar: evento, regla, aprobación humana y trazabilidad.</p></div>
-    <div class="card"><span class="icon i-appr">3</span><h4>Agente PMO (3.2)</h4><p>Ya lo configuraron: propone la criticidad y redacta el reporte <code>[HORIZONTE]</code> con la línea <code>Criticidad: ALTA</code>. Este flujo es el que actúa sobre ese reporte.</p></div>
+    <div class="card"><span class="icon i-var">1</span><h4>3.1 y 3.2 · Conocer y especializar</h4><p>Con el Cuaderno reuniste el contexto. Con el PMO Copilot creaste un agente que propone y redacta reportes <code>[HORIZONTE]</code>.</p></div>
+    <div class="card"><span class="icon i-trigger">2</span><h4>3.3 · Actuar con control (hoy)</h4><p>Construyes lo que pasa cuando llega ese reporte: regla, aprobación humana, envío y trazabilidad.</p></div>
+    <div class="card"><span class="icon i-appr">3</span><h4>3.4 · Integrar</h4><p>Conectas todo: el agente redacta, el flujo actúa y registra, y el agente analiza el registro para el comité.</p></div>
   </div>
   <div class="grid2" style="margin-top:6px">
     <div class="callout why"><b>El mismo control que exige la IA</b>La aprobación humana obligatoria es el patrón <i>human-in-the-loop</i>. Hoy lo practican con reglas, que son predecibles; mañana protege lo que produzca la IA.</div>
@@ -588,14 +588,15 @@ HALLAZGO RECIBIDO:
   </table>
 </section>
 
-<section class="page" data-part="Parte 4 · Prueba y valida" data-title="Siguiente nivel: cuando entra la IA">
-  <p class="kicker">Parte 4 · Siguiente nivel</p>
-  <h2>¿Y si la criticidad no viniera escrita?</h2>
-  <p class="lead">Hoy la regla funciona porque el correo dice “Criticidad: ALTA”. En la realidad, muchas veces hay que <b>interpretar</b> el texto. Ahí sí entra la IA.</p>
+
+<section class="page" data-part="Cierre" data-title="Siguiente nivel">
+  <p class="kicker">Cierre · Siguiente nivel</p>
+  <h2>Regla, agente y lo que sigue</h2>
+  <p class="lead">En el Paso 4 se combinan dos cosas: el <b>agente</b> del 3.2, que interpreta lo que una regla no puede leer, y la <b>regla</b> de este flujo, que enruta de forma predecible.</p>
   <div class="grid2">
     <div>
       <table class="cfg wide">
-        <tr><th></th><th>Regla (hoy)</th><th>IA (siguiente nivel)</th></tr>
+        <tr><th></th><th>Regla (flujo)</th><th>IA (agente)</th></tr>
         <tr><td><b>Cómo decide</b></td><td>Busca un texto exacto</td><td>Interpreta el contenido</td></tr>
         <tr><td><b>Predecible</b></td><td class="y">Siempre igual</td><td>Puede variar</td></tr>
         <tr><td><b>Auditable</b></td><td class="y">Se lee la regla</td><td>Hay que registrar el criterio</td></tr>
@@ -604,18 +605,18 @@ HALLAZGO RECIBIDO:
       <div class="callout danger"><b>Con IA, la aprobación humana es más necesaria, no menos</b>Si un modelo clasifica la criticidad, la persona que aprueba es la última barrera ante un error de interpretación.</div>
     </div>
     <div>
-      <h3 style="margin-top:0">Lo que cambiaría en este flujo</h3>
+      <h3 style="margin-top:0">Lo que viene después</h3>
       <ol class="steps">
-        <li>La <b>Condición</b> del Paso 5 se reemplaza por una clasificación con IA (Copilot Studio o AI Builder, según licencias).</li>
-        <li>La clasificación y su justificación se agregan a los <b>Detalles</b> de la aprobación.</li>
-        <li>La <b>trazabilidad</b> registra también qué propuso la IA y qué decidió la persona.</li>
+        <li><b>El agente llama al flujo:</b> con Copilot Studio, el agente puede ejecutar el flujo directamente desde el chat y responder con el resultado de la aprobación.</li>
+        <li><b>El flujo llama a la IA:</b> la Condición del Paso 5 podría reemplazarse por una clasificación con IA dentro del propio flujo.</li>
+        <li><b>El registro también se analiza:</b> en el 3.4, el PMO Copilot lee este Excel y prepara el informe para el comité.</li>
       </ol>
-      <div class="callout why"><b>Hacia el reto integrador (3.4)</b>En el 3.4 unes las piezas: el Agente PMO del 3.2 redacta el reporte, tú lo revisas y lo envías, y este flujo pide la aprobación, actúa y registra. El agente pone la conversación; el flujo pone el control.</div>
+      <div class="callout why"><b>Lo que no cambia</b>Por más capaz que sea el agente, el patrón es el mismo que construiste hoy: evento, regla, aprobación humana, acción y registro. El agente pone la conversación; el flujo pone el control.</div>
     </div>
   </div>
 </section>
 
-<section class="page" data-part="Parte 4 · Prueba y valida" data-title="Lo lograste si…">
+<section class="page" data-part="Cierre" data-title="Lo lograste si…">
   <p class="kicker">Cierre</p>
   <h2>Lo lograste si…</h2>
   <div class="grid2">
@@ -634,7 +635,7 @@ HALLAZGO RECIBIDO:
         <li>¿Cuáles <b>no</b> deberían automatizarse sin una persona que autorice?</li>
         <li>¿Qué información mínima debe quedar registrada para que un proceso sea auditable?</li>
       </ul>
-      <div class="callout why"><b>Entregable</b>Flujo de Power Automate probado con los 3 casos, más una captura del historial de ejecuciones y del Excel con las tres filas.</div>
+      <div class="callout why"><b>Entregable</b>Flujo de Power Automate probado con los 3 casos, más una captura del historial de ejecuciones y del Excel con las tres filas. Guarda ese Excel: lo usarás en el 3.4.</div>
     </div>
   </div>
   <div class="cover" style="padding:20px 0 0"><div class="quote">“La automatización orquesta. La persona autoriza.”</div></div>

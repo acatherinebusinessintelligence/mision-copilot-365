@@ -2305,6 +2305,8 @@
     .presenter-chip { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--brand-accent); color: #221e40; font-weight: 800; font-size: 0.8rem; padding: 0.4rem 0.8rem; border-radius: 999px; }
     .presenter-chip a { color: #221e40; text-decoration: underline; }
     .presenter-chip[hidden] { display: none; }
+    body:not(.is-presenter) .only-presenter,
+    body:not(.is-presenter) .tpl-row:has([data-planilla="s2v2-guia-instructor"]) { display: none !important; }
     /* Votación en vivo en la pantalla del estudiante */
     .live-pulse { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 300; width: min(380px, calc(100% - 2rem)); background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border); border-top: 4px solid var(--brand-accent); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,0.3); padding: 1rem 1.1rem; animation: deckIn 0.45s ease both; }
     .live-pulse[hidden] { display: none; }
@@ -3108,7 +3110,7 @@ Confirma en una línea qué recordarás.</textarea></div>
               <button type="button" class="btn btn--sm btn--secondary" data-planilla="s2v2-banco"><i data-lucide="library" width="14" height="14"></i> 09 Banco de prompts</button>
             </div>
             <p class="s2-brief__instructor">Instructor:
-              <button type="button" class="s2-linkbtn" data-planilla="s2v2-guia-instructor">Guía instructor</button> ·
+              <span class="only-presenter"><button type="button" class="s2-linkbtn" data-planilla="s2v2-guia-instructor">Guía instructor</button> ·</span>
               <button type="button" class="s2-linkbtn" data-planilla="s2v2-eml">Correo (.eml)</button>
             </p>
             <p class="s2-brief__note">Datos, nombres y cifras ficticios, con fines académicos. Trabaja siempre desde <strong>Microsoft 365 Copilot Chat</strong>.</p>
@@ -6231,7 +6233,7 @@ La línea "Criticidad:" va sola, sin negritas ni emojis.</div>
               <div class="lab-chain__node"><strong>✓ Compara</strong><span>Historial y filas en Excel</span></div>
             </div>
             <div class="btn-group" style="margin:0.85rem 0 0.35rem;flex-wrap:wrap">
-              <a class="btn btn--primary" href="/planillas/MCP365_Lab33_Libro_Power_Automate.html" target="_blank" rel="noopener">
+              <a class="btn btn--primary" href="/laboratorio-3-3/libro" target="_blank" rel="noopener">
                 <i data-lucide="book-open" width="16" height="16"></i> Abrir el libro paso a paso
               </a>
               <button type="button" class="btn btn--secondary" data-planilla="lab33-trazabilidad">
@@ -13247,8 +13249,23 @@ Tono cercano y realista; máximo 200 palabras.`,
     ),
 
     "lab33-trazabilidad": () => downloadStaticFile(
-      "planillas/Horizonte_Trazabilidad.xlsx",
+      "/material/paso4/plantilla",
       "Horizonte_Trazabilidad.xlsx"
+    ),
+
+    "lab34-ejemplo": () => downloadStaticFile(
+      "/material/paso4/ejemplo",
+      "Horizonte_Trazabilidad_Ejemplo.xlsx"
+    ),
+
+    "lab34-skill-analizar": () => downloadStaticFile(
+      "/material/paso4/skill-analizar",
+      "analizar-trazabilidad.zip"
+    ),
+
+    "lab34-skill-informe": () => downloadStaticFile(
+      "/material/paso4/skill-informe",
+      "informe-comite.zip"
     ),
 
     "lab33-powerautomate": () => downloadStaticFile(

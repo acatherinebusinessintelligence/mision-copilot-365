@@ -26,6 +26,7 @@ from flask import (
     redirect,
     render_template,
     request,
+    send_file,
     send_from_directory,
     session,
     url_for,
@@ -167,6 +168,19 @@ def require_student(view):
     @wraps(view)
     def wrapped(*args, **kwargs):
         if not session.get("student_id"):
+            if request.path.startswith("/api/"):
+                return jsonify({"ok": False, "error": "Sesión requerida"}), 401
+            return redirect(url_for("login"))
+        return view(*args, **kwargs)
+
+    return wrapped
+
+
+def require_login_any(view):
+    """Participante o facilitadora con sesión (el modo /presentar usa la sesión de admin)."""
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+        if not (session.get("student_id") or session.get("is_admin")):
             if request.path.startswith("/api/"):
                 return jsonify({"ok": False, "error": "Sesión requerida"}), 401
             return redirect(url_for("login"))
@@ -946,11 +960,50 @@ def student_summary(row: sqlite3.Row, progress_row: sqlite3.Row | None) -> dict:
 # ---------------------------------------------------------------------------
 
 # Nota de seguridad: no exponer BASE_DIR completo (contiene .env, data/mision.db y código).
-# Solo se publican archivos concretos y la carpeta planillas/.
+# Solo se publican archivos concretos y la carpeta planillas/, siempre con sesión.
+# material_privado/ no tiene ruta propia: solo se entrega por la lista cerrada de abajo.
+
+PLANILLAS_SOLO_FACILITADORA = {"00_Guia_Instructor_Sesion2.docx"}
+
 
 @app.get("/planillas/<path:filename>")
+@require_login_any
 def planillas(filename: str):
-    return send_from_directory(BASE_DIR / "planillas", filename)
+    if filename in PLANILLAS_SOLO_FACILITADORA and not session.get("is_admin"):
+        return jsonify({"ok": False, "error": "Archivo no encontrado"}), 404
+    resp = send_from_directory(BASE_DIR / "planillas", filename)
+    resp.headers["Cache-Control"] = "private, no-store"
+    return resp
+
+
+PASO4_DIR = BASE_DIR / "material_privado" / "paso4"
+PASO4_LIBRO = "Laboratorio_3.3_Libro_Power_Automate.html"
+# Descargas del Paso 4: clave → nombre original del archivo.
+PASO4_DESCARGAS = {
+    "plantilla": "Horizonte_Trazabilidad.xlsx",
+    "ejemplo": "Horizonte_Trazabilidad_Ejemplo.xlsx",
+    "skill-analizar": "analizar-trazabilidad.zip",
+    "skill-informe": "informe-comite.zip",
+}
+
+
+@app.get("/laboratorio-3-3/libro")
+@require_login_any
+def lab33_libro():
+    resp = send_file(PASO4_DIR / PASO4_LIBRO, mimetype="text/html")
+    resp.headers["Cache-Control"] = "private, no-store"
+    return resp
+
+
+@app.get("/material/paso4/<clave>")
+@require_login_any
+def paso4_descarga(clave: str):
+    nombre = PASO4_DESCARGAS.get(clave)
+    if not nombre:
+        return jsonify({"ok": False, "error": "Archivo no encontrado"}), 404
+    resp = send_file(PASO4_DIR / nombre, as_attachment=True, download_name=nombre)
+    resp.headers["Cache-Control"] = "private, no-store"
+    return resp
 
 
 @app.get("/logo.png")
@@ -1085,6 +1138,66 @@ def mission():
 def horizonte_portal():
     """Portal público del caso Proyecto Horizonte (fuente web para Agente PMO)."""
     return send_from_directory(BASE_DIR, "horizonte.html")
+
+
+# Página pública del caso (solo texto, documentos 02-06). Se genera con
+# scripts/build_caso_horizonte.py. Un solo nivel, sin parámetros ni redirecciones,
+# para que el Agente PMO pueda usarla como conocimiento web cuando Bing la indexe.
+PUBLIC_PAGES = ["/caso-horizonte"]
+
+
+def _public_base_url() -> str:
+    """URL pública para robots/sitemap. En PythonAnywhere el proxy entrega http: se fuerza https."""
+    env = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if env.startswith("https://"):
+        return env
+    root = request.url_root.rstrip("/")
+    if request.host.endswith(".pythonanywhere.com") and root.startswith("http://"):
+        root = "https://" + root[len("http://"):]
+    return root
+
+
+@app.get("/caso-horizonte")
+def caso_horizonte():
+    resp = send_file(BASE_DIR / "caso-horizonte.html", mimetype="text/html")
+    resp.headers["Cache-Control"] = "public, max-age=3600"
+    resp.headers["X-Robots-Tag"] = "index, follow"
+    return resp
+
+
+@app.get("/robots.txt")
+def robots_txt():
+    base = _public_base_url()
+    body = "\n".join([
+        "User-agent: *",
+        *[f"Allow: {p}" for p in PUBLIC_PAGES],
+        "Disallow: /admin",
+        "Disallow: /api/",
+        "Disallow: /presentar",
+        "Disallow: /mision",
+        "Disallow: /planillas/",
+        "Disallow: /material/",
+        "Disallow: /laboratorio-3-3/",
+        "",
+        f"Sitemap: {base}/sitemap.xml",
+        "",
+    ])
+    return app.response_class(body, mimetype="text/plain")
+
+
+@app.get("/sitemap.xml")
+def sitemap_xml():
+    base = _public_base_url()
+    lastmod = time.strftime("%Y-%m-%d", time.gmtime((BASE_DIR / "caso-horizonte.html").stat().st_mtime))
+    urls = "".join(
+        f"  <url><loc>{base}{p}</loc><lastmod>{lastmod}</lastmod></url>\n" for p in PUBLIC_PAGES
+    )
+    body = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{urls}</urlset>\n"
+    )
+    return app.response_class(body, mimetype="application/xml")
 
 
 # ---------------------------------------------------------------------------
@@ -1860,7 +1973,7 @@ def api_admin_results():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-11-11-retos-alineados-v1"
+APP_CODE_VERSION = "2026-11-11-paso4-faseA-v1"
 
 
 @app.get("/health")
