@@ -6046,10 +6046,23 @@ La línea "Criticidad:" va sola, sin negritas ni emojis.</div>
 
           <div class="card">
             <h3 style="margin-top:0"><span class="lab31-step-num">3</span> Paso 3 · Conocimiento (opcional)</h3>
-            <p style="color:var(--text-muted)">Si tu licencia lo permite, en <strong style="color:var(--text)">Conocimiento</strong> agrega el documento que trabajaste en el Cuaderno 3.1. Si no, el agente trabaja con lo que le escribas en el chat, y por eso sus instrucciones le exigen marcar inferencias y no inventar datos.</p>
+            <p style="color:var(--text-muted)">En <strong style="color:var(--text)">Conocimiento</strong> dale al agente la base del caso. Usa la opción que te permita tu licencia:</p>
+            <p class="lab-badge" style="margin:0 0 0.4rem">Opción 1 · Sitio web del caso</p>
+            <p style="color:var(--text-muted);margin:0 0 0.4rem">En <strong style="color:var(--text)">Conocimiento → Sitio web</strong>, pega este enlace. Es una página pública, solo de texto, con los documentos 02 a 06 del Proyecto Horizonte.</p>
+            <div class="prompt-box lab31-prompt" id="lab32-sitio" data-meter="off">https://dracorazonia.pythonanywhere.com/caso-horizonte</div>
+            <div class="btn-group" style="margin:0.5rem 0 0.75rem">
+              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-sitio"><i data-lucide="copy" width="14" height="14"></i> Copiar enlace</button>
+              <a class="btn btn--sm btn--ghost" href="/caso-horizonte" target="_blank" rel="noopener"><i data-lucide="external-link" width="14" height="14"></i> Ver la página</a>
+            </div>
+            <p class="lab-badge" style="margin:0 0 0.4rem">Opción 2 · Archivos</p>
+            <p style="color:var(--text-muted);margin:0 0 0.75rem">Si tu licencia permite subir archivos, agrega el documento que trabajaste en el Cuaderno 3.1 o los documentos del caso.</p>
+            <p class="disclaimer disclaimer--info" style="margin:0 0 0.75rem">
+              <i data-lucide="info" width="18" height="18"></i>
+              <span>Copilot lee el sitio web a través de la búsqueda de Bing. Si el agente responde que no encuentra información del caso, <strong>adjunta los documentos en la conversación de prueba</strong>. Sin ninguna fuente, el agente trabaja con lo que le escribas en el chat, y por eso sus instrucciones le exigen marcar inferencias y no inventar datos.</span>
+            </p>
             <div class="lab31-choices" role="group" aria-label="Conocimiento del agente">
               <button type="button" class="lab31-choice" data-lab32-knowledge="sources">
-                <strong>A</strong> Agregué el documento del Cuaderno 3.1.
+                <strong>A</strong> Agregué el sitio web del caso o los documentos.
               </button>
               <button type="button" class="lab31-choice" data-lab32-knowledge="unavailable">
                 <strong>B</strong> Mi licencia no lo permite: sigo sin fuentes.
