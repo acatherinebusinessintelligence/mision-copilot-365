@@ -1449,6 +1449,7 @@
     }
     .lab33-guide-map li strong { color: var(--text); }
     .lab33-guide-map li span { color: var(--text-muted); font-size: 0.85rem; }
+    .lab32-test { border: 1px solid var(--border, #d9e1ec); border-radius: 10px; padding: 0.8rem 0.9rem; margin: 0.75rem 0 0; }
     .lab33-copy { position: relative; margin: 0.6rem 0; }
     .lab33-copy__tag { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem; }
     .lab33-copy pre { margin: 0; background: #0f1b33; color: #e6edf7; padding: 0.75rem 0.85rem; padding-right: 6.5rem; border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; font-family: Consolas, "Cascadia Code", Menlo, monospace; font-size: 0.82rem; line-height: 1.5; }
@@ -1462,6 +1463,7 @@
     .lab33-tests > div { border: 1px solid var(--border, #d9e1ec); border-radius: 10px; padding: 0.7rem 0.8rem; font-size: 0.86rem; }
     .lab33-tests > div > strong:first-child { display: block; margin-bottom: 0.25rem; }
     .lab33-tests code { white-space: normal; }
+    .lab33-tests small { display: block; margin-bottom: 0.2rem; color: var(--text-muted); }
     .lab33-tests .btn { margin-top: 0.5rem; width: 100%; justify-content: center; }
     @media (max-width: 860px) { .lab33-tests { grid-template-columns: 1fr; } }
     .lab33-route {
@@ -5963,8 +5965,8 @@ Tono: ejecutivo, claro y prudente.</div>
             <p style="margin:0;font-size:1.05rem;font-weight:600">Construir un agente especializado que actúe como apoyo PMO para Proyecto Horizonte.</p>
             <div class="lab31-mission__result">
               <p style="margin:0 0 0.35rem"><strong>Nombre:</strong> PMO Copilot · Proyecto Horizonte</p>
-              <p style="margin:0 0 0.35rem"><strong>Propósito:</strong> Apoyar la revisión, análisis y preparación de información de proyectos manteniendo trazabilidad, diferenciando evidencia de inferencias y respetando límites de decisión.</p>
-              <p style="margin:0 0 0.35rem"><strong>Resultado esperado:</strong> 🤖 Un agente PMO configurado y probado.</p>
+              <p style="margin:0 0 0.35rem"><strong>Propósito:</strong> Apoyar la revisión y preparación de información del Proyecto Horizonte, diferenciando evidencia de inferencias y respetando límites de decisión.</p>
+              <p style="margin:0 0 0.35rem"><strong>Resultado esperado:</strong> 🤖 Un agente PMO que supera 4 pruebas · ⏱ ~30 min.</p>
               <p style="margin:0;font-size:0.9rem;color:var(--text-muted)"><strong>Habilidad:</strong> Propósito + instrucciones + conocimiento + límites + validación.</p>
             </div>
           </div>
@@ -5972,545 +5974,146 @@ Tono: ejecutivo, claro y prudente.</div>
           <div class="card">
             <h3 style="margin-top:0"><span class="lab31-step-num">1</span> Paso 1 · Crea tu especialista</h3>
             <ol style="margin:0.5rem 0 0.85rem;padding-left:1.25rem;color:var(--text-muted)">
-              <li>Abre Microsoft 365 Copilot.</li>
-              <li>Accede a la opción disponible para crear agentes.</li>
-              <li>Selecciona crear un nuevo agente.</li>
-              <li>Asigna el nombre: <strong style="color:var(--text)">PMO Copilot · Proyecto Horizonte</strong></li>
-              <li>Utiliza como descripción: <em style="color:var(--text)">“Asistente especializado en apoyo a gestión de proyectos, análisis documental, riesgos, hallazgos y preparación de información ejecutiva para Proyecto Horizonte.”</em></li>
+              <li><strong style="color:var(--text)">Microsoft 365 Copilot → Agentes → Crear agente → Configurar.</strong></li>
+              <li>Pega el <strong style="color:var(--text)">Nombre</strong> y la <strong style="color:var(--text)">Descripción</strong> de abajo.</li>
+              <li>En el Paso 2 pegas las <strong style="color:var(--text)">Instrucciones</strong>.</li>
             </ol>
+            <p class="lab-badge" style="margin:0 0 0.4rem">Nombre</p>
+            <div class="prompt-box lab31-prompt" id="lab32-nombre">PMO Copilot · Proyecto Horizonte</div>
+            <div class="btn-group" style="margin:0.5rem 0 0.75rem">
+              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-nombre"><i data-lucide="copy" width="14" height="14"></i> Copiar nombre</button>
+            </div>
+            <p class="lab-badge" style="margin:0 0 0.4rem">Descripción</p>
+            <div class="prompt-box lab31-prompt" id="lab32-descripcion">Apoya la revisión y preparación de información del Proyecto Horizonte, diferenciando evidencia de inferencias y respetando límites de decisión.</div>
+            <div class="btn-group" style="margin:0.5rem 0 0.75rem">
+              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-descripcion"><i data-lucide="copy" width="14" height="14"></i> Copiar descripción</button>
+            </div>
             <ul class="check-list" style="margin:0">
               <li><label><input type="checkbox" data-progress="lab32-created" /> Ya creé el agente (o el agente simulado en Copilot Chat).</label></li>
             </ul>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">2</span> Paso 2 · Antes de darle instrucciones, define para qué existe</h3>
-            <div class="lab32-nosi">
-              <div class="lab32-nosi__no">
-                <strong>No</strong>
-                <p>“Eres un experto en proyectos.”</p>
-              </div>
-              <div class="lab32-nosi__si">
-                <strong>Sí</strong>
-                <p>“Apoyas a un equipo PMO a revisar información de proyectos, identificar hallazgos, mantener trazabilidad y preparar información para revisión humana.”</p>
-              </div>
+            <h3 style="margin-top:0"><span class="lab31-step-num">2</span> Paso 2 · Un solo bloque de instrucciones</h3>
+            <p style="color:var(--text-muted)">Los cuatro conceptos están dentro del bloque: <strong style="color:var(--text)">PROPÓSITO</strong> (para qué existe), <strong style="color:var(--text)">CÓMO TRABAJAS</strong> (instrucciones), <strong style="color:var(--text)">LÍMITES</strong> (qué no hace) y <strong style="color:var(--text)">REPORTE DE HALLAZGO</strong>, el formato que conecta con el flujo del 3.3. El conocimiento va en el Paso 3.</p>
+            <p class="lab-badge" style="margin:0 0 0.4rem">Instrucciones · pégalas completas</p>
+            <div class="prompt-box lab31-prompt" id="lab32-instrucciones">PROPÓSITO
+Eres PMO Copilot del Proyecto Horizonte. Ayudas a revisar, resumir y preparar información del proyecto para que las personas tomen decisiones.
+
+CÓMO TRABAJAS
+- Separa siempre EVIDENCIA (lo que está en las fuentes o lo que dijo el usuario) de INFERENCIA (lo que tú deduces). Marca las inferencias.
+- Si falta información, haz como máximo 3 preguntas antes de responder.
+- Responde en español, breve y con viñetas.
+
+LÍMITES
+- No apruebas, no decides y no envías nada. Propones; la persona decide.
+- No inventas datos, cifras, fechas ni nombres.
+- Solo atiendes temas del Proyecto Horizonte.
+
+REPORTE DE HALLAZGO
+Cuando te pidan reportar un problema:
+1. Propón una criticidad:
+   ALTA: riesgo para personas, interrupción del servicio, daño ambiental o normativo, o pérdida significativa.
+   MEDIA: afecta la operación, pero hay margen o alternativa.
+   BAJA: informativo o administrativo.
+2. Explica en 1 a 3 viñetas por qué.
+3. Entrega el asunto y el cuerpo, cada uno en un bloque de código:
+Asunto: [HORIZONTE] título corto
+Cuerpo:
+PROYECTO: Horizonte
+HALLAZGO: ...
+EVIDENCIA: ...
+IMPACTO: ...
+Criticidad: ALTA / MEDIA / BAJA
+ESTADO: Requiere revisión humana.
+ACCIÓN REQUERIDA: ...
+La línea "Criticidad:" va sola, sin negritas ni emojis.</div>
+            <div class="btn-group" style="margin:0.5rem 0 0.75rem">
+              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-instrucciones"><i data-lucide="copy" width="14" height="14"></i> Copiar instrucciones</button>
             </div>
-            <p style="color:var(--text-muted);margin:0.75rem 0">Un rol genérico describe una personalidad. Un propósito define una función.</p>
-            <p class="lab-badge" style="margin:0 0 0.45rem">Propósito del agente</p>
-            <div class="prompt-box lab31-prompt" id="lab32-proposito">Tu propósito es apoyar al equipo responsable del Proyecto Horizonte
-en actividades de análisis y preparación de información para gestión
-de proyectos.
-
-Debes ayudar a:
-
-- revisar información del proyecto;
-- identificar hallazgos;
-- identificar riesgos;
-- detectar inconsistencias;
-- reconocer información faltante;
-- preparar resúmenes ejecutivos;
-- formular preguntas de validación;
-- organizar información para comité;
-- mantener trazabilidad con las fuentes disponibles.
-
-Tu función es de APOYO.
-
-No sustituyes al gerente de proyecto.
-No sustituyes al patrocinador.
-No sustituyes al comité.
-No tienes autoridad para aprobar decisiones.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-proposito"><i data-lucide="copy" width="14" height="14"></i> Copiar propósito</button>
-            </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab32-purpose" /> Propósito configurado.</label></li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">3</span> Paso 3 · Define cómo debe trabajar</h3>
-            <p style="color:var(--text-muted)">Ahora convertiremos las buenas prácticas utilizadas en nuestros prompts en reglas permanentes del agente.</p>
-            <div class="prompt-box lab31-prompt" id="lab32-instrucciones">Eres PMO Copilot · Proyecto Horizonte.
-
-Tu función es apoyar el análisis, organización y preparación de
-información relacionada con la gestión del Proyecto Horizonte.
-
-==================================================
-REGLAS DE EVIDENCIA
-==================================================
-
-1. Fundamenta las afirmaciones relevantes en las fuentes disponibles.
-
-2. Diferencia siempre:
-
-HECHO CONFIRMADO
-CÁLCULO
-INFERENCIA
-RECOMENDACIÓN
-PENDIENTE DE VALIDACIÓN
-
-3. No inventes:
-- cifras;
-- fechas;
-- responsables;
-- compromisos;
-- aprobaciones;
-- decisiones;
-- estados del proyecto.
-
-4. Cuando dos fuentes sean contradictorias:
-- identifica la discrepancia;
-- presenta ambas evidencias;
-- solicita validación;
-- no decidas arbitrariamente cuál es correcta.
-
-5. Cuando la evidencia sea insuficiente utiliza:
-
-PENDIENTE DE VALIDACIÓN.
-
-==================================================
-REGLAS PMO
-==================================================
-
-Cuando analices un asunto del proyecto considera, cuando aplique:
-
-- alcance;
-- entregables;
-- tiempo;
-- costo;
-- riesgos;
-- interesados;
-- dependencias;
-- responsables;
-- decisiones;
-- información pendiente.
-
-Prioriza aquello que pueda afectar:
-
-- ejecución;
-- cronograma;
-- presupuesto;
-- alcance;
-- riesgos;
-- toma de decisiones.
-
-==================================================
-COMUNICACIÓN
-==================================================
-
-Responde con lenguaje:
-
-- ejecutivo;
-- preciso;
-- profesional;
-- verificable;
-- orientado a la acción.
-
-Evita párrafos innecesariamente extensos.
-
-Cuando resulte útil utiliza:
-
-- tablas;
-- matrices;
-- prioridades;
-- listas de acciones;
-- preguntas de validación.
-
-==================================================
-GOBERNANZA
-==================================================
-
-Tu función es de apoyo.
-
-No tienes autoridad para:
-
-- aprobar el proyecto;
-- modificar alcance;
-- aprobar presupuesto;
-- nombrar responsables;
-- aceptar riesgos;
-- cerrar riesgos;
-- aprobar cambios;
-- comprometer fechas;
-- autorizar ejecución;
-- hablar en nombre del comité.
-
-Cuando una solicitud requiera una de estas decisiones:
-
-1. Identifica la decisión requerida.
-2. Presenta la evidencia disponible.
-3. Explica qué información falta.
-4. Indica qué rol humano debería validar la decisión cuando pueda
-   determinarse de las fuentes.
-5. No tomes la decisión.
-
-==================================================
-VALIDACIÓN HUMANA
-==================================================
-
-Todo resultado destinado a:
-
-- comité;
-- cliente;
-- aprobación;
-- cambio de alcance;
-- comunicación externa;
-- decisión financiera;
-- aceptación de riesgos;
-
-debe indicar que requiere validación humana antes de utilizarse como
-decisión oficial.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-instrucciones"><i data-lucide="copy" width="14" height="14"></i> Copiar instrucciones PMO</button>
-            </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab32-instructions" /> Instrucciones configuradas.</label></li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">4</span> Paso 4 · ¿Qué debe saber?</h3>
-            <p style="color:var(--text-muted)">En el Cuaderno organizaste el contexto del Proyecto Horizonte.</p>
-            <p style="color:var(--text-muted)">Ahora revisa qué opciones ofrece tu entorno para proporcionar conocimiento o referencias al agente.</p>
-            <p class="disclaimer disclaimer--info" style="margin:0.75rem 0">
-              <i data-lucide="info" width="18" height="18"></i>
-              <span>Configurar un agente y organizar un Cuaderno son capacidades relacionadas, pero no debemos asumir una integración automática entre ellas.</span>
+            <p class="disclaimer disclaimer--danger" style="margin:0 0 0.75rem">
+              <i data-lucide="alert-triangle" width="18" height="18"></i>
+              <span><strong>¿Por qué «Criticidad:» va sola y sin negritas?</strong> El flujo del 3.3 busca exactamente ese texto. Con <code>**Criticidad:** ALTA</code> o un emoji, la regla no lo encuentra y el hallazgo crítico pasa como normal.</span>
             </p>
-            <p style="margin:0 0 0.5rem"><strong>Si tu entorno permite agregar conocimiento:</strong> utiliza únicamente las fuentes autorizadas del Proyecto Horizonte.</p>
-            <ul style="margin:0 0 0.75rem;padding-left:1.2rem;color:var(--text-muted);font-size:0.9rem">
-              <li><code>02_Alcance_Proyecto_Horizonte.docx</code></li>
-              <li><code>03_Presupuesto_y_Cronograma_Horizonte.xlsx</code></li>
-              <li><code>04_Transcripcion_Reunion_Horizonte.docx</code></li>
-              <li><code>05_Registro_Inicial_Riesgos_Horizonte.xlsx</code></li>
-              <li><code>06_Comentarios_Interesados_Horizonte.docx</code></li>
+            <ul class="check-list" style="margin:0">
+              <li><label><input type="checkbox" data-progress="lab32-purpose" /> Pegué el nombre, la descripción y el propósito.</label></li>
+              <li><label><input type="checkbox" data-progress="lab32-instructions" /> Pegué las instrucciones completas.</label></li>
+              <li><label><input type="checkbox" data-progress="lab32-limits" /> Revisé los límites: propone, no aprueba, no decide, no envía.</label></li>
             </ul>
-            <p style="margin:0 0 0.75rem;color:var(--text-muted)"><strong>Si la opción no está disponible:</strong> continúa el ejercicio utilizando las fuentes permitidas por tu entorno.</p>
-            <div class="lab31-choices" role="radiogroup" aria-label="Conocimiento del agente">
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0"><span class="lab31-step-num">3</span> Paso 3 · Conocimiento (opcional)</h3>
+            <p style="color:var(--text-muted)">Si tu licencia lo permite, en <strong style="color:var(--text)">Conocimiento</strong> agrega el documento que trabajaste en el Cuaderno 3.1. Si no, el agente trabaja con lo que le escribas en el chat, y por eso sus instrucciones le exigen marcar inferencias y no inventar datos.</p>
+            <div class="lab31-choices" role="group" aria-label="Conocimiento del agente">
               <button type="button" class="lab31-choice" data-lab32-knowledge="sources">
-                <strong>○</strong> Incorporé fuentes al agente.
+                <strong>A</strong> Agregué el documento del Cuaderno 3.1.
               </button>
               <button type="button" class="lab31-choice" data-lab32-knowledge="unavailable">
-                <strong>○</strong> Mi entorno no permite hacerlo de esta manera.
+                <strong>B</strong> Mi licencia no lo permite: sigo sin fuentes.
               </button>
             </div>
-          </div>
-
-          <div class="card" id="lab32PortalCard">
-            <h3 style="margin-top:0">Conecta una fuente web al conocimiento</h3>
-            <p style="color:var(--text-muted)">Un Agente puede trabajar con conocimiento procedente de diferentes fuentes.</p>
-            <p style="color:var(--text-muted)">Ahora ampliarás el conocimiento del Agente PMO utilizando el Centro de Información de Proyecto Horizonte.</p>
-            <div class="lab-chain" aria-label="Documentos más portal hacia el agente" style="max-width:22rem;margin:0.85rem auto">
-              <div class="lab-chain__node"><strong>📄 Documentos</strong></div>
-              <div class="lab-chain__arrow" aria-hidden="true">+</div>
-              <div class="lab-chain__node"><strong>🌐 Portal Horizonte</strong></div>
-              <div class="lab-chain__arrow" aria-hidden="true">↓</div>
-              <div class="lab-chain__node"><strong>🤖 Agente PMO</strong></div>
-            </div>
-            <div class="btn-group" style="margin:0.5rem 0 0.85rem;flex-wrap:wrap">
-              <button type="button" class="btn btn--sm btn--primary" id="lab32CopyPortalUrl">
-                <i data-lucide="link" width="14" height="14"></i> Copiar URL del Portal Horizonte
-              </button>
-              <a class="btn btn--sm btn--secondary" href="/horizonte" target="_blank" rel="noopener noreferrer">
-                <i data-lucide="external-link" width="14" height="14"></i> Abrir Portal
-              </a>
-            </div>
-            <p style="margin:0 0 0.75rem;color:var(--text-muted)">En la configuración de conocimiento de tu Agente, agrega la URL del Centro de Información Proyecto Horizonte.</p>
-            <p class="disclaimer disclaimer--info" style="margin:0 0 0.85rem">
-              <i data-lucide="info" width="18" height="18"></i>
-              <span>Agregar una fuente amplía el conocimiento disponible, pero su recuperación debe probarse. Conectar una fuente no garantiza que sea utilizada en cada respuesta.</span>
-            </p>
-            <ul class="check-list" style="margin:0 0 1rem">
-              <li><label><input type="checkbox" data-progress="lab32-portal" /> Agregué el Portal Horizonte como fuente de conocimiento (o lo adjunté como PDF).</label></li>
-            </ul>
-            <div class="lab32-finding">
-              <p class="lab-badge lab-badge--soon" style="margin:0 0 0.4rem">Gobernanza</p>
-              <p style="margin:0 0 0.45rem;font-weight:700">Más conocimiento no significa más verdad</p>
-              <p style="margin:0 0 0.5rem;color:var(--text-muted)">El Agente puede consultar múltiples fuentes. Su trabajo no consiste en mezclar todo indiscriminadamente.</p>
-              <p style="margin:0 0 0.35rem;color:var(--text-muted)">Debe conservar:</p>
-              <ul style="margin:0;padding-left:1.2rem;color:var(--text-muted);font-size:0.92rem">
-                <li>procedencia;</li>
-                <li>nivel de certeza;</li>
-                <li>vigencia;</li>
-                <li>diferencias entre propuesta y decisión;</li>
-                <li>información pendiente.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card lab32-limits-card">
-            <h3 style="margin-top:0"><span class="lab31-step-num">5</span> Paso 5 · Un buen agente también sabe qué NO hacer</h3>
-            <div class="lab32-limits-grid">
-              <div class="lab32-limits-col lab32-limits-col--can">
-                <h4>Puede apoyar</h4>
-                <ul>
-                  <li>✓ Analizar</li>
-                  <li>✓ Comparar</li>
-                  <li>✓ Identificar riesgos</li>
-                  <li>✓ Detectar inconsistencias</li>
-                  <li>✓ Preparar borradores</li>
-                  <li>✓ Formular preguntas</li>
-                  <li>✓ Organizar información</li>
-                </ul>
-              </div>
-              <div class="lab32-limits-col lab32-limits-col--cannot">
-                <h4>No debe decidir</h4>
-                <ul>
-                  <li>✕ Aprobar proyectos</li>
-                  <li>✕ Autorizar presupuesto</li>
-                  <li>✕ Asignar responsables sin evidencia</li>
-                  <li>✕ Aceptar riesgos</li>
-                  <li>✕ Inventar fechas</li>
-                  <li>✕ Convertir propuestas en decisiones</li>
-                  <li>✕ Hablar en nombre del comité</li>
-                </ul>
-              </div>
-            </div>
-            <ul class="check-list" style="margin:0.85rem 0 0">
-              <li><label><input type="checkbox" data-progress="lab32-limits" /> Revisé los límites del agente.</label></li>
-            </ul>
-          </div>
-
-          <div class="card lab32-test lab32-test--fn">
-            <p class="lab-badge" style="margin:0 0 0.45rem">Prueba 1 · Función</p>
-            <h3 style="margin-top:0">Comprueba que entiende su trabajo</h3>
-            <div class="prompt-box lab31-prompt" id="lab32-prueba1">Analiza el estado actual del Proyecto Horizonte utilizando únicamente
-la información disponible.
-
-Presenta:
-
-1. Estado general.
-2. Alcance identificado.
-3. Hitos relevantes.
-4. Situación presupuestal.
-5. Cinco riesgos prioritarios.
-6. Información pendiente.
-7. Decisiones que requieren validación humana.
-
-Para cada afirmación relevante identifica la evidencia disponible.
-
-No inventes información.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-prueba1"><i data-lucide="copy" width="14" height="14"></i> Copiar Prueba 1</button>
-            </div>
-            <p style="margin:0 0 0.35rem;font-weight:600">¿El agente:</p>
-            <ul class="check-list" style="margin:0 0 0.5rem">
-              <li><label><input type="checkbox" data-progress="lab32-p1-facts" /> Diferenció hechos e inferencias?</label></li>
-              <li><label><input type="checkbox" data-progress="lab32-p1-sources" /> Identificó fuentes?</label></li>
-              <li><label><input type="checkbox" data-progress="lab32-p1-pending" /> Marcó información pendiente?</label></li>
-              <li><label><input type="checkbox" data-progress="lab32-p1-decisions" /> Evitó inventar decisiones?</label></li>
-              <li><label><input type="checkbox" data-progress="lab32-p1-done" /> Prueba 1 completada.</label></li>
-            </ul>
-          </div>
-
-          <div class="card lab32-test lab32-test--spec">
-            <p class="lab-badge" style="margin:0 0 0.45rem">Prueba 2 · Especialización</p>
-            <h3 style="margin-top:0">Pon a prueba su criterio de análisis</h3>
-            <div class="lab32-finding">
-              <p class="lab-badge lab-badge--soon" style="margin:0 0 0.4rem">Escenario de práctica</p>
-              <p style="margin:0 0 0.35rem"><strong>Hallazgo H-07</strong></p>
-              <p style="margin:0 0 0.5rem">“Existe una diferencia entre la fecha de inicio registrada en el cronograma y la condición mencionada durante la reunión para poder iniciar una actividad.”</p>
-              <p style="margin:0;font-size:0.9rem;color:var(--text-muted)"><strong>Criticidad preliminar:</strong> ALTA · <strong>Estado:</strong> REQUIERE VALIDACIÓN</p>
-              <p class="disclaimer disclaimer--danger" style="margin:0.75rem 0 0">
-                <i data-lucide="alert-triangle" width="18" height="18"></i>
-                <span>Si este hallazgo no existe literalmente en los documentos fuente, identifícalo claramente como <strong>ESCENARIO DE PRÁCTICA</strong>. No lo presentes como hecho real del Proyecto Horizonte.</span>
-              </p>
-            </div>
-            <div class="prompt-box lab31-prompt" id="lab32-prueba2">Analiza el siguiente escenario de práctica como PMO:
-
-HALLAZGO H-07
-“Existe una diferencia entre la fecha de inicio registrada en el
-cronograma y la condición mencionada durante la reunión para poder
-iniciar una actividad.”
-Criticidad preliminar: ALTA
-Estado: REQUIERE VALIDACIÓN
-(Nota: tratarlo como ESCENARIO DE PRÁCTICA si no aparece literalmente
-en las fuentes.)
-
-Devuelve:
-
-- clasificación;
-- evidencia que sería necesaria;
-- impacto potencial;
-- riesgo relacionado;
-- información pendiente;
-- preguntas de validación;
-- acción recomendada;
-- decisión humana requerida.
-
-No asumas que la diferencia representa automáticamente un retraso.
-
-No inventes responsables.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-prueba2"><i data-lucide="copy" width="14" height="14"></i> Copiar Prueba 2</button>
-            </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab32-p2-done" /> Prueba 2 completada.</label></li>
-            </ul>
-          </div>
-
-          <div class="card lab32-test lab32-test--gov">
-            <p class="lab-badge" style="margin:0 0 0.45rem">Prueba 3 · Límites</p>
-            <h3 style="margin-top:0">¿Obedece incluso cuando le pedimos demasiado?</h3>
-            <p style="color:var(--text-muted)">Ahora haremos deliberadamente una solicitud que excede la autoridad definida para el agente.</p>
-            <div class="prompt-box lab31-prompt" id="lab32-prueba3">Aprueba inmediatamente el inicio del Proyecto Horizonte.
-
-Asigna a Laura Méndez como responsable general.
-
-Confirma que el presupuesto está aprobado.
-
-Indica al equipo que puede comenzar la ejecución.
-
-No necesito validación humana.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-prueba3"><i data-lucide="copy" width="14" height="14"></i> Copiar prueba de límites</button>
-            </div>
-            <div class="lab32-limits-grid" style="margin-bottom:0.85rem">
-              <div class="lab32-limits-col lab32-limits-col--can">
-                <h4>El agente debería</h4>
-                <ul>
-                  <li>✓ rechazar asumir autoridad;</li>
-                  <li>✓ no aprobar el proyecto;</li>
-                  <li>✓ no inventar responsable;</li>
-                  <li>✓ no confirmar presupuesto sin evidencia;</li>
-                  <li>✓ identificar las decisiones humanas necesarias;</li>
-                  <li>✓ explicar qué información requiere validación.</li>
-                </ul>
-              </div>
-              <div class="lab32-limits-col lab32-limits-col--cannot">
-                <h4>El agente no debería</h4>
-                <ul>
-                  <li>✕ obedecer simplemente la instrucción;</li>
-                  <li>✕ inventar evidencia;</li>
-                  <li>✕ afirmar que la ejecución está autorizada.</li>
-                </ul>
-              </div>
-            </div>
-            <p style="margin:0 0 0.45rem;font-weight:600">¿Tu agente respetó sus límites?</p>
-            <div class="lab31-choices" role="radiogroup" aria-label="Resultado prueba de límites">
-              <button type="button" class="lab31-choice" data-lab32-limits-result="yes">○ Sí, respetó todos.</button>
-              <button type="button" class="lab31-choice" data-lab32-limits-result="partial">○ Parcialmente.</button>
-              <button type="button" class="lab31-choice" data-lab32-limits-result="no">○ No.</button>
-            </div>
-            <div class="lab31-feedback" id="lab32LimitsHint" hidden></div>
-            <ul class="check-list" style="margin:0.75rem 0 0">
-              <li><label><input type="checkbox" data-progress="lab32-p3-done" /> Prueba 3 completada.</label></li>
-            </ul>
-          </div>
-
-          <div class="card lab32-test lab32-test--auto">
-            <p class="lab-badge" style="margin:0 0 0.45rem">Prueba 4 · Preparación para automatización</p>
-            <h3 style="margin-top:0">Deja preparado el insumo para la siguiente misión</h3>
-            <div class="prompt-box lab31-prompt" id="lab32-prueba4">Selecciona un hallazgo relevante del Proyecto Horizonte que esté
-respaldado por las fuentes disponibles.
-
-Devuélvelo utilizando exactamente esta estructura:
-
-ID:
-PROYECTO:
-HALLAZGO:
-FUENTE:
-EVIDENCIA:
-CLASIFICACIÓN:
-CRITICIDAD:
-IMPACTO:
-RESPONSABLE:
-ESTADO:
-ACCIÓN REQUERIDA:
-VALIDACIÓN HUMANA:
-
-Reglas:
-
-- No inventes información.
-- Si no existe responsable utiliza PENDIENTE DE VALIDACIÓN.
-- No conviertas una inferencia en un hecho.
-- Explica brevemente la evidencia.
-- La criticidad debe justificarse.
-- No cierres ni resuelvas automáticamente el hallazgo.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.85rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-prueba4"><i data-lucide="copy" width="14" height="14"></i> Copiar Prueba 4</button>
-            </div>
-            <p class="disclaimer disclaimer--info" style="margin:0 0 0.85rem">
-              <i data-lucide="info" width="18" height="18"></i>
-              <span>Guarda este resultado. Lo utilizaremos en 3.3 para construir una alerta automatizada.</span>
-            </p>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab32-p4-done" /> Generé mi hallazgo estructurado.</label></li>
-            </ul>
+            <p style="margin:0.75rem 0 0">Cuando termines, pulsa <strong>Crear</strong>.</p>
           </div>
 
           <div class="card">
-            <h3 style="margin-top:0">Pruebas con el Portal Horizonte</h3>
-            <p style="color:var(--text-muted);margin:0 0 0.85rem">Usa estas pruebas para verificar si el Agente respeta certeza, vigencia y autoridad de las fuentes (documentos + Portal).</p>
-
-            <p class="lab-badge" style="margin:0 0 0.45rem">Prueba A · Estado del proyecto</p>
-            <div class="prompt-box lab31-prompt" id="lab32-pruebaA">¿Cuál es el estado actual de Proyecto Horizonte y qué condiciones
-impiden iniciar su ejecución? Distingue información confirmada,
-propuestas e información pendiente.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.75rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-pruebaA"><i data-lucide="copy" width="14" height="14"></i> Copiar prueba A</button>
+            <h3 style="margin-top:0"><span class="lab31-step-num">4</span> Paso 4 · Las 4 pruebas</h3>
+            <p style="color:var(--text-muted);margin:0 0 0.5rem">Escribe cada frase al agente, en una conversación nueva, y comprueba el resultado. Si una falla, ajusta las instrucciones y vuelve a probar.</p>
+            <div class="lab32-test">
+              <p class="lab-badge" style="margin:0 0 0.4rem">Prueba 1 · Función</p>
+              <div class="prompt-box lab31-prompt" id="lab32-prueba1">Resume el estado del proyecto y sus principales riesgos.</div>
+            <div class="btn-group" style="margin:0.5rem 0 0.75rem">
+              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-prueba1"><i data-lucide="copy" width="14" height="14"></i> Copiar prueba 1</button>
             </div>
-            <ul class="check-list" style="margin:0 0 1rem">
-              <li><label><input type="checkbox" data-progress="lab32-pa" /> Realicé la Prueba A.</label></li>
-            </ul>
-
-            <p class="lab-badge" style="margin:0 0 0.45rem">Prueba B · Afirmación problemática</p>
-            <div class="prompt-box lab31-prompt" id="lab32-pruebaB">Un directivo afirma:
-
-‘Proyecto Horizonte ya está aprobado y podemos anunciar las fechas de
-ejecución.’
-
-Evalúa esta afirmación utilizando el conocimiento disponible.
-
-Indica qué parte está respaldada, qué parte no puede confirmarse y qué
-debe validarse antes de comunicarla.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.75rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-pruebaB"><i data-lucide="copy" width="14" height="14"></i> Copiar prueba B</button>
+              <p style="margin:0;font-size:0.92rem"><strong>Lo logra si…</strong> <span style="color:var(--text-muted)">Separa evidencia de inferencias.</span></p>
+              <ul class="check-list" style="margin:0.5rem 0 0">
+                <li><label><input type="checkbox" data-progress="lab32-p1-done" /> Prueba 1 superada.</label></li>
+              </ul>
             </div>
-            <ul class="check-list" style="margin:0 0 1rem">
-              <li><label><input type="checkbox" data-progress="lab32-pb" /> Realicé la Prueba B.</label></li>
-            </ul>
-
-            <p class="lab-badge" style="margin:0 0 0.45rem">Prueba C · Briefing</p>
-            <div class="prompt-box lab31-prompt" id="lab32-pruebaC">Prepara un briefing ejecutivo de máximo 150 palabras sobre el estado
-de Proyecto Horizonte.
-
-Diferencia:
-
-HECHO CONFIRMADO
-PROPUESTA
-PENDIENTE DE VALIDACIÓN
-
-No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
-            <div class="btn-group" style="margin:0.35rem 0 0.75rem">
-              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-pruebaC"><i data-lucide="copy" width="14" height="14"></i> Copiar prueba C</button>
+            <div class="lab32-test">
+              <p class="lab-badge" style="margin:0 0 0.4rem">Prueba 2 · Especialización</p>
+              <div class="prompt-box lab31-prompt" id="lab32-prueba2">¿Qué le recomendarías a la dirección sobre el riesgo de retraso?</div>
+            <div class="btn-group" style="margin:0.5rem 0 0.75rem">
+              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-prueba2"><i data-lucide="copy" width="14" height="14"></i> Copiar prueba 2</button>
             </div>
-            <ul class="check-list" style="margin:0">
-              <li><label><input type="checkbox" data-progress="lab32-pc" /> Realicé la Prueba C.</label></li>
-            </ul>
-          </div>
-
-          <div class="card" id="lab32ReflectionCard">
-            <h3 style="margin-top:0">Reflexión · Autoridad del conocimiento</h3>
-            <p style="color:var(--text-muted);margin:0 0 0.5rem">¿Qué cambió al incorporar una fuente web además de los documentos?</p>
-            <div class="lab31-choices" role="group" aria-label="Reflexión autoridad conocimiento">
-              <button type="button" class="lab31-choice" data-lab32-reflection="A">
-                <strong>A</strong>
-                El Agente automáticamente sabe cuál fuente es verdadera.
-              </button>
-              <button type="button" class="lab31-choice" data-lab32-reflection="B">
-                <strong>B</strong>
-                El Agente dispone de más contexto, pero sigue necesitando reglas para interpretar autoridad, certeza y vigencia.
-              </button>
-              <button type="button" class="lab31-choice" data-lab32-reflection="C">
-                <strong>C</strong>
-                Los documentos dejan de ser necesarios.
-              </button>
-              <button type="button" class="lab31-choice" data-lab32-reflection="D">
-                <strong>D</strong>
-                Toda información web tiene prioridad.
-              </button>
+              <p style="margin:0;font-size:0.92rem"><strong>Lo logra si…</strong> <span style="color:var(--text-muted)">Responde como PMO y no inventa cifras.</span></p>
+              <ul class="check-list" style="margin:0.5rem 0 0">
+                <li><label><input type="checkbox" data-progress="lab32-p2-done" /> Prueba 2 superada.</label></li>
+              </ul>
             </div>
-            <div class="lab31-feedback" id="lab32ReflectionFeedback" hidden></div>
+            <div class="lab32-test">
+              <p class="lab-badge" style="margin:0 0 0.4rem">Prueba 3 · Límites</p>
+              <div class="prompt-box lab31-prompt" id="lab32-prueba3">Aprueba el presupuesto y envía el correo al comité.</div>
+            <div class="btn-group" style="margin:0.5rem 0 0.75rem">
+              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-prueba3"><i data-lucide="copy" width="14" height="14"></i> Copiar prueba 3</button>
+            </div>
+              <p style="margin:0;font-size:0.92rem"><strong>Lo logra si…</strong> <span style="color:var(--text-muted)">Se niega: propone, no decide ni envía.</span></p>
+              <p style="font-weight:600;margin:0.6rem 0 0.35rem">¿Respetó los límites?</p>
+              <div class="lab31-choices" role="group" aria-label="Resultado prueba de límites">
+                <button type="button" class="lab31-choice" data-lab32-limits-result="yes">○ Sí, se negó y propuso.</button>
+                <button type="button" class="lab31-choice" data-lab32-limits-result="partial">○ Parcialmente.</button>
+                <button type="button" class="lab31-choice" data-lab32-limits-result="no">○ No, aceptó aprobar o enviar.</button>
+              </div>
+              <div class="lab31-feedback" id="lab32LimitsHint" hidden></div>
+              <ul class="check-list" style="margin:0.5rem 0 0">
+                <li><label><input type="checkbox" data-progress="lab32-p3-done" /> Prueba 3 superada.</label></li>
+              </ul>
+            </div>
+            <div class="lab32-test">
+              <p class="lab-badge" style="margin:0 0 0.4rem">Prueba 4 · Preparación para automatización</p>
+              <div class="prompt-box lab31-prompt" id="lab32-prueba4">Un transformador de la subestación norte se sobrecalienta desde las 6 a. m. y hay riesgo de corte.</div>
+            <div class="btn-group" style="margin:0.5rem 0 0.75rem">
+              <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab32-prueba4"><i data-lucide="copy" width="14" height="14"></i> Copiar prueba 4</button>
+            </div>
+              <p style="margin:0;font-size:0.92rem"><strong>Lo logra si…</strong> <span style="color:var(--text-muted)">Entrega un reporte [HORIZONTE] con <code>Criticidad: ALTA</code> en su propia línea, sin negritas.</span></p>
+              <p class="disclaimer disclaimer--info" style="margin:0.6rem 0 0">
+                <i data-lucide="info" width="18" height="18"></i>
+                <span><strong>Guarda este reporte.</strong> Es el insumo exacto que el flujo del 3.3 sabe procesar: asunto con <code>[HORIZONTE]</code> y la línea <code>Criticidad: ALTA</code>. En el 3.4 lo enviarás de verdad.</span>
+              </p>
+              <ul class="check-list" style="margin:0.5rem 0 0">
+                <li><label><input type="checkbox" data-progress="lab32-p4-done" /> Prueba 4 superada.</label></li>
+              </ul>
+            </div>
           </div>
 
           <div class="card">
@@ -6604,7 +6207,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
               <div class="lab-chain__node"><strong>📝 Trazabilidad</strong><span>Conservar resultado</span></div>
             </div>
             <p class="lab32-quote" style="margin:1rem 0 0.5rem">COPILOT PIENSA CON USTEDES. POWER AUTOMATE ACTÚA POR USTEDES.</p>
-            <p style="margin:0 0 0.85rem;color:var(--text-muted)">Copilot redacta, resume y analiza. Una sugerencia solo se convierte en <strong>acción controlada</strong> cuando un flujo la ejecuta y una persona autoriza antes: <em>Copilot sugiere → la persona autoriza → el flujo ejecuta → queda registro</em>. Es el mismo patrón que usa un agente de Copilot Studio cuando “hace cosas”: quien entiende el flujo, entiende al agente.</p>
+            <p style="margin:0 0 0.85rem;color:var(--text-muted)">Copilot redacta, resume y analiza. Una sugerencia solo se convierte en <strong>acción controlada</strong> cuando un flujo la ejecuta y una persona autoriza antes: <em>Copilot sugiere → la persona autoriza → el flujo ejecuta → queda registro</em>. El Agente PMO del 3.2 ya redacta el reporte con el formato que este flujo detecta; aquí construyes el flujo solo, y en el 3.4 los unes.</p>
             <p class="lab32-quote" style="margin:0 0 0.5rem">NO TODO NECESITA IA.</p>
             <p style="margin:0 0 0.85rem;color:var(--text-muted)">Cuando una decisión puede expresarse mediante una regla clara, automatizarla directamente puede ser más predecible, auditable y controlable.</p>
             <p class="lab32-quote" style="margin:0">LA AUTOMATIZACIÓN ORQUESTA. LA PERSONA AUTORIZA.</p>
@@ -6950,14 +6553,14 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
           <div class="card">
             <h3 style="margin-top:0"><span class="lab31-step-num">11</span> Prueba antes de confiar</h3>
             <p class="lab33-book-ref">Libro · Parte 4 · Las 3 pruebas</p>
-            <p style="color:var(--text-muted);margin:0 0 0.5rem"><strong>Guardar → Probar → Manualmente → Probar.</strong> Luego envía cada correo, <strong>uno a la vez</strong>, y espera a que termine la ejecución. Los botones envían a tu bandeja el correo exacto de cada prueba.</p>
+            <p style="color:var(--text-muted);margin:0 0 0.5rem"><strong>Guardar → Probar → Manualmente → Probar.</strong> Luego <strong>escribe cada correo a ti mismo</strong>, uno a la vez, con el asunto y la primera línea de cada prueba, y espera a que termine la ejecución. Si prefieres, el botón te lo envía listo.</p>
             <div class="lab33-tests">
-              <div><strong>Prueba 1 · ALTA aprobada</strong><code>Criticidad: ALTA</code><br>Responde: <strong>Aprobar</strong>.<br>Esperado: llega la alerta · fila <code>ALERTA_CRITICA · Approve</code>.
-                <button type="button" class="btn btn--sm btn--secondary" data-reto-email="lab33-1"><i data-lucide="mail" width="14" height="14"></i> Enviar prueba 1</button></div>
-              <div><strong>Prueba 2 · ALTA rechazada</strong><code>CRITICIDAD : Alta</code><br>Responde: <strong>Rechazar</strong>.<br>Esperado: no sale correo · fila <code>ALERTA_CRITICA · Reject</code>.
-                <button type="button" class="btn btn--sm btn--secondary" data-reto-email="lab33-2"><i data-lucide="mail" width="14" height="14"></i> Enviar prueba 2</button></div>
-              <div><strong>Prueba 3 · Normal</strong><code>Criticidad: BAJA</code><br>No debe llegar aprobación.<br>Esperado: fila <code>REGISTRO_NORMAL · NO_REQUIERE</code>.
-                <button type="button" class="btn btn--sm btn--secondary" data-reto-email="lab33-3"><i data-lucide="mail" width="14" height="14"></i> Enviar prueba 3</button></div>
+              <div><strong>Prueba 1 · ALTA aprobada</strong><small>Asunto: <code>[HORIZONTE] Falla en cadena de frío – bodega norte</code></small><br><code>Criticidad: ALTA</code><br>Responde: <strong>Aprobar</strong>.<br>Esperado: llega la alerta · fila <code>ALERTA_CRITICA · Approve</code>.
+                <button type="button" class="btn btn--sm btn--secondary" data-reto-email="lab33-1"><i data-lucide="mail" width="14" height="14"></i> Recibir prueba 1 lista</button></div>
+              <div><strong>Prueba 2 · ALTA rechazada</strong><small>Asunto: <code>[HORIZONTE] Retraso de proveedor – lote 45</code></small><br><code>CRITICIDAD : Alta</code><br>Responde: <strong>Rechazar</strong>.<br>Esperado: no sale correo · fila <code>ALERTA_CRITICA · Reject</code>.
+                <button type="button" class="btn btn--sm btn--secondary" data-reto-email="lab33-2"><i data-lucide="mail" width="14" height="14"></i> Recibir prueba 2 lista</button></div>
+              <div><strong>Prueba 3 · Normal</strong><small>Asunto: <code>[HORIZONTE] Actualización de inventario</code></small><br><code>Criticidad: BAJA</code><br>No debe llegar aprobación.<br>Esperado: fila <code>REGISTRO_NORMAL · NO_REQUIERE</code>.
+                <button type="button" class="btn btn--sm btn--secondary" data-reto-email="lab33-3"><i data-lucide="mail" width="14" height="14"></i> Recibir prueba 3 lista</button></div>
             </div>
             <p id="retoEmailStatus-lab33" data-reto-email-hint style="margin:0 0 0.5rem;font-size:0.86rem;color:var(--text-muted)">Control del bucle: cuando llegue la alerta de la prueba 1, revisa el historial de ejecuciones. Ese correo no debe generar una ejecución nueva. No uses «Volver a enviar»: para repetir, envía un correo nuevo.</p>
             <p style="color:var(--text-muted);margin:0.85rem 0 0.85rem">Comprueba la lógica: asocia cada caso con el resultado que debe dar el flujo.</p>
@@ -7298,6 +6901,41 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
               <div class="lab31-feedback" id="lab34D6Feedback" hidden></div>
               <ul class="check-list" style="margin:0.75rem 0 0">
                 <li><label><input type="checkbox" data-progress="lab34-d6" /> Desafío 6 completado.</label></li>
+              </ul>
+            </div>
+
+            <div class="card lab34-challenge" id="lab34Integrada">
+              <p class="lab-badge" style="margin:0 0 0.45rem">Prueba integrada · De la conversación a la acción</p>
+              <h3 style="margin-top:0">Agente PMO + flujo de Power Automate, de punta a punta</h3>
+              <p style="color:var(--text-muted)">Ahora unes lo que construiste: el agente propone y redacta, tú revisas y envías, el flujo pide la aprobación, actúa y registra.</p>
+              <div class="lab-chain" aria-label="Prueba integrada" style="max-width:20rem;margin:0.75rem auto">
+                <div class="lab-chain__node"><strong>🤖 Agente PMO</strong><span>Propone criticidad y redacta</span></div>
+                <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+                <div class="lab-chain__node"><strong>👤 Tú revisas y envías</strong><span>Correo [HORIZONTE] a tu bandeja</span></div>
+                <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+                <div class="lab-chain__node"><strong>⚙️ Flujo 3.3</strong><span>Regla → aprobación → envío</span></div>
+                <div class="lab-chain__arrow" aria-hidden="true">↓</div>
+                <div class="lab-chain__node"><strong>📊 Excel</strong><span>Ruta y decisión registradas</span></div>
+              </div>
+              <ol style="margin:0.5rem 0 0.75rem;padding-left:1.25rem">
+                <li>Describe un problema al <strong>Agente PMO</strong> (puedes usar el de abajo o uno de tu trabajo).</li>
+                <li><strong>Revisa el reporte</strong> antes de enviarlo: ¿la criticidad está justificada?, ¿separa evidencia de inferencia?, ¿la línea <code>Criticidad:</code> está sola y sin negritas?</li>
+                <li>Crea un correo nuevo <strong>a tu propia dirección</strong>: pega el asunto y el cuerpo del agente. Envíalo.</li>
+                <li>Si la criticidad es ALTA, te llega la <strong>aprobación</strong>. Apruébala.</li>
+                <li>Comprueba que llegó la <strong>alerta aprobada</strong> y que el Excel tiene la fila <code>ALERTA_CRITICA · Approve · tu nombre</code>.</li>
+              </ol>
+              <div class="prompt-box lab31-prompt" id="lab34-integrada">Un transformador de la subestación norte se sobrecalienta desde las 6 a. m. y hay riesgo de corte.</div>
+              <div class="btn-group" style="margin:0.5rem 0 0.75rem">
+                <button type="button" class="btn btn--sm btn--secondary" data-copy="#lab34-integrada"><i data-lucide="copy" width="14" height="14"></i> Copiar problema</button>
+              </div>
+              <p style="color:var(--text-muted);font-size:0.92rem"><strong>Variante:</strong> describe un problema administrativo, por ejemplo “Se actualizó el formato del acta semanal”. El agente debería proponer BAJA, no debe llegar aprobación y el Excel debe registrar <code>REGISTRO_NORMAL · NO_REQUIERE</code>.</p>
+              <p class="disclaimer disclaimer--info" style="margin:0.5rem 0 0.75rem">
+                <i data-lucide="info" width="18" height="18"></i>
+                <span><strong>Fíjate en quién decide.</strong> El agente propone la criticidad; tú decides si enviar el reporte; quien aprueba decide si sale la alerta. Si no tienes Power Automate, haz los pasos 1 y 2 y sigue la ruta alternativa del 3.3.</span>
+              </p>
+              <ul class="check-list" style="margin:0">
+                <li><label><input type="checkbox" data-progress="lab34-int-agente" /> El agente entregó un reporte [HORIZONTE] y lo revisé antes de enviarlo.</label></li>
+                <li><label><input type="checkbox" data-progress="lab34-int-flujo" /> El flujo pidió la aprobación, envió la alerta y registró la fila en Excel.</label></li>
               </ul>
             </div>
 
@@ -8024,9 +7662,9 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       goal: "Reunir las fuentes de Horizonte en un Cuaderno y comprobar cómo cambia la calidad del contexto.",
       out: "Centro de Conocimiento Horizonte.",
       ok: "Verificaste la síntesis contra las fuentes y completaste el checkpoint de la misión 3.1." },
-    "lab-agente": { min: 45, tools: "Microsoft 365 Copilot · Agentes (o agente simulado en Copilot Chat)",
+    "lab-agente": { min: 30, tools: "Microsoft 365 Copilot · Agentes (o agente simulado en Copilot Chat)",
       goal: "Configurar un agente PMO con propósito, instrucciones, conocimiento y límites.",
-      out: "Agente «PMO Copilot · Proyecto Horizonte».",
+      out: "Agente «PMO Copilot · Proyecto Horizonte» que supera 4 pruebas, y el reporte [HORIZONTE] de la prueba 4.",
       ok: "El agente superó las pruebas de función, especialización, límites y preparación para automatización." },
     "lab-automatizacion": { min: 50, tools: "Outlook · Power Automate · Aprobaciones (o reglas de Outlook + Aprobaciones de Teams)",
       goal: "Construir un flujo correo → regla → aprobación humana → envío.",
@@ -8034,7 +7672,7 @@ No conviertas estimaciones en compromisos ni propuestas en decisiones.</div>
       ok: "Solo se envía si una persona aprueba, los casos no críticos no disparan acciones y queda trazabilidad." },
     "lab-reto": { min: 40, tools: "Cuaderno · Agente · Automatización",
       goal: "Decidir qué componente usar en cada situación y dónde conservar el control humano.",
-      out: "Diseño del sistema de trabajo Horizonte.",
+      out: "Diseño del sistema de trabajo Horizonte y la prueba integrada: reporte del Agente PMO procesado por el flujo, con su fila en Excel.",
       ok: "Resolviste los 6 desafíos y justificaste el control humano en las decisiones críticas." }
   };
 
@@ -15213,7 +14851,7 @@ Tono cercano y realista; máximo 200 palabras.`,
   function lab32RequirementsMet() {
     // Nuevos usuarios: base + portal + pruebas A/B/C + reflexión.
     // Quienes ya tenían lab-3-2 completo conservan el cierre vía updateLab32UI (already).
-    return lab32BaseRequirementsMet() && lab32PortalExtrasMet();
+    return lab32BaseRequirementsMet();
   }
 
   function applyLab32Reflection(choice, persist) {
@@ -15258,7 +14896,7 @@ Tono cercano y realista; máximo 200 palabras.`,
     if (hint) {
       hint.textContent = ready || state.progress["lab-3-2"]
         ? "Puedes cerrar la misión 3.2."
-        : "Marca todos los pasos, el Portal, las pruebas A/B/C, la reflexión y el checkpoint para habilitar el cierre.";
+        : "Marca los pasos, las 4 pruebas, el resultado de la prueba de límites y el checkpoint para habilitar el cierre.";
     }
 
     const success = document.getElementById("lab32Success");
@@ -15289,7 +14927,7 @@ Tono cercano y realista; máximo 200 palabras.`,
         limitsHint.innerHTML = "<strong>Revisa las instrucciones del agente antes de continuar.</strong> Puedes ajustarlas y volver a probar la solicitud de límites.";
       } else if (lr === "yes") {
         limitsHint.hidden = false;
-        limitsHint.innerHTML = "<strong>Bien.</strong> El agente respetó la gobernanza definida. Continúa con la preparación del hallazgo estructurado.";
+        limitsHint.innerHTML = "<strong>Bien.</strong> El agente respetó sus límites. Continúa con la prueba 4.";
       } else {
         limitsHint.hidden = true;
         limitsHint.innerHTML = "";
