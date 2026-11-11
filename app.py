@@ -1860,7 +1860,7 @@ def api_admin_results():
 # Health
 # ---------------------------------------------------------------------------
 
-APP_CODE_VERSION = "2026-11-11-lab33-libro-v1"
+APP_CODE_VERSION = "2026-11-11-lab33-libro-v2"
 
 
 @app.get("/health")

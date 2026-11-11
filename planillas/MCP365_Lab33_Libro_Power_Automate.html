@@ -43,7 +43,7 @@ p,li{font-size:16px;line-height:1.6}
 .icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;font-weight:700;margin-bottom:8px;color:#fff}
 .i-trigger{background:var(--blue)} .i-action{background:#4f6bed} .i-var{background:var(--purple)} .i-cond{background:#3d4451} .i-appr{background:#0f7b8a} .i-excel{background:var(--green)}
 .callout{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:15px;line-height:1.55}
-.callout b{display:block;margin-bottom:2px}
+.callout > b:first-child{display:block;margin-bottom:2px}
 .ok{background:#eaf6ec;border-left:5px solid var(--green)}
 .warn{background:#fff6e0;border-left:5px solid #d99a00}
 .why{background:var(--sky);border-left:5px solid var(--blue)}
@@ -129,6 +129,27 @@ nav.bottom .pos{flex:1;text-align:center;color:var(--muted);font-size:14px}
 </section>
 
 <!-- ================= PARTE 1 ================= -->
+<section class="page" data-part="Parte 1 · Conoce Power Automate" data-title="Copilot y la automatización">
+  <p class="kicker">Parte 1 · ¿Por qué este laboratorio en un programa de Copilot?</p>
+  <h2>Copilot piensa con ustedes. Power Automate actúa por ustedes.</h2>
+  <p class="lead">Copilot redacta, resume y analiza. Pero una sugerencia solo se convierte en <b>acción controlada</b> cuando un flujo la ejecuta, con una persona autorizando antes.</p>
+  <div class="flow" style="justify-content:center">
+    <span class="n" style="background:var(--purple)">💬 Copilot sugiere</span><span class="arr">→</span>
+    <span class="n" style="background:#0f7b8a">👤 La persona autoriza</span><span class="arr">→</span>
+    <span class="n" style="background:var(--blue)">⚙️ El flujo ejecuta</span><span class="arr">→</span>
+    <span class="n" style="background:var(--green)">📝 Queda registro</span>
+  </div>
+  <div class="grid3">
+    <div class="card"><span class="icon i-var">1</span><h4>Copilot como asistente</h4><p>Lo que ya practicaron: redactar, resumir, analizar dentro de Outlook, Word, Excel y Teams.</p></div>
+    <div class="card"><span class="icon i-trigger">2</span><h4>Automatización (hoy)</h4><p>Las piezas para actuar: evento, regla, aprobación humana y trazabilidad.</p></div>
+    <div class="card"><span class="icon i-appr">3</span><h4>Agentes</h4><p>Un agente de Copilot Studio “hace cosas” usando flujos como este. Quien entiende el flujo, entiende al agente.</p></div>
+  </div>
+  <div class="grid2" style="margin-top:6px">
+    <div class="callout why"><b>El mismo control que exige la IA</b>La aprobación humana obligatoria es el patrón <i>human-in-the-loop</i>. Hoy lo practican con reglas, que son predecibles; mañana protege lo que produzca la IA.</div>
+    <div class="callout ok"><b>Usa Copilot durante el laboratorio</b>Si Copilot está habilitado en tu Power Automate: pídele que <b>cree el flujo</b> describiéndolo en lenguaje natural y compáralo con el que construyes; o pídele que <b>explique la expresión</b> del Paso 5.</div>
+  </div>
+</section>
+
 <section class="page" data-part="Parte 1 · Conoce Power Automate" data-title="¿Qué es Power Automate?">
   <p class="kicker">Parte 1 · Conoce la herramienta</p>
   <h2>¿Qué es Power Automate?</h2>
@@ -565,6 +586,33 @@ HALLAZGO RECIBIDO:
     <tr><td>Decision muestra “Approve · ” sin nombre</td><td>Expresión antigua del Paso 8</td><td>Usa la expresión con <code>coalesce</code></td></tr>
     <tr><td>Los Detalles de la aprobación salen en un solo párrafo</td><td>Faltan líneas en blanco</td><td>Deja una línea vacía entre renglones</td></tr>
   </table>
+</section>
+
+<section class="page" data-part="Parte 4 · Prueba y valida" data-title="Siguiente nivel: cuando entra la IA">
+  <p class="kicker">Parte 4 · Siguiente nivel</p>
+  <h2>¿Y si la criticidad no viniera escrita?</h2>
+  <p class="lead">Hoy la regla funciona porque el correo dice “Criticidad: ALTA”. En la realidad, muchas veces hay que <b>interpretar</b> el texto. Ahí sí entra la IA.</p>
+  <div class="grid2">
+    <div>
+      <table class="cfg wide">
+        <tr><th></th><th>Regla (hoy)</th><th>IA (siguiente nivel)</th></tr>
+        <tr><td><b>Cómo decide</b></td><td>Busca un texto exacto</td><td>Interpreta el contenido</td></tr>
+        <tr><td><b>Predecible</b></td><td class="y">Siempre igual</td><td>Puede variar</td></tr>
+        <tr><td><b>Auditable</b></td><td class="y">Se lee la regla</td><td>Hay que registrar el criterio</td></tr>
+        <tr><td><b>Flexible</b></td><td>Solo el formato acordado</td><td class="y">Cualquier redacción</td></tr>
+      </table>
+      <div class="callout danger"><b>Con IA, la aprobación humana es más necesaria, no menos</b>Si un modelo clasifica la criticidad, la persona que aprueba es la última barrera ante un error de interpretación.</div>
+    </div>
+    <div>
+      <h3 style="margin-top:0">Lo que cambiaría en este flujo</h3>
+      <ol class="steps">
+        <li>La <b>Condición</b> del Paso 5 se reemplaza por una clasificación con IA (Copilot Studio o AI Builder, según licencias).</li>
+        <li>La clasificación y su justificación se agregan a los <b>Detalles</b> de la aprobación.</li>
+        <li>La <b>trazabilidad</b> registra también qué propuso la IA y qué decidió la persona.</li>
+      </ol>
+      <div class="callout why"><b>Hacia el agente</b>Todo lo que construiste hoy (evento, regla, aprobación, envío, registro) es lo que un agente usa como <b>acción</b>. En el siguiente laboratorio el agente pone la conversación; el flujo sigue poniendo el control.</div>
+    </div>
+  </div>
 </section>
 
 <section class="page" data-part="Parte 4 · Prueba y valida" data-title="Lo lograste si…">
