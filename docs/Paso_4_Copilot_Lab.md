@@ -134,7 +134,7 @@ La línea "Criticidad:" va sola, sin negritas ni emojis.
 
 **Paso 3 · Conocimiento (opcional).** Si la licencia lo permite, se agrega el documento trabajado en el Cuaderno 3.1. Si no, el agente trabaja con lo que el usuario le escribe; por eso sus instrucciones le exigen marcar inferencias y no inventar datos.
 
-> En el 3.2 el agente **no** necesita habilidades adicionales. Las habilidades para analizar el registro y preparar el informe se agregan en el 3.4, cuando ya existe el Excel que produce el flujo.
+**Paso 3B · Habilidades (opcional).** Se cargan desde el 3.2 los dos .zip (`analizar-trazabilidad`, `informe-comite`) en **Configurar → Habilidades → Agregar → Cargar habilidad**, sin descomprimirlos. Se usan de verdad en el 3.4, cuando ya existe el Excel que produce el flujo; para probarlas antes, se adjunta el Excel de ejemplo. Incluye un **prompt maestro** para que el participante cree su propia habilidad (`SKILL.md`) sobre una tarea de su trabajo. Si la opción Habilidades no aparece, se sigue sin ella.
 
 **Paso 4 · Las 4 pruebas:**
 
